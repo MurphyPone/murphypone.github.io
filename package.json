@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-julia",
+  "name": "intern-blog",
   "private": true,
-  "description": "A minimal blog template built with Gatsby",
+  "description": "The Intern blog built with Gatsby",
   "version": "0.1.0",
-  "author": "Niklas Metje <hi@niklasmtj.de>",
+  "author": "Interns",
   "dependencies": {
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.11",
@@ -30,6 +30,7 @@
     "typeface-nunito": "0.0.72"
   },
   "devDependencies": {
+    "gh-pages": "^2.0.1",
     "prettier": "^1.17.1"
   },
   "keywords": [
@@ -37,18 +38,11 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public",
     "develop": "gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
   }
 }

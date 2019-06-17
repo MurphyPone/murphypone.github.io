@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: "/intern-blog",
   siteMetadata: {
     title: `Unofficial Intern Blog`,
     description: `A Blog to discuss anything from sense, graphs, Alan Turing, and more!`,
