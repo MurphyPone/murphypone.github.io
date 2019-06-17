@@ -15,6 +15,7 @@ const Content = styled.div`
 
 const MarkedHeader = styled.h1`
   display: inline;
+  padding: 5px;
   border-radius: .5em 0 0.5em 0;
   background-image: linear-gradient(
     -100deg,
@@ -25,7 +26,7 @@ const MarkedHeader = styled.h1`
 `
 
 const HeaderDate = styled.h3`
-  margin-top: 10px;
+  margin-top: 15px;
   color: #606060;
 `
 

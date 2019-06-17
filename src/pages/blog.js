@@ -15,13 +15,15 @@ const Content = styled.div`
 const ArticleDate = styled.h5`
   display: inline;
   color: #606060;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  margin-top: 15px;
 `
 
 const MarkerHeader = styled.h3`
   display: inline;
+  padding: 3px;
   border-radius: .5em 0 0.5em 0;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   background-image: linear-gradient(
     -100deg,
     rgba(26, 178, 53, 0.15),
@@ -30,12 +32,10 @@ const MarkerHeader = styled.h3`
   );
 `
 
-
-
 const ReadingTime = styled.h5`
   display: inline;
   color: #606060;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 `
 
 const IndexPage = ({ data }) => {
@@ -57,7 +57,7 @@ const IndexPage = ({ data }) => {
               <div>
                 <ArticleDate>{node.frontmatter.date}</ArticleDate>
                 <ReadingTime> - {node.fields.readingTime.text}</ReadingTime>
-                <ReadingTime> by {node.frontmatter.author}</ReadingTime>
+                <ReadingTime> - {node.frontmatter.author}</ReadingTime>
               </div>
               <p>{node.excerpt}</p>
             </Link>
