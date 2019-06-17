@@ -1,6 +1,6 @@
 ---
 title: "Terrible Turing Machines - 01"
-date: "2019-06-17"
+date: "2019-06-18"
 draft: false
 path: "/blog/peter-2"
 author: "Peter M."
