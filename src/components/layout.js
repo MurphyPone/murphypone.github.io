@@ -41,9 +41,7 @@ const Layout = ({ children }) => (
         <Header siteTitle={data.site.siteMetadata.title} />
         <Content>
           <main>{children}</main>
-          <Footer>
-          If anyone asks, it was Critter's idea
-          </Footer>
+          <Footer>If anyone asks, it was Critter's idea</Footer>
         </Content>
       </>
     )}

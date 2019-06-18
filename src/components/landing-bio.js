@@ -41,7 +41,7 @@ const LandingBio = () => (
       <OuterContainer>
         <Container>
           <NameHeader>{data.site.siteMetadata.title}</NameHeader>
-          <Description>Software Developers¿</Description>
+          <Description style={{color: 'rgba(26, 178, 53, 0.8)'}}>Software Developers¿</Description>
         </Container>
       </OuterContainer>
     )}
