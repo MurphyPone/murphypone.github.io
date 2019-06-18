@@ -2,7 +2,7 @@
 title: "What is a Turing Machine?"
 date: "2019-06-17"
 draft: false
-path: "/blog/peter-1"
+path: "/blog/peter-t"
 author: "Peter M."
 ---
 <style type='text/css'>

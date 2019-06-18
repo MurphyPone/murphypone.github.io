@@ -2,7 +2,7 @@
 title: "Terrible Turing Machines - 01"
 date: "2019-06-18"
 draft: false
-path: "/blog/peter-2"
+path: "/blog/peter-1"
 author: "Peter M."
 ---
 <style type='text/css'>
