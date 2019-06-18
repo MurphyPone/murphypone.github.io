@@ -21,7 +21,7 @@ author: "Peter M."
 
 # The Man
 
-The British mathematician and father of modern computing Alan Turing  was born in 1912.  Popularly lauded as the brains behind cracking the Nazi's code used in the second World War through the use of his Enigma machine, Alan Touring dedicated is life to computation.  In 1936, he published an essay ["On Computable Numbers, With an Application to the Entscheidungs Problem"](https://history-computer.com/Library/turing_Oncomputablenumbers.pdf) which hinted at the ultimate focus of this series of blog posts: Turing Machines.
+The British mathematician and father of modern computing Alan Turing was born in 1912.  Popularly lauded as the brains behind cracking the Nazi's code used in the second World War through the use of his Enigma machine, Alan Touring dedicated is life to computation.  In 1936, he published an essay ["On Computable Numbers, With an Application to the Entscheidungs Problem"](https://history-computer.com/Library/turing_Oncomputablenumbers.pdf) which hinted at the ultimate focus of this series of blog posts: Turing Machines.
 
 ![Alan turing](https://regmedia.co.uk/2015/05/15/alan_turing.jpg?x=442&y=293&crop=1)
 
@@ -52,20 +52,20 @@ the decimal of the real number which is being computed. The others are just roug
 notes to “assist the memory”. It will only be these rough notes which will be liable
 to erasure._
 
-Turing goes on to elaborate on the exact specification of the theoretical machine which I strongly encourage readers to pursue themselves.  But for the sake of the musings of this series, the layman's defition of a Turing machine can be understood as an infinitely-long tape (memory) with initially blank squares that can be written to.
+Turing goes on to elaborate on the exact specifications of the theoretical machine which I strongly encourage readers to pursue themselves.  But for the sake of the musings of this series, the layman's definition of a Turing machine can be understood as an infinitely-long tape (memory) with initially blank squares that can be written to.
 
 The operational aspect of the machine has 3 functions:
-1. Read the symbol at the current square (memory address)
-2. Write/overwrite the symbol at the current square
-3. Move the tape left or write by one square
+1. Read the symbol at the current square (memory address),
+2. Write/overwrite the symbol at the current square,
+3. Move the tape left or right by one square.
 
 ![Turing Machine](https://3c1703fe8d.site.internapcdn.net/newman/csz/news/800/2013/artificialmusclecomputer1.jpg)
 
-The last piece of vocabulary we need to embark on our Terrible Turing Journey is "Turing Complete."  Something is said to be Turing Complete if it can simulate a Turing Machine.  If something is Turing Complete, it could theoretically solve any computational it was given provided sufficient run time. Real world scenarios are limited by their lack of an "infinite memory tape" alluded to in Turing's paper - hence the thought experiment remains in the realm of goofs, gaffs, and blog posts (commonly referred to as mathematical papers).    
+The last piece of vocabulary we need to embark on our Terrible Turing Journey is "Turing Complete."  Something is said to be Turing Complete if it can simulate a Turing Machine.  If something is Turing Complete, it could theoretically solve any computational problem it was given, provided sufficient run time. Real world scenarios are limited by their lack of an "infinite memory tape" alluded to in Turing's paper - hence the thought experiment remains in the realm of goofs, gaffs, blog posts, and academic shit posts (commonly referred to as mathematical papers).    
 
-Tom Wildenhain has an excellent [paper](https://www.andrew.cmu.edu/user/twildenh/PowerPointTM/Paper.pdf) and accompanying [hilarious presentation](https://www.andrew.cmu.edu/user/twildenh/PowerPointTM/Paper.pdf) on the Turing Completeness of MS PowerPoint.
+Tom Wildenhain has an excellent [shit post](https://www.andrew.cmu.edu/user/twildenh/PowerPointTM/Paper.pdf) and accompanying [hilarious presentation](https://www.andrew.cmu.edu/user/twildenh/PowerPointTM/Paper.pdf) on the Turing Completeness of MS PowerPoint.
 
 # The Plan
-Now that the groundwork has been laid we can have some fun.  The purpose of this blog from my perspective is to house a series of _Terrible Turing Machines_.  
+Now that the groundwork has been established, we can have some fun.  The purpose of this blog, from my perspective, is to house a series of _Terrible Turing Machines_.  
 
 Enjoy  
