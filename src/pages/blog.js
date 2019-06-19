@@ -59,7 +59,7 @@ const IndexPage = ({ data }) => {
                 <ReadingTime> - {node.fields.readingTime.text}</ReadingTime>
                 <ReadingTime> - {node.frontmatter.author}</ReadingTime>
               </div>
-              <p>{node.excerpt}</p>
+              <p>{node.frontmatter.description}</p>
             </Link>
           </div>
         ))}
@@ -87,6 +87,7 @@ export const query = graphql`
             date(formatString: "DD MMMM, YYYY")
             path
             author
+            description
           }
           fields {
             slug

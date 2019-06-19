@@ -1,7 +1,7 @@
 ---
 title: "Terrible Turing Machines - 02"
 date: "2019-06-19"
-draft: false
+description: "Frog Slappa!"
 path: "/blog/peter-2"
 author: "Peter M."
 ---

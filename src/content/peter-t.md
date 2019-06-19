@@ -1,7 +1,7 @@
 ---
 title: "What is a Turing Machine?"
 date: "2019-06-17"
-draft: false
+description: "Required Reading"
 path: "/blog/peter-t"
 author: "Peter M."
 ---

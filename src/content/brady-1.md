@@ -1,7 +1,7 @@
 ---
 title: "BHoag's Bar and Grill"
 date: "2019-03-18"
-draft: false
+description: "BHoag's Bar and Grill Menu"
 path: "/blog/brady-1"
 author: "Brady H."
 ---

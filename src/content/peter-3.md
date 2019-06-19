@@ -1,7 +1,7 @@
 ---
 title: "Terrible Turing Machines - 03"
-date: "2019-06-19"
-draft: false
+date: "2019-06-20"
+description: "This one is literally just poison"
 path: "/blog/peter-3"
 author: "Peter M."
 ---

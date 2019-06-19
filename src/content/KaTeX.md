@@ -1,7 +1,7 @@
 ---
 title: "How to Use Katex"
 date: "2019-06-18"
-draft: false
+description: "Some KaTeX Examples"
 path: "/blog/KaTeX"
 author: "???"
 ---

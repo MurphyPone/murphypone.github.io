@@ -1,7 +1,7 @@
 ---
 title: "Terrible Turing Machines - 01"
 date: "2019-06-18"
-draft: false
+description: "Alan Turing"
 path: "/blog/peter-1"
 author: "Peter M."
 ---
