@@ -1,6 +1,6 @@
 ---
 title: "Terrible Turing Machines - 06"
-date: "2019-06-24"
+date: "2019-06-23"
 description: "Isomorphism Continued: Popcorn"
 path: "/blog/peter-6"
 author: "Peter M."
