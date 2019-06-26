@@ -43,6 +43,11 @@ This page is a summary of the cool symbols and my layman's understanding of what
 | function          | purpose   |
 |-------------------|--------|
 | $V\mathcal{^{\pi}(s)=\mathbb{E}[}R\mathcal{\text{\textbar}s, \pi]}$ | Expected return, given the state and probability |
+| $V\mathcal{^{\pi}(s)=\argmax\limits_\pi}V^{\pi}(s)$ <br>$\space \forall s \in\mathcal{S}$ | the optimal policy for all states in the set of states. <br> sidebar: saying that something holds true for all states in the set of all possible states is really stupid and redundant for a generalized solution like RL.  Why not say $\forall a \in\mathcal{A}$ whenever you mention $\mathcal{a}$? |
+| 勿 | the set of all possible sets, policies, models, gradients, loss functions, backup operations, transition dynamics, action, Turing Machines, and symbols.  To be used:<br> $\forall x \in\mathcal{勿} \text { where x is literally any variable. ever.} $ |
+| $Q\mathcal{^\pi(s,a)=\mathbb{E}[}R\mathcal{\text{\textbar}s,a,\pi]}$ | quality function which is like $V\mathcal{^\pi(s)}$, except the intial action $a$ is provided |
+| $Q\mathcal{^\pi(s_{t},a_{t})=\mathbb{E_{s_{t+1}}}[r_{t+1}+\gamma}Q\mathcal{^{\pi}(s_{t+1}, \pi(s_{t+1})]}$| the expected output of the next state determined by the anticipated reward plus the discount times the quality of the next state, provided the next state and action |
+| $Q\mathcal{^\pi(s_{t},a_{t}) \leftarrow }Q\mathcal{^{\pi}(s_{t},a_{t}) + \alpha\delta}$  | The value of Q is assigned according to...|
 
 
 | term              | definition |
@@ -56,4 +61,5 @@ This page is a summary of the cool symbols and my layman's understanding of what
 |  Temporal Difference | |
 | Target Network | correctly-weighted, but frozen neural nets.  The "active" policy network pulls TD error values from the cached and comparatively stable target network, rather than having to calculate the TD error based on its own rapidly fluctuating estimates of $Q$ values |
 | Hard Attention | using RL to make discrete stochastic decisions over inputs via back propagation and reparameterization |
-| Reparameterization | allows neural networks to be streated as stochastic computational graphs -- a key concept in algorithms involving Stochastic Value Gradients |
+| Reparameterization | allows neural networks to be treated as stochastic computational graphs -- a key concept in algorithms involving Stochastic Value Gradients |
+| Dynamic Programming | using the current $Q^{\pi}$ to improve the next $Q^{\pi}$ via "bootstrapping" |
