@@ -1,5 +1,5 @@
 ---
-title: "Terrible Turing Machines - 5"
+title: "Terrible Turing Machines - 05"
 date: "2019-06-22"
 description: "Rube Goldberg"
 path: "/blog/peter-5"
