@@ -47,7 +47,15 @@ This page is a summary of the cool symbols and my layman's understanding of what
 | 勿 | the set of all possible sets, policies, models, gradients, loss functions, backup operations, transition dynamics, action, Turing Machines, and symbols.  To be used:<br> $\forall x \in\mathcal{勿} \text { where x is literally any variable. ever.} $ |
 | $Q\mathcal{^\pi(s,a)=\mathbb{E}[}R\mathcal{\text{\textbar}s,a,\pi]}$ | quality function which is like $V\mathcal{^\pi(s)}$, except the intial action $a$ is provided |
 | $Q\mathcal{^\pi(s_{t},a_{t})=\mathbb{E_{s_{t+1}}}[r_{t+1}+\gamma}Q\mathcal{^{\pi}(s_{t+1}, \pi(s_{t+1})]}$| the expected output of the next state determined by the anticipated reward plus the discount times the quality of the next state, provided the next state and action |
-| $Q\mathcal{^\pi(s_{t},a_{t}) \leftarrow }Q\mathcal{^{\pi}(s_{t},a_{t}) + \alpha\delta}$  | The value of Q is assigned according to...|
+| $Q\mathcal{^\pi(s_{t},a_{t}) \leftarrow }Q\mathcal{^{\pi}(s_{t},a_{t}) + \alpha\delta}$  | The value of Q is assigned according to the learning rate times the Temporal Difference Error |
+| $\alpha$ | the learning rate |
+| $\delta = \text {Y} - Q^{\pi}(\mathcal{s_{t}, a_{t}})$ | the Temporal Difference Errror |
+| $\text {Y}$ | the target of standard regression maximized with respect to the action $a$. <br> $\text {Y} = \mathcal {r_{t} + \gamma \max_{a}} Q^{\pi}(\mathcal{s_{t}, a_{t}})$ |
+| $Q^{*} \approx \text {Y} = \mathcal {r_{t} + \gamma \max_{a}} Q^{\pi}(\mathcal{s_{t+1}, a_{t+1}})$ | the optimal Quality Function is approximated by the target of standard regression |
+| $s_{\pi_{y}} \xleftrightharpoons[\overline{\pi_{y}}]{\pi_{y}} \LARGE{s} \normalsize \xrightleftharpoons[\overline{\pi_{x}}]{\pi_{x}} s_{\pi_{x}}$| Monte Carlo Methods <br> a policy is rolled out and pursued for an arbitrary amount of episodes after which the mean policy is returned <br>//looking into every possible future based on the current state and choosing the best mean policy to be taken |
+| $\text {TD}(\lambda)$| a combination of Temporal Difference bootstrapping and monte carlo methods where $\lambda$ is an interpolation factor between TD and MCM |
+| $\text{A}^{\pi}\mathcal{(s)} = Q^{\pi} - V^{\pi}$ | the Advantage Function which produces relative state-action values instead of absolute state-action values  | 
+
 
 
 | term              | definition |
@@ -63,3 +71,4 @@ This page is a summary of the cool symbols and my layman's understanding of what
 | Hard Attention | using RL to make discrete stochastic decisions over inputs via back propagation and reparameterization |
 | Reparameterization | allows neural networks to be treated as stochastic computational graphs -- a key concept in algorithms involving Stochastic Value Gradients |
 | Dynamic Programming | using the current $Q^{\pi}$ to improve the next $Q^{\pi}$ via "bootstrapping" |
+| Monte Carlo Methods | estimating the expected return from a state by averaging return from multiple rollouts of a policy.  <br> used to find optimal trajectories. <br> limited to episodic Markov Decision Processes |
