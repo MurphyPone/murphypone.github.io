@@ -1,6 +1,6 @@
 ---
 title: "Reinforcement-Learning: Feeling Big Brain All the Time"
-date: "2019-06-21"
+date: "2019-06-28"
 draft: false
 path: "/blog/patrick-1"
 author: "Bob Saget, Sergey Levine."
@@ -26,14 +26,29 @@ Luckily, math is on your side. With the power of gradients and expectations, you
 -  Policy: The function or rules by which an actor chooses and action _a_ based on the state. It is usually represented by $\pi$(_s_) for stochastic policies or $\mu$(_s_) for deterministic policies.
  >"In deterministic models, the output of the model is fully determined by the parameter values and the initial conditions. Stochastic models possess some inherent randomness." (from the interwebs)
 
+- Reward: What is given from the state to the agent at some time, possibly due to an action that the agent took
+- Return: The cumulative rewards over all of the states $\mathcal{S}$ in an episode, which are often discounted by a factor $\gamma$
+
 -  Trajectory: A sequence $\mathcal{T}$ of some length of the states $\mathcal{S}$ and actions $\mathcal{A}$ of the environment as it progresses through time or by frame. Otherwise known as episodes or rollouts.
 
-For a more extensive glossary of terms and functions, visit Peter's [Terrible Turing Machines - 07](https://murphypone.github.io/intern-blog/blog/peter-7), where he has an extensive list of terms and crap you need to know to feel big brain.
+For a more verbose glossary of terms and functions, visit Peter's [Terrible Turing Machines - 07](https://murphypone.github.io/intern-blog/blog/peter-7), where he has an extensive list of terms and crap you need to know to feel big brain. (Even if you aren't really)
 
 
 **Now that you have some knowledge of the basic terminology of RL, we are going to crack open the black box and see how this magical subject works.**
 
+The basic goal of reinforcement learning is to teach an agent a policy ($\pi$ or $\mu$) that is able to make the best decision given a set of circumstances. This policy attempts to maximize some reward for its actions that are given by the state. However, this policy does not need to be explicitly discovered or defined by the program. One of the earliest and most basic Deep RL algorithms instead uses a value function $v_\pi(s)$ to predict the expected future reward or "goodness" of each state or each state-action pair. In deep RL, this value function is not an actual function, but is actually a neural network that will approximate values like a function. It takes a variety of forms, but at its most basic it is commonly designated as the expected return for the policy from $\mathcal{S}$:
+$$
+\begin{gathered}v_\pi(s) = \mathbb{E}[R_t|s_t = s]\end{gathered}
+$$
+Its complement is the the action value function, which is denoted as $q_\pi(s,a)$. This defines the expected value of the state action pair. Why it's Q I have no fucking clue.
+$$
+\begin{gathered}q_\pi(s,a) = \mathbb{E}[R_t|s_t = s, a_t = a]\end{gathered}
+$$
+The goal of both of these formulas is to do something super simple: find the optimal policy $\pi^o$ that will maximize $v_\pi(s)$
 
+$$
+\begin{gathered}q_\pi(s,a) = \mathbb{E}[R_t|s_t = s, a_t = a]\end{gathered}
+$$
 
 
 Some may say I'm a dreamer, but I'm not the only one.
