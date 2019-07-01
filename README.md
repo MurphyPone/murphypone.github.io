@@ -1,5 +1,7 @@
 Our unnoficial intern blog.
 
+https://murphypone.github.io/intern-blog/
+
 Please don't fire us
 
 # Making a post
@@ -10,4 +12,8 @@ Please don't fire us
 5. run `gatsby develop` to launch a local development server
 
 
+<<<<<<< HEAD
 https://murphypone.github.io/intern-blog/
+=======
+
+>>>>>>> 9f192f2240946b19f223bb2e58ca6f4a15428c2f
