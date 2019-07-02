@@ -90,3 +90,64 @@ the probability of its not exceeding x is at most $\coloneq$
 $s(\mathcal {D}) = \displaystyle\sum_1^n [\text {F}(\lambda_r) - \text {F}(\lambda_{r-1})]\text {G}^+(x-\lambda_{r-1})$
 
 If $\text {F}(t)$ and $\text {G}(x-t)$ regarded as functions of $t$ have no common discontinuities.
+
+$\frac {\text {Bound}} {\text {all } \mathcal{D}} s(\mathcal{D})=\frac {\overline\text{Bound}} {\text {all } \mathcal{D}} s(\mathcal{D})= \int^\infin_{-\infin}\text{G}(x-t)\space d\text{F}(t)$
+
+$\therefore \text{H}(x) = \int^\infin_{-\infin} \text {G}(x-t)\space d\text{F}(t) \quad \text{ for such values of x (S)}$
+
+$\text {H}(x)$ is increasing throughout the set of such values.  The remaining values form an enumerable set and we may define $\text {H}(x)$ at these points, in such a way that
+
+$\text {H}(x-O)=\text {H}^-(x-O)≤\text {H}(x)≤\text {H}^+(x)=\text {H}(x+O)$
+
+§ 5. <u>Shape Functions (S.Fs)</u>
+If $\text {F}$ be a D.F. with a mean $a$ and M.S.D. $k^2 (k>0)$, then $\text U$, define by $\text {U}(x)=\text{F}(k(x-a))$ is a D.F with mean $O$ and M.S.D $I$ and is called the shape function (S.F.) of $\text F$
+
+We are now in a position to formulate the problem mathematically.
+
+§ 6. <u>Formulation of the Problem.</u>
+
+We are given a sequence $\varepsilon_1, \varepsilon_2...$ of errors. $\varepsilon_r$ has D.F $\text {G}_r$, S.F. $\text {V}_r$, mean $a_r$, and M.S.D $k_r^2$.  $\text F_n$ is defined by $\text F_n=\text G_1 \oplus \text G_2 \oplus ... \oplus \text G_n$, and has $\text U_n$ as its S.F. $\text W$ is the S.F of the Gaussian Error i.e.
+
+$\text {W}(x) = \frac 1 {\sqrt{2\pi}} \int_{-\infin}^x e^{-\frac 1 2 t^2} dt$
+
+Then we wish to find under what conditions $\text {U}(x) \rightarrow \text {W}(x)$ uniformly as $n \rightarrow \infin$.  When this is the case we say that $\text F_n$ tends to the Gaussian law."  Any error or D.F. whose S.F. is $\text W$ will be called Gaussian.
+
+Henceforth we shall confine the use of the expression D.F. to those D.Fs which haave finite M.S.D.  Only such D.Fs can come into consideration in the problem as we have formulated it (see § 8).  Also since $\text U_n$ is independent of $a_1,...,a_n$ we may suppose these latter to be all zero.  
+
+
+§ 7. <u>Fundamental Property of the Gaussian Error.</u>
+
+
+The only properties of the function $\text W$ that we shall require when investigating sufficency conditions will be that it is an S.F and the self-reproductive property, which is proved here.  It is convenient to put $W_{\mathcal{L}}(x)=\text {W}(\frac {x} {\mathcal{L}})$
+
+Then $\text W_a \oplus \text W_b = \text W_c$ where $\text c^2 = \text a^2 + \text a^2$
+
+For if $\text W_a \oplus \text W_b = \text H$, then
+$$
+\begin{aligned}
+
+\text H(y) = \int^\infin_{-\infin}\text W(\frac {y-x} a) \space d \text{W}(\frac x b) \\
+
+
+= \frac 1 b \int^\infin_{-\infin}\text W(\frac {y-x} a) \text{W}'(\frac x b) \space dx \\
+
+\text H'(y) = \frac 1 {ab} \int^\infin_{-\infin}\text W'(\frac {y-x} a) \text{W}'(\frac x b) \space dx \\
+
+= \frac 1 {2\pi ab} e^{-\frac 1 2^{\frac {y^2} {c^2}}} \int^\infin_{-\infin}e^{-\frac 1 2^{\frac {t^2c^2} {a^2b^2}}} \space dt \\
+
+\scriptsize \text{by the substitution } t=x - \frac {b^2} {c^2} y \\
+
+ = \frac 1 {\sqrt{2\pi}} \cdot \frac 1 c e^{-\frac 1 2^{\frac {y^2} {c^2}}} = \frac 1 c \text {W}'(\frac y c)\\
+
+\end{aligned}
+$$
+
+Integrating and putting in right constant of integration.
+
+$\text H(y) = \text W(\frac y c) = \text W_o(y)$
+
+§ 8. <u>The Quasi-Necessary Conditions.</u>
+
+The conditions we shall impose fall into two groups.  Those of one group (the quasi-necessary conditions) involve the M.S.Ds only.  They are not actually necessary, but if they are not fulfilled $\text U_n$ can onll tend to $\text W$ by a kind of accident as such a case would occur if the errors $\varepsilon_1 ... \varepsilon_n ...$ we themselves Gaussian.  What is the exact sense in which this is to be regarded as an accident will appear from theorem 4 and 5 of this section.  These theorems and theorem 3 are not required for the later theory, but they shed some light on the significance of the quasi-necessary conditions: this section may therefore be omitted at the first reading.  Theorem 3 is of interest in itself, being a kind of converse to the reproductive property.  As proved here it dpeends on the completeness property of the Hermite Functions. Theorems 4 and 5 depend on theorem 3 but a weakened form is given in 4 and 5 not depending on theorem 3.  From § 9 onwards we shall investigate the other group of conditions viz the sufficient conditions.
+
+<u style="margin-left:10%; margin-right:10%;">Theorem 1.</u>
