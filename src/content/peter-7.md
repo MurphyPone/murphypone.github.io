@@ -151,3 +151,47 @@ $\text H(y) = \text W(\frac y c) = \text W_o(y)$
 The conditions we shall impose fall into two groups.  Those of one group (the quasi-necessary conditions) involve the M.S.Ds only.  They are not actually necessary, but if they are not fulfilled $\text U_n$ can onll tend to $\text W$ by a kind of accident as such a case would occur if the errors $\varepsilon_1 ... \varepsilon_n ...$ we themselves Gaussian.  What is the exact sense in which this is to be regarded as an accident will appear from theorem 4 and 5 of this section.  These theorems and theorem 3 are not required for the later theory, but they shed some light on the significance of the quasi-necessary conditions: this section may therefore be omitted at the first reading.  Theorem 3 is of interest in itself, being a kind of converse to the reproductive property.  As proved here it dpeends on the completeness property of the Hermite Functions. Theorems 4 and 5 depend on theorem 3 but a weakened form is given in 4 and 5 not depending on theorem 3.  From § 9 onwards we shall investigate the other group of conditions viz the sufficient conditions.
 
 <u style="margin-left:10%; margin-right:10%;">Theorem 1.</u>
+
+if $\text U$ and $\text V$ are two S.Fs, then
+
+$\vert \text {U}(x) - \text {V}(x)\vert ≤ 1, \vert \text{U}(x) - \text {V}(x)\vert < \frac {2} {x^2}$
+
+and
+
+$\vert \text {U}(x) - \text {V}(x)\vert ≤ \frac 4 {1 + x^2}$, each implicitly holding for every $x$
+
+<u style="margin-left:10%; margin-right:10%;">Proof</u>
+
+$\text {U}(x)$  has M.S.D $\text I$ and is increasing
+
+$\therefore \space \text{I}=\int^{\infin}_{-\infin}x^2 \space d\text{U}(x) ≥ \int^{y}_{-\infin}x^2 \space d\text{U}(x) ≥ y^2 \space \text{U}(y) \space \text {if } y ≤0$
+
+$\therefore \text {for all S.Fs U}(x) ≤ \frac 1 {x^2} \text {if } x ≤ 0$
+
+$1-\text{V}(x)$ is an S.F. $\therefore 1-\text{V}(x) ≤ \frac 1 {x^2}$ if $x ≥ 0$
+
+$\therefore$ combining these last two inequalities
+
+$\vert \text {U}(x) - \text {V}(x)\vert ≤ \frac 2 {x^2}, \space \forall x$
+
+$\min(\frac{x^2} 2, 1) ≤ \frac 4 {1 + x^2}$
+
+$\therefore \vert \text {U}(x) - \text {V}(x)\vert ≤ \frac 4 {1+x^2}$
+
+<u>Corollary</u> $\vert \text {U}(x) - \text {V}(x)\vert$ and $\vert \text {U}(x) - \text {V}(x)\vert^2$ are integrable over $(-\infin, \infin)$
+
+We shall now assume the following results concerning Hermite functions and polynomials.
+
+(1) <u>Definition</u> the $\text n^\text{th}$ Hermite polynomial is defined by
+
+$\text {H}_n(x) = (-)^n e^{x^2}(\frac d {dx})^n e^{-x^2} \quad\quad (n≥0)$
+
+(2) For each $n, \text {H}_n(x)$ is a polynomial of degree $n$ and no les.
+
+(3) <u>Completeness</u> If $(\varphi(x))^2$ is integrable and for each $n ≥ 0$
+
+$\int^{\infin}_{-\infin}\text {H}_n(x)e^{-\frac 1 2 x^2} \varphi(x)\space dx = 0$
+
+Then $\varphi(x) = 0 \quad\quad \mathcal P \cdot \mathcal P$
+
+I give a proof of this property in Appendix A.
