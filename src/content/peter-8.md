@@ -62,3 +62,26 @@ The following table has been adapted from the trials performed by Tversky and Ka
 Solutions discussed in their paper included framing the questions in terms of gambling.  I.e "If you answer the question correctly, I will give you \$10."  These prefaces tended to engage the subject's analytical thinking noodles.  When money gets involved, people immediately think in the mode of extensionalism rather than intuitive.  Furthermore, betting is a good medium of conflict resolution as it imposes a tax on bullshit.  I.e. "I bet $20 i'm right and you are wrong.  Turns out I'm wrong.  Fuck, I'm not going to make that same expensive mistake again."  Argue, bet, pay, learn.
 
 >*"A full understanding of a principle of physics, logic, or statistics requires knowledge of the conditions under which it prevails over conflicting arguments"*
+
+### A Note on Heuristics
+
+Heuristics are the quick means by which we assess something in the absence to a pen & paper (i.e. expensive computational logic --> "Slow Thinking").  They can be quite useful in rough estimations or snap decisions.  However, they're not always good...
+
+1. Flying is an order of magnitude safer than driving a car.
+2. 9/11 *drastically* reduced the amount of flights because of the degree to which the news reported on the attacks.
+3. Car crash deaths since 2001 far exceed ~3,000 immediately effected lives of 9/11 as well as those who have since passed due to injuries incurred during the attacks or other related causes of death such as cancer from the dust particles inhaled by rescuers and bystanders alike.  [In fact](https://www.asirt.org/safe-travel/road-safety-facts/), "over 37,000 people die in road crashes each year,"  in the United States alone.  If the domain is expanded to the global level, "Nearly 1.25 million people die in road crashes each year, on average 3,287 deaths a day."  However, the availability heuristic dictated that we were safe to drive, but not fly because car crashes never make the news.
+
+---
+In Symbolic Logic:
+
+$$
+\text {A} \Rarr \text {B} \Leftrightarrow \neg \text B \land \text A\\
+\qquad\qquad\space\space \space \neg \text A \lor \text B
+$$
+
+I.e. A rabbit is an animal, but an animal is not necessarily a rabbit.
+
+Another example: an attorney stating that a victim was "Killed by a knife, at midnight" may seem more true as it is corroborated by other surrounding facts, but it is **necessarily** less probable than the statement "He was killed"
+
+## The Solution
+Tversky and Kahneman found that using integer representation of percentages (e.g. "60 out of 100 people..." instead of "60% of respondents...") helped subjects to frame problems extensionally and steer clear of the fallacy of violating the law of conjunctions
