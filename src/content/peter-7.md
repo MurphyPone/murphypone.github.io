@@ -195,3 +195,36 @@ $\int^{\infin}_{-\infin}\text {H}_n(x)e^{-\frac 1 2 x^2} \varphi(x)\space dx = 0
 Then $\varphi(x) = 0 \quad\quad \mathcal P \cdot \mathcal P$
 
 I give a proof of this property in Appendix A.
+
+<u style="margin-left:10%; margin-right:10%;">Theorem 2.</u>
+
+If $\text X(\xi)$ is the difference of a monotone and continuous function,
+$\text{\textbar X}(\xi) \text{\textbar}$ and $\text{\textbar X}(\xi) \text{\textbar} ^2$ are integrable over $(-\infin, \infin)$, and for all $\eta$
+
+$\int_{-\infin}^\infin \text{W}'(\eta - \xi) \text {X(}\xi) \space d \xi = 0$
+
+Then, for all $\xi$, $\text {X(}\xi) =0$
+
+We may differentiate $\int_{-\infin}^\infin \text{W}'(\eta - \xi) \text {X(}\xi) \space d \xi = 0$ any number of times under the integral sign.  suppose in fact that
+
+$\text F(\eta)=\int_{-\infin}^\infin \text{W}^{(n)}(\eta - \xi) \text {X(}\xi) \space d \xi$
+
+Then
+
+$\frac {\text{F(}\eta + h) - \text F(\eta)} h=\int_{-\infin}^\infin \text{W}^{(n+1)}(\eta - \xi) \text {X(}\xi) \space d \xi + \int_{-\infin}^\infin \text{O(}h) \text{\textbar}\text {X(}\xi) \text{\textbar} \space d \xi$
+
+$\rightarrow \int_{-\infin}^\infin \text{W}^{(n+1)}(\eta - \xi) \text {X(}\xi) \space d \xi$ as $h \rightarrow 0$ since
+
+$\int_{-\infin}^\infin \text {\textbar X(}\xi) \text \textbar \space d \xi$ exists by hypothesis
+
+$\therefore \int_{-\infin}^\infin \text W^{(n)}(-\xi) \text X(\xi) \space d \xi = 0$, all $n > 0$
+
+$\sqrt{2\pi}\text{W}^{(n+1)}(-\xi)=(\frac d {d\xi})^ne^{-\frac {\xi^2} {2}}=(\frac d {dX})^ne^{-X^2}(\frac {-1} {\sqrt 2})^n$
+
+$=(-\frac 1 {\sqrt 2})^ne^{-X^2}\text H_n(X)\qquad$ where $X=-\frac \xi {\sqrt 2}$
+
+$\therefore \int^\infin_{-\infin} {e^x}^2 \text H_n(X)\text X(X\sqrt 2)dX = 0 \qquad$ (all $n>0$)
+
+$\int^\infin_{-\infin}[{e^X}^2 \text H_n(X)][e^{-X^2}\text X(-X\sqrt 2)]dx=0$
+
+$\therefore$ from this, the fact that $e^{-X^2}\text X(-X\sqrt 2)$ is integrable and assumption (3) above, we deduce that $e^{-X^2}\text X(-X\sqrt 2)=0 \quad \mathcal {P} \cdot \mathcal {P}$ i.e. $\text X(\xi)=0 \quad \mathcal {P} \cdot \mathcal {P}$ But $\text X$ is the difference of a monotone and a continuous function $\therefore \text X(\xi)=0$ for all $\xi$
