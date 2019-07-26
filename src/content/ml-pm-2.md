@@ -2,7 +2,7 @@
 title: "A Discussion of Action Spaces"
 date: "2019-06-27"
 description: "Boi your hairline discrete"
-path: "/blog/ml-pm-2/ml-mp-2"
+path: "/blog/ml-mp-2"
 author: "Peter M."
 ---
 <style type='text/css'>
