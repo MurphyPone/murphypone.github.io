@@ -2,7 +2,7 @@
 title: "A Post by Peter?"
 date: "2019-08-01"
 description: "Weird, but understandable, fixation on Judaism"
-path: "/blog/rnntestter-1"
+path: "/blog/rnntester-1"
 author: "rnntester.py"
 ---
 <style type='text/css'>
