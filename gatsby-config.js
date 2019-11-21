@@ -1,9 +1,9 @@
 module.exports = {
-  pathPrefix: "/intern-blog",
+  pathPrefix: "/",
   siteMetadata: {
-    title: `Unofficial Intern Blog`,
-    description: `A Blog to discuss anything from sense, graphs, Alan Turing, and more!`,
-    author: `Interns`,
+    title: `Peter Murphy`,
+    description: `blog`,
+    author: `Peter Murphy`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -56,7 +56,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/icon.png`, // This path is relative to the root of the site.
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

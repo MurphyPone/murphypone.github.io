@@ -9,6 +9,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
 import styled from "@emotion/styled"
+import { SocialIcon } from 'react-social-icons';
 
 import Header from "./header"
 import "./layout.css"
@@ -23,6 +24,7 @@ const Content = styled.div`
 const Footer = styled.footer`
   display: flex;
   justify-content: center;
+  border-top: 3px solid   rgb(102, 102, 255);
 `
 
 const Layout = ({ children }) => (
@@ -41,7 +43,13 @@ const Layout = ({ children }) => (
         <Header siteTitle={data.site.siteMetadata.title} />
         <Content>
           <main>{children}</main>
-          <Footer>If anyone asks, it was Critter's idea</Footer>
+          <Footer>
+            <SocialIcon url="https://www.linkedin.com/in/petersmurphy7/" target="_blank" fgColor="#6666ff" bgColor="#ffffff" />
+            <SocialIcon url="http://github.com/murphypone" target="_blank" fgColor="#6666ff" bgColor="#ffffff" />
+            <SocialIcon url="http://twitter.com/petersmurphy7" target="_blank" fgColor="#6666ff" bgColor="#ffffff" />
+            <SocialIcon url="http://instagram.com/petersmurphy7" target="_blank" fgColor="#6666ff" bgColor="#ffffff" />
+            <SocialIcon url="http://youtube.com/plotsmurphy" target="_blank" fgColor="#6666ff" bgColor="#ffffff" />
+          </ Footer>
         </Content>
       </>
     )}

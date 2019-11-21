@@ -1,24 +1,9 @@
 ---
-title: "A Discussion of Action Spaces"
+title: "ML 2: A Discussion of Action Spaces"
 date: "2019-06-27"
-description: "Boi your hairline discrete"
-path: "/blog/ml-mp-2"
-author: "Peter M."
+description: "RL"
+path: "/blog/ml-2"
 ---
-<style type='text/css'>
-  a {
-    border-bottom: 1px solid hsla(131, 75%, 40%, 0.8);
-    color: black;
-    text-decoration: none;
-    -webkit-transition: background-color .25s;
-    transition: background-color .25s;
-  }
-  a:hover {
-    background-color: hsla(131, 75%, 40%, 0.8);
-
-  }
-
-</style>
 
 | $\color{blue} \text {Discrete}$ | $\color{red} \text {Continuous}$ |
 |----------|------------|
@@ -26,7 +11,7 @@ author: "Peter M."
 | e.g. $\color{blue} \text{Left}$ or $\color{blue} \text{Right}$ | e.g. $\color{red} \text{Amount of torque}$ to apply to a wheel |
 | easier to conceptualize and evaluate as the action set is finite and therefore iterable | Action space can be differentiated which is advantageous because this allows us to identify similarities between actions |
 | can not be differentiated, therefore actions like $\color{blue} \text {North, South}$ may be *both* adjacent and highly dissimilar  | e.g. $\color{red} \frac d {da_{n}} = 1.02, \frac d {da_{n+1}} = 1.03,  $ <br> can be grouped by trend |
-| $\color{blue} \pi^{*}$ is easier to find, as there is an exhaustible set of actions and policies to be evaluated | continuous action-spaces are superior because, theoretically, $\exist$ andaction $\color{red} a \in \mathcal A$ which immediately solves the given problem.  While stipulation that *most* $\color{red} a \in \mathcal A$ will be so downright wank that you'll want to terminate the simulation, the infinite size of $\color{red} \mathcal A$ dictates that $\color{red} \exist \space a \leftarrow  \pi^{*} >> \color{blue} \pi^{*}$|  
+| $\color{blue} \pi^{*}$ is easier to find, as there is an exhaustible set of actions and policies to be evaluated | continuous action-spaces are superior because, theoretically, $\exist$ andaction $\color{red} a \in \mathcal A$ which immediately solves the given problem.  While stipulation that *most* $\color{red} a \in \mathcal A$ will be so downright wank that you'll want to terminate the simulation, the infinite size of $\color{red} \mathcal A$ dictates that $\color{red} \exist \space a \leftarrow  \pi^{*} >> \color{blue} \pi^{*}$|
 | we can compensate for the limitations of the discrete action space by identifying the region about the global maximum at any time $\color{red}t$ of $\color{red}\pi^{*}$ and discretizing it via some function gamma –s.t. $\color{orange} \gamma(x) = \beta\lfloor x \rfloor $ where $\beta$ is some factor that creates a distribution of actions rather than a set of identical actions - such that we end up with a dense action space $\mathcal \color{blue} A$ each member of which is better, on average, than a random $\color{red} a \in \mathcal A$ <br>see Fig. 1| ![bhoags-bignscary](https://i.imgur.com/BiJlJjv.jpg) |
 
 

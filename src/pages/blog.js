@@ -22,14 +22,15 @@ const ArticleDate = styled.h5`
 const MarkerHeader = styled.h3`
   display: inline;
   padding: 3px;
-  border-radius: .5em 0 0.5em 0;
   margin-bottom: 15px;
-  background-image: linear-gradient(
+  /*
     -100deg,
-    rgba(26, 178, 53, 0.15),
-    rgba(26, 178, 53, 0.8) 100%,
-    rgba(26, 178, 53, 0.25)
+    rgba(26, 224, 204, 0.15),
+    rgba(102, 102, 255, 0.8) 100%,
+    rgba(26, 224, 204, 0.3)
   );
+  border-radius: 0.25em 0 0 0.25em;
+  */
 `
 
 const ReadingTime = styled.h5`
@@ -38,6 +39,16 @@ const ReadingTime = styled.h5`
   margin-bottom: 15px;
 `
 
+const outlineStyle = {
+  borderLeft: '3px solid rgba(102, 102, 255, 0.8)',
+  borderBottom: '3px solid rgba(102, 102, 255, 0.8)',
+  marginBottom: '1em',
+  paddingLeft: '0.5em',
+  paddingTop: '0.5em',
+  paddingBottom: '0em'
+
+};
+
 const IndexPage = ({ data }) => {
   return (
     <Layout>
@@ -45,21 +56,19 @@ const IndexPage = ({ data }) => {
       <Content>
         <h1>Blog</h1>
         {data.allMarkdownRemark.edges.map(({ node }) => (
-          <div key={node.id}>
+          <div key={node.id} style={outlineStyle} >
             <Link
               to={node.frontmatter.path}
               css={css`
                 text-decoration: none;
                 color: inherit;
-              `}
-            >
+              `}>
               <MarkerHeader>{node.frontmatter.title} </MarkerHeader>
               <div>
                 <ArticleDate>{node.frontmatter.date}</ArticleDate>
                 <ReadingTime> - {node.fields.readingTime.text}</ReadingTime>
-                <ReadingTime> - {node.frontmatter.author}</ReadingTime>
               </div>
-              <p>{node.frontmatter.description}</p>
+              <p>Using: <i>{node.frontmatter.description}</i></p>
             </Link>
           </div>
         ))}
@@ -86,7 +95,6 @@ export const query = graphql`
             title
             date(formatString: "DD MMMM, YYYY")
             path
-            author
             description
           }
           fields {

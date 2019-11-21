@@ -1,30 +1,16 @@
 ---
 title: "Digest: Documentation"
 date: "2019-07-17"
-description: "'How to Write Good Documentation: you just don't ayy lmao' - Joseph"
-path: "/blog/peter-8"
-author: "Peter M."
+description: "Tips from Industry Professionals"
+path: "/blog/documentation.md"
 ---
-<style type='text/css'>
-  a {
-    border-bottom: 1px solid hsla(131, 75%, 40%, 0.8);
-    color: black;
-    text-decoration: none;
-    -webkit-transition: background-color .25s;
-    transition: background-color .25s;
-  }
-  a:hover {
-    background-color: hsla(131, 75%, 40%, 0.8);
-
-  }
-</style>
 
 ## Preface
 This article contains my summary of Kismet's presentation on how to write documentation that doesn't suck
 
 ## Process, Information Architecture, and Voice
 
-The documentation process includes each of these three cornerstones (docs live in triangular prisms).  
+The documentation process includes each of these three cornerstones (docs live in triangular prisms).
 
 # Process
 
@@ -52,7 +38,7 @@ Additionally, the quality of documentation can be evaluated in terms of readabil
   - Deploy
   - Reject/repeat
 
-There should always be at least one Point of Contact who can verify/provide oversight on a given issue.  
+There should always be at least one Point of Contact who can verify/provide oversight on a given issue.
 
 ## Audience
 

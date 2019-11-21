@@ -24,7 +24,7 @@ const NavLink = styled(Link)`
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: rgba(26, 178, 53, 0.8);
+    background-color: rgba(102, 102, 255, 0.8);
     transform-origin: bottom right;
     transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
   }
@@ -50,8 +50,9 @@ const Header = ({ siteTitle }) => (
   <SiteHeader>
     <Content>
       <p>
-        <HomeLink to="/">Home</HomeLink>
-        <NavLink to="/blog">{siteTitle}</NavLink>
+        <HomeLink to="/">Projects</HomeLink>
+        <NavLink to="/blog">Blog</NavLink>
+        <NavLink to="/about">About</NavLink>
       </p>
     </Content>
   </SiteHeader>

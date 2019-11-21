@@ -1,24 +1,9 @@
 ---
-title: "A Summary if a Summary: DQN Bottlenecks"
+title: "ML 3: A Summary if a Summary: DQN Bottlenecks"
 date: "2019-07-26"
-description: "Sergey with Swords!"
-path: "/blog/ml-pm-3"
-author: "Peter M."
+description: "RL + Sergey Levine + Swords!"
+path: "/blog/ml-3"
 ---
-<style type='text/css'>
-  a {
-    border-bottom: 1px solid hsla(131, 75%, 40%, 0.8);
-    color: black;
-    text-decoration: none;
-    -webkit-transition: background-color .25s;
-    transition: background-color .25s;
-  }
-  a:hover {
-    background-color: hsla(131, 75%, 40%, 0.8);
-
-  }
-
-</style>
 
 # Introduction
 A summary of Sergey's understanding of Bottlenecks, tips, and tricks to resolve them.
@@ -31,13 +16,13 @@ Sergey managed to deduce –with low dimensional "oracle based" unit tests like 
 # Discussion
 Q-learning _will_ converge (depending on the Q values being tabular, linear, etc.).  If it does not, it is implied that the action space is employing $f$ approximation operators, as infinite action spaces cannot be tabulated.  Even when $\mathcal Q$ does not converge, divergence only occurs with a 0.9% probability and can be remediated with early-stop protocols.
 
-$\mathcal {Q(s,a)}$ returns an evaluative quantity given a state + action. Whereas standard $V(a)$ is not necessarily good for all $s$.  
+$\mathcal {Q(s,a)}$ returns an evaluative quantity given a state + action. Whereas standard $V(a)$ is not necessarily good for all $s$.
 
 # Big Neural Networks do it Better.
 
-Imitation learning constrains the agent to being good at _strictly_ what it observed from the experts.  If the agent where to find itself out of the narrowly define 'expertly good' action space, it would have no idea what to do.  
+Imitation learning constrains the agent to being good at _strictly_ what it observed from the experts.  If the agent where to find itself out of the narrowly define 'expertly good' action space, it would have no idea what to do.
 
-**Replay Buffer** - stores all $(s, a, r, s')$ tuples and is used to track how it got good.  However, step-wise action spaces with disparate environments per step (or moving targets) make it difficult for the agent to act consistently.  By sampling the replay buffer, we can average previous actions to find, not necessarily $\pi^*$, but $\pi^{betterThanDying}$. This is important as $\pi$ at state $s'$ might be drastically different than $\pi$ at state $s$.  
+**Replay Buffer** - stores all $(s, a, r, s')$ tuples and is used to track how it got good.  However, step-wise action spaces with disparate environments per step (or moving targets) make it difficult for the agent to act consistently.  By sampling the replay buffer, we can average previous actions to find, not necessarily $\pi^*$, but $\pi^{betterThanDying}$. This is important as $\pi$ at state $s'$ might be drastically different than $\pi$ at state $s$.
 
 **Temporal Difference Error** - Roughly measure the "amount of surprise at reward" and is used in weighting the replay buffer distribution sampling method.  Broader entropy distributions are almost always better than any other distribution sampling technique.
 

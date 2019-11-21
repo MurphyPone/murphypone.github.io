@@ -1,23 +1,9 @@
 ---
 title: "Digest: Extensional vs. Intuitive Reasoning"
 date: "2019-07-05"
-description: "Summary of a Summary of a Summary"
-path: "/blog/peter-8"
-author: "Peter M."
+description: "A Summary of a Summary of a Summary"
+path: "/blog/extensional-vs-intuitive"
 ---
-<style type='text/css'>
-  a {
-    border-bottom: 1px solid hsla(131, 75%, 40%, 0.8);
-    color: black;
-    text-decoration: none;
-    -webkit-transition: background-color .25s;
-    transition: background-color .25s;
-  }
-  a:hover {
-    background-color: hsla(131, 75%, 40%, 0.8);
-
-  }
-</style>
 
 ## Preface
 This article contains my summary of Daniels summary of Tversky and Kahneman's summary of the fallacy of extensionalism.
@@ -29,7 +15,7 @@ This article contains my summary of Daniels summary of Tversky and Kahneman's su
 
 **Availability Heuristic** - "The availability heuristic operates on the notion that if something can be recalled, it must be important, or at least more important than alternative solutions which are not as readily recalled. Subsequently, under the availability heuristic, people tend to heavily weigh their judgments toward more recent information, making new opinions biased toward that latest news."
 
-With that in mind, consider the following diagram.  $\text {P(q)}$ is *strictly* greater than $\text {P(p\&q)}$.  When graphically presented, this axiom is obvious.  However, when presented verbally - our minds tend to err.  This is because the way that we process stories does not adhere to the laws of statistics and probability.  Adding details to our stories and experiences seems as though it would increase their likelihood, but that is not the case.   
+With that in mind, consider the following diagram.  $\text {P(q)}$ is *strictly* greater than $\text {P(p\&q)}$.  When graphically presented, this axiom is obvious.  However, when presented verbally - our minds tend to err.  This is because the way that we process stories does not adhere to the laws of statistics and probability.  Adding details to our stories and experiences seems as though it would increase their likelihood, but that is not the case.
 
 ![img](https://inquiryintoinquiry.files.wordpress.com/2017/11/venn-diagram-two-variables-p-q.jpg)
 
@@ -72,7 +58,7 @@ Heuristics are the quick means by which we assess something in the absence to a 
 ---
 People use representative heuristics as substitutes for probability e.g. "Bjorn Borg us representative of a winner because he made it to the Wimbledon finals <--> probability"
 
-We struggle to understand the concept of extensionality, lkely due to the colloquial connectives "AND", "OR", "IF, THEN", which hold stricter meaning in probabilistic logic.  
+We struggle to understand the concept of extensionality, lkely due to the colloquial connectives "AND", "OR", "IF, THEN", which hold stricter meaning in probabilistic logic.
 
 Information is surprise, and surprise is low-probability.  But low-probability is not necessarily a surprise.
 

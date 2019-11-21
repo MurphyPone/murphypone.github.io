@@ -24,6 +24,11 @@ const Description = styled.p`
 const NameHeader = styled.h1`
   font-size: 3.5rem;
   margin-bottom: 0;
+  border-left: 3px solid rgba(102, 102, 255, 0.8);
+  border-top: 3px solid rgba(102, 102, 255, 0.8);
+  padding-top: .1em;
+  padding-left: .1em;
+  margin-bottom: 0.2em;
 `
 
 const LandingBio = () => (
@@ -41,7 +46,9 @@ const LandingBio = () => (
       <OuterContainer>
         <Container>
           <NameHeader>{data.site.siteMetadata.title}</NameHeader>
-          <Description style={{color: 'rgba(26, 178, 53, 0.8)'}}>Software Developers¿</Description>
+          <Description style={{color: 'rgb(102, 102, 255)'}}>Projects and <a href="" style={{pointerEvents: "none", cursor: "default", textDecoration: "line-through", color: "rgba(102, 102, 255, 0.8)"}}>shitposts</a> blog</Description>
+          <p>//TODO Create project card component</p>
+          <p>Because I promise I have worthwhile code to look at maybe¿</p>
         </Container>
       </OuterContainer>
     )}

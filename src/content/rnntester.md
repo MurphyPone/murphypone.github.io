@@ -1,23 +1,9 @@
 ---
-title: "A Post by Peter?"
+title: "ML 3.5: A Post by Peter?"
 date: "2019-08-01"
 description: "Weird, but understandable, fixation on Judaism"
-path: "/blog/rnntester-1"
-author: "rnntester.py"
+path: "/blog/rnntesterdotpy"
 ---
-<style type='text/css'>
-  a {
-    border-bottom: 1px solid hsla(131, 75%, 40%, 0.8);
-    color: black;
-    text-decoration: none;
-    -webkit-transition: background-color .25s;
-    transition: background-color .25s;
-  }
-  a:hover {
-    background-color: hsla(131, 75%, 40%, 0.8);
-
-  }
-</style>
 
 # Preface
 

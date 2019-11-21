@@ -9,19 +9,21 @@ import "katex/dist/katex.min.css"
 
 const Content = styled.div`
   margin: 0 auto;
-  max-width: 860px;
+  max-width: 1200px;
   padding: 1.45rem 1.0875rem;
 `
 
 const MarkedHeader = styled.h1`
   display: inline;
   padding: 5px;
-  border-radius: .5em 0 0.5em 0;
+  max-width: 1200px;
+  border-radius: .25em 0 0.25em 0;
+  line-height: 1.5;
   background-image: linear-gradient(
     -100deg,
-    rgba(26, 178, 53, 0.15),
-    rgba(26, 178, 53, 0.8) 100%,
-    rgba(26, 178, 53, 0.25)
+    rgba(26, 224, 204, 0.15),
+    rgba(102, 102, 255, 0.8) 100%,
+    rgba(26, 224, 204, 0.3)
   );
 `
 
@@ -41,12 +43,12 @@ const MarkdownContent = styled.div`
     content: "";
     position: absolute;
     z-index: -1;
-    top: 70%;
+    top: 80%;
     left: -0.1px;
     right: -0.1px;
     bottom: 0;
     transition: top 0.1s ease-in-out;
-    background-color: rgba(26, 178, 53, 0.8);
+    background-color: rgba(102, 102, 255, 0.8);
   }
 
   a:hover::after {
@@ -78,7 +80,6 @@ export const pageQuery = graphql`
         date(formatString: "DD MMMM, YYYY")
         path
         title
-        author
       }
       fields {
         readingTime {

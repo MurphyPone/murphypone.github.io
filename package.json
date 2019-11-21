@@ -1,9 +1,9 @@
 {
-  "name": "intern-blog",
+  "name": "personal-website",
   "private": true,
-  "description": "The Intern blog built with Gatsby",
+  "description": "Peter Murphy's personal website",
   "version": "0.1.0",
-  "author": "Interns",
+  "author": "Peter Murphy",
   "dependencies": {
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.11",
@@ -32,14 +32,15 @@
   },
   "devDependencies": {
     "gh-pages": "^2.0.1",
-    "prettier": "^1.17.1"
+    "prettier": "^1.17.1",
+    "react-social-icons": "^4.1.0"
   },
   "keywords": [
     "gatsby"
   ],
   "license": "MIT",
   "scripts": {
-    "deploy": "gatsby build --prefix-paths && gh-pages -d public",
+    "deploy": "gatsby build && gh-pages -d public",
     "develop": "gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",

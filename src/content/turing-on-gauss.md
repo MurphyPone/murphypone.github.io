@@ -1,30 +1,19 @@
 ---
 title: "Probability Distribution is Pretty Trivial if You Ask Me."
 date: "2019-07-01"
-description: "On Turing's Thoughts on the Gaussian Error Function because I can be big brain too"
-path: "/blog/peter-7"
-author: "Peter M."
+description: "Turing's Thoughts on the Gaussian Error Function because I can be big brain too"
+path: "/blog/turing-on-gauss"
 ---
-<style type='text/css'>
-  a {
-    border-bottom: 1px solid hsla(131, 75%, 40%, 0.8);
-    color: black;
-    text-decoration: none;
-    -webkit-transition: background-color .25s;
-    transition: background-color .25s;
-  }
-  a:hover {
-    background-color: hsla(131, 75%, 40%, 0.8);
 
-  }
-</style>
+## Pre-Preface
+While doing some research on Alan Turing, I stumbled across the [Turing Archive](http://www.turingarchive.org/) which contains a ton of Turing's published and unpublished works.  I had a fair chunk of free time on my hands, so I decided to transcribe some of his notes to a more readable format.  This is unfinished and ongoing.
 
 ## Preface
-The object of this paper is to give a rigorous demonstration of the "limit theorem of the theory of probability".  I had complete the essential part of it by the end of February but when considering published it I was informed that an almost identical proof had been given by Lindeburg.  The only important difference between the two papers is that I have introduced and laid stress on a type of condition which I call quasi-necessary (§ 8).  We have both used the "distribution functions" (§ 2 to describe errors instead of frequency functions (Appendix B) as was usual formerly.  Lindberg also uses (D) if § 12 and theorem 6 or their equivalents.  Since reading Lindeberg's paper I have for obvious reasons made no alterations to that part of the paper which is similar to his (viz. § 9 to § 13), but I have added elsewhere remarks on points of interest and the appendices.  
+The object of this paper is to give a rigorous demonstration of the "limit theorem of the theory of probability".  I had complete the essential part of it by the end of February but when considering published it I was informed that an almost identical proof had been given by Lindeburg.  The only important difference between the two papers is that I have introduced and laid stress on a type of condition which I call quasi-necessary (§ 8).  We have both used the "distribution functions" (§ 2 to describe errors instead of frequency functions (Appendix B) as was usual formerly.  Lindberg also uses (D) if § 12 and theorem 6 or their equivalents.  Since reading Lindeberg's paper I have for obvious reasons made no alterations to that part of the paper which is similar to his (viz. § 9 to § 13), but I have added elsewhere remarks on points of interest and the appendices.
 
-So far as I know the results of § 8 have not been given before.  Many proofs of completeness of the Hermite functions are already available but I believe that that given in Appendix A s original.  The remarks in Appendix B are probably not new.  Appendix C is nothing more than a rigorous deduction of well known facts.  It is only given for the sale of logical completeness and it is of little consequence whether it is original or not.  
+So far as I know the results of § 8 have not been given before.  Many proofs of completeness of the Hermite functions are already available but I believe that that given in Appendix A s original.  The remarks in Appendix B are probably not new.  Appendix C is nothing more than a rigorous deduction of well known facts.  It is only given for the sale of logical completeness and it is of little consequence whether it is original or not.
 
-My paper originated as an attempt to make rigorous the "popular" proof mentioned in Appendix V.  I first met this proof in a course of lectures by Professor BHoag.  Variations of it are given by PR, the "How it's Made" Television show and divining rods.  Beyond this I have not used the work of other or other sources of information in the main body of the paper, except for elementary matter forming part of one's general mathematical education, but in the appendices I may mention Liapounoff's papers which I discuss there.  
+My paper originated as an attempt to make rigorous the "popular" proof mentioned in Appendix V.  I first met this proof in a course of lectures by Professor BHoag.  Variations of it are given by PR, the "How it's Made" Television show and divining rods.  Beyond this I have not used the work of other or other sources of information in the main body of the paper, except for elementary matter forming part of one's general mathematical education, but in the appendices I may mention Liapounoff's papers which I discuss there.
 
 I consider § 9 to § 13 is by far the most important part of this paper, the remainder being comment and elaboration.  At a first reading therefore § 8 and the appendices may be ommitted.
 
@@ -40,7 +29,7 @@ and we should expect this to be true also in more general cases.
 
 This approximation of the total error to the Gaussian form is often given as an explanation of the fact that in general actual errors are distributed according to the Gaussian law.
 
-I propose to give mathematical expression to the statement that the total error is distributed approximately according to the Gaussian law, and to find what conditions must be imposed on the contributing errors for it to be true.  
+I propose to give mathematical expression to the statement that the total error is distributed approximately according to the Gaussian law, and to find what conditions must be imposed on the contributing errors for it to be true.
 
 I shall start by introducing distribution functions of errors and obtaining some elementary properties of errors.  These properties themselves are well known.  I shall not dwell on them.  The proofs I give here are sketchy.  Rigorous proofs are given in Appendix C.
 
@@ -51,7 +40,7 @@ An error $\varepsilon$ is said to have a "distribution function" $\text F$ if th
 
 $\text {F}^{-}(x) \leq \text {F}(x) \leq \text {F}^{+}(x) \space\forall x $
 
-Clearly $\text {F}^{-}$ and $\text {F}^{+}$ are themselves D.Fs for $\varepsilon$, and may be called the lower and upper D.Fs for $\varepsilon$.  
+Clearly $\text {F}^{-}$ and $\text {F}^{+}$ are themselves D.Fs for $\varepsilon$, and may be called the lower and upper D.Fs for $\varepsilon$.
 
 § 3. <u>Means and Mean square deviations (M.S.D)</u>
 
@@ -112,7 +101,7 @@ $\text {W}(x) = \frac 1 {\sqrt{2\pi}} \int_{-\infin}^x e^{-\frac 1 2 t^2} dt$
 
 Then we wish to find under what conditions $\text {U}(x) \rightarrow \text {W}(x)$ uniformly as $n \rightarrow \infin$.  When this is the case we say that $\text F_n$ tends to the Gaussian law."  Any error or D.F. whose S.F. is $\text W$ will be called Gaussian.
 
-Henceforth we shall confine the use of the expression D.F. to those D.Fs which haave finite M.S.D.  Only such D.Fs can come into consideration in the problem as we have formulated it (see § 8).  Also since $\text U_n$ is independent of $a_1,...,a_n$ we may suppose these latter to be all zero.  
+Henceforth we shall confine the use of the expression D.F. to those D.Fs which haave finite M.S.D.  Only such D.Fs can come into consideration in the problem as we have formulated it (see § 8).  Also since $\text U_n$ is independent of $a_1,...,a_n$ we may suppose these latter to be all zero.
 
 
 § 7. <u>Fundamental Property of the Gaussian Error.</u>
