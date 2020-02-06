@@ -5,6 +5,7 @@ description: "A plan, a good team, and lots of lead time!"
 path: "/blog/how-to-run-a-hackathon"
 ---
 
+
 This unofficial guide is intended to serve as a supplemental resource that you can use to improve your hackathon once you have the basics down and are looking for ways to improve.  This is by no means an exhaustive description of the *perfect* hackathon, rather just a collection of tips and techniques I've observed that someone hopefully finds useful👍   
 
 # Table of Contents

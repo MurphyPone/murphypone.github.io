@@ -5,6 +5,7 @@ description: "p5.js"
 path: "/blog/knn-graph"
 ---
 
+
 # What / Why?
 "K-Nearest Neighbors" is a popular algorithm used to find trends in sets of data where they otherwise might not be obvious.  Given n-dimensional data that we can classify into various categories, we can use *KNN* to predict what class an unknown n-dimensional data-point falls into based on its proximity to the nearest K points.  
 ![ins](http://res.cloudinary.com/dyd911kmh/image/upload/f_auto,q_auto:best/v1531424125/KNN_final1_ibdm8a.png)

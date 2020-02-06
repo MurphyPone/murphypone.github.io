@@ -46,14 +46,14 @@ const LandingBio = () => (
       <OuterContainer>
         <Container>
           <NameHeader>{data.site.siteMetadata.title}</NameHeader>
-          <Description style={{color: 'rgb(102, 102, 255)'}}>Projects and <a href="" style={{pointerEvents: "none", cursor: "default", textDecoration: "line-through", color: "rgba(102, 102, 255, 0.8)"}}>shitposts</a> blog</Description>
+          <Description style={{color: 'rgb(102, 102, 255)'}}>Projects and <a style={{pointerEvents: "none", cursor: "default", textDecoration: "line-through", color: "rgba(102, 102, 255, 0.8)"}}>shitposts</a> blog</Description>
           <p>//TODO Create project card component</p>
           <p>Because I promise I have worthwhile code to look at maybe¿</p>
         </Container>
       </OuterContainer>
     )}
   />
-)
+) 
 
 NameHeader.propTypes = {
   siteTitle: PropTypes.string,

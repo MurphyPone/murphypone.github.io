@@ -5,6 +5,7 @@ description: "Python, Visdom"
 path: "/blog/fibonacci-fun"
 ---
 
+
 # What / Why?
 In this article we're going to take a look at a fascinating relationship between Fibonacci numbers and unit conversion while also learning some Python tools along the way.
 

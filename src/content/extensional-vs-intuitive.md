@@ -5,6 +5,7 @@ description: "A Summary of a Summary of a Summary"
 path: "/blog/extensional-vs-intuitive"
 ---
 
+
 ## Preface
 This article contains my summary of Daniels summary of Tversky and Kahneman's summary of the fallacy of extensionalism.
 
