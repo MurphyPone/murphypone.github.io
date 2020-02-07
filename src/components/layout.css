@@ -453,7 +453,7 @@ noscript {
   padding-top: 0;
   margin-bottom: 1.45rem;
 }
-iframe {
+/* iframe {
   margin-left: 0;
   margin-right: 0;
   margin-top: 0;
@@ -461,8 +461,27 @@ iframe {
   padding-left: 0;
   padding-right: 0;
   padding-top: 0;
-  margin-bottom: 1.45rem;
-}
+  margin-bottom: 1.45rem; 
+} */
+
+iframe {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+  border-radius: 12px;
+  -moz-box-shadow: 2px 2px 12px #000;
+  -webkit-box-shadow: 2px 2px 12px #000;
+  box-shadow: 2px 2px 12px #000;
+  /* Just to geek
+  box-shadow: 4px 4px 14px #000;
+  -moz-transform:rotate(20deg);
+  -webkit-transform:rotate(20deg);
+  -o-transform:rotate(20deg);
+  -ms-transform:rotate(20deg);
+  filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=.2); */
+  } 
+  
 hr {
   margin-left: 0;
   margin-right: 0;
@@ -623,3 +642,56 @@ pre tt:after {
     font-size: 100%;
   }
 }
+
+@media (max-width:600px) {
+  html {
+    font-size: 70%;
+  }
+}
+
+@media (max-width:800px) {
+  html {
+    font-size: 80%;
+  }
+}
+
+@media (max-width:1000px) {
+  html {
+    /* Never get larger than this */
+    font-size: 90%;
+  }
+}
+
+
+
+/* CUSTOM LABELS FOR IMG GALLERY */
+.trigger {
+  width: 100%;
+  height: auto;
+}
+
+.trigger:hover #image {
+  width: 95%;
+}
+
+.trigger:hover #lbl {
+  display: block;
+}
+
+#image {
+  width: 100%;
+  height: auto;
+  transition: width .5s;
+  /* transition: all .5s ease-in-out; */
+  align-self: center;
+  display: block;
+  margin: 0 auto;
+}
+
+#lbl {
+  display: none;
+  text-align: center;
+  margin: 10px;
+  font-size: 20px;
+}
+
