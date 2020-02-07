@@ -27,22 +27,22 @@ const IndexPage = () => (
       <Col>
       <Head>Cover Art</Head>
         <div class="trigger">
-          <img id="image" src="static/gallery/Where I Stay.png" alt="where i stay"/>
+          <img id="image" src="static/gallery/thumbnails/thumb_Where I Stay.png" alt="where i stay"/>
           <a id="lbl">Where I Stay v3</a>
         </div>
         <br/>
         <div class="trigger">
-          <img id="image" src="static/gallery/faceTongue400.png" alt="face"/>
+          <img id="image" src="static/gallery/thumbnails/thumb_faceTongue400.png" alt="face"/>
           <a id="lbl">HEF</a>
         </div>
         <br/>
         <div class="trigger">
-          <img id="image" src="static/gallery/Masonic Views Fade.png" alt="masonic"/>
+          <img id="image" src="static/gallery/thumbnails/thumb_Masonic Views Fade.png" alt="masonic"/>
           <a id="lbl">Masonic Views</a>
         </div>
         <br/>
         <div class="trigger">
-          <img id="image" src="static/gallery/riptide.png" alt="riptide"/>
+          <img id="image" src="static/gallery/thumbnails/thumb_riptide.png" alt="riptide"/>
           <a id="lbl">Riptide</a>
         </div>
       </Col>
@@ -50,59 +50,59 @@ const IndexPage = () => (
       <Col>
         <Head>Doodles, Tattoos</Head>
         <div class="trigger">
-          <img id="image" src="static/gallery/Smoking Man.png"/>
+          <img id="image" src="static/gallery/thumbnails/thumb_Smoking Man.png"/>
           <a id="lbl">Smoking Man</a>
         </div>
         <br/>
         <div class="trigger">
-          <img id="image" src="static/gallery/smoking hand.png"/>
+          <img id="image" src="static/gallery/thumbnails/thumb_smoking hand.png"/>
           <a id="lbl">Troll w/Marlboro</a>
         </div>
         <br/>
         <div class="trigger">
-          <img id="image" src="static/gallery/abstract triangles.png" alt="triangles"/>
+          <img id="image" src="static/gallery/thumbnails/thumb_abstract triangles.png" alt="triangles"/>
           <a id="lbl">Trapped in a Burning House Video</a>
         </div>
         <br/>
         <div class="trigger">
-          <img id="image" src="static/gallery/mountainglobe.png" alt="globe"/>
+          <img id="image" src="static/gallery/thumbnails/thumb_mountainglobe.png" alt="globe"/>
           <a id="lbl">Mountain Globe</a>
         </div>
         <br/>
         <div class="trigger">
-          <img id="image" src="static/gallery/Moon.png" alt="moon"/>
+          <img id="image" src="static/gallery/thumbnails/thumb_Moon.png" alt="moon"/>
           <a id="lbl">Moonset</a>
         </div>
         <br/>
         <div class="trigger">
-          <img id="image" src="static/gallery/Ricardo's EYE.png" alt="eye"/>
+          <img id="image" src="static/gallery/thumbnails/thumb_Ricardo's EYE.png" alt="eye"/>
           <a id="lbl">Ricardo Avolo</a>
         </div>
         <br/>
         <div class="trigger">
-          <img id="image" src="static/gallery/macmiller.png" alt="swimming"/>
+          <img id="image" src="static/gallery/thumbnails/thumb_macmiller.png" alt="swimming"/>
           <a id="lbl">Swimming</a>
         </div>
       </Col>
       <Col>
         <Head>Commissions</Head>
         <div class="trigger">
-            <img id="image" src="static/gallery/ethanslogo.png"/>
+            <img id="image" src="static/gallery/thumbnails/thumb_ethanslogo.png"/>
             <a id="lbl">Cthulu</a>
           </div>
           <br/>
           <div class="trigger">
-            <img id="image" src="static/gallery/rap dog.png" />
+            <img id="image" src="static/gallery/full/rap dog.png" />
             <a id="lbl">Just bad a pun</a>
           </div>
           <br/>
           <div class="trigger">
-            <img id="image" src="static/gallery/Buzzsaw.png" />
+            <img id="image" src="static/gallery/thumbnails/thumb_Buzzsaw.png" />
             <a id="lbl">Borderlands 2: Kreig's buzzsaw</a>
           </div> 
           <br/>
           <div class="trigger"> 
-            <img id="image" src="static/gallery/Lillith.png" />
+            <img id="image" src="static/gallery/thumbnails/thumb_Lillith.png" />
             <a id="lbl">Borderlands 2: Lillith</a>
           </div>
           <br/>
