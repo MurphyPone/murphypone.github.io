@@ -86,7 +86,7 @@ const LandingBio = () => (
         </Container>
         <GridContainer>
             <ProjectCard style={{ backgroundImage: 'url("/static/images/AECOM.png")', backgroundSize: "40%", backgroundPositionY: "10%"}}><ProjectTitle href="https://github.com/MurphyPone/AECOM-CallTracker" target="_blank"  style={{color: "black"}}>Call Tracker</ProjectTitle></ProjectCard>          
-            <ProjectCard style={{ backgroundImage: 'url("/static/images/ML.png")', paddingTop: "15%"}}><ProjectTitle href="https://github.com/MurphyPone/MLPytorchWork" target="_blank" style={{color: "black"}}>Machine Learning with PyTorch</ProjectTitle></ProjectCard>          
+            <ProjectCard style={{ backgroundImage: 'url("/static/images/ML.png")', paddingTop: "15%"}}><ProjectTitle href="https://github.com/MurphyPone/PyTorch-basics" target="_blank" style={{color: "black"}}>Machine Learning with PyTorch</ProjectTitle></ProjectCard>          
             <ProjectCard style={{ backgroundImage: 'url("/static/images/love.png")', backgroundSize: "20%", backgroundPositionY: "10%", paddingTop: "25%"}}><ProjectTitle href="https://github.com/MurphyPone/LUA-Love2D" target="_blank" style={{color: "black", fontSize: "1.2em"}}>Lua/LÖVE Projects</ProjectTitle></ProjectCard>     
 
             <ProjectCard style={{ backgroundImage: 'url("/static/images/katacoda.png")', backgroundSize: "30%", backgroundPositionY: "10%", paddingTop: "25%"}}><ProjectTitle href="https://www.katacoda.com/petersmurphy7" target="_blank" style={{color: "black", fontSize: "1.2em"}}>Grey Matter/Katacoda</ProjectTitle></ProjectCard>     
