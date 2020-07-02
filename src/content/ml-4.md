@@ -36,6 +36,8 @@ path: "/blog/ml-4"
     - [3.6 Markov Decision Processes](#ch3.6)
     - [3.7 Value Functions](#ch3.7)
     - [3.8 Optimal Value Functions](#ch3.8)
+    - [3.9 Optimality and Approximation](#ch3.9)
+    - [3.10 Summary](#ch3.10)
 
 # <a name="intro" class="n"></a> Introduction
 
@@ -483,4 +485,51 @@ $q^*(s,a) = \max \limits_{\pi} q_\pi(s,a) \quad \forall s,a \in \mathcal {S, A(s
 
 > This function gives the expected return for taking action $a$ in state $s$ and thereafter following an optimal policy. Thus, we can write $q^*$ in terms of $v^*$:
 
-$q^*(s,a) = \mathbb E [R_{t+1} + \gamma v^*(S_{t+1} | S_t =a, A_t =a)$.
+$q^*(s,a) = \mathbb E [R_{t+1} + \gamma v^*(S_{t+1} | S_t =a, A_t =a)]$.
+
+> Because $v^*$ is the value function for a policy, it must satisfy the self-consistency condition given by the Bellman equation for state values. The _Bellman optimality equation_ expresses the fact that the vlaue of a state under an optimal policy must equal the expected return for the best action from that state:
+
+$$
+\begin{aligned}
+    v^*(s) &= \max \limits_{a \in \mathcal{A(s)}} \mathbb{E}_{\pi^*} [ G_t | S_t = s, A_t = a] \\
+    &= \max \limits_{a \in \mathcal{A(s)}} \mathbb{E}_{\pi^*} \Bigg[ \displaystyle\sum_{k=0}^\infty \gamma^k R_{t+k+1} \Bigg | St_t = s, A_t = a \Bigg] \\
+    
+    &= \max \limits_{a \in \mathcal{A(s)}} \mathbb{E}_{\pi^*} \Bigg[ R_{t+1} + \gamma  \displaystyle\sum_{k=0}^\infty \gamma^k R_{t+k+2} \Bigg | St_t = s, A_t = a \Bigg] \\
+    
+    &= \max \limits_{a} \mathbb{E} [R+{t+1} + \gamma v^*(S_{t+1}) | S_t = s, A_t = a] \\
+
+    &= \max \limits_{a \in \mathcal{A(s)}} \displaystyle\sum_{s', r} p(s', r | s, a)[r + \gamma v^*(s')]
+
+\end{aligned}
+$$
+
+Similarly, the Bellman optimality equation for $q^*$ is:
+
+$$
+\begin{aligned}
+    q^*(s,a ) &= \mathbb E \Big[ R_{t+1} + \gamma \max \limits_{a'} q^*(S_{t+1}, a') \Big | S_t=s, A_t = a \Big] \\
+    &= \displaystyle\sum_{s', r} p(s', r |s, a)[r + \gamma \max \limits_{a'} q^*(s', a')].
+\end{aligned}
+$$
+
+For finite MDPs, the Bellman optimality equation has a unique solution independent of policy. It can be expanded to a system of equations, one for each of the $N$ states, implying $N$ equations in $N$ unknowns.
+
+## <a name="ch3.9" class="n"></a> 3.9 Optimality and Approximation
+
+The fact of the matter is that an agent rarely learns the optimal policy, only at the expense of extreme computation cost.  
+
+> even if we have a complete and accurate model of the environment’s dynamics, it is usually not possible to simply compute an optimal policy by solving the Bellman optimality equation. E.g. Chess where an agent's information is perfect and complete, but the computation cost for look ahead past a few time steps is far too large. Memory is also a constraint when building up approximations of value functions, policies, and models..
+
+> However, it also presents us with some unique opportunities for achieving useful approximations. For example, in approximating optimal behavior, there may be many states that the agent faces with such a low probability that selecting suboptimal actions for them has little impact on the amount of reward the agent receives.
+
+## <a name="ch3.10" class="n"></a> 3.10 Summary
+
+The RL agent and its environment interact over a sequence of discrete time steps, via actions taken in states, earning rewards.
+
+A policy is a stochastic rule by which the agent selects actions as a function of states geared towards maximizing rewards over time.
+
+The return is the function of future rewards that the agent seeks to maximize. Undiscounted formulation is approprieate for episodic tasks, otherwise –in continuing taksks–, it is necessary for convergence.
+
+An environment satisfies the Markov property if the state signal summarizes the past with the ability to predict the future.  
+
+A policy's value functions assign to each state, or state-action pair, the expected return from that state or state-action pair under the given policy. Optimal value functions assign to each state or state-action pair the largest expected return achievable under the policy.
