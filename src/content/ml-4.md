@@ -28,9 +28,14 @@ path: "/blog/ml-4"
     - [2.8 Associate Search (Contextual Bandits)](#ch2.8)
     - [2.9 Summary](#ch2.9)
 - [Chapter 3: Finite Markov Decision Processes](#ch3)
-    - [3.1 The Agent-Environment Interface](#3.1)
-    - [3.2 Goals and Rewards](#3.2)
-    - [3.3 Returns](#3.3)
+    - [3.1 The Agent-Environment Interface](#ch3.1)
+    - [3.2 Goals and Rewards](#ch3.2)
+    - [3.3 Returns](#ch3.3)
+    - [3.4 Unifed Notation for Episodic and Continuing Tasks](#ch3.4)
+    - [3.5 The Markov Property](#ch3.5)
+    - [3.6 Markov Decision Processes](#ch3.6)
+    - [3.7 Value Functions](#ch3.7)
+    - [3.8 Optimal Value Functions](#ch3.8)
 
 # <a name="intro" class="n"></a> Introduction
 
@@ -391,3 +396,91 @@ In RL, the goal of the agent is formalized in terms of the reward function, wher
 How do we formalize cumulative reward for maximization? If the sequence of rewards awarded after time step $t$ is deonted $R_{t+1}, R_{t+2}, R_{t+3}, ...$, then we can maximize the expected return $G_t = R_{t+1} + R_{t+2} + ... + R_T$, where $T$ is the final time step. This works for envornments with terminal states at the end of each episode followed by a reset to a standard starting state.  
 
 > In episodic tasks we sometimes need to distinguish the set of all nonterminal states, denoted $\mathcal S$, from the set of all states plus the terminal state, denoted $\mathcal S^+$.
+
+In some cases, agent-environment interaction is not episodically divided; rather it is continuous and without limit.  In these cases, it's unsuitable to use $G_t$ as presented above as $T = \infty$, and return itself could be infinite (e.g. cart-pole).  To fix this issue, we use _discounting_ so that the agent tries to maxmimize the sum of discounted rewards ad-infinitum:
+
+$G_t = R_{t+1} + \gamma R_{t+2} + \gamma R_{t+3} + ... = \displaystyle\sum^\infty_{k=0} \gamma ^k R_{t+k+1}$ where $ 0 \leq \gamma \leq 1$, and is called the discount rate. 
+
+Gamma controls how near/faresighted the agent is.
+
+> If $\gamma < 1$, the infinite sum has a finite value as long as the reward sequence $\{R_k\}$ is bounded. If $\gamma = 1$, the agent is “myopic” in being concerned only with maximizing immediate rewards: its objective in this case is to learn how to choose $A_t$ so as to maximize only $R_{t+1}$. 
+
+## <a name="ch3.4" class="n"></a> 3.4 Unifed Notation for Episodic and Continuing Tasks
+
+$\{A, R, \pi, T, etc.\}_{t,i}$ refer to the the representation of a variable at time $t$ of episode $i$.  Additionally, the sum over a finite and infinite number of terms can be unified by considering the terminal step to be an _absorbing state_ which transition only to itself and generates zero reward.
+
+So, $G_t = \displaystyle\sum^{T-t-1}_{k=0} \gamma ^k R_{t+k+1}$ which includes the possibility of $T = \infty$ or $\gamma = 1$, but not both.
+
+## <a name="ch3.5" class="n"></a> 3.5 The Markov Property
+
+> Certainly the state signal should include immediate sensations such as sensory measurements, but it can contain much more than that. State representations can be highly processed versions of original sensations, or they can be complex structures built up over time from the sequence of sensations ... On the other hand, the state signal should not be expected to inform the agent of everything about the environment, or even everything that would be useful to it in making decisions. 
+
+A state signal that succeeds in retaining all relevant information is said to be _Markov_, meaning that it summarizes everything about the complete sequence of positions (transition dynamics: SARSA) that led to it.
+
+In the most general, discrete case, the necessary response may depend on everything that has happened earlier and can be definied as the complete probablity distribution: 
+
+$P(R_{t+1} = r, S_{t+1} = s' | S_0, A_0, R_1, ... , S_{t-1}, A_{t-1}, R_t, S_t, A_t)$
+
+If a state signal is _Markov_, i.e. the environment's response depends only on the state and action representations of the current time step, then the dynamics can be defined by: $(s', r | s, a)$. This, in turn, allows the agent to predict all future states and expected rewards from merely the given state.
+
+Even if a state is _non-Markov_, it is useful to treat it as such, as the current state is always the fundemental basis for predicting future rewards which influence action selection.
+
+> The inability to have access to a perfect Markov state representation is probably not a severe problem for a reinforcement learning agent.
+
+## <a name="ch3.6" class="n"></a> 3.6 Markov Decision Processes
+
+An RL task that satisfies the MArov property is called an _MDP_.  If the state and action spaces are finite, then it is call a _finite MDP_.
+
+Given the dynamics specified by $p(s', r | s, a)$, the agent can computer anything else it needs to know about the environment:
+
+- Expected rewards for state-action pairs: 
+
+ $\qquad \qquad r(s,a) = \mathbb{E}[R_{t+1} | S_t=s, A_t=a] = \displaystyle\sum_{r \in \mathcal{R}}r \displaystyle\sum_{s' \in \mathcal{S}} p(s', r | s, a)$,
+
+- State-transition probabilities: 
+
+$\qquad \qquad p(s' | s, a) = \displaystyle\sum_{r \in \mathcal{R}} p(s', r| s, a)$
+
+- Expected reward for the state-action-next triples: 
+
+$\qquad \qquad r(s, a, s') = \mathbb{E}[R_{t+1} | S_t=s, A_t=a, S_{t+1} = s'] = \frac{\sum_{r \in \mathcal{R}}r p (s', r | s, a)}{p(s' | s, a)}$
+
+## <a name="ch3.7" class="n"></a> 3.7 Value Functions
+
+A Value function estimates _how good_ it is to be in a given state, or how good it is to perform a given action in a given state, defined in terms of expected reward.  The value of a state $s$ under a policy $\pi$: $v_\pi(s)$, is the expected return when starting in s, and following pi thereafter. More formally:
+
+$v_\pi(s) = \mathbb{E} [G_t | S_t = s] = \mathbb{E}_\pi \Bigg[ \displaystyle\sum_{k=0}^\infty \gamma^k R_{t+k+1} \Big \vert S_t = s \Bigg]$.  
+
+Similarly, the value of taking action $a$ in state $s$ under policy $\pi$, denoted $q_\pi(s,a)$ is defined the expected return starting from $s$, taking action $a$, and therefter following $\pi$: 
+
+$q_\pi(s,a) = \mathbb{E} [G_t | S_t = s, A_t = a] = \mathbb{E}_\pi \Bigg[ \displaystyle\sum_{k=0}^\infty \gamma^k R_{t+k+1} \Big \vert S_t = s, A_t = a \Bigg ]$.  
+
+$q_\pi$ is call the action-value (quality) function for policy $\pi$.  Both of these functions can be estimated with sufficient experience.  Estimation of $q_\pi, v_\pi$ as the number of times each state is encountered approaches infinity is called a _Monte Carlo method_ and involve averaging over many random samples of actual returns.
+
+> For any policy π and any state s, the following consistency condition holds between the value of s and the value of its possible successor states:
+
+$$
+\begin{aligned}
+    v_\pi(s) &=  \mathbb{E} [G_t | S_t = s] \\
+    &= \mathbb{E}_\pi \Bigg[ \displaystyle\sum_{k=0}^\infty \gamma^k R_{t+k+1} \Big \vert S_t = s \Bigg] \\
+    &= \mathbb{E}_\pi \Bigg[ R_{t+1} + \gamma \displaystyle\sum_{k=0}^\infty \gamma^k R_{t+k+2}  \Big \vert S_t = s \Bigg] \\
+    &= \displaystyle\sum_a \pi(a | s) \displaystyle\sum_{s'} \displaystyle\sum_{r} p(s', r, | s, a) \Bigg[r + \gamma \mathbb{E} \Bigg[ \displaystyle\sum_{k=0}^\infty \gamma^k R_{t+k+2} \Big | S_{t+1}=s' \Bigg] \Bigg] \\
+    &= \displaystyle\sum_a \pi(a | s) \displaystyle\sum_{s',r} p(s', r |s, a) \Big[r + \gamma v_\pi(s') \Big], 
+\end{aligned}
+$$
+
+> [Which is ~simply~] a sum over all values of the three variables, $a, s', r$. For each triple, we compute its probability, $\pi(a|s)p(s', r|s, a)$, weight the quantity in brackets bythat probability, then sum over all possibilities to get an expected value.  This is the Bellman equation with $v_\pi$ as the solution.
+
+## <a name="ch3.8" class="n"></a> 3.8 Optimal Value Functions
+
+Because value functions define a partial ordering over policies, we can precisely define the optimal policy for a finite MDP.  A policy is defined to be better than or equal to a policy $\pi'$ if its expected return is greater than or equal to that of $\pi'$ for all states: $\pi \geq \pi' \iff v_\pi(s) \geq v_{\pi'} \quad \forall s \in \mathcal S$.  The optimal policy $\pi^*$ is one (or more) policies that is better than or equal to all other policies and is defined by:
+
+$v^*(s) = \max \limits_{\pi} v_\pi(s) \quad \forall s \in \mathcal S$
+
+Optimal policies also share the same optimal quality function: 
+
+$q^*(s,a) = \max \limits_{\pi} q_\pi(s,a) \quad \forall s,a \in \mathcal {S, A(s)}$
+
+> This function gives the expected return for taking action $a$ in state $s$ and thereafter following an optimal policy. Thus, we can write $q^*$ in terms of $v^*$:
+
+$q^*(s,a) = \mathbb E [R_{t+1} + \gamma v^*(S_{t+1} | S_t =a, A_t =a)$.
