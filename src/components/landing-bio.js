@@ -85,16 +85,16 @@ const LandingBio = () => (
           <Description style={{color: 'rgb(102, 102, 255)'}}>Projects and <a href="" style={{pointerEvents: "none", cursor: "default", textDecoration: "line-through", color: "rgba(102, 102, 255, 0.8)"}}>shitposts</a> blog</Description>
         </Container>
         <GridContainer>
-            <ProjectCard style={{ backgroundImage: 'url("/static/images/AECOM.png")', backgroundSize: "40%", backgroundPositionY: "10%"}}><ProjectTitle href="https://github.com/MurphyPone/AECOM-CallTracker" target="_blank"  style={{color: "black"}}>Call Tracker</ProjectTitle></ProjectCard>          
-            <ProjectCard style={{ backgroundImage: 'url("/static/images/ML.png")', paddingTop: "15%"}}><ProjectTitle href="https://github.com/MurphyPone/PyTorch-basics" target="_blank" style={{color: "black"}}>Machine Learning with PyTorch</ProjectTitle></ProjectCard>          
-            <ProjectCard style={{ backgroundImage: 'url("/static/images/love.png")', backgroundSize: "20%", backgroundPositionY: "10%", paddingTop: "25%"}}><ProjectTitle href="https://github.com/MurphyPone/LUA-Love2D" target="_blank" style={{color: "black", fontSize: "1.2em"}}>Lua/LÖVE Projects</ProjectTitle></ProjectCard>     
+            <ProjectCard style={{ backgroundImage: 'url("/images/AECOM.png")', backgroundSize: "40%", backgroundPositionY: "10%"}}><ProjectTitle href="https://github.com/MurphyPone/AECOM-CallTracker" target="_blank"  style={{color: "black"}}>Call Tracker</ProjectTitle></ProjectCard>          
+            <ProjectCard style={{ backgroundImage: 'url("/images/ML.png")', paddingTop: "15%"}}><ProjectTitle href="https://github.com/MurphyPone/PyTorch-basics" target="_blank" style={{color: "black"}}>Machine Learning with PyTorch</ProjectTitle></ProjectCard>          
+            <ProjectCard style={{ backgroundImage: 'url("/images/love.png")', backgroundSize: "20%", backgroundPositionY: "10%", paddingTop: "25%"}}><ProjectTitle href="https://github.com/MurphyPone/LUA-Love2D" target="_blank" style={{color: "black", fontSize: "1.2em"}}>Lua/LÖVE Projects</ProjectTitle></ProjectCard>     
 
-            <ProjectCard style={{ backgroundImage: 'url("/static/images/katacoda.png")', backgroundSize: "30%", backgroundPositionY: "10%", paddingTop: "25%"}}><ProjectTitle href="https://www.katacoda.com/petersmurphy7" target="_blank" style={{color: "black", fontSize: "1.2em"}}>Grey Matter/Katacoda</ProjectTitle></ProjectCard>     
+            <ProjectCard style={{ backgroundImage: 'url("/images/katacoda.png")', backgroundSize: "30%", backgroundPositionY: "10%", paddingTop: "25%"}}><ProjectTitle href="https://www.katacoda.com/petersmurphy7" target="_blank" style={{color: "black", fontSize: "1.2em"}}>Grey Matter/Katacoda</ProjectTitle></ProjectCard>     
             <ProjectCard>Project y</ProjectCard>
             <ProjectCard>Project z</ProjectCard>
 
-            <a href="https://vthacks.com" target="_blank"><ProjectCard style={{ backgroundImage: 'url("/static/images/vthacks.png")'}}></ProjectCard></a>
-            <a href="https://hackbi.org" target="_blank"><ProjectCard style={{ backgroundImage: 'url("/static/images/hackbi.png")'}}></ProjectCard></a>
+            <a href="https://vthacks.com" target="_blank"><ProjectCard style={{ backgroundImage: 'url("/images/vthacks.png")'}}></ProjectCard></a>
+            <a href="https://hackbi.org" target="_blank"><ProjectCard style={{ backgroundImage: 'url("/images/hackbi.png")'}}></ProjectCard></a>
             <ProjectCard>MLH</ProjectCard>
           </GridContainer>
       </OuterContainer>
