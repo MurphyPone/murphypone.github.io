@@ -27,8 +27,10 @@ path: "/blog/ml-4"
     - [2.7 Gradient Bandits](#ch2.7)
     - [2.8 Associate Search (Contextual Bandits)](#ch2.8)
     - [2.9 Summary](#ch2.9)
-
-
+- [Chapter 3: Finite Markov Decision Processes](#ch3)
+    - [3.1 The Agent-Environment Interface](#3.1)
+    - [3.2 Goals and Rewards](#3.2)
+    - [3.3 Returns](#3.3)
 
 # <a name="intro" class="n"></a> Introduction
 
@@ -363,3 +365,29 @@ manner using a soft-max distribution.
 While UCB appears to perform best in the $n$-bandit scenario, also note that each of the algorithms are fairly insensitive to their relevant hyperparemters. Further sophisticated means of balancing the exploration-exploitation conflict are discussed here.
 
 [Source Code](https://github.com/MurphyPone/Sutton-Barto-Bhoag/tree/master/CH2-Multi-Armed-Bandits)
+
+---
+
+# <a name="ch3" class="n"></a> Chapter 3: Finite Markov Decision Processes
+
+This chapter broadly characterizes the RL problem, presenting the idealized mathematical representation therein. Gathering insights from the mathematical structure, they introduce discussion of value functions and Bellman equations.
+
+## <a name="ch3.1" class="n"></a> 3.1 The Agent-Environment Interface
+
+> The learner and decision-maker is called the agent. The thing it interacts with, comprising everything outside the agent, is called the environment. These interact continually, the agent selecting actions and the environment responding to those actions and presenting new situations to the agent.
+
+The agent interacts with the environment at each of the the discrete time steps, $t = 0,1,2,3,...$, with the agent receiving some representation of the environment's state $S_t \in \mathcal{S}$, where $\mathcal S$ is the set of possible states, and on that basis selects an action $A_t \in \mathcal{A}(S_t)$, where $\mathcal{A}(S_t)$ is the set of actions available in state $S_t$. After each action is taken (that is, 1 time step later), the agent receives reward $R_{t+1} \in \mathcal{R} \subset \mathbb{R}$, and enters $S_{t+1}$.
+
+At each step, the agent develops its mapping from states to probabilities of selection each available action called it's _policy_ $\pi_t(a | s)$, (where $A_t = a, S_t = s$), which represents a flexible and abstract framework that can be applied to a wide range of problems.
+
+>  the boundary between agent and environment is not often the same as the physical boundary of a robot’s or animal’s body. Usually, the boundary is drawn closer to the agent than that ... The general rule we follow is that anything that cannot be changed arbitrarily by the agent is considered to be outside of it and thus part of its environment. 
+
+## <a name="ch3.2" class="n"></a> 3.2 Goals and Rewards
+
+In RL, the goal of the agent is formalized in terms of the reward function, where it attempts to maximize cumulative reward in the long run.  It it critical to model success in such a way that indicates what we want to be accomplished: _what_ not _how_. Rewards are computed in/by the environment, not the agent. This is important to maintain imperfect control so that the agent _has_ to meaningfully interact with the environment rather than simply confer reward upon itself.
+
+## <a name="ch3.3" class="n"></a> 3.3 Returns
+
+How do we formalize cumulative reward for maximization? If the sequence of rewards awarded after time step $t$ is deonted $R_{t+1}, R_{t+2}, R_{t+3}, ...$, then we can maximize the expected return $G_t = R_{t+1} + R_{t+2} + ... + R_T$, where $T$ is the final time step. This works for envornments with terminal states at the end of each episode followed by a reset to a standard starting state.  
+
+> In episodic tasks we sometimes need to distinguish the set of all nonterminal states, denoted $\mathcal S$, from the set of all states plus the terminal state, denoted $\mathcal S^+$.

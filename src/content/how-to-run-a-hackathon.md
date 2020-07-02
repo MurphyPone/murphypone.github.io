@@ -110,33 +110,34 @@ It's worth noting that these efforts should begin at least one fiscal quarter pr
 
 
 ## Template Sponsorship Email
-  >Hi `#CONTACT_NAME`,
 
+>Hi `#CONTACT_NAME`,
+>
 >**[[If a sponsor from a previous year]]**
-
+>
 >Firstly, the `$EVENT_NAME` team would like to thank `$COMPANY_NAME` for their generous contributions towards making `$EVENT_NAME` successful in the past. We are back this year with a great team and new ideas, and we would love to have you and your company `$COMPANY_NAME`, be a part of it!  
-
->**[[Else]]**
-
+>
+> **[[Else]]**
+>
 >Are you interested in growing your brand recognition and finding talented students who will enhance your company? My name is `$NAME` and I’m a student at `$SCHOOL` helping to organize `$EVENT_NAME`, our `$X`th annual hackathon. For `$DURATION` hours, approximately `$LOWER_BOUND` to `$LOWER_BOUND` innovators from colleges across the `$REGION` will develop hardware and software solutions to problems they identify within their community. Hackathons are a great way to increase company presence on our campus and provide the opportunity to talk to motivated students majoring in Computer Science, Computer Engineering, `$FIELDS_THAT_INTEREST_COMPANY`, and more!
-
+>
 >`<Insert tagline about why company would be a great fit for your event>`
-
+>
 >We look forward to working with you to meet your recruiting objects <and introducing X service Company is releasing if relevant OR integrating your products into our event -- This last line in general should be personalized>.  
-
+>
 >Feel free to checkout our website:`$WEBSITE`, and please let us know if you have any questions.
-
+>
 >Thank you,
-
+>
 >`$NAME`
-
+>
 >`$EVENT` Sponsorship Team
-
 
 
 <a name="opening"></a>
 ![speech](https://i.imgur.com/vcfklte.jpg)
-##Opening/Closing Ceremony
+
+## Opening/Closing Ceremony
  - Open with your mission/goals for the participants over the weekend, not logistics – this is your chance to get the participants fired up!
  - Close with logistics (they're still important)
  - Make sure all other speakers know the line-up and have been familiarized with you A/V system to avoid hiccups
