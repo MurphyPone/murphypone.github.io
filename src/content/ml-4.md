@@ -38,6 +38,12 @@ path: "/blog/ml-4"
     - [3.8 Optimal Value Functions](#ch3.8)
     - [3.9 Optimality and Approximation](#ch3.9)
     - [3.10 Summary](#ch3.10)
+- [Chapter 4: Dynamic Programming](#ch4)
+    - [4.1 Policy Evaluation](#ch4.1)
+    - [4.2 Policy Improvement](#ch4.2)
+    - [4.3 Policy Iteration](#ch4.3)
+
+
 
 # <a name="intro" class="n"></a> Introduction
 
@@ -496,7 +502,7 @@ $$
     
     &= \max \limits_{a \in \mathcal{A(s)}} \mathbb{E}_{\pi^*} \Bigg[ R_{t+1} + \gamma  \displaystyle\sum_{k=0}^\infty \gamma^k R_{t+k+2} \Bigg | St_t = s, A_t = a \Bigg] \\
     
-    &= \max \limits_{a} \mathbb{E} [R+{t+1} + \gamma v^*(S_{t+1}) | S_t = s, A_t = a] \\
+    &= \max \limits_{a} \mathbb{E} [R_{t+1} + \gamma v^*(S_{t+1}) | S_t = s, A_t = a] \\
 
     &= \max \limits_{a \in \mathcal{A(s)}} \displaystyle\sum_{s', r} p(s', r | s, a)[r + \gamma v^*(s')]
 
@@ -533,3 +539,129 @@ The return is the function of future rewards that the agent seeks to maximize. U
 An environment satisfies the Markov property if the state signal summarizes the past with the ability to predict the future.  
 
 A policy's value functions assign to each state, or state-action pair, the expected return from that state or state-action pair under the given policy. Optimal value functions assign to each state or state-action pair the largest expected return achievable under the policy.
+
+# <a name="ch4" class="n"></a> Chapter 4: Dynamic Programming
+
+> Dynamic Programming (DP) referese to a collection of algorithms that can be used to compute optimal policies given a perfect model of the environment as an MDP. Classical DP algorithms are limited in their utility due to their assumption of perfect models and therefore computational expense, but they still offer theoretical value.
+
+Assume the environment is a finite MDP, that state, action, and reward sets are finite and defined by $p(s', r |s, a) \quad \forall s, a, r, s' \in \mathcal{S, A(s), R, S^+}$
+
+The key idea of DP is to use value functions to organize and structure the search for good, optimal policies. As mentioned in chapter 3, optimal policies can be easily attained once either $v^*, q^*$ are known: 
+
+$$
+\begin{aligned}
+    v^*(s) &= \max \limits_{a} \mathbb{E} [R_{t+1} + \gamma v^*(S_{t+1}) | S_t = s, A_t = a] \\
+    &= \max \limits_{a} \displaystyle\sum_{s', r} p(s', r | s, a)[r + \gamma v^*(s')] \\
+\end{aligned}
+$$
+
+or
+
+$$
+\begin{aligned}
+    q^*(s,a ) &= \mathbb E \Big[ R_{t+1} + \gamma \max \limits_{a'} q^*(S_{t+1}, a') \Big | S_t=s, A_t = a \Big] \\
+    &= \displaystyle\sum_{s', r} p(s', r |s, a)[r + \gamma \max \limits_{a'} q^*(s', a')].
+\end{aligned}
+$$
+
+## <a name="ch4.1" class="n"></a> 4.1 Policy Evaluation
+
+First, in order to compute the state-value function $v_\pi$ for and arbitrary policy, we refere to the _prediction_ problem mentioned in chapter 3, $\forall s \in \mathcal S$:
+
+$$
+\begin{aligned}
+    v_\pi(s) &= \mathbb{E}_\pi [R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + ... | S_t = s] \\
+    &= \mathbb{E}_\pi [R_{t+1} + \gamma v_\pi(S_{t+1}) | S_t = s] \\
+    &= \displaystyle\sum_{a} \pi(a | s) \displaystyle\sum_{s', r} p(s', r |s, a)[r + \gamma v_\pi (s')]
+\end{aligned}
+$$
+
+Where the existence of $v_\pi$ is guaranteed by either $\gamma < 1$ or the eventual termination in all states under $\pi$.
+
+> Full _back ups_ involve subsituting thhe value of every state once to produce the new approximate value function $v_{k+1}$. All backs up done in DP algorithms are called _full_ backups because they are based on all possible next states rather than on a sample next stated.
+
+$$
+\boxed{
+\begin{aligned}
+    &\text{Input π, the policy to be evaluated} \\
+    &\text{Initialize an array } V(s) = 0, \forall s \in \mathcal S^+ \\
+    &\text{Repeat} \\ 
+        &\qquad \Delta \leftarrow 0\\ 
+        &\qquad \text{For each } s \in \mathcal S: \\ 
+            &\qquad \quad V(s) \leftarrow \textstyle\sum_a \pi (a | s) p(s', r |s, a) [r + \gamma V(s')] \\ 
+            &\qquad \quad \Delta \leftarrow \max (\Delta, | v - V(s) |) \\
+    &\text{until } \Delta < \theta \text{ (some small positive number)} \\
+    &\text{Output } V \approx v_\pi 
+\end{aligned}}
+$$
+
+Even with equiprobable random actions for a policy, iterative evaluation can converge to an optimal policy after few in-line iterations, provided a sufficiently small action space.
+
+## <a name="ch4.2" class="n"></a> 4.2 Policy Improvement
+
+> Suppose we have determined the value function vπ for an arbitrary deterministic policy $\pi$. For some state s we would like to know whether or not we should change the policy to deterministically choose an action $a \neq \pi(s)$. We know how good it is to follow the current policy from $s$ —that is $v_\pi(s)$ —but would it be better or worse to change to the new policy? One way to answer this question is to consider selecting a in s and thereafter following the existing policy, $π$. The value of this way of behaving is
+
+$$
+\begin{aligned}
+    q_\pi(s,a) &= \mathbb E_\pi [ R_{t+1} +\gamma v_\pi(s_{t+1}) | S_t =a, A_t = a] \\ 
+    &= \displaystyle\sum_{s', r} p(s',r |s, a)[r +\gamma v_\pi (s')]
+\end{aligned}
+$$
+
+Here, if $q_\pi(s,a) > v_\pi(s)$, then it is better to select $a$ once in $s$ and thereafter follow $\pi$ than it would be to follow $\pi$ all the time, and therefore one would expect it to be better still to select $a$ _every time_ $s$ is encountereted, and that this should be the new policy as it's better overall.
+
+This is true in the spcial case of a general result called the _policy improvement theorem_.  Let $\pi, \pi'$ be and pair of deterministic policies such that $\forall s \in \mathcal S$: $q_\pi(s, \pi'(s)) \geq v_\pi(s)$.  Then, the policy $\pi'$ must be as good as or better than $\pi$.  That is, it must obtain greater or equal expected return from all states.
+
+> given a policy and its value function, we can easilyevaluate a change in the policy at a single state to a particular action. It is a natural extension to consider changes at _all_ states and to _all_ possible actions, selecting at each state the action that appears best according to $q_\pi(s, a)$. In other words, to consider the new greedy policy, $\pi'$ , given by
+
+$$
+\begin{aligned}
+    \pi'(s) &= \argmax \limits_a q_\pi(s,a) \\
+    &= \argmax \limits_a \mathbb E [R_{t+1} \gamma v_\pi(S_{t+1}) | S_t = s, A_t = a ]\\
+    &= \argmax \limits_a \displaystyle\sum_{s', r} p(s', r |s, a) [r + \gamma v_\pi(s')]
+\end{aligned}
+$$
+
+> Here, the greedy policy takes the action that looks best in the short term –after one step of lookahead– according to $v_\pi$.  By construction, the greedy policy meets the conditions of the policy improvement theorem, so we know that it's as good or better than the original policy.   The process of making a new policy that improves on an original polcy, by making it greedy w.r.t. the value function of an original policy is called _policy improvement_.
+
+if $v_\pi = v_{\pi'}$ then the above theorem is the same as the Bellman optimality equation and so both policies must be optimal.
+
+## <a name="ch4.3" class="n"></a> 4.3 Policy Iteration
+
+> Once a policy $\pi$ has been improved using $v_\pi$ to yield a better policy $\pi'$, we can the compute $v_{\pi'}$ and improve it again to yield an even better $\pi''$.  Thus we can monotonically improve policies and value functions: 
+
+$\pi_0 \xrightarrow{\text E} v_{\pi_0} \xrightarrow{ \text I} \pi_1
+\xrightarrow{\text E} v_{\pi_1} \xrightarrow{ \text I} \pi_2 
+\xrightarrow{\text E} ... \xrightarrow{ \text I} \pi^* \xrightarrow{\text E} v^*$
+
+where $\xrightarrow{\text {E,I}}$ denote evaluation and improvement, respectively and each policy is guaranteed to be a strict improvement over the previous one.
+
+So now, the general algorithm for policy iteration is:
+
+$$
+\boxed{
+\begin{aligned}
+    &\text{1. Initialization} \\
+    &\quad V(s) \in \R  \\
+
+    &\text{2. Policy Evaluation} \\
+    &\quad \text {Repeat} \\  
+        &\qquad \Delta \leftarrow 0\\ 
+        &\qquad \text{For each } s \in \mathcal S: \\ 
+            &\qquad \quad v \leftarrow V(s)\\
+            &\qquad \quad V(s) \leftarrow \textstyle\sum_{a,r} p(s', r |s, \pi(s)) [r + \gamma V(s')] \\ 
+            &\qquad \quad \Delta \leftarrow \max (\Delta, | v - V(s) |) \\
+    &\quad \text{until } \Delta < \theta \text{ (some small positive number)} \\
+
+&\text{3. Policy Improvement} \\
+    &\quad policy\text{-}stable \leftarrow true \\
+    &\quad \text {For each } s \in \mathcal S: \\  
+        &\qquad a \leftarrow \pi(s) \\
+        &\qquad \pi(s) \leftarrow \argmax_a \textstyle\sum_{s',r} p(s', r |s, a)[r + \gamma V(s')] \\
+        &\qquad \text{If } a \neq \pi(s) \text{ then } policy\text{-}stable \leftarrow false \\
+    &\quad \text{If } policy \text{-}stable, \text{ then stop and return } V, \pi \text{; else goto 2}\\
+
+\end{aligned}}
+$$
+
+though it may never terminate if the policy continually switches between two or more equally good policies
