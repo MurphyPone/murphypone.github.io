@@ -42,6 +42,8 @@ path: "/blog/ml-4"
     - [4.1 Policy Evaluation](#ch4.1)
     - [4.2 Policy Improvement](#ch4.2)
     - [4.3 Policy Iteration](#ch4.3)
+    - [4.4 Value iteration](#ch4.4)
+    - [4.5 Asynchronous Dynamic Programming](#ch4.5)
 
 
 
@@ -664,4 +666,34 @@ $$
 \end{aligned}}
 $$
 
-though it may never terminate if the policy continually switches between two or more equally good policies
+though it may never terminate if the policy continually switches between two or more equally good policies.  
+
+## <a name="ch4.4" class="n"></a> 4.4 Value iteration
+
+> One drawback to policy iteration is that each of its iterations involves policy evaluation, which may itself be a protracted iterative computation requiring multiple sweeps through the state set. If policy evaluation is done iteratively, then convergence exactly to $v_\pi$ occurs only in the limit.
+
+Policy evaluation can be truncated prior after a few steps in most cases without losing the convergence guarantees of policy iteration. An important case is when the policy evaluation is stopped after just one sweep (one backup of each state).  This algorithm is called _value iteration_.
+
+> Like policy evaluation, value iteration formally requires an infinite number of iterations to converge exactly to $v^∗$, though we tend to stop once the value function changes by only a small amount per sweep.
+
+$$
+\boxed{
+\begin{aligned}
+    &\text{Initialize array } V \text{ arbitrarily (e.g., } V(s) = 0, \forall s \in \mathcal S^+ )\\ 
+
+    &\text{Repeat} \\
+    &\quad \Delta \leftarrow 0 \\
+    &\quad \text{For each } s\in \mathcal S : \\
+        &\qquad v \leftarrow V(s) \\
+        &\qquad V(s) \leftarrow \textstyle\max_a\sum_{s', r} p(s', r | s, a) [r + \gamma V(s')] \\ 
+        &\qquad \Delta \leftarrow \max(\Delta, |v - V(s|) \\
+
+    &\text{until } \Delta < \theta \text{ some small positive number} \\
+
+    &\text{Output a deterministic policy } \pi, \text{ such that } \\
+    &\quad\pi(s) = \textstyle\arg\max_a\sum_{s',r} p(s', r |s, a) [r + \gamma V(s')]
+\end{aligned}}
+$$
+
+## <a name="ch4.5" class="n"></a> 4.5 Asynchronous Dynamic Programming
+
