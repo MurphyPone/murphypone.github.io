@@ -44,7 +44,13 @@ path: "/blog/ml-4"
     - [4.3 Policy Iteration](#ch4.3)
     - [4.4 Value iteration](#ch4.4)
     - [4.5 Asynchronous Dynamic Programming](#ch4.5)
-
+    - [4.6 Generalized Policy Iteration](#ch4.6)
+    - [4.7 Efficiency of Dynamic Programming](#ch4.7)
+    - [4.8 Summary](#ch4.8)
+- [Chapter 5: Monte Carlo Methods](#ch5)
+    - [5.1 Monte Carlo Prediction](#ch5.1)
+    - [5.2 Monte Carlo Estimation of Action Values](#ch5.2)
+    - [5.3 Monte Carlo Control](#ch5.3)
 
 
 # <a name="intro" class="n"></a> Introduction
@@ -697,3 +703,164 @@ $$
 
 ## <a name="ch4.5" class="n"></a> 4.5 Asynchronous Dynamic Programming
 
+Dyanamic Programming approaches discussed before are sometimes disadvantageous as they sweep the entirety of the state set. 
+
+>If the state set is very large, then even a single sweep can be prohibitively expensive. 
+
+Thus, we introduce _asynchronous_ DP algorithms which are in-place iterative, and organized independently of the terms of systematic sweeps of the state set.  They back up the values of states in any order whatsoever, using whatever values of ther states that happen to be available.  To conver correct, the async. algorithm must continue to backup the values of _all_ states.
+
+Async backups do not necessarily imply less computation, but they do mean that an algoirthm doesn't need to get locked in a hopelessly long sweep before progress can be made in improving the policy.  
+
+> We can try to take advantage of this flexibility by selecting the states to which we apply backups so as to improve the algorithm’s rate of progress. We can try to order the backups to let value information propagate from state to state in an efficient way. Some states may not need their values backed up as often as others. We might even try to skip backing up some states entirely if they are not relevant to optimal behavior.
+
+## <a name="ch4.6" class="n"></a> 4.6 Generalized Policy Iteration
+
+> Policy iteration consists of two simultaneous, interacting processes, one making the value function consistent with the current policy (policy evaluation), and the other making the policy greedy with respect to the current value function (policy improvement). 
+
+These two processes alternate until _hopefully_ the processes update all states, convergin on the optimal value function and policy.
+
+The term _generalized policy iteration_ (GPI) refers to this idea of interaction between evaluation and improvement.  If both evaluation and improvement stabilize, i.e. no longer produce changes, the the value function and optimal policy must be optimal.
+
+> Thus, both processes stabilize only when a policy has been found that is greedy with respect to its own evaluation function. 
+
+## <a name="ch4.7" class="n"></a> 4.7 Efficiency of Dynamic Programming
+
+While DP may not be practical for very large programs, they're relatively efficient for solving MDPs. In the worst case, ignoring some technical details, DP methods take polynomial time to find an optimal policy.  If $m, n$ represent the states and actions, then a DP method is guaranteed to find an optimal policy in $m^n$ deterministic time.  
+
+> On problems with large state spaces, _asynchronous_ DP methods are often preferred.
+
+## <a name="ch4.8" class="n"></a> 4.8 Summary
+
+_Policy evaluation_ and _policy improvement_ typically refer to the iterative computation of the value functions for a given policy and the improvement of that polucy given the value function of its prior self, respectively. 
+
+Combined, these two terms yield _policy iteration_ and _value iteration_ refer to the two most popular DP methods which reliably computer optimal policies and value functions for finite MDPs, given complete knowledge of the MDP.
+
+Class DP methods operate in sweeps through a state set, performing full backup operation on each state, updating the value of the state based on the values of all weighted possibibilities of the values of successor states.  These are related to Bellman equationsL there are four primary value funcitons ($v_\pi, v^*, q_\pi, q^*$) corresponding to four Bellman equations and their full backups.
+
+Generalized Policy Iteration is the general idea of two interacting processes revolving around approximate polciies and value functions is that eahc process changes the basis for the other, overall workign towards a convergent, joint solution where eahc, consequently, is optimal.
+
+Note that all DP methods update estimates of the values of states based on the estimates of the values of successor states, which is called bootstrapping.
+
+# <a name="ch5" class="n"></a> Chapter 5: Monte Carlo Methods
+
+Monte Carlo methods require only _experience_ composed of sample sequences of states, actions, and rewards from interaction with the environment. To ensure well-defined returns, we define Monte Carlo methods only for episodic tasks and only calculate value estimates and policies updates after episodes have terminated.
+
+> Monte Carlo methods can thus be incremental in an episode-by-episode sense, but not in a step-by-step (online) sense... Here we use it specifically for methods based on averaging complete returns (as opposed to methods that learn from partial returns, considered in the next chapter).
+
+Monte Carlo methods sample average _returns_ for state-action pairs like the bandit methods sampled average _rewards_ previously - the difference being each state represents a bandit problem _and_ are interrelated to one another. Thus, the problems aren onstationary.
+
+To handle this nonstationary component of practical RL contexts, we adapt the General Policy Iteration techniques from CH 4 where we _computed_ value functions to _learning_ value functions from sample returns of an MDP.
+
+> First we consider the prediction problem (the computation of $v_\pi$ and $q_\pi$ for a fixed arbitrary policy $\pi$) then policy improvement, and, finally, the control problem and its solution by GPI. Each of these ideas taken from DP is extended to the Monte Carlo case in which only sample experience is available
+
+# <a name="ch5.1" class="n"></a> 5.1 Monte Carlo Prediction
+
+> Recall that the value of a state is the expected return—expected cumulative future discounted reward—starting from that state. An obvious way to estimate it from experience, then, is simply to average the returns observed after visits to that state. As more returns are observed, the average should converge to the expected value.
+
+The _first-visit_ to a state $s$ under a Monte Carlo method estimates $v_\pi(s)$, and the_every-visit_ Monte Carlo method averages returns from all states. 
+
+### First Visit MC Method
+
+$$
+\boxed{
+\begin{aligned}
+    &\text{Initialize:} \\ 
+        &\quad \pi \leftarrow \text{policy to be evaluated} \\
+        &\quad V \leftarrow \text{an arbitrary state-value function} \\
+        &\quad Returns(s) \leftarrow \text{an empty list, } \forall s \in \mathcal S \\
+    &\text{Repeat forever:} \\
+        &\quad \text{Generate an episode using } \pi \\
+        &\quad \text{For each state } s \text{appearing in the episode:} \\
+            &\qquad G \leftarrow \text{return following the first occurrence of } s \\
+            &\qquad \text{Append } G \text{ to } Returns(s) \\
+            &\qquad V(s) \leftarrow \text{average(} Returns(s) \text ) \\
+\end{aligned}}
+$$
+
+Note that we use capital $V$ for the approximate value function as it becomes a random variable after initilization.
+
+Both _first-_ and _every-visit_ MC methods converge to $v_\pi(s)$ as the number of visits to $s$ goes to infinity and each return is an independent, identically distributed estimate of $v_\pi(s)$ with infinite variance.Each averaged is an unbiased estimate with $\sigma_{error} = \frac {1}{\sqrt n}$, wehre $n$ is the number of returns averaged.  _Every-visit_ is more complicated, but its estimates also asymptotically converge to $v_\pi(s)$.
+
+For the given example of blackjack, MC methods are superior to strict DP as DP methods require the distribution of next events (given by $p(s', r | s, a)$), and those are difficult to determine in agame of blackjack as defined in the example.
+
+> An important fact about Monte Carlo methods is that the estimates for each state are independent. The estimate for one state does not build upon the estimate of any other state, as is the case in DP. In other words, Monte Carlo methods do not bootstrap as we defined it in the previous chapter... In particular, note that the computational expense of estimating the value of a single state is independent of the number of states. This can make Monte Carlo methods particularly attractive when one requires the value of only one or a subset of states. One can generate many sample episodes starting from the states of interest, averaging returns from only these states ignoring all others. This is a third advantage Monte Carlo methods can have over DP methods (after the ability to learn from actual experience and from simulated experience).
+
+# <a name="ch5.2" class="n"></a> 5.2 Monte Carlo Estimation of Action Values
+
+> If a model is not available, then it is particularly useful to estimate action values (the values of state–action pairs) rather than state values.
+
+With a model, state values alone would be sufficient to determine an optimal policy by choosing the action that leads to the best combination of reward and $s'$. Without a model, state values alone are insufficient as you must explicitly estimate the value of each action order for the values to be useful in suggesting a policy.  
+
+> Thus, one of our primary goals for Monte Carlo methods is to estimate $q^∗$. To achieve this, we first consider the policy evaluation problem for action values
+
+Similarly, the evalutation problem for action values is to estimate $q_\pi(s,a)$: the expected return starting from $s$, taking action $a$, and following $\pi$ thereafter. We simply modify the MC method to handle state-action pairs rather than only the states. Just as before, these MC methods converge quadratically upon the expected values as the number of visits to all state-action pairs approaches infinity.
+
+Difficulties arise as many state-action pairs may never be visited.  If $\pi$ is deterministic, then following it will observe returns only for _one_ of the actions from each state. The no returns from the missing actions, the MC estimates of those will not improve with experience.  This hinders the intentional ability to compare estimated values of all actions from each state. 
+
+This is similar to the exploration/exploitation problem insofar as we have to maintain exploration and can be resolved by specifying that episodes _start in a state-action pair_, and that each pair has a nonzero probability of being selected as the start.  This ensures that all state-action pairs will be visited ad infinitum eventually - this is called the assumption of _exploring starts_.
+
+# <a name="ch5.3" class="n"></a> 5.3 Monte Carlo Control
+
+MC Control refers to using MC estimation to approximate optimal policies. 
+
+> The value function is repeatedly altered to more closely approximate the value function for the current policy, and the policy is repeatedly improved with respect to the current value function:
+
+![](/images/ml-4-1.png)
+
+While each of these improvement and evaluation arcs work against one another by creating moving targets, they effectively force the policy and value function to approach optimality.
+
+Again, we'll use the diagram:
+
+$\pi_0 \xrightarrow{\text E} q_{\pi_0} \xrightarrow{ \text I} \pi_1
+\xrightarrow{\text E} q_{\pi_1} \xrightarrow{ \text I} \pi_2 
+\xrightarrow{\text E} ... \xrightarrow{ \text I} \pi^* \xrightarrow{\text E} q^*$
+
+to understand the process. Under the assumptions of infinite episodes generated with exploring starts, MC methods _will_ compute each $q_{\pi_k}$ for arbitrary $\pi_k$.
+
+Policy improvement is achieved by making the policy greedy w.r.t the current value function. For any action-value function $q$, the corresponding greedy poly is the one that deterministically chooses an action the the maximal action-value:
+
+$\pi(s) = \argmax_a q(s, a),\quad \forall s \in \mathcal S$
+
+The corresponding policy improvement can be achieved by constructing each $\pi_{k+1}$ as the greedy policy w.r.t. $q_{\pi_k}$.  Using the policy improvement theorem from CH 4.2:
+
+$$
+\begin{aligned}
+    q_{\pi_k}(s, \pi_{k+1}(s)) &= q_{\pi_k}(s, \argmax_a q_{\pi_k}(s,a)) \\
+    &= \max_a q_{\pi_k}(s, a) \\
+    &\geq q_{\pi_k}(s, q_{\pi_k}(s)) \\
+    &= v_{\pi_k}(s)
+\end{aligned}
+$$
+
+As discussed in Chapter 4, this theorem ensures that each $\pi_{k+1}$ is uniformly as good, if not better than $\pi_{k}$: they will both be optimal policies.
+
+This theorem holds so long as the shaky assumptions of exploratory starts and policy evaluation performed over infinite episodes hold...
+
+> To obtain a practical algorithm we will have to remove both assumptions.
+
+woot. Let's deal with the first assumption which is relatively easy to remove (can't wait to fix the 2nd assumption). There are two possible solutions: hold firm the idea of approximating $q_{\pi_k}$ in each policy evaluation, and the other is to forgo complete policy evaluation before returning to improvement. 
+
+For MC policy evaluation, it is common to episodically alternate between evaluation and improvement: after each episode, the observed returns are used for policy evaluation, and then the policy is improved at all the states visited in the episode:
+
+$$
+\boxed{
+\begin{aligned}
+    &\text{Initialize, } \forall s \in \mathcal S, a \in \mathcal A(s): \\ 
+        &\quad Q(s,a) \leftarrow arbitrary \\
+        &\quad \pi(s) \leftarrow arbitrary \\
+        &\quad Returns(s,a) \leftarrow \text{empty list} \\
+    &\text{Repeat forever:} \\
+        &\quad \text{Choose } S_0 \in \mathcal S \text{ and } A_0 \in \mathcal A(S_0) \text{s.t. all pairs have probability} \geq 0 \\
+        &\quad \text{Generate an episode starting from } S_0, A_0, \text{following }\pi \\
+        &\quad \text{For each pair } s,a \text{ appearing in the episode:} \\
+            &\qquad G \leftarrow \text{return following the first occurrence of } s,a \\
+            &\qquad \text{Append } G \text{ to } Returns(s,a) \\
+            &\qquad Q(s,a) \leftarrow \text{ average}(Returns(s,a)) \\
+        &\quad \text{For each } s \text{ in the episode:} \\
+            &\qquad \pi(s) \leftarrow \textstyle\argmax_a Q(s,a)
+\end{aligned}}
+$$
+
+Under an explatory start, all returns for each state-action pair are accumulated and averaged, regardless of what policy they were earned under. This implies that an MS ES cannot converge to any sub-optimal policy, otherwise the value function would eventually converge to the value function for that bad policy, forcing a change in the policy.
+
+> Convergence to this optimal fixed point seems inevitable as the changes to the action-value function decrease over time, but has not yet been formally proved.

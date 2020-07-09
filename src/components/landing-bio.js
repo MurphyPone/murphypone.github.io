@@ -86,16 +86,16 @@ const LandingBio = () => (
         </Container>
         <GridContainer>
             <ProjectCard style={{ backgroundImage: 'url("/images/AECOM.png")', backgroundSize: "40%", backgroundPositionY: "10%"}}><ProjectTitle href="https://github.com/MurphyPone/AECOM-CallTracker" target="_blank"  style={{color: "black"}}>Call Tracker</ProjectTitle></ProjectCard>          
-            <ProjectCard style={{ backgroundImage: 'url("/images/ML.png")', paddingTop: "15%"}}><ProjectTitle href="https://github.com/MurphyPone/PyTorch-basics" target="_blank" style={{color: "black"}}>Machine Learning with PyTorch</ProjectTitle></ProjectCard>          
+            <ProjectCard style={{ backgroundImage: 'url("/images/ML.png")', paddingTop: "15%"}}><ProjectTitle href="https://github.com/MurphyPone/PyTorch-basics" target="_blank" style={{color: "black"}}>RL with PyTorch</ProjectTitle></ProjectCard>          
             <ProjectCard style={{ backgroundImage: 'url("/images/love.png")', backgroundSize: "20%", backgroundPositionY: "10%", paddingTop: "25%"}}><ProjectTitle href="https://github.com/MurphyPone/LUA-Love2D" target="_blank" style={{color: "black", fontSize: "1.2em"}}>Lua/LÖVE Projects</ProjectTitle></ProjectCard>     
 
             <ProjectCard style={{ backgroundImage: 'url("/images/katacoda.png")', backgroundSize: "30%", backgroundPositionY: "10%", paddingTop: "25%"}}><ProjectTitle href="https://www.katacoda.com/petersmurphy7" target="_blank" style={{color: "black", fontSize: "1.2em"}}>Grey Matter/Katacoda</ProjectTitle></ProjectCard>     
-            <ProjectCard>Project y</ProjectCard>
+            <ProjectCard style={{ backgroundImage: 'url("/images/BSB.png")', backgroundSize: "100%", backgroundPositionY: "60%", paddingTop: "15%"}}><ProjectTitle href="https://github.com/MurphyPone/Sutton-Barto-Bhoag" target="_blank" style={{color: "black"}}>Barto, Sutton, Bhoag</ProjectTitle></ProjectCard>
             <ProjectCard>Project z</ProjectCard>
 
             <a href="https://vthacks.com" target="_blank"><ProjectCard style={{ backgroundImage: 'url("/images/vthacks.png")'}}></ProjectCard></a>
             <a href="https://hackbi.org" target="_blank"><ProjectCard style={{ backgroundImage: 'url("/images/hackbi.png")'}}></ProjectCard></a>
-            <ProjectCard>MLH</ProjectCard>
+            <ProjectCard>project y</ProjectCard>
           </GridContainer>
       </OuterContainer>
     )}
