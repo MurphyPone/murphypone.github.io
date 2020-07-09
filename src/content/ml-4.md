@@ -51,6 +51,7 @@ path: "/blog/ml-4"
     - [5.1 Monte Carlo Prediction](#ch5.1)
     - [5.2 Monte Carlo Estimation of Action Values](#ch5.2)
     - [5.3 Monte Carlo Control](#ch5.3)
+    - [5.4 Monte Carlo Control Without Exploring Starts](#ch5.4)
 
 
 # <a name="intro" class="n"></a> Introduction
@@ -864,3 +865,5 @@ $$
 Under an explatory start, all returns for each state-action pair are accumulated and averaged, regardless of what policy they were earned under. This implies that an MS ES cannot converge to any sub-optimal policy, otherwise the value function would eventually converge to the value function for that bad policy, forcing a change in the policy.
 
 > Convergence to this optimal fixed point seems inevitable as the changes to the action-value function decrease over time, but has not yet been formally proved.
+
+# <a name="ch5.4" class="n"></a> 5.4 Monte Carlo Control Without Exploring Starts
