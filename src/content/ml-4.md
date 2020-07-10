@@ -52,7 +52,10 @@ path: "/blog/ml-4"
     - [5.2 Monte Carlo Estimation of Action Values](#ch5.2)
     - [5.3 Monte Carlo Control](#ch5.3)
     - [5.4 Monte Carlo Control Without Exploring Starts](#ch5.4)
-
+    - [5.5 Off-policy Prediction via Importance Sampling](#ch5.5)
+    - [5.6 Incremental Implementation](#ch5.6)
+    - [5.7 Off-Policy Monte Carlo Control](#ch5.7)
+    - [5.8 Importance Sampling on Truncated Returns](#ch5.8)
 
 # <a name="intro" class="n"></a> Introduction
 
@@ -754,7 +757,7 @@ To handle this nonstationary component of practical RL contexts, we adapt the Ge
 
 > First we consider the prediction problem (the computation of $v_\pi$ and $q_\pi$ for a fixed arbitrary policy $\pi$) then policy improvement, and, finally, the control problem and its solution by GPI. Each of these ideas taken from DP is extended to the Monte Carlo case in which only sample experience is available
 
-# <a name="ch5.1" class="n"></a> 5.1 Monte Carlo Prediction
+## <a name="ch5.1" class="n"></a> 5.1 Monte Carlo Prediction
 
 > Recall that the value of a state is the expected return—expected cumulative future discounted reward—starting from that state. An obvious way to estimate it from experience, then, is simply to average the returns observed after visits to that state. As more returns are observed, the average should converge to the expected value.
 
@@ -786,7 +789,7 @@ For the given example of blackjack, MC methods are superior to strict DP as DP m
 
 > An important fact about Monte Carlo methods is that the estimates for each state are independent. The estimate for one state does not build upon the estimate of any other state, as is the case in DP. In other words, Monte Carlo methods do not bootstrap as we defined it in the previous chapter... In particular, note that the computational expense of estimating the value of a single state is independent of the number of states. This can make Monte Carlo methods particularly attractive when one requires the value of only one or a subset of states. One can generate many sample episodes starting from the states of interest, averaging returns from only these states ignoring all others. This is a third advantage Monte Carlo methods can have over DP methods (after the ability to learn from actual experience and from simulated experience).
 
-# <a name="ch5.2" class="n"></a> 5.2 Monte Carlo Estimation of Action Values
+## <a name="ch5.2" class="n"></a> 5.2 Monte Carlo Estimation of Action Values
 
 > If a model is not available, then it is particularly useful to estimate action values (the values of state–action pairs) rather than state values.
 
@@ -800,7 +803,7 @@ Difficulties arise as many state-action pairs may never be visited.  If $\pi$ is
 
 This is similar to the exploration/exploitation problem insofar as we have to maintain exploration and can be resolved by specifying that episodes _start in a state-action pair_, and that each pair has a nonzero probability of being selected as the start.  This ensures that all state-action pairs will be visited ad infinitum eventually - this is called the assumption of _exploring starts_.
 
-# <a name="ch5.3" class="n"></a> 5.3 Monte Carlo Control
+## <a name="ch5.3" class="n"></a> 5.3 Monte Carlo Control
 
 MC Control refers to using MC estimation to approximate optimal policies. 
 
@@ -866,4 +869,186 @@ Under an explatory start, all returns for each state-action pair are accumulated
 
 > Convergence to this optimal fixed point seems inevitable as the changes to the action-value function decrease over time, but has not yet been formally proved.
 
-# <a name="ch5.4" class="n"></a> 5.4 Monte Carlo Control Without Exploring Starts
+## <a name="ch5.4" class="n"></a> 5.4 Monte Carlo Control Without Exploring Starts
+
+The two general approaches to avoid the unlikely assumption of exploring starts is –to ensure that all actions are selected inifnitely often– are called _on-policy_ and _off-policy_ methods.
+
+> Onpolicy methods attempt to evaluate or improve the policy that is used to make decisions, whereas off-policy methods evaluate or improve a policy different from that used to generate the data.
+
+In on-policy control methods, the policy is _soft_, meaning that $\pi(a | s) > 0, \quad \forall s,a \in \mathcal S, \mathcal A(s)$, but gradually shifted closer to a determinisitc optimal policy. We can use ε-greedy, or ε-_soft_ exploration to achieve this. 
+
+> The overall idea of on-policy Monte Carlo control is still that of GPI. As in Monte Carlo ES, we use first-visit MC methods to estimate the action-value function for the current policy.
+
+However, we modify the approach the approach so that the policy is ε-greedy as we do not have the benefit of ES and still need to ensure exploration. GPI does not require that a policy be taken all the way to a greedy policy, just that it moves _toward_ a greedy policy. 
+
+> For any ε-soft policy, $\pi$, any ε-greedy policy with respect to $q_π$ is guaranteed to be better than or equal to $\pi$.
+
+This is ensured by the policy improvement theorem:
+
+$$
+\begin{aligned}
+    q_\pi(s, \pi'(s)) &= \sum_a \pi'(a | s) q_\pi(s, a) \\
+    &= \frac {\epsilon}{|\mathcal A(s) |} \sum_a  q_\pi(s, a) + (1 - \epsilon) \max_a q_\pi(s, a) \\
+    &\geq \frac {\epsilon}{|\mathcal A(s) |} \sum_a  q_\pi(s, a) + (1 - \epsilon) \sum_a \frac{\pi(a | s) - \frac{\epsilon}{ | \mathcal A(s) |}}{1 - \epsilon} q_\pi(s,a) \\
+    &= \frac {\epsilon}{|\mathcal A(s)|} \sum_a q_\pi(s,a) - \frac {\epsilon}{|\mathcal A(s)|} \sum_a q_\pi(s,a) + \sum_a \pi(a | s) q_\pi(s,a) \\ 
+    &= v_\pi(s)
+\end{aligned}
+$$
+
+> We now prove that equality can hold only when both $\pi'$ and $\pi$ are optimal among the ε-soft policies, that is, when they are better than or equal to all other ε-soft policies.
+
+> Consider a new environment that is just like the original environment, except with the requirement that policies be ε-soft “moved inside” the environment. The new environment has the same action and state set as the original and behaves as follows. If in state s and taking action a, then with probability $1 − ε$ the new environment behaves exactly like the old environment. With probability $ε$ it repicks the action at random, with equal probabilities, and then behaves like the old environment with the new, random action. The best one can do in this new environment with general policies is the same as the best one could do in the original environment with ε-soft policies. Let $\widetilde{v}^*$ and $\widetilde{q}^*$ denote the optimal value functions for the new environment. Then a policy $π$ is optimal among ε-soft policies if and only if $v_π = \widetilde{v}^*$. From the definitionof $\widetilde{v}^*$ we know that it is the unique solution to
+
+$$
+\begin{aligned}
+    \widetilde{v}^*(s) &= (1 - \varepsilon) \max_a  \widetilde{q}^*(s, a) + \frac{\epsilon}{|\mathcal A(s)|}\sum_a q_\pi(s,a) \\
+
+    &= (1 - \varepsilon) \max_a  \sum_{a', r} p(s', r | s, a) \big [ r + \gamma v_\pi(s') \big ] \\
+    &\qquad \qquad + \frac{\epsilon}{|\mathcal A (s)|} \sum_a\sum_{s', r} p(s', r | s, a) \big [ r + \gamma v_\pi(s') \big]
+\end{aligned}
+$$
+
+Which is identical to the above equation with $v_\pi$ substituted for $\widetilde{v}^*(s)$; since $\widetilde{v}^*(s)$ is the unique solution, it must be that $v_\pi = \widetilde{v}^*(s)$. 
+
+In sum, this shows that policy improvement works for ε-soft policies.
+>  This analysis is independent of how the action-value functions are determined at each stage, but it does assume that they are computed exactly.
+
+The full algorithm for an ε-soft soft policy is given by: 
+
+$$
+\boxed{
+\begin{aligned}
+    &\text{Initialize, } \forall s \in \mathcal S, a \in \mathcal A(s): \\ 
+        &\quad Q(s,a) \leftarrow \text{arbitrary} \\
+        &\quad Returns(s,a) \leftarrow \text{empty list} \\
+        &\quad \pi( a | s) \leftarrow \text{empty list} \\
+    &\text{Repeat forever:} \\
+        &\quad \text{(a) Generate an epsidoe using } \pi \\
+        &\quad \text{(b) For each pair } s,a \text{ appearing in the episode:} \\
+            &\qquad G \leftarrow \text{return following the first occurrence of } s,a \\ 
+            &\qquad \text{Append } G \text{ to } Returns(s,a) \\
+            &\qquad Q(s,a) \leftarrow \text{average}(Returns(s,a)) \\
+        &\quad \text{(c) For each pair } s \text{ in the episode:} \\
+            &\qquad a^* \leftarrow \textstyle\argmax_a Q(s,a) \\
+            &\qquad \text{For all } a \in \mathcal A(s): \\
+            &\qquad \pi(a | s) \leftarrow \begin{cases} 1- \varepsilon  & \text{if } a = a^* \\ \varepsilon \over {\mathcal A(s)}  &\text{if } a \neq a^* \end{cases}
+       
+\end{aligned}}
+$$
+
+
+## <a name="ch5.5" class="n"></a> 5.5 Off-policy Prediction via Importance Sampling
+
+> So far we have considered methods for estimating the value functions for a policy given an infinite supply of episodes generated using that policy. Suppose now that all we have are episodes generated from a _different_ policy.  That is, suppose we wish to estimate $v_\pi$ or $q_\pi$, but all we have are episode following another policy $\mu, \mu \neq \pi$.
+
+Here, $\pi$ is the _target policy_ and $\mu$ is the _behavior policy_.  The goal and challenge of off-policy learning is learning about a policy given only episodic experience from no that policy.
+
+In order to meaningfully learn from $\mu$, we must ensure that every action taken under $\pi$ is also taken, at least occaisionally, under $\mu$: $\pi \subset \mu$.  This is called the _assumption of coverage_: $\pi(a | s) > 0 \implies \mu(a | s) > 0$.  Thus $\mu$ must be stochasticin states where it is not identical to $\pi$, although the target $\pi$ can be deterministic.
+
+Importance Sampling is the general technique used for estimating expected values under one distribution ($\pi$) given samples from another ($\mu$). Given a starting state $S_t$, the probability of the subsequent state-action trajectory, $A_t, S_{t+1}, A_{t+1}, ..., S_T$, occurring under any policy $\pi$ is:
+
+$\displaystyle\prod_{k=t}^{T-1} \pi(A_k | S_k) p(S_{k+1} | S_k, A_k)$, where $p$ is the state-transition probability function.
+
+Thus, the relative probability of the trajectory under the target and behavior policies (the Importance Sampling Ration) is:
+
+$\rho^T_t = \frac{\displaystyle\prod_{k=t}^{T-1} \pi(A_k | S_k) p(S_{k+1} | S_k, A_k)}{\displaystyle\prod_{k=t}^{T-1} \mu(A_k | S_k) p(S_{k+1} | S_k, A_k)} = \displaystyle\prod_{k=t}^{T-1} \frac{\pi(A_k | S_k)}{\mu(A_k | S_k)}$
+
+> Note that although the trajectory probabilities depend on the MDP’s transition probabilities, which are generally unknown, all the transition probabilities cancel and drop out. The importance sampling ratio ends up depending only on the two policies and not at all on the MDP.
+
+When applying off-ploicy importance sampling to a MC method, it is convenient to number the time steps that increases across episode boundaries s.t. the first episode ends at $t = 100$ and the second begins at $t = 101$. We can define the set of all time steps in which $s$ is visited as $\mathcal T(s)$. e.g. for a first-visit method, $\mathcal T(s)$ would only include time steps that were first visits to $s$ in their episode.  We'll also let $T(t)$ by the first time of termination following $tG_t$ to denote the return after $t$ through $T(t)$.  Therefore, $\{G_t\}_{t \in \mathcal T(s)}$, $\{\rho_t^{T(t)}\}_{t \in \mathcal T(s)}$ are the returns pertaining to state $s$, and the corresponding importance-sampling ratios.  Using these to estimate $v_\pi(s)$, we and average the returns scaled by the ratios: 
+
+$V(s) = \frac{\sum_{t \in \mathcal T(s)} \rho_t^{T(t)} G_t}{|\mathcal T(s)|}$ 
+
+When performed as a simple average as above, this method is called _Ordinary_ Importance Sampling.  Alternatively, we can refine value and increase the speed of convergence towards an optimal policy by using a _Weighted_ Importance Sampling: 
+
+$V(s) = \frac{\sum_{t \in \mathcal T(s)} \rho_t^{T(t)} G_t}{\sum_{t \in \mathcal T(s)} \rho_t^{T(t)}}$ 
+
+(accounting for division by 0 making the whole term 0). 
+
+> Formally, the difference between the two kinds of importance sampling is expressed in their variances. The variance of the ordinary importancesampling estimator is in general unbounded because the variance of the ratios is unbounded, whereas in the weighted estimator the largest weight on any single return is one.
+
+We can verify that the variance of importance-sampling-scaled returns is infinite:
+
+$$
+\begin{aligned}
+    \text{Var}[X] &= \mathbb E[X^2] - \bar X^2 \\
+    &\models \mathbb E \Big[ \Big( \prod^{T-1}_{t=0} \frac{\pi(A_t | S_t)}{\mu(A_t | S_t)} G_0 \Big)^2 \Big] 
+\end{aligned}
+$$
+
+Meaning our variance is only infinite if the expectation of the square of the random variable $X$ is infinite.
+
+## <a name="ch5.6" class="n"></a> 5.6 Incremental Implementation
+
+> Monte Carlo prediction methods can be implemented incrementally, on an episode-by-episode basis, using extensions of the techniques described in Chapter 2. Whereas in Chapter 2 we averaged rewards, in Monte Carlo methods we average returns. In all other respects exactly the same methods as used in Chapter 2 can be used for on-policy Monte Carlo methods. For off-policy Monte Carlo methods, we need to separately consider those that use ordinary importance sampling and those that use weighted importance sampling.
+
+We only have to handle the case of off-policy methods using weighted importance sampling.  Suppose we have a sequence of returns $G_1, G_2, ..., G_{n-1}$, all starting from the same state with corresponding random weight $W_i = \rho^{T(t)_t}$. We want to estimate:
+
+$V_n = \frac {\sum_{k=1}^{n-1} W_k G_k}{\sum_{k=1}^{n-1} W_k}, \qquad n \geq 2$
+
+In order to maintain the cumulative sum $C_n$ of the weights given to the first $n$ returns for each state, the update rule for $v_n$:
+
+$V_{n+1} = V_n + \frac{W_n}{C_n} [G_n - V_n], \qquad C_{n+1} = C_n + W_{n+1}, C_0 = 0, V_1 = \text{arbitrary}$
+
+
+### Off-policy Monte Carlo Policy Evaluation
+
+$$
+\boxed{
+\begin{aligned}
+    &\text{Initialize, } \forall s,a \in \mathcal {S, A}(s): \\ 
+       &\quad Q(s,a ) \leftarrow \text{arbitrary} \\ 
+       &\quad C(s,a ) \leftarrow 0 \\ 
+       &\quad \mu(s,a ) \leftarrow \text{an arbitrary soft behavior policy} \\ 
+       &\quad \pi(s,a ) \leftarrow \text{an arbitrary target policy} \\ 
+    &\text{Repeat forever:} \\
+        &\quad \text{Generate an episode using } \mu :\\
+            &\qquad S_0, A_0, R_1, ..., S_{T-1}, A_{T-1}, R_{T}, S_{T} \\ 
+        &\quad G \leftarrow 0 \\
+        &\quad W \leftarrow 1 \\
+        &\quad \text{For } t= T-1, T-2, ..., 0:\\
+            &\qquad G \leftarrow \gamma G + R_{t+1} \\ 
+            &\qquad C(S_t, A_t) \leftarrow C(S_t, A_t) + W \\
+            &\qquad Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \frac{W}{C(S_T, A_t)}[G - Q(S_t, A_t)] \\ 
+            &\qquad W \leftarrow W \frac{\pi(A_t | S_t)}{\mu(A_t | S_t)} \\
+            &\qquad \text{If } W=0 \text{ then ExitForLoop}
+\end{aligned}}
+$$
+
+Note that this algorithm also work for on-policy evaluation by choosing the target and behavior policies to be the same.
+
+## <a name="ch5.7" class="n"></a> 5.7 Off-Policy Monte Carlo Control
+
+> Recall that the distinguishing feature of on-policy methods is that they estimate the value of a policy while using it for control. In off-policy methods these two functions are separated. The policy used to generate behavior, called the behavior policy, may in fact be unrelated to the policy that is evaluated and improved, called the target policy. An advantage of this separation is that the target policy may be deterministic (e.g., greedy), while the behavior policy can continue to sample all possible actions.
+
+> Recall that these techniques requires that the behavior policy has a nonzero probability of selecting all actions that might be selected by the target policy under the assumption of _coverage_ and that we that in order to explore all possibilities, we require that the behavior policy be soft i.e. it selects all actions in all states with nonzero probability.
+
+The following algorithm shows an off-policy Monte Carlo method, based on GPI and weighted importance sampling, for estimating $q^*$. The target policy $\pi$ is the greedy policy with respect to $Q$, which is an estimate of $q_\pi$. The behavior policy $\mu$ can be anything, but in order to assure convergence of $\pi$ to the optimal policy, an infinite number of returns must be obtained for each pair sof state and action. This can be assured by choosing $µ$ to be $ε$-soft.
+
+### Off-policy Monte Carlo GPI with Weighted Importance Sampling to Estimate $q^*$
+
+$$
+\boxed{
+\begin{aligned}
+    &\text{Initialize, } \forall s,a \in \mathcal {S, A}(s): \\ 
+       &\quad Q(s,a ) \leftarrow \text{arbitrary} \\ 
+       &\quad C(s,a ) \leftarrow 0 \\ 
+       &\quad \pi(s) \leftarrow \text{a deterministic policy that is greedy w.r.t. } Q \\ 
+    &\text{Repeat forever:} \\
+        &\quad \text{Generate an episode using any soft policy} \mu :\\
+            &\qquad S_0, A_0, R_1, ..., S_{T-1}, A_{T-1}, R_{T}, S_{T} \\ 
+        &\quad G \leftarrow 0 \\
+        &\quad W \leftarrow 1 \\
+        &\quad \text{For } t= T-1, T-2, ..., 0:\\
+            &\qquad G \leftarrow \gamma G + R_{t+1} \\ 
+            &\qquad C(S_t, A_t) \leftarrow C(S_t, A_t) + W \\
+            &\qquad Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \frac{W}{C(S_T, A_t)}[G - Q(S_t, A_t)] \\ 
+            &\qquad \pi(S_t) \leftarrow \argmax_a Q(S_t, a) \text{ w/ties broken arbitrarily}\\
+            &\qquad W \leftarrow W \frac{1}{\mu(A_t | S_t)} \\
+            &\qquad \text{If } W=0 \text{ then ExitForLoop}
+\end{aligned}}
+$$
+
+However, this method only learns from the _tails_ of episodes, after learning the last nongreedy action, so if those are frequent, learning will be slow, especially for states at the beginning of long episodes.  This can be resolved with TD learning covered in the next chapter, or by ensuring that $\gamma < 1$
+
+## <a name="ch5.8" class="n"></a> 5.8 Importance Sampling on Truncated Returns
