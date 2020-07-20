@@ -58,6 +58,12 @@ path: "/blog/ml-4"
     - [5.8 Importance Sampling on Truncated Returns](#ch5.8)
     - [5.9 Summary]($ch5.9)
  - [Chapter 6: Temporal-Difference Learning](#ch6)
+    - [6.1 TD Prediction](#ch6.1)
+    - [6.2 Advantages of TD Prediction Models](#ch6.2)
+    - [6.3 Optimality of $TD(0)$](#ch6.3)
+    - [6.4 Sarsa: On-Policy TD Control]($ch6.4)
+    - [6.5 Q-Learning: Off-Policy TD Control](#ch6.5)
+     - [6.6 Games, Afterstates, and Other Special Cases](#ch6.6)
 
 # <a name="intro" class="n"></a> Introduction
 
@@ -108,7 +114,7 @@ Notes from Sutton & Barto's "[Reinforcement Learning: an Introduction"](https://
 | $\alpha , \beta$ | step-size parameters |
 | $\lambda$ | decay-rate parameter for eligibility traces |
 
-# <a name="ch1" class="n"></a> Chapter 1: the Reinforcement Learning Problem
+# <a name="ch1" class="n"></a> Chapter 1: The Reinforcement Learning Problem
 
 ## <a name="ch1.1" class="n"></a> 1.1 Reinfrocement Learning
 
@@ -1102,3 +1108,145 @@ On-policy methods commit to exploring and trying to find the best policy that st
 # <a name="ch6" class="n"></a> Chapter 6 Temporal-Difference Learning
 
 
+_Temporal-difference_ learning (TD) is the combination of Monte Carlo methods and dynamic programming. Drawing from model-free, raw experience sample, TDL is similar to MC methods; like DP, TD methods update estimates based in part on other estimates.  
+
+## <a name="ch6.1" class="n"></a> 6.1 TD Prediction
+
+Just as before with previously examined means of GPI, given some experience following a policy $\pi$, TD will updates its estimate of $v, v_\pi$ for non terminal states $S_t$.  MC methods wait until the return following the visit is known, then use that return as the target for $V(S_t)$. A simple every-visit MC method suitable for nonstationary environments is:
+
+$V(S_t) \leftarrow V(S_t) + \alpha [G_t - V(S_t)]$
+
+where $G_t$ is the actual return following time $t$, and $\alpha$ is a constant step-size parameter: _contant-α MC_.  
+
+> Whereas Monte Carlo methods must wait until the end of the episode to determine the increment to $V(S_t)$ (only then is $G_t$ known), TD methods need wait only until the next time step. At time $t+1$ they immediately form a target and make a useful update using the observed reward $R_{t+1}$ and the estimate $V(S_{t+1})$. 
+
+The simplest TD method, $TD(0)$, is given by:
+
+$V(S_t) \leftarrow V(S_t) + \alpha [R_{t+1} + \gamma V(S_{t+1}) - V(S_t)]$
+
+Whereas the target for the MC update is $G_t$, the TD target update is $R_{t+1} + \gamma V(S_{t+1})$. Because TD methods base their updates in part on an _existing_ estimate, we can adapt the derivation from the DP policy value from CH3:
+
+$$
+\begin{aligned}
+    v_\pi(s) &= \mathbb E_\pi [G_t | S_t = s] \\
+    &= \mathbb E_\pi \Big[\sum_{k=0}^\infty \gamma^k R_{t+k+1} | S_t = s \Big ] \\
+    &= \mathbb E_\pi \Big[R_{t+1} \sum_{k=0}^\infty \gamma^k R_{t+k+2} | S_t = s \Big ] \\
+    &= \mathbb E_\pi [R_{t+1} + \gamma v_\pi(S_{t+1}) | S_t = s] \\
+\end{aligned}
+$$
+
+Whereas MC methods use the first of the last two equation as the target, DP methods use a sampled estimate of the latter.  
+
+### $TD(0)$
+
+$$
+\boxed{
+\begin{aligned}
+    &\text{Input: the policy} \pi \text{ to be evaluated} \\ 
+    &\text{Initialize } V(s) \text{arbitrarily } (e.g. V(s) = 0, \forall s \in \mathcal S^+) \\    
+    &\text{Repeat (for each episode):} \\
+        &\quad\text{Initialize } S \\
+        &\quad\text{Repeat (for each step of episode):} \\
+            &\qquad A \leftarrow \text{action given by } \pi text{ for } S\\
+            &\qquad \text{Take action } A; \text{observe reward, } R, \text{ and next state, } S' \\
+            &\qquad V(s) \leftarrow V(S) + \alpha [R + \gamma V(S') - V(S)] \\ 
+            &\qquad S \leftarrow S' \\ 
+    &\quad \text{until } S \text{ is terminal}
+\end{aligned}}
+$$
+
+We call these sample backups because they involve looking ahead to a sample successor state (or state-action pair), using the value of the successor and the reward along the way to compute a backed-up value, and then changing the value of the original state accordingly.  
+
+> Besides giving you something to do while waiting in traffic, there are several computational reasons why it is advantageous to learn based on your current predictions rather than waiting until termination when you know the actual return.
+
+## <a name="ch6.2" class="n"></a> 6.2 Advantages of TD Prediction Models
+
+> TD methods learn their estimates in part on the basis of other estimates. They learn a guess from a guess—they _bootstrap_.
+
+Advantages of TD methods over DP and MC methods include:
+
+- they do not require a model of the environment, its rewards, or the next-state probability distributioons, unlike DP methods which do;
+
+- they are naturally implemented in an online, fully incremental fashion, unlike MC methods where one must wait till the end of an episode when the return is known.  TD methods only need a single time step;
+
+- MC methods must ignore or discount episodes during which experimental actions are taken, which drastically slows learning.
+
+On top of all that, TD methods are still guaranteed to converge.  The natural question that follows is: which method, TD or MC, will converge faster, as they both asymptotically approach correct predictions?  As of 2014,-2017, This is an open question, dab.     
+
+## <a name="ch6.3" class="n"></a> 6.3 Optimality of $TD(0)$
+
+Even without limited (non-infinite) experiences, incremental learning can converge on a solution by repeatedly training on the available experiences. 
+
+> Given an approximate value function, V , the increments specified by previous chapters are computed for every time step $t$ at which a nonterminal state is visited, but the value function is changed only once, by the sum of all the increments. Then all the available experience is processed again with the new value function to produce a new overall increment, and so on, until the value function converges.  We call this _batch updating_ because updates are made only after processing each complete batch of training data.
+
+$TD(0)$ converges deterministically under _batch training_ with sufficiently samll step-size parameter $\alpha$.  A contant-α MC method also converges deterministically, but to a different answer.  This is ullustrated by example exercises 6.3, 6.4. The conlcusion is that Batch MC methods always find the estimates that minimize MSA on the training set, whereas $TD(0)$ always finds the estimates that would be exactly correct for the maximum-likelihood model of the MDP, where the _maximum-likelihood estimate_ of a parameter is the parameter value whose probability of generating the data is greatest. A _certainty-equivalence estimate_ is the estimate of the vlaue function that would be exactly correct if the model were exactly correct. $TD(0)$ convereges to the former, and therefore converge (with batch training) to a solution faster than MC methods. Without batch trianing, TD methods do not achieve certainty-equivalence or MSE estimates, but roughly approach them. 
+
+## <a name="ch6.4" class="n"></a> 6.4 Sarsa: On-Policy TD Control
+
+Now examine the use of TD prediction for the control problem following the GPI pattern. As with MC methods, we need to address the exploration problem for on- and off-policy control methods.  
+
+The first step is to learn an action-value function rather than the state-value function. Whereas we'd previously consider the transitions between states, we no consider the transitions from state-action pairs to state-action pars, learning their respective values.  Formally these cases are identical MDPs with reward processes, so we know that they are convergent.
+
+### On-policy TD Control Algorithm
+
+$$
+\boxed{
+\begin{aligned}
+    &\text{Initialize } Q(s,a), \forall s,a \in \mathcal {S, A}(s), \text{ arbitrarily, and } Q(\text{terminal-state}, \cdotp) = 0   \\    
+    &\text{Repeat (for each episode):} \\
+        &\quad\text{Initialize } S \\
+        &\quad\text{Choose } A \text{ from } S \text{using policy derived from } Q \text{(e.g., } \epsilon \text{-greedy}) \\
+        &\quad\text{Repeat (for each step of episode)}: \\
+            &\qquad\text{Take action } A, \text{ observe } R, S' \\  
+            &\qquad\text{Choose} A', \text{ from } S' \text{using policy derived from } Q \text{(e.g., } \epsilon \text{-greedy})  \\  
+            &\qquad Q(S,A) \leftarrow Q(S,A) + \alpha [ R + \gamma Q(S', A') - Q(S,A)] \\ 
+            &\qquad S \leftarrow S'; A \leftarrow A'; \\
+        &\quad \text{until } S \text{ is terminal}
+\end{aligned}}
+$$
+
+The $Q$ update is performed after every transition from a nonterminal state $S_t$.  If $S_{t+1}$ is terminal, then $Q(S_{t+1}, A_{t+1})$ is defined to be zero.  Thus uses every element of the quintuple of events $(S_t, A_t, R_{t+1}, S_{t+1}, A_{t+1})$ which gives rise to the name Sarsa. 
+
+> It is straightforward to design an on-policy control algorithm based on the Sarsa prediction method. As in all on-policy methods, we continually estimate $q_\pi$ for the behavior policy $\pi$, and at the same time change $\pi$ toward greediness with respect to $q_\pi$.
+
+## <a name="ch6.5" class="n"></a> 6.5 Q-Learning: Off-Policy TD Control
+
+Praise be to Watkins, 1989 for Q-Learning in its simplest form given by: 
+
+$Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha \Big[ R_{t+1} + \gamma \max \limits_{a} Q(S_{t+1}, a) - Q(S_t, A_t) \Big ]$
+
+Here, $Q$ directly approximates $q^*$, regardless of the policy being followed. This dramatically simplifies the analysis of the algorithm and enables early convergence proofs. All that is required for correct convergence is that all pairs continue to be updated.
+
+### Q-Learning: An Off-policy TD Control Algorithm
+
+$$
+\boxed{
+\begin{aligned}
+    &\text{Initialize } Q(s,a), \forall s,a \in \mathcal {S, A}(s), \text{ arbitrarily, and } Q(\text{terminal-state}, \cdotp) = 0   \\    
+    &\text{Repeat (for each episode):} \\
+        &\quad\text{Initialize } S \\
+        &\quad\text{Choose } A \text{ from } S \text{using policy derived from } Q \text{(e.g., } \epsilon \text{-greedy}) \\
+        &\quad\text{Repeat (for each step of episode)}: \\
+            &\qquad\text{Take action } A, \text{ observe } R, S' \\  
+            &\qquad\text{Choose} A', \text{ from } S' \text{using policy derived from } Q \text{(e.g., } \epsilon \text{-greedy})  \\  
+            &\qquad Q(S,A) \leftarrow Q(S,A) + \alpha [ R + \gamma \max \limits_a  Q(S', A') - Q(S,A)] \\ 
+            &\qquad S \leftarrow S'; \\
+        &\quad \text{until } S \text{ is terminal}
+\end{aligned}}
+$$
+
+Example 6.6 compares Sarsa to Q-Learning.
+
+## <a name="ch6.6" class="n"></a> 6.6 Games, Afterstates, and Other Special Cases
+
+State-action values colelcted for a value function _after_ an agent has acted, like in a game of tic-tac-toe, are called _afterstates_. Afterstates are useful when we have knowledge of an initial part of the environment's dynamics, but not necessarily the full dynamics. We know typically know the immediate effects of our moves, but not necessarily how our opponent will reply. Afterstate value functions are a natural way to take advantage of this kind of knowledge and produce more efficient learning methods as different actions in different states can still lead to the same state.  
+
+## <a name="ch6.7" class="n"></a> 6.7 Summary
+
+TD methods are alternatives to MC methods for solving the prediction problem.  In their use for GPI, two processes are applied, one to accurately predict returns for the current policy and another to drive local policy improvement. When the first process is based on experience, we must ensure that sufficient exploration occurs which cab be resolved via on- and off-policy methods.  Sarsa and (some) Actor-Critic methods are on-policy whereas Q-Learning and R-Learning are off-policy.
+
+The methods presented can be applied online with minimal computation, can be completely expressed via a single equation, and can be implemented with minimal effort.
+
+TD methods can also be applied more generally outside of RL for other types of prediction. 
+
+# <a name="ch7" class="n"></a> Chapter 7: Eligibility Traces
