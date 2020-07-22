@@ -63,7 +63,11 @@ path: "/blog/ml-4"
     - [6.3 Optimality of $TD(0)$](#ch6.3)
     - [6.4 Sarsa: On-Policy TD Control]($ch6.4)
     - [6.5 Q-Learning: Off-Policy TD Control](#ch6.5)
-     - [6.6 Games, Afterstates, and Other Special Cases](#ch6.6)
+    - [6.6 Games, Afterstates, and Other Special Cases](#ch6.6)
+    - [6.7 Summary](#ch6.7)
+ - [Chapter 7: Eligibility Traces](#ch7)
+    - [7.1 $n$-Step TD Prediction](#ch7.1)
+
 
 # <a name="intro" class="n"></a> Introduction
 
@@ -1250,3 +1254,68 @@ The methods presented can be applied online with minimal computation, can be com
 TD methods can also be applied more generally outside of RL for other types of prediction. 
 
 # <a name="ch7" class="n"></a> Chapter 7: Eligibility Traces
+
+Eligibility traces can be combined with almost any TD method (like Sarsa and Q-Learning) in order to obtain a general method that may learn more efficiently. 
+
+The theoretical view of eligibility is that they are a bridge from TD to MC methods: 
+
+> When TD methods are augmented with eligibility traces, they produce a family of methods spanning a spectrum that has Monte Carlo methods at one end and one-step TD methods at the other
+
+The mechanical interpretation is that an ET is a temporary record of the occurrence of an event (like taking an action or visiting a state), marking the parameters associated with the event as eligible for undergoing learning changes. 
+
+> When a TD error occurs, only the eligible states or actions are assigned credit or blame for the error. Thus, eligibility traces help bridge the gap between events and training information. Like TD methods themselves, eligibility traces are a basic mechanism for temporal credit assignment.
+
+These are respectively called the _forward_ and _backward_ views of ET. 
+
+> The forward view is most useful for understanding what is computed by methods using eligibility traces, whereas the backward view is more appropriate for developing intuition about the algorithms themselves.
+
+## <a name="ch7.1" class="n"></a> 7.1 $n$-Step TD Prediction
+
+> Consider estimating $v_π$ from sample episodes generated using $π$. Monte Carlo methods perform a backup for each state based on the entire sequence of observed rewards from that state until the end of the episode. The backup of simple TD methods, on the other hand, is based on just the one next reward,using the value of the state one step later as a proxy for the remaining rewards.
+
+An _intermediate_ approach might perform a backup based on an _intermediate_ amount of rewards. Whereas the TD methods of the previous chapter might backup using the immediate following reward ($n = 1$), until-termination MC would backup based on _all_ rewards ($n = T$). 
+
+![](/images/ml-4-2.png)
+
+In MC methods we backup the estimates of $v_\pi(S_t)$ with:
+
+$G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + ... + \gamma^{T-t-1}R_T$, which we'll call the _target_ of the backup.
+
+A one-step backup target is the first reward plus the discounted estimated reward of the next state: 
+
+$R_{t+1} + \gamma V_t(S_{t+1}), \qquad V_t : \mathcal S \rightarrow \mathbb R$.
+
+This expression holds for subsequent n-step backups as well, relying on future estimate of $v_\pi$ at time $t$.
+
+> Notationally, it is useful to retain full generality for the correction term. We define the general $n$-step return as:
+
+$G_t^{t+n}(c) = R_{t+1} + \gamma R_{t+2} + .. + \gamma^{n-1} R_h + \gamma^nc, \qquad c \in \mathbb R, h = t +n,$ where $c$ in a scalar correction and $h$ is called the _horizon_. 
+
+If the episode ends before the horizon is reached, then the truncation effectively occurs at the episode's end, resulting in conventional return s.t. if $h \geq T,$ then $G_t^h(c) = G_t$, which allows us to treat MC methods as the special case of infinite-step targets.
+
+An _$n$-step backup_ is defined to be a backup toward the $n$-step return.  In the tabular, state-value case, the $n$-step backup at time $t$ produces the following increment in the estimated value $V(S_t)$:
+
+$\Delta_t(S_t) = \alpha \Big[G_t^{t+n}(V_t(S_{t+n})) - V_t(S_t) \Big]$, where $\alpha$ is a positive step-size parameter, as usual, and increments to estimated values of the other states are defined to be zero.
+
+> We define the $n$-step backup in terms of an increment, rather than as a direct update rule as we did in the previous chapter, in order to allow different ways of making the updates. In _on-line updating_, the updates are made during the episode, as soon as the increment is computed:
+
+$V_{t+1}(s) = V_t(s) + \Delta_t(s), \qquad \forall s \in \mathcal S$, previous chapters have assumed on-line updating.
+
+_Off-line updating_ accumulates increments "on the side" and are not applied to estimates until the end of an episode: $V_t(s)$ does not change during an episode and can simply be denoted $V(s)$. When an episode terminates, the new value for the next episode is obtained by taking the sum of all the increments accumulated during the episode: 
+
+$$
+\begin{aligned}
+    V_{t+1}(s) &= V_t(s), \qquad \forall t < T, \\
+    V_T(s) &= V_{T-1}(s) + \sum_{t=0}^{T-1} \Delta_t(s),
+\end{aligned}
+$$
+
+With $V_0$ of the following episode being equal to $V_T$ of the current one.  We can also apply similar _batch updating_ methods mentioned in [6.3](#ch6.3) to.  Similarly, optimality of $n$-step returns using $v$ are guaranteed to be a better estimate of $v_\pi$ than $v$.  That is to say that the worst error under a _new_ estimate is guaranteed to be less than or equal to $\gamma^n$ times the worst error under $v$:
+
+$\max \limits_s \Big | \mathbb E_\pi \big[ G_t^{t+n}(v(S_{t+n})) \Big | S_t = s - v_\pi(s) \Big | \leq \gamma^n \max \limits_s \Big | v(s) - v_\pi(s) \Big |,$
+
+This is called the _error reduction property_ of $n$-step returns, and can be used to formally prove that on- and off-line TD prediction methods using $n$-step backups converge to the correct predictions under appropriate technical conditions. 
+
+Despite this, $n$-step TD methods are rarely used because they suck to implement.  Computing their returns requires waiting $n$ steps to observe the resultant rewards and states, which very quickly becomes problematic.  This is moslty theoretical fluff.  Anyways heres ~~Wonderwall~~ Example 7.1 where you're gonna do it anyway lol.
+
+## <a name="ch7.2" class="n"></a> 7.2 The Forward Vie of $TD(\lambda)$
