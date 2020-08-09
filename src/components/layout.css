@@ -212,6 +212,7 @@ html {
 }
 body {
   color: hsla(0, 0%, 0%, 0.8);
+  /* background: url('/images/gif2.png'); TODO make this timecube */
   font-weight: normal;
   word-wrap: break-word;
   font-kerning: normal;
