@@ -67,7 +67,15 @@ path: "/blog/ml-4"
     - [6.7 Summary](#ch6.7)
  - [Chapter 7: Eligibility Traces](#ch7)
     - [7.1 $n$-Step TD Prediction](#ch7.1)
-
+    - [7.2 The Backward View of $TD(\lambda)$](#ch7.2)
+    - [7.3 The Backward View of $TD(\lambda)$](#ch7.3)
+    - [7.4 Equivalences of Forward and Backward Views](#ch7.4)
+    - [7.5 Sarsa($\lambda$)](#ch7.5)
+    - [7.6 Watkin's Q($\lambda$)](#ch7.6)
+    - [7.7 Off-policy Eligibility Traces using Importance Sampling](#ch7.7)
+    - [7.8 Implementation Issues](#ch7.8)
+    - [7.9 Variable $\lambda$](#ch7.9)
+    - [7.10 Conclusions](#ch7.10)
 
 # <a name="intro" class="n"></a> Introduction
 
@@ -1151,7 +1159,7 @@ $$
     &\text{Repeat (for each episode):} \\
         &\quad\text{Initialize } S \\
         &\quad\text{Repeat (for each step of episode):} \\
-            &\qquad A \leftarrow \text{action given by } \pi text{ for } S\\
+            &\qquad A \leftarrow \text{action given by } \pi \text{ for } S\\
             &\qquad \text{Take action } A; \text{observe reward, } R, \text{ and next state, } S' \\
             &\qquad V(s) \leftarrow V(S) + \alpha [R + \gamma V(S') - V(S)] \\ 
             &\qquad S \leftarrow S' \\ 
@@ -1312,10 +1320,278 @@ $$
 
 With $V_0$ of the following episode being equal to $V_T$ of the current one.  We can also apply similar _batch updating_ methods mentioned in [6.3](#ch6.3) to.  Similarly, optimality of $n$-step returns using $v$ are guaranteed to be a better estimate of $v_\pi$ than $v$.  That is to say that the worst error under a _new_ estimate is guaranteed to be less than or equal to $\gamma^n$ times the worst error under $v$:
 
-$\max \limits_s \Big | \mathbb E_\pi \big[ G_t^{t+n}(v(S_{t+n})) \Big | S_t = s - v_\pi(s) \Big | \leq \gamma^n \max \limits_s \Big | v(s) - v_\pi(s) \Big |,$
+$\max \limits_s \Big | \mathbb E_\pi \big[ G_t^{t+n}(v(S_{t+n})) \Big | S_t = s \big] - v_\pi(s) \Big | \leq \gamma^n \max \limits_s \Big | v(s) - v_\pi(s) \Big |,$
 
 This is called the _error reduction property_ of $n$-step returns, and can be used to formally prove that on- and off-line TD prediction methods using $n$-step backups converge to the correct predictions under appropriate technical conditions. 
 
 Despite this, $n$-step TD methods are rarely used because they suck to implement.  Computing their returns requires waiting $n$ steps to observe the resultant rewards and states, which very quickly becomes problematic.  This is moslty theoretical fluff.  Anyways heres ~~Wonderwall~~ Example 7.1 where you're gonna do it anyway lol.
 
-## <a name="ch7.2" class="n"></a> 7.2 The Forward Vie of $TD(\lambda)$
+## <a name="ch7.2" class="n"></a> 7.2 The Forward View of $TD(\lambda)$
+
+$n$-step returns can be average for any amount as long as the weights on the component returns are positive and sum to 1.  A backup that averages simpler component backups is called a _complex backup_. The $TD(\lambda)$ can be understood as one way of averaging $n$-step backups, each weighted proprtional to $\lambda^{n-1}, \quad \lambda \in [0,1]$ and normalized by a factor of $1-\lambda$ to ensure summation to 1.  The resulting backup towards a return is called the $\lambda$-return:
+
+$L_t = (1 - \lambda) \displaystyle\sum_{n=1}^\infty \lambda^{n-1}G_t^{t+n} (V_t(S_{t+n}))$
+
+Here, the on-step return is given the largest weight $1-\lambda$ which is reduced by $\lambda$ for each subsequent time step. After a terminal state is reach, all subsequent returns are equal to $G$ which can be separated from the main sum as:
+
+$L_t = (1 - \lambda) \displaystyle\sum_{n=1}^{T-t-1} \lambda^{n-1}G_t^{t+n} (V_t(S_{t+n})) + \lambda^{T-t-1}G_t$
+
+This shows that when $\lambda = 1$ the main sum goes to zero, and the remaining term reduces to the conventional return $G$. Thus backing up according to the $\lambda$-return is the same as a constant-α MC method from 6.1. Conversely, if $\lambda = 0$, backing up according to the $\lambda$-return yields the one-step return from $TD(0)$ in 6.2.
+
+The _$\lambda$-return algorithm_ performs backups towards the $\lambda$ target. At each step $t$, it computes an increment 
+
+$\Delta_t (S_t) = \alpha \Big[ L_t - V_t(S_t) \Big]$.
+
+The overall perfomance of $\lambda$-return algorithms is comparable to that of the $n$-step algorithms.  These fall under the theoretical, _forward_ view of a learning alg. 
+
+> For each state visited, we look forward in time to all the future rewards and decide how best to combine them. After looking forward from and updating one state, we move on to the next and never have to work with the preceding state again. Future states, on the other hand, are viewed and processed repeatedly, once from each vantage point preceding them.
+
+## <a name="ch7.3" class="n"></a> 7.3 The Backward View of $TD(\lambda)$
+
+This section defines $TD(\lambda)$ mechanistically to show that it can closely approximate the forward view. The _backward_ view is useful because it is simple both computationally and conceptually. Whereas the forward view is not directly implementable because it is acausal, using at each step knowledge of what will happen many steps later, the backwards view provides a causal, incremental mechanism for approximating the forward view.  In the online case, it achieves the forward view exactly.
+
+In the backward view of $TD(\lambda)$, there is an additional memory variable associated with each state: the _eleigibility trace_, denoted as a random variable $E_t(S) \in \mathbb R^+ \forall s \text{ at } t$. On each step, the eligibility traces of all non-visted states decay by $\gamma\lambda$:
+
+$E_t(s) = \gamma\lambda E_{t-1}(s), \quad \forall s \in \mathcal S, s \neq S_t$, where $\gamma$ is the discount rate, and $\lambda$ becomes a _trace-decay parameter_.
+
+For the state visited at time $t$m it also decays, but is incremented: 
+
+$E_t(s) = \gamma\lambda E_{t-1}(s) + 1$.
+
+> This kind of eligibility trace is called an _accumulating_ trace because it accumulates each time the state is visited, then fades away gradually when the state is not visited
+
+ - Eligibility traces keep a simple record of which states have recently been visited, where recency is in terms of $\gamma\lambda$. The traces are said to indicate the degree to which each state is _eligible_ for undergoing learning changes should a reinforcing event occur. Reinforcement events such as the moment-by-moment one-step RD errors, like state-value prediction error:
+
+ $\delta_t = R_{t+1} + \gamma V_t(S_{t+1}) - V_t(S_t)$
+
+ > In the backward view of $TD(\lambda)$, the global TD error signal triggers proportional updates to all recently visited states, as signaled by their nonzero traces:
+
+ $\Delta V_t(s) = \alpha \delta_t E_t(s), \quad \forall s \in \mathcal S$
+
+ These increments could be done at on each step to form an on-line algorithm like the one given below, or saved to the end of an episode to perform an off-line algorithm. 
+
+ ### On-line Tabular $TD(\lambda)$
+
+ $$
+\boxed{
+\begin{aligned}
+    &\text{Initialize } V(s), \text{ arbitrarily (but set to 0 if} s \text{ is terminal)} \\    
+    &\text{Repeat (for each episode):} \\
+        &\quad\text{Initialize } E(s) = 0, \forall s \in \mathcal S \\
+        &\quad\text{Initialize } S \\
+        &\quad\text{Repeat (for each step of episode)}: \\
+            &\qquad A \leftarrow \text{action given by } \pi \text{ for } S \\
+            &\qquad \text{Take action } A \text{, observe reward } R \text{, and next state, } S'\\ 
+            &\qquad \delta \leftarrow R + \gamma V(S') - V(S) \\ 
+            &\qquad E(S) \leftarrow E(S) + 1  &\text{ (accumulating traces)}\\ 
+            &\qquad \text{or } E(S) \leftarrow (1 - \alpha)E(S) + 1  &\text{(dutch traces)}\\ 
+            &\qquad \text{or } E(S) \leftarrow 1  &\text{(replacing traces)}\\
+            &\qquad \text{For all } s \in \mathcal S: \\
+                &\qquad\quad V(s) \leftarrow V(s) + \alpha\delta E(s) \\
+                &\qquad\quad E(s) \leftarrow \gamma\lambda E(s) \\
+            &\qquad S \leftarrow S' \\ 
+        &\quad \text{until } S \text{ is terminal}
+\end{aligned}}
+$$
+
+> The backward view of $TD(\lambda)$ is aptly oriented backward in time. At each moment, we look at the current TD error and assign it backward to each prior state according to the state's eligibility trace at that time. 
+
+Consider what happens at various values of $\lambda$.  For $\lambda = 0$, all traces are zero at $t$ except for the trace corresponding to $S_t$.  Thus the $TD(\lambda)$ update reduces to the simple TD rule from 6.2: $TD(0)$. For larger values of $\lambda < 1$, more preceeding states behind are changed, but each more temporaly distant state is changed less because of the smaller magnitude of its leigibility trace. They're given less credit for contributing to the current TD error.
+
+if $\lambda = 1$, then the credit given to the earlier states falls only by $\gamma$ per step which matches MC behavior.
+
+Two alternative variations of eligibility traces have been porposed to address limitations of accumulating trace (caused by poor hyper-parameter tuning). On each step, all three trace types decay the traces of the non-visited state in the same way according to $\gamma\lambda$, but they differ in how the visited stae is incremented.  The first variation is the _replacing trace_ which caps the eligibility to 1 whereas accumulation allows for larger values. The second variation is the _dutch trace_ which is an intermediate between the first tow, depending on the step-size parameter $\alpha$: 
+
+$E_t(S_t) = (1 - \alpha) \gamma\lambda E_{t-1}(S_t) + 1$
+
+> as $\alpha$ approaches zero, the dutch trace mirrors the accumulating trace, and if it approaches 1, it become the replacing trace.
+
+![](/images/ml-4-3.png)
+
+## <a name="ch7.4" class="n"></a> 7.4 Equivalences of Forward and Backward Views
+
+Although disparate in origin, both views produce identical value function for all time steps. 
+
+True Online $TD(\lambda)$ is define by the dutch trace with the following value function update:
+
+$V_{t+1}(s) = V_t(s) + \alpha[\delta_t + V_t(S_t) - V_{t-1}(S_t)]E_t(s) - \alpha I_{sS_t}[V_t(S_t) - V_{t-1}(S_t)]$, 
+
+where $I_{xy}$ is an identity-indicator function:
+
+$$
+I_{xy} = \begin{cases} 
+    1 &\text{if } x = y \\
+    0; &\text{o.w.} 
+    \end{cases}
+$$
+
+### Tabular true on-line $TD(\lambda)$
+
+$$
+\boxed{
+\begin{aligned}
+    &\text{Initialize } V(s), \text{ arbitrarily (but set to 0 if} s \text{ is terminal)} \\ 
+    &V_{\text{old}} \leftarrow 0 \\    
+    &\text{Repeat (for each episode):} \\
+        &\quad\text{Initialize } E(s) = 0, \forall s \in \mathcal S \\
+        &\quad\text{Initialize } S \\
+        &\quad\text{Repeat (for each step of episode)}: \\
+            &\qquad A \leftarrow \text{action given by } \pi \text{ for } S \\
+            &\qquad \text{Take action } A \text{, observe reward } R \text{, and next state, } S'\\ 
+            &\qquad \Delta \leftarrow V(S) - V_{\text{old}} \\ 
+            &\qquad V_{\text{old}} \leftarrow V(S')  \\ 
+            &\qquad \delta \leftarrow R + \gamma V(S') - V(S) \\ 
+            &\qquad E(S) \leftarrow (1 - \alpha)E(S) + 1 \\ 
+            &\qquad \text{For all } s \in \mathcal S: \\
+                &\qquad\quad V(s) \leftarrow V(s) + \alpha(\delta + \Delta) E(s) \\
+                &\qquad\quad E(s) \leftarrow \gamma\lambda E(s) \\
+            &\qquad V(S) \leftarrow V(S') - \alpha\Delta  \\ 
+            &\qquad S \leftarrow S' \\ 
+        &\quad \text{until } S \text{ is terminal}
+\end{aligned}}
+$$
+
+## <a name="ch7.5" class="n"></a> 7.5 Sarsa($\lambda$)
+
+This chapter explores how eligibility traces can be used for control, rather than simply prediction as in $TD(\lambda)$ by combining them with sarsa to produce an on-policy TD control method.  As usual, the primary approach is to learn action values $Q_t(s,a)$ rather than state values $V_t(s)$.  
+
+> The idea in Sarsa($\lambda$) is to apply the $TD(\lambda)$ prediction method to state–action pairs rather than to states. Obviously, theb, we need a trace not just for each state, but for each state-action pair. 
+
+We can the redefine our three types of traces as follows:
+
+$$
+\begin{aligned}
+    &E_t(s, a) = \gamma\lambda E_{t-1}(s,a) + I_{sS_t} I_{aA_t} &\text{(accumulating traces)}\\ 
+    &E(S) = (1-\alpha) \gamma\lambda E_{t-1}(s,a) + I_{sS_t} I_{aA_t} &\text{(dutch traces)}\\ 
+    &E(S) = (1-I_{sS_t} I_{aA_t}) \gamma\lambda E_{t-1}(s,a) + I_{sS_t} I_{aA_t} &\text{(replacing traces)}\\
+\end{aligned}
+$$
+
+$\forall s, a \in \mathcal {S, A}$ Otherwise Sarsa($\lambda$) is just like $TD(\lambda)$, substituting state-action variables for state variables: $Q_t(s,a)$ for $V_t(s)$ and $E_t(s,a)$ for $E_t(s)$ s.t.
+
+$Q_{t+1}(s, a) = Q_t(s,a) + \alpha\delta_t E_t(s,a), \qquad \forall s, a $
+
+$\delta_t = R_{t+1} + \gamma Q_t(S_{t+1}, A_{t+1}) - Q_t(S_t, A_t)$
+
+Both one-step Sarsa and Sarsa($\lambda$) are on-policy algorithms, meaning that they approximate $q_\pi(s,a)$, the action values for the current policy $\pi$ then improve the policy gradually based on the approximate values for the current policy.
+
+### Tabular Sarsa($\lambda$)
+
+$$
+\boxed{
+\begin{aligned}
+    &\text{Initialize } Q(s, a), \text{ arbitrarily } \forall s,a \in \mathcal {S, A(s)} \\ 
+    &\text{Repeat (for each episode):} \\
+        &\quad\text{Initialize } E(s,a ) = 0, \forall s,a \in \mathcal {S, A(s)} \\ 
+        &\quad\text{Initialize } S, A \\
+        &\quad\text{Repeat (for each step of episode)}: \\
+            &\qquad \text{Take action } A \text{, observe reward } R \text{, and next state, } S'\\ 
+            &\qquad \text{Choose } A' \text{from } S' \text{ using policy derived from } Q \text{(e.g. ε-greedy)} \\
+            &\qquad \delta \leftarrow R + \gamma Q(S', A') - Q(S, A) \\ 
+            &\qquad E(S,A) \leftarrow E(S) + 1  &\text{ (accumulating traces)}\\ 
+            &\qquad \text{or } E(S,A) \leftarrow (1 - \alpha)E(S,A) + 1  &\text{(dutch traces)}\\ 
+            &\qquad \text{or } E(S,A) \leftarrow 1  &\text{(replacing traces)}\\
+            &\qquad \text{For all } s,a \in \mathcal {S, A(s)} \\ 
+                &\qquad\quad Q(s,a) \leftarrow Q(s,a) + \alpha\delta E(s,a) \\
+                &\qquad\quad E(s,a) \leftarrow \gamma\lambda E(s,a) \\
+            &\qquad S \leftarrow S'; A \leftarrow A' \\ 
+        &\quad \text{until } S \text{ is terminal}
+\end{aligned}}
+$$
+
+## <a name="ch7.6" class="n"></a> 7.6 Watkin's Q($\lambda$)
+
+Chris Watkin's, the initial author of Q-learning, also proposed a simple way to combine it with eligibility traces. 
+
+> Recall that Q-learning is off-policy, meaning that the policy learned about need not be the same as the one used to select actions.
+
+Because Q-learning typically takes exploratory actions (under an ε-greedy policy), special care must be taken when introducing eligibility traces in order to ensure that $n$-step returns bear relationshop to the greedy policy.
+
+Unlike $TD(\lambda)$ or Sarsa($\lambda$), Watkin's Q($\lambda$) does not look ahead all the way to the end of the episode in it's backup, only as far aheaf as the next exploratory action. Lookahead for each of these algorithms ceases at episode termination otherwise.
+
+The mechanistic, backward view of Watkins's Q($\lambda$) is very simple.  Eligibility traces are used just as in Sarsa($\lambda$), except that they are set to zero whenever an exploratory (non-greedy) action is taken. First, the traces for all state-action pairs are either decayed by $\gamma\lambda$ or, if an exploratory action was taken, set to 0.  Second, the trace corresponding to the current state and action is incremented by 1:
+
+$$
+E_t(s,a) = \begin{cases} 
+    \gamma\lambda E_{t-1}(s,a) + I_{sS_t}\cdot I_{aA_t} &\text{if } Q_{t-1}(S_t, A_t) = \max_a Q_{t-1}(S_t, a) \\
+    I_{sS_t}\cdot I_{aA_t}; &\text{o.w.} 
+    \end{cases}
+$$
+
+Analagous dutch or replacing traces can also be used here, and the rest of the algorithm is defined by:
+
+$Q_{t+1}(s,a) = Q_t(s,a) + \alpha \delta_t E_t(s,a), \qquad \forall s,a \in \mathcal{S, A(s)}$,
+
+where 
+
+$\delta_t = R_{t+1} + \gamma \max \limits_{a}Q_t(s_{t+1}, a') - Q_t(S-t, A_t)$
+
+> Unfortunately, cutting off traces every time an exploratory action is taken loses much of the advantage of using eligibility traces. If exploratory actions are frequent, as they often are early in learning, then only rarely will backups of more than one or two steps be done, and learning may be little faster than one-step Q-learning.
+
+### Tabular Watkin's Q($\lambda$)
+
+$$
+\boxed{
+\begin{aligned}
+    &\text{Initialize } Q(s, a), \text{ arbitrarily } \forall s,a \in \mathcal {S, A(s)} \\ 
+    &\text{Repeat (for each episode):} \\
+        &\quad\text{Initialize } E(s,a) = 0, \forall s,a \in \mathcal {S, A(s)} \\ 
+        &\quad\text{Initialize } S, A \\
+        &\quad\text{Repeat (for each step of episode)}: \\
+            &\qquad \text{Take action } A \text{, observe reward } R \text{, and next state, } S'\\ 
+            &\qquad \text{Choose } A' \text{from } S' \text{ using policy derived from } Q \text{(e.g. ε-greedy)} \\
+            &\qquad A^* \leftarrow \argmax_a Q(S', a) (\text{if } A' \text{ ties for the max, then } A* \leftarrow A')\\
+            &\qquad \delta \leftarrow R + \gamma Q(S', A') - Q(S, A) \\ 
+            &\qquad E(S,A) \leftarrow E(S) + 1  &\text{ (accumulating traces)}\\ 
+            &\qquad \text{or } E(S,A) \leftarrow (1 - \alpha)E(S,A) + 1  &\text{(dutch traces)}\\ 
+            &\qquad \text{or } E(S,A) \leftarrow 1  &\text{(replacing traces)}\\
+            &\qquad \text{For all } s,a \in \mathcal {S, A(s)} \\ 
+                &\qquad\quad Q(s,a) \leftarrow Q(s,a) + \alpha\delta E(s,a) \\
+                &\qquad\quad \text{If } A' = A^*, \text{ then } E(s,a) \leftarrow \gamma\lambda E(s,a) \\
+                &\qquad\qquad\text{else } E(s,a) \leftarrow 0\\
+            &\qquad S \leftarrow S'; A \leftarrow A' \\ 
+        &\quad \text{until } S \text{ is terminal}
+\end{aligned}}
+$$
+
+## <a name="ch7.7" class="n"></a> 7.7 Off-policy Eligibility Traces using Importance Sampling
+
+The eligibility traces from the previous chapter represent a crude way to deal with off-policy training (do my mans Watkin dirty, oh king Sutton) as they treat off-policy as binary –either the target policy is followed and traces continue normally, or it is deviated from and traces are cut off completely– with nothing in between. But the reality is that the target policy may take different actions with different positive probabilities, as may the behavior policy, in which case following and deviating will be a matter of degree. Similarly to what was discussed in CH 5, we can assign credit to a single action using the ratio of the two probabilities of taking an action, and the product of the ratios to assign credit to a sequence.  
+
+Additionally, Watkin's Q($\lambda$) confounds bootstrapping and off-policy deviation. Bootstrapping refers to the degree to which an algorithm builds its estimates from other estimates, like TD and DP, or does not, like MC methods. In TD and Sarsa methods, the $\lambda$ hyper-parameter denotes teh degree of bootstrapping with $\lambda = 1$ denoting no bootstrapping.  The same cannot be said of Q($\lambda$) for, as soon as there is a deviation from the target policy, $Q($\lambda$)$ cuts the trace and uses its value estimate rather than waiting for the actual rewards. Ideally, we should de-couple bootstrapping from teh off-policy aspect.
+
+## <a name="ch7.8" class="n"></a> 7.8 Implementation Issues
+
+In practice, implementations avoid the potential issue of updating every state or state-action pair on every time step on serial computers as typical values of $\gamma, \lambda$ are nearly zero, so in practice very few states actually need to be updated.
+
+## <a name="ch7.9" class="n"></a> 7.9 Variable $\lambda$
+
+> The $\lambda$-return can be significantly generalized beyond what we have described so far by allowing $\lambda$ to vary from step to step, that is, by redefining the trace update as
+
+$$
+E_t(s) = \begin{cases} 
+    \gamma\lambda_t E_{t-1}(s) &\text{if } s \neq S_t \\
+    \gamma\lambda_t E_{t-1}(s) + 1 &\text{if } s = S_t \\
+\end{cases}
+$$
+
+Applications following this generalization are currently still theoretical, but explorations into applying it e.g. varying $\lambda$ as a function of the state: $\lambda_t = \lambda(S_t)$.
+
+The elgibility trace equation above is the backward view of variable $\lambda$s, and the corresponding forward view is a more general definition of the $\lambda$-return:
+
+$$
+\begin{aligned}
+    G_t^\lambda &= \sum_{n=1}^\infty G_t^{(n)}(1-\lambda_{t+n}) \prod_{i=t+1}^{t+n-1} \lambda_i \\
+    &= \sum_{k=t+1}^{T-1} G_t^{(k-t)}(1-\lambda_k) \prod_{i=t+1}^{k-1} \lambda_i + G_t \prod_{i=t+1}^{T-1} \lambda_i \\
+\end{aligned}
+$$
+
+## <a name="ch7.10" class="n"></a> 7.10 Conclusions
+
+> Eligibility traces in conjunction with TD errors provide an efficient, incremental way of shifting and choosing between Monte Carlo and TD methods. By making TD methods mor like MC methods, they gain the advantage of less-reliance on bootstrapping. 
+
+> By adjusting $\lambda$, we can place eligibility trace methods anywhere along a continuum from Monte Carlo to one-step TD methods, with a value somewhere in the middle so as not to degrade performance (by running an MC method)
+
+At the expense of computational requirements, eligibility traces learn significantly faster, particularly with many-step reward delays. Thus, traces are useful when data are scarce and cannot be repeatedly processed, as is often the case in on-line applications. 
+
+# <a name="ch8" class="n"></a> Chapter 8: Planning and Learning with Tabular Methods
