@@ -76,6 +76,10 @@ path: "/blog/ml-4"
     - [7.8 Implementation Issues](#ch7.8)
     - [7.9 Variable $\lambda$](#ch7.9)
     - [7.10 Conclusions](#ch7.10)
+- [Chapter 8: Planning and Learning with Tabular Methods](#ch8)
+    - [8.1 Models and Planning](#ch8.1)
+    - [8.2 Integrating Planning, Acting, and Learning](#ch8.2)
+    - [8.3 When the Model Is Wrong](#ch8.3)
 
 # <a name="intro" class="n"></a> Introduction
 
@@ -1595,3 +1599,98 @@ $$
 At the expense of computational requirements, eligibility traces learn significantly faster, particularly with many-step reward delays. Thus, traces are useful when data are scarce and cannot be repeatedly processed, as is often the case in on-line applications. 
 
 # <a name="ch8" class="n"></a> Chapter 8: Planning and Learning with Tabular Methods
+
+This chapter outlines a unified view of the methods that require a model of the environment (_planning_), like DP and heuristic search, and model-free methods (_learning_) like MC and TD methods. Both of these types of methods compute value function and are based on looking ahead to future events, computing back-up values, and using it to update an approximate value function.  Just as the previous chapter showed how to seemlessly alternate between MC and TD methods, so to will this chapter show how to blend between planning and learning methods.
+
+## <a name="ch8.1" class="n"></a> 8.1 Models and Planning
+
+To recap, a _model_ of the environment is anythign that an agent can use to predict how the environment will respond to its actions based on states, actions, and transition dynamics. If a model is stochastic, then the next possible states and rewards are given by some probability distribution and are thus called _distribution models_.  _Sample models_ produce just one of the possibilites according to the probabilites.
+
+> For example, consider modeling the sum of a dozen dice. A distribution model would produce all possible sums and their probabilities of occurring, whereas a sample model would produce an individual sum drawn according to this probability distribution.
+
+Models can be used to simulate experience. i.e. sample model could produce an entire episode, and a distribution model could generate all possible episodes _and_ their probabilities. 
+
+Here, _planning_ refers to the computational process to infer or improve a policy from a modeled environment:
+
+$$
+\begin{aligned}
+    \text{model} \xrightarrow{\text{  planning  }} \text{policy}
+\end{aligned}
+$$
+
+In _state-space planning_, planning is primarily viewed as a search the the state space for an optimal policy. In _plan-space planning_ planning primarily viewed as a search through the space of plans (evolutionary methods and _partial-order planning_ are subsets therein). The latter difficult to apply efficiently to stochastic problems which tend to be the focus in RL.
+
+The unified view presented contends that all state-space planning methods share a common, and familiar structure following 2 basic ideas:
+
+1. all SSP methods involve computing value functions as a key intermediate step towards policy improvement
+
+2. they compute value functions by backup operations applied to simulated experience.
+
+$$
+\begin{aligned}
+    \text{model} \longrightarrow  _\text{experience}^\text{simulated} \xrightarrow{backups} \text{values} \longrightarrow \text{policy}
+\end{aligned}
+$$
+
+DP methods fits this structure by sweeping the state space, generating distributions of possible transitions, then computing backed-up values and updating estimated state values. This chapter covers how other SSP methods also fit this structure.
+
+Learning methods require only experience as input, and can typically be applied to simulated experience just as well as to real experience.  The following _random-sample one-step tabular Q-planning_ algorithm converges to the optimal policy _for the model_ under the same conditions that the one-step tabular Q-learning  alg converges to the optimal policy _for the real environment_.  
+
+
+### Random-Sample One-step Tabular Q-planning
+
+$$
+\boxed{
+\begin{aligned}
+    &\text{Do forever:} \\ 
+    &\quad\text{1. Select a state,} S \in \mathcal S, \text{ and an action,} A \in \mathcal A, \text{at random} \\ 
+    &\quad\text{2. Send } S, A \text{to a sample model, and obtain} \\ &\qquad\text{a sample next reward, } R, \text{and a sample next state, } S' \\ 
+    &\quad\text{3. Apply one-step tabular Q-learning to } S, A, R, S': \\
+    &\qquad Q(S,A) \leftarrow Q(S,A) + \alpha [R + \gamma \max_a Q(S', a) - Q(S,A)]
+\end{aligned}}
+$$
+
+The second theme covered in this chapter is the benefits of planning in small, incremental steps, which enables planning to be interrupted or redirected at any time with minimal wasted computation. This holds for pure planning problems if the problem is too large to be solved exactly.
+
+## <a name="ch8.2" class="n"></a> 8.2 Integrating Planning, Acting, and Learning
+
+> When planning is done on-line, while interacting with the environment, a number of interesting issues arise.
+
+New information can change the model and therefore the planning. But, if decision-making and model-learning are both computationally-intensive, then the available resources may need to be divided between them. The first exploration of this issue if Dyna-Q, which integrates the major functions needed in an on-line planning agent. Each function appears in Dyna-Q in a simple form. 
+
+
+Experience plays two roles for experience: model improvement (to make the model more closely  match the real environment) and to policy improvement (similar to everything discussed till now).  
+
+![](/images/ml-4-4.png)
+
+The use of experience to improve the model is also called _indirect reinforcment learning_, which makes fuller use of a limited amount of experience and thus achieves a better policy with fewer environmental interactions. Direct methods are much simpler and remain unaffected by the biases in the design of the model. 
+
+Dyna-Q involves planning, acting, model-learning, and direct RL, continually. The direct RL method is one-step tabular Q-learning, and the model-learning is also table-based, acting on the presumption of a deterministic environment. During planning, the Q-planning algorithm randomly samples only from state-action pairs that have previously been experienced s.t. the model is never queried about a pair about which it has no informaiton.
+
+Conceptually, planning, acting, model-learning, and direct RL occur simultaneously and in parallel to Dyna agents. For concreteness and implementation on a serial computer, we specify the order in which they occur given by the following algoirhtm. 
+
+### Dyna-Q Algorithm
+
+$$
+\boxed{
+\begin{aligned}
+    &\text{Initialize } Q(s,a) \text{ and } Model(s,a) \quad \forall s, a \in \mathcal{S, A(s)} \\ 
+    &\text{Do forever:}\\
+        &\quad\text{(a) } S \leftarrow \text{ current (nonterminal) state} \\
+        &\quad\text{(b) } A \leftarrow \text{ ε-greedy(S,Q)} \\ 
+        &\quad\text{(c) Execute action} A; \text{observe resultant reward, } R, \text{and state, } S' \\ 
+        &\quad\text{(d) } Q(S,A) \leftarrow Q(S,A) + \alpha[R + \gamma max_a Q(S', a) - Q(S,A)] \\
+        &\quad\text{(e) }Model(S,A) \leftarrow R, S' \text{ (assuming deterministic environment)} \\ 
+        &\quad\text{(f) Repeat } n \text{ times:} \\ 
+            &\qquad S \leftarrow \text{ random previously observed state} \\ 
+            &\qquad A \leftarrow \text{ random action previously taken in } S \\ 
+            &\qquad R, S' \leftarrow Model(S,a) \\ 
+            &\qquad Q(S,A) \leftarrow Q(S,A) + \alpha[R + \gamma \max_a Q(S',a) - Q(S,A)] \\ 
+\end{aligned}}
+$$
+
+where $Model(s,a)$ denotes the contents of the model (predicted next state and reward) for a state-action pair.
+
+> Without planning ($n = 0$), each episode adds only one additional step to the policy, and so only one step (the last) has been learned so far. With planning, again only one step is learned during the first episode, but here during the second episode an extensive policy has been developed that by the episode’s end will reach almost back to the start state. This policy is built by the planning process while the agent is still wandering near the start state. By the end of the third episode a complete optimal policy will have been found and perfect performance attained.
+
+## <a name="ch8.3" class="n"></a> 8.3 When the Model Is Wrong
