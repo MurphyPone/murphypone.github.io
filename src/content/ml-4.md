@@ -80,6 +80,12 @@ path: "/blog/ml-4"
     - [8.1 Models and Planning](#ch8.1)
     - [8.2 Integrating Planning, Acting, and Learning](#ch8.2)
     - [8.3 When the Model Is Wrong](#ch8.3)
+    - [8.4 Prioritized Sweeping](#ch8.4)
+    - [8.5 Full vs. Sample Backups](#ch8.5)
+    - [8.6 Trajectory Sampling](#ch8.6)
+    - [8.7 Heuristic Search](#ch8.7)
+    - [8.8 Monte Carlo Tree Search](#ch8.8)
+    - [8.9 Summary](#ch8.9)
 
 # <a name="intro" class="n"></a> Introduction
 
@@ -1694,3 +1700,123 @@ where $Model(s,a)$ denotes the contents of the model (predicted next state and r
 > Without planning ($n = 0$), each episode adds only one additional step to the policy, and so only one step (the last) has been learned so far. With planning, again only one step is learned during the first episode, but here during the second episode an extensive policy has been developed that by the episode’s end will reach almost back to the start state. This policy is built by the planning process while the agent is still wandering near the start state. By the end of the third episode a complete optimal policy will have been found and perfect performance attained.
 
 ## <a name="ch8.3" class="n"></a> 8.3 When the Model Is Wrong
+
+Models can often be incorrect due to stochasticity, limited samples, imperfect generalization of value function approximation, and changes to the environment that have not yet been observed/added to the model. Luckily, suboptimal policies computed by quick planning typically leads to discovery and correction of modeling error. Whereas changes to the environment for the worse (in terms of the current policy) are detected quickly as described above, changes _for the better_ tned not to reveal improvement, and modeling error may not be corrected ever.
+
+The Dyna-Q+ model corrects for the under re-exploration of previously sub-optimal that cause standard Dyna algs to fail at short-cut tasks (where a the model improves after $n$ steps, and the optimal policy changes) as follows:
+
+> To encourage behavior that tests long-untried actions, a special “bonus reward” is given on simulated experiences involving these actions. In particular, if the modeled reward for a transition is $R$, and the transition has not been tried in $\tau$ time steps, then planning backups are done as if that transition produced a reward of $R + κ\sqrt τ$ , for some small $k$.
+
+## <a name="ch8.4" class="n"></a> 8.4 Prioritized Sweeping
+
+The Dyna agents presented before simulate transitions starting from state-action pairs selected uniformly at random from all experienced pairs, but this can be improved by prioritizing the distribution. 
+
+> At the beginning of the second episode, only the state–action pair leading directly into the goal has a positive value; the values of all other pairs are still zero. This means that it is pointless to back up along almost all transitions, because they take the agent from one zero-valued state to another, and thus the backups would have no effect. Only a backup along a transition into the state just prior to the goal, or from it into the goal, will change any values.
+
+This can be resolved by working backwards from goal states towards origin points.  Though we don't want to use methods specific to the idea of a "goal state"m we can generalize methods according to reward functions.
+
+> Suppose now that the agent discovers a change in the environment and changes its estimated value of one state. Typically, this will imply that the values of many other states should also be changed, but the only useful onestep backups are those of actions that lead directly into the one state whose value has already been changed. 
+
+As the set of useful backups propogates backward, growing exponentially, computational demands grow as well.  Not all of these backups are useful, relative to how much they've changed.
+
+> In a stochastic environment, variations in estimated transition probabilities also contribute to variations in the sizes of changes and in the urgency with which pairs need to be backed up. 
+
+Prioritizing based on urgency of change is _prioritiziation sweeping_. By maintaining a priority queue of all state-action pars whose estimated value would change significantly of backed up, prioritized by the size of the change, effects of changes are efficiently propogated backward until quiescence as given by the following algorithm. 
+
+### Prioritized Sweeping Algorithm for a Deterministic Algorithm
+
+$$
+\boxed{
+\begin{aligned}
+    &\text{Initialize } Q(s,a), Model(s,a) \quad \forall s, a \in \mathcal{S, A(s)}, \text{ and a } PriorityQueue \text{ to empty}  \\ 
+    &\text{Do forever:}\\
+        &\quad\text{(a) } S \leftarrow \text{ current (nonterminal) state} \\
+        &\quad\text{(b) } A \leftarrow \pi(S,Q) \\ 
+        &\quad\text{(c) Execute action} A; \text{observe resultant reward, } R, \text{and state, } S' \\ 
+        &\quad\text{(d) } Model(S,A) \leftarrow R, S' \\
+        &\quad\text{(e) } P \leftarrow |R + \gamma \max_a Q(S', a) - Q(S,A)| \\ 
+        &\quad\text{(f) if} P > \theta, \text{ then insert } S,A \text{ into } PriorityQueue \text{ with priority} P \\ 
+        &\quad\text{(g) Repeat } n \text{ times, while } PriorityQueue \text{ is not empty:} \\ 
+            &\qquad S,A \leftarrow first(\text{PriorityQueue}) \\ 
+            &\qquad R, S' \leftarrow Model(S,A)\\ 
+            &\qquad Q(S, A) \leftarrow Q(S, A) + \alpha [R + \gamma \max_a Q(S', a) - Q(S,A)] \\ 
+            &\qquad Q(S,A) \leftarrow Q(S,A) + \alpha[R + \gamma \max_a Q(S',a) - Q(S,A)] \\ 
+            &\qquad\text{Repeat, for all } \bar{S} \bar{A} \text{predicted to lead to } S: \\
+                &\qquad\quad \bar{R} \leftarrow \text{predicted reward for } \bar{S} \bar{A}, S \\
+                &\qquad\quad P \leftarrow |\bar{R} + \gamma \max_a Q(S,a) - Q(\bar{S}, \bar{A})| \\
+                &\qquad\quad\text{If } P > \theta, \text{ then insert } \bar{S},\bar{A} \text{ into } PriorityQueue \text{ with priority} P \\ 
+\end{aligned}}
+$$
+
+This kinda sucks though:
+> the algorithms that have been developed so far appear not to extend easily to more interesting cases.
+
+This is due to the assumptin of discrete states. Extensions of prioritized sweeping to stochastic environments are relatively straightforward by simply tracking the probabilities of future states when backing up
+
+## <a name="ch8.5" class="n"></a> 8.5 Full vs. Sample Backups
+
+One-step backups vary along three binary dimensions.  The first two are whether or not they back up state-values or action-values and whether they estimate the value of the opimal policy or some arbitrary policy. These gives s the four classes of backups for value functions: $q^*, v^*, q_\pi, v_\pi$. The other dimension is whether the backups are full or sample backups, considering all possible events or a single sample of what might happen. This final dimension gives us $2^3 = 8$ possibilities, seven of which have specific algorithms shown below.
+
+> (The eighth case does not seem to correspond to any useful backup.)
+
+![](/images/ml-4-5.png)
+
+Any of these one-step backups can be used in planning methods.  E.g. Dyna-Q used $q^*$ sample backups, but could just as easily have used sample backups $q_\pi$; Dyna-AC used $v_\pi$ sample backups. 
+
+> For stochastic problems, prioritized sweeping is always done using one of the full backups.
+
+To determine the merits of full and sample backups, we measure computational requirements.
+
+Consider the following full and sample backups for approximating $q^*$ under discrete states and actions, allowing for tabular representation for $Q$, where $\hat p(s', r | s, a)$ describes the estimated transition dynamics.
+
+$$
+\begin{aligned}
+    Q(s,a) &\leftarrow \sum_{s', r} \hat p(s',r |s, a)[r + \gamma \max_a Q(s', a',)] &\text{(full backup)}\\
+    Q(s,a) &\leftarrow \sum_{s', r} \hat p(s',r |s, a)[r + \gamma \max_a Q(S', a',) - Q(s,a)] &\text{(sample backup)}\\
+\end{aligned}
+$$
+
+The difference here is significant to the extent that the environment is stochastic. 
+> If there are many possible next states, then there may be significant differences. . In favor of the full backup is that it is an exact computation, resulting in a new $Q(s, a)$ whose correctness is limited only by the correctness of the $Q(s', a')$ at successor states. The sample backup is in addition affected by sampling error. On the other hand, the sample backup is cheaper computationally because it considers only one next state, not all possible next states.
+
+Let $s, a, b$ be the starting pair and _branching factor_ (# possible next states that may occur with positive probability), then a full backup requires $b$ times as much computation as a sample backup. If there is insufficient time to complete a full backup, sample backups are always prefereable as they at least make some improvement in the value estimate with fewer than $b$ backups. Thus the question is: given a unit of computational effort, is it better used on a few full backups or to $b$ times as many sample backups?
+
+Analysis suggests that sample backups reduce error according to $\sqrt{\frac{b-1}{bt}}$, where $t$ is the number of sampel backups that have been performed (assuming $\alpha = 1/t$). The advantage of sample backups is that they cause estimates to get gudder sooner and future estimates from successor states will be more accurate than full backups. 
+
+## <a name="ch8.6" class="n"></a> 8.6 Trajectory Sampling
+
+The classical approach to distributing backups, from DP, sweeps the entire state or state-action space, backing up each state/state-action pair once.  This fails on large tasks due to time constrains. Most of the states visited are irrelevant. A better approach is to sample the space at hand, (preferably smarter than uniformly, rather according to the on-policy distribution). Sample state transitions and rewards are given by the model, simulating explicit individual trajectories and performing backups encountered along the way; this is called _trajectory sampling_.  Following the on-policy distribution is good because it emphasizes states that the agent might actually encounter. Only once stochasticity reaches $b = 10$, does uniform sampling converge towards on-policy sampling performance.
+
+>  In the short term, sampling according to the on-policy distribution helps by focusing on states that are near descendants of the start state. If there are many states and a small branching factor, this effect will be large and long-lasting. In the long run, focusing on the on-policy distribution may hurt because the commonly occurring states all already have their correct values. Sampling them is useless, whereas sampling other states may actually perform some useful work. This presumably is why the exhaustive, unfocused approach does better in the long run, at least for small problems. 
+
+## <a name="ch8.7" class="n"></a> 8.7 Heuristic Search
+
+The dominant SSP methods are known as _heuristic searches_ which are conerned with improving action selections given the current value function (rather than other SSP methods which change the value function itself). 
+
+> In heuristic search, for each state encountered, a large tree of possible continuations is considered. The approximate value function is applied to the leaf nodes and then backed up toward the current state at the root ... The backing up stops at the state–action nodes for the current state. Once the backed-up values of these nodes are computed, the best of them is chosen as the current action, and then all backed-up values are discarded.
+
+Though the value funciton is typically unchanged in heuristic searches, it _can_ be improved over time using backed-up values computed from the search, or any previously discussed methods. Heuristic search is like an extension of the idea of a greedy policy beyond a single step.
+
+> If one has a perfect model and an imperfect action-value function, then in fact deeper search will usually yield better policies.
+
+Heuristic search also serves as a means of selectively distributin backups that lead to better and faster approximation of the optimal value function. Just as the search tree is deeper along action trajectories that are more promising and shallower elsewhere, so to can distributions of backups be organized, probably, BSB dunno yet.
+
+> The distribution of backups can be altered in similar ways to focus on the current state and its likely successors ... By devoting a large amount of computation specifically relevant to the candidate actions, a much better decision can be made than by relying on unfocused backups.
+
+## <a name="ch8.8" class="n"></a> 8.8 Monte Carlo Tree Search
+
+-- chapter missing, TODO, probably also look into 2018 version with SGD
+
+## <a name="ch8.9" class="n"></a> 8.9 Summary
+
+This chapter emphasized the relationships between optimal planning and learning behavior, both involving estimating the same value functions, and both updating estimates incrementally.
+
+The most important dimension of variation among SSP methods is the distribution of backups: the focus of the the search.  
+
+- Prioritized Sweeping - focuses on the predecessors of states whose values have recently changed    
+- Heuristic Search -  focuses on the successors of the current state
+- Trajectory Sampling - focuses on the on-policy distribution
+
+The other dimension explored was the size of the backups. 
+- smaller backups increase the efficacy of incremental backups
+- full backups are just kind of always bad
