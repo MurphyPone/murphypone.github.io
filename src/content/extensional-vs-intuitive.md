@@ -5,9 +5,8 @@ description: "A Summary of a Summary of a Summary"
 path: "/blog/extensional-vs-intuitive"
 ---
 
-
 ## Preface
-This article contains my summary of Daniels summary of Tversky and Kahneman's summary of the fallacy of extensionalism.
+This article contains my summary of Daniel's summary of Tversky and Kahneman's summary of the fallacy of extensionalism.
 
 ## Extensionalism
 "Perhaps the simplest and most basic qualitative law of probability is the conjunction rule: The probability of a conjunction, $\text {P(A\&B)}$, cannot exceed the probabilities of its constituents, $\text {P(A), P(B)}$, because the extension (or the possibility set) of a conjunction is included in the extension of its constituents.  However, the representativeness and availability heuristics can make a conjunction appear more probable than one of its constituents.
