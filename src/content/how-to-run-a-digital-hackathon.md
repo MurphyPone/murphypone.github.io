@@ -57,7 +57,7 @@ At a minimum, your platform should have dedicated text channels for the followin
   >
   > 📊 I’ve got some project ideas addressing the \<sponsor\> challenge that I’d love to share and develop with a bigger team, but I’m open to working on other ideas too!
   >
-  > 🤠 My friend @Patrick and I are looking for two other folks for a team – let us know if >you’re interested!!!
+  > 🤠 My friend @Patrick and I are looking for two other folks for a team – let us know if you’re interested!!!
 
   - `#hacker-questions` - for general FAQ
   - `#mentors` - for hackers to `@mentor-<language>`
