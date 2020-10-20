@@ -39,6 +39,6 @@ Luckily for the indecisive and hungry thinkers of the 21st century who find them
 When picking between an apple and an orange, perspective is everything.  Edmund Husserl’s phenomenological approach to
     analyzing the nature of an experience according to the extensive context by which it is observed can only get us so far
     when examining things of such little consequence as fruits.  When faced with the crux of Granny Smith or Clementine, and
-    after reducing either to a lump of its essence --the sum of <i>only</i> its <a href="https://murphypone.github.io/Homepage/pdocs/pdocs.html" target="_blank">eidetic</a> parts-- how could anybody enjoy either?  If an
+    after reducing either to a lump of its essence –the sum of _only_ its [eidetic]() parts– how could anybody enjoy either?  If an
     object is only comparable according to its ability to fulfill its purpose as defined by its user, don’t let the question
     consume you; consume the apple (or orange if that’s what you prefer).

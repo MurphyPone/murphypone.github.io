@@ -6,7 +6,7 @@ path: "/blog/turing-on-gauss"
 ---
 
 ## Pre-Preface
-While doing some research on Alan Turing, I stumbled across the [Turing Archive](http://www.turingarchive.org/) which contains a ton of Turing's published and unpublished works.  I had a fair chunk of free time on my hands, so I decided to transcribe some of his notes to a more readable format.  This is unfinished and ongoing.
+While doing some research on Alan Turing, I stumbled across the [Turing Archive](http://www.turingarchive.org/) which contains a ton of Turing's published and unpublished works.  I had a fair chunk of free time on my hands, so I decided to transcribe some of his notes to a more readable, digital format whilst touching up on my $\LaTeX$ skills.  This is unfinished and ~~ongoing~~.
 
 ## Preface
 The object of this paper is to give a rigorous demonstration of the "limit theorem of the theory of probability".  I had complete the essential part of it by the end of February but when considering published it I was informed that an almost identical proof had been given by Lindeburg.  The only important difference between the two papers is that I have introduced and laid stress on a type of condition which I call quasi-necessary (§ 8).  We have both used the "distribution functions" (§ 2 to describe errors instead of frequency functions (Appendix B) as was usual formerly.  Lindberg also uses (D) if § 12 and theorem 6 or their equivalents.  Since reading Lindeberg's paper I have for obvious reasons made no alterations to that part of the paper which is similar to his (viz. § 9 to § 13), but I have added elsewhere remarks on points of interest and the appendices.
@@ -23,7 +23,11 @@ I consider § 9 to § 13 is by far the most important part of this paper, the re
 
 When an observation is made of a physical quantity, the total error will in general be the effect of a large number of independent sources of error.  Provided that each of these sources has only a small effect we may regard the total error as being built up additively from a number of independent errors.  In simple cases it can be easily shown (see Appendix B) that for a large number of contributing errors the total error is given approximately by the "Gaussian" or "normal" law ie, the probabilit of the total error not exceeding $x$ is approximately $\text {W}(\frac x k)$, where
 
-$\text {W}(x) = \frac 1 {\sqrt{2\pi}} \int_{-\infin}^x e^{-\frac 1 2 t^2} dt$
+$$
+\begin{aligned}
+    \text {W}(x) = \frac 1 {\sqrt{2\pi}} \int_{-\infin}^x e^{-\frac 1 2 t^2} dt
+\end{aligned}
+$$
 
 and we should expect this to be true also in more general cases.
 
@@ -38,7 +42,11 @@ I shall start by introducing distribution functions of errors and obtaining some
 
 An error $\varepsilon$ is said to have a "distribution function" $\text F$ if the probability $\text {F}^{-}(x)$ of $\varepsilon$ having a value less than $x$ and the probability $\text {F}^{+}(x)$ of it having a value not greater than $x$ satisfy
 
-$\text {F}^{-}(x) \leq \text {F}(x) \leq \text {F}^{+}(x) \space\forall x $
+$$
+\begin{aligned}
+    \text {F}^{-}(x) \leq \text {F}(x) \leq \text {F}^{+}(x) \space\forall x
+\end{aligned}
+$$
 
 Clearly $\text {F}^{-}$ and $\text {F}^{+}$ are themselves D.Fs for $\varepsilon$, and may be called the lower and upper D.Fs for $\varepsilon$.
 
@@ -46,7 +54,12 @@ Clearly $\text {F}^{-}$ and $\text {F}^{+}$ are themselves D.Fs for $\varepsilon
 
 If $\varepsilon_1,\varepsilon_2, ... \varepsilon_n$ are independent errors then the mean of their sum $\varepsilon_1 + \varepsilon_2 ... +\varepsilon_n$ is clearly the sum of the means of $\varepsilon_1,\varepsilon_2, ... \varepsilon_n$.  Similarly if $\varepsilon = \varepsilon_1 + \varepsilon_2 + ... +\varepsilon_n$ and, for each $k, \varepsilon_k$ has mean $0$, the mean of $\varepsilon^2$ is
 
-$\displaystyle\sum_r {\text{mean } \varepsilon_k^2 } + 2\sum_{r\neq s} {\text{mean } \varepsilon_r \varepsilon_s }$
+
+$$
+\begin{aligned}
+    \displaystyle\sum_r {\text{mean } \varepsilon_k^2 } + 2\sum_{r\neq s} {\text{mean } \varepsilon_r \varepsilon_s }
+\end{aligned}
+$$
 
  obviously.  But $\text {mean } \varepsilon_r \varepsilon_s = \text {mean } \varepsilon_r \text {mean } \varepsilon_s$, since $\varepsilon_r \varepsilon_s$ are independent $\therefore \text {mean } \varepsilon^2 = \displaystyle \sum_k \text{mean } \varepsilon_k^2$
 
@@ -54,9 +67,14 @@ If $a$ be the mean of $\varepsilon$, $\text { mean}(\varepsilon-a)^2$ is called 
 
 These two results have been obtained by applicaton of intuitive ideas regarding means.  An alternative method would be to define the mean of an error by $\coloneq$
 
-$a = \text {mean of } \varepsilon = \int_{-\infin}^\infin x \space dF(x)$
+$$
+\begin{aligned}
 
-$k^2 = \text{M.S.D. of } \varepsilon = \int_{-\infin}^\infin (x-a)^2 \space dF(x)$
+    a &= \text {mean of } \varepsilon = \int_{-\infin}^\infin x \space dF(x)\\
+
+    k^2 &= \text{M.S.D. of } \varepsilon = \int_{-\infin}^\infin (x-a)^2 \space dF(x)
+\end{aligned}
+$$
 
 Where $F$ is the D.F. of $\varepsilon$.  We could then find an analytical expression for the D.F. of $\varepsilon = \varepsilon_1 + \varepsilon_2 + ... + \varepsilon_n$ by means of which the mean of $\varepsilon$ and its M.S.D. could be expressed as a Stieltjes Integral and the above two equations deduced.  This method would have logical advantages but it is rather lengthy.  It is given in detail in Appendix C.  We shall need such an analytical expression in the case $\eta = 2$
 
@@ -66,27 +84,50 @@ If $\text {F}_1, \text {F}_2, ... \text {F}_n$ are D.Fs belonging to errors $\va
 
 $\text {F} = \text {F}_1 \oplus \text {F}_2 \oplus ... \oplus \text {F}_n$ since this is logically equivalent to the proposition
 
-$\varepsilon = \varepsilon_1 + \varepsilon_2 + ... +\varepsilon_n$
+$$
+\begin{aligned}
+    \varepsilon = \varepsilon_1 + \varepsilon_2 + ... +\varepsilon_n
+\end{aligned}
+$$
 
 the associative and commutative laws hold for $\oplus$.  We will find an expression for $\text {F} \oplus \text {G} = \text {H}$
 
 Let $\lambda_0 < \lambda_1 < \lambda_2 < ... \lambda_n$ be a dissection of $\mathcal {D}$ of $(-\infin , \infin)$  Then the probability of an error with D.F $\text H$ having a value smaller than $x$ is at least $\coloneq$
 
-$s(\mathcal {D}) = \displaystyle\sum_1^n [\text {F}(\lambda_r) - \text {F}(\lambda_{r-1})]\text {G}^-(x-\lambda_r)$
+$$
+\begin{aligned}
+    s(\mathcal {D}) = \displaystyle\sum_1^n [\text {F}(\lambda_r) - \text {F}(\lambda_{r-1})]\text {G}^-(x-\lambda_r)
+\end{aligned}
+$$
 
 the probability of its not exceeding x is at most $\coloneq$
 
-$s(\mathcal {D}) = \displaystyle\sum_1^n [\text {F}(\lambda_r) - \text {F}(\lambda_{r-1})]\text {G}^+(x-\lambda_{r-1})$
+$$
+\begin{aligned}
+    s(\mathcal {D}) = \displaystyle\sum_1^n [\text {F}(\lambda_r) - \text {F}(\lambda_{r-1})]\text {G}^+(x-\lambda_{r-1})
+\end{aligned}
+$$
 
 If $\text {F}(t)$ and $\text {G}(x-t)$ regarded as functions of $t$ have no common discontinuities.
 
-$\frac {\text {Bound}} {\text {all } \mathcal{D}} s(\mathcal{D})=\frac {\overline\text{Bound}} {\text {all } \mathcal{D}} s(\mathcal{D})= \int^\infin_{-\infin}\text{G}(x-t)\space d\text{F}(t)$
+$$
+\begin{aligned}
+    \frac {\text {Bound}} {\text {all } \mathcal{D}} s(\mathcal{D})&=\frac {\overline\text{Bound}} {\text {all } \mathcal{D}} s(\mathcal{D})= 
+    \int^\infin_{-\infin}\text{G}(x-t)\space d\text{F}(t)\\
+    
+    \therefore \text{H}(x) &= \int^\infin_{-\infin} \text {G}(x-t)\space d\text{F}(t) \quad \text{ for such values of x (S)}
+\end{aligned}
+$$
 
-$\therefore \text{H}(x) = \int^\infin_{-\infin} \text {G}(x-t)\space d\text{F}(t) \quad \text{ for such values of x (S)}$
+
 
 $\text {H}(x)$ is increasing throughout the set of such values.  The remaining values form an enumerable set and we may define $\text {H}(x)$ at these points, in such a way that
 
-$\text {H}(x-O)=\text {H}^-(x-O)≤\text {H}(x)≤\text {H}^+(x)=\text {H}(x+O)$
+$$
+\begin{aligned}
+    \text {H}(x-O)=\text {H}^-(x-O)≤\text {H}(x)≤\text {H}^+(x)=\text {H}(x+O)
+\end{aligned}
+$$
 
 § 5. <u>Shape Functions (S.Fs)</u>
 If $\text {F}$ be a D.F. with a mean $a$ and M.S.D. $k^2 (k>0)$, then $\text U$, define by $\text {U}(x)=\text{F}(k(x-a))$ is a D.F with mean $O$ and M.S.D $I$ and is called the shape function (S.F.) of $\text F$
@@ -97,7 +138,11 @@ We are now in a position to formulate the problem mathematically.
 
 We are given a sequence $\varepsilon_1, \varepsilon_2...$ of errors. $\varepsilon_r$ has D.F $\text {G}_r$, S.F. $\text {V}_r$, mean $a_r$, and M.S.D $k_r^2$.  $\text F_n$ is defined by $\text F_n=\text G_1 \oplus \text G_2 \oplus ... \oplus \text G_n$, and has $\text U_n$ as its S.F. $\text W$ is the S.F of the Gaussian Error i.e.
 
-$\text {W}(x) = \frac 1 {\sqrt{2\pi}} \int_{-\infin}^x e^{-\frac 1 2 t^2} dt$
+$$
+\begin{aligned}
+    \text {W}(x) = \frac 1 {\sqrt{2\pi}} \int_{-\infin}^x e^{-\frac 1 2 t^2} dt
+\end{aligned}
+$$
 
 Then we wish to find under what conditions $\text {U}(x) \rightarrow \text {W}(x)$ uniformly as $n \rightarrow \infin$.  When this is the case we say that $\text F_n$ tends to the Gaussian law."  Any error or D.F. whose S.F. is $\text W$ will be called Gaussian.
 
@@ -115,25 +160,29 @@ For if $\text W_a \oplus \text W_b = \text H$, then
 $$
 \begin{aligned}
 
-\text H(y) = \int^\infin_{-\infin}\text W(\frac {y-x} a) \space d \text{W}(\frac x b) \\
+    \text H(y) &= \int^\infin_{-\infin}\text W(\frac {y-x} a) \space d \text{W}(\frac x b) \\
 
 
-= \frac 1 b \int^\infin_{-\infin}\text W(\frac {y-x} a) \text{W}'(\frac x b) \space dx \\
+    &= \frac 1 b \int^\infin_{-\infin}\text W(\frac {y-x} a) \text{W}'(\frac x b) \space dx \\
 
-\text H'(y) = \frac 1 {ab} \int^\infin_{-\infin}\text W'(\frac {y-x} a) \text{W}'(\frac x b) \space dx \\
+    \text H'(y) &= \frac 1 {ab} \int^\infin_{-\infin}\text W'(\frac {y-x} a) \text{W}'(\frac x b) \space dx \\
 
-= \frac 1 {2\pi ab} e^{-\frac 1 2^{\frac {y^2} {c^2}}} \int^\infin_{-\infin}e^{-\frac 1 2^{\frac {t^2c^2} {a^2b^2}}} \space dt \\
+    &= \frac 1 {2\pi ab} e^{-\frac 1 2^{\frac {y^2} {c^2}}} \int^\infin_{-\infin}e^{-\frac 1 2^{\frac {t^2c^2} {a^2b^2}}} \space dt \\
 
-\scriptsize \text{by the substitution } t=x - \frac {b^2} {c^2} y \\
+    &\scriptsize \text{by the substitution } t=x - \frac {b^2} {c^2} y \\
 
- = \frac 1 {\sqrt{2\pi}} \cdot \frac 1 c e^{-\frac 1 2^{\frac {y^2} {c^2}}} = \frac 1 c \text {W}'(\frac y c)\\
+    &= \frac 1 {\sqrt{2\pi}} \cdot \frac 1 c e^{-\frac 1 2^{\frac {y^2} {c^2}}} = \frac 1 c \text {W}'(\frac y c)\\
 
 \end{aligned}
 $$
 
 Integrating and putting in right constant of integration.
 
-$\text H(y) = \text W(\frac y c) = \text W_o(y)$
+$$
+\begin{aligned}
+    \text H(y) = \text W(\frac y c) = \text W_o(y)
+\end{aligned}
+$$
 
 § 8. <u>The Quasi-Necessary Conditions.</u>
 
@@ -143,7 +192,11 @@ The conditions we shall impose fall into two groups.  Those of one group (the qu
 
 if $\text U$ and $\text V$ are two S.Fs, then
 
-$\vert \text {U}(x) - \text {V}(x)\vert ≤ 1, \vert \text{U}(x) - \text {V}(x)\vert < \frac {2} {x^2}$
+$$
+\begin{aligned}
+    \vert \text {U}(x) - \text {V}(x)\vert ≤ 1, \vert \text{U}(x) - \text {V}(x)\vert < \frac {2} {x^2}
+\end{aligned}
+$$
 
 and
 
@@ -153,19 +206,27 @@ $\vert \text {U}(x) - \text {V}(x)\vert ≤ \frac 4 {1 + x^2}$, each implicitly 
 
 $\text {U}(x)$  has M.S.D $\text I$ and is increasing
 
-$\therefore \space \text{I}=\int^{\infin}_{-\infin}x^2 \space d\text{U}(x) ≥ \int^{y}_{-\infin}x^2 \space d\text{U}(x) ≥ y^2 \space \text{U}(y) \space \text {if } y ≤0$
+$$
+\begin{aligned}
+   &\therefore \space \text{I}=\int^{\infin}_{-\infin}x^2 \space d\text{U}(x) ≥ \int^{y}_{-\infin}x^2 \space d\text{U}(x) ≥ y^2 \space \text{U}(y) \space \text {if } y ≤ 0 \\
 
-$\therefore \text {for all S.Fs U}(x) ≤ \frac 1 {x^2} \text {if } x ≤ 0$
-
-$1-\text{V}(x)$ is an S.F. $\therefore 1-\text{V}(x) ≤ \frac 1 {x^2}$ if $x ≥ 0$
+    &\therefore \text {for all S.Fs U}(x) ≤ \frac 1 {x^2} \text {if } x ≤ 0, 1-\text{V}(x) \text{ is an S.F.} \\
+    &\therefore 1-\text{V}(x) ≤ \frac 1 {x^2} \text{ if } x \geq 0
+\end{aligned}
+$$
 
 $\therefore$ combining these last two inequalities
 
-$\vert \text {U}(x) - \text {V}(x)\vert ≤ \frac 2 {x^2}, \space \forall x$
+$$
+\begin{aligned}
 
-$\min(\frac{x^2} 2, 1) ≤ \frac 4 {1 + x^2}$
+    \vert \text {U}(x) - \text {V}(x)\vert ≤ \frac 2 {x^2}, \space \forall x\\
 
-$\therefore \vert \text {U}(x) - \text {V}(x)\vert ≤ \frac 4 {1+x^2}$
+    \min(\frac{x^2} 2, 1) ≤ \frac 4 {1 + x^2}\\
+
+    \therefore \vert \text {U}(x) - \text {V}(x)\vert ≤ \frac 4 {1+x^2}\\
+\end{aligned}
+$$
 
 <u>Corollary</u> $\vert \text {U}(x) - \text {V}(x)\vert$ and $\vert \text {U}(x) - \text {V}(x)\vert^2$ are integrable over $(-\infin, \infin)$
 
@@ -173,13 +234,21 @@ We shall now assume the following results concerning Hermite functions and polyn
 
 (1) <u>Definition</u> the $\text n^\text{th}$ Hermite polynomial is defined by
 
-$\text {H}_n(x) = (-)^n e^{x^2}(\frac d {dx})^n e^{-x^2} \quad\quad (n≥0)$
+$$
+\begin{aligned}
+    \text {H}_n(x) = (-)^n e^{x^2}(\frac d {dx})^n e^{-x^2} \quad\quad (n≥0)
+\end{aligned}
+$$
 
 (2) For each $n, \text {H}_n(x)$ is a polynomial of degree $n$ and no les.
 
 (3) <u>Completeness</u> If $(\varphi(x))^2$ is integrable and for each $n ≥ 0$
 
-$\int^{\infin}_{-\infin}\text {H}_n(x)e^{-\frac 1 2 x^2} \varphi(x)\space dx = 0$
+$$
+\begin{aligned}
+    \int^{\infin}_{-\infin}\text {H}_n(x)e^{-\frac 1 2 x^2} \varphi(x)\space dx = 0
+\end{aligned}
+$$
 
 Then $\varphi(x) = 0 \quad\quad \mathcal P \cdot \mathcal P$
 
@@ -196,7 +265,11 @@ Then, for all $\xi$, $\text {X(}\xi) =0$
 
 We may differentiate $\int_{-\infin}^\infin \text{W}'(\eta - \xi) \text {X(}\xi) \space d \xi = 0$ any number of times under the integral sign.  suppose in fact that
 
-$\text F(\eta)=\int_{-\infin}^\infin \text{W}^{(n)}(\eta - \xi) \text {X(}\xi) \space d \xi$
+$$
+\begin{aligned}
+    \text F(\eta)=\int_{-\infin}^\infin \text{W}^{(n)}(\eta - \xi) \text {X(}\xi) \space d \xi
+\end{aligned}
+$$
 
 Then
 
@@ -216,4 +289,4 @@ $\therefore \int^\infin_{-\infin} {e^x}^2 \text H_n(X)\text X(X\sqrt 2)dX = 0 \q
 
 $\int^\infin_{-\infin}[{e^X}^2 \text H_n(X)][e^{-X^2}\text X(-X\sqrt 2)]dx=0$
 
-$\therefore$ from this, the fact that $e^{-X^2}\text X(-X\sqrt 2)$ is integrable and assumption (3) above, we deduce that $e^{-X^2}\text X(-X\sqrt 2)=0 \quad \mathcal {P} \cdot \mathcal {P}$ i.e. $\text X(\xi)=0 \quad \mathcal {P} \cdot \mathcal {P}$ But $\text X$ is the difference of a monotone and a continuous function $\therefore \text X(\xi)=0$ for all $\xi$
+$\therefore$ from this, the fact that $e^{-X^2}\text X(-X\sqrt 2)$ is integrable and assumption (3) above, we deduce that $e^{-X^2}\text X(-X\sqrt 2)=0 \quad \mathcal {P} \cdot \mathcal {P}$ i.e. $\text X(\xi)=0 \quad \mathcal {P} \cdot \mathcal {P}$ But $\text X$ is the difference of a monotone and a continuous function $\therefore \text X(\xi)=0$ for all $\xi$.

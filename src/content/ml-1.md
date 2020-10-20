@@ -2,11 +2,11 @@
 title: "ML 1: Reinforcement Learning, So Hot Right Now"
 date: "2019-06-26"
 description: "Overview of a Summary of Reinforcement Learning"
-path: "/blog/ml-pm-1"
+path: "/blog/ml-1"
 ---
 
 ## Introduction to Reinforcement Learning
-This page is a summary of the cool symbols and my layman's understanding of what they mean in the context of Reinforcement Learning.  Praise be to Sergey and BHoag.
+This page is a summary of the cool symbols and my layman's understanding of what they mean in the context of Reinforcement Learning.  Praise be to Sergey and BHoag.  A more complete, coherent glossary is given in [the glossary of this point](/blog/ml-4/#gl); this post remains on the more shit-posty end of the spectrum.
 
 ## Glossary
 

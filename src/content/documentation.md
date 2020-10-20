@@ -6,7 +6,7 @@ path: "/blog/documentation.md"
 ---
 
 ## Preface
-This article contains my summary of Kismet's presentation on how to write documentation that doesn't suck
+This article contains my summary of Kismet's presentation on how to write documentation that doesn't suck.
 
 ## Process, Information Architecture, and Voice
 
@@ -29,14 +29,14 @@ Additionally, the quality of documentation can be evaluated in terms of readabil
 
 ## How to Follow the Process
 
-1. Create a ticket/issue and tag a Subject Matter Expert to oversee your progress - this makes your task trackable
+1. Create a ticket/issue and tag a Subject Matter Expert (SME) to oversee your progress - this makes your task trackable
 2. Define terms, establish dependencies, and identify areas of ambiguity
 3. Write content with readability and audience in mind
 4. Review / QA (via SME/PoC)
 5. Merge and close ticket
   - Deliver
   - Deploy
-  - Reject/repeat
+  - Reject / repeat
 
 There should always be at least one Point of Contact who can verify/provide oversight on a given issue.
 
@@ -54,7 +54,7 @@ Obviously, identifying the audience of your documentation depends on what proble
 | Basic Copyedit | 5-10 pages/hr | ... |
 | Proof Reading | 9-13 pages/hr | ... |
 
-\* Data from the Editorial Freelance Association on general documentation, not necessarily technical docs.  Thank God
+\* Data from the Editorial Freelance Association on general documentation, not necessarily technical docs.  Thank God.
 
 When reading other issues and writing your own:
  - Tag relevant people
@@ -65,9 +65,9 @@ When reading other issues and writing your own:
 
 ![img](https://vignette.wikia.nocookie.net/villains/images/0/08/Mr._Smee_Transparent/revision/latest?cb=20170713193443)
 
-From an interns perspective, SMEs could knock out any task you get assigned for a month in a day. Their time is valuable, which is why you write the docs, and they reinvent clocks.  If you manage to pin one of them down for a meeting time, it's important to clarify your problem space as quickly and clearly as possible.  Some questions that can optimize the time you get with them:
+From an interns perspective, SMEs could knock out any task you get assigned for a month in a day. Their time is valuable, which is why you write the docs, and they reinvent clocks.  If you manage to pin one of them down for a meeting time, it's important to clarify your problem and domain of knowledge as quickly and clearly as possible.  Some questions that can optimize the time you get with them:
 
 - What existing, relevant sources should I read before starting?
 - What is the main use case?
 - Who is the intended audience, what level of experience can I assume?
-- ... Matt
+

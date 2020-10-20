@@ -235,11 +235,6 @@ function setup() {
 Krazy.  Let's make it look cool so our mom's can appreciate it too!  Define another a helper method for draw:
 
 ```JavaScript
-/**
- * [showKNN description]
- * @param  {[type]} nearest [description]
- * @return {[type]}         [description]
- */
 function showKNN(nearest) {
   for(let p in nearest) {
     stroke(nearest[p][1]);

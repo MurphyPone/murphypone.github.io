@@ -7,7 +7,7 @@ path: "/blog/occcam-and-his-razor"
 
 ## Preface
 
-This article aims to qualitatively describe the notation from [Kevin Kelly's paper on "Simplicity and Conduciveness"](https://www.researchgate.net/publication/228694541_Simplicity_and_Truth_Conduciveness) which offers painful perversions of standard set notation. The paper itself strives to provide a formal proof of the validity of Occam's Razor which Wikipedia defines to be: 
+This article aims to qualitatively describe the notation from Kevin Kelly's paper on ["Simplicity and Truth Conduciveness"](https://www.researchgate.net/publication/228694541_Simplicity_and_Truth_Conduciveness) which offers painful perversions of standard set notation. The paper itself strives to provide a formal proof of the validity of Occam's Razor which Wikipedia defines to be: 
 
 > "the simplest explanation is most likely the right one".
 
@@ -25,7 +25,7 @@ When striving to define the "simplest" explanation of a claim, we start with the
 
 and 
 
-- [Kalmogorov Complexity](https://en.wikipedia.org/wiki/Kolmogorov_complexity) - which can be thought of as the optimal encoding of a piece of information, or the lower bound of the length of program needed to recreate some input, roughly speaking. 
+- [Kolmogorov Complexity](https://en.wikipedia.org/wiki/Kolmogorov_complexity) - which can be thought of as the optimal encoding of a piece of information, or the lower bound of the length of program needed to recreate some input, roughly speaking. 
 
 For example, the kolmogorov complexity of a _simple_ string like `aaaaaaaaaaaaaaaaaaaaaaaaaa` (26 'a's) could be expressed in fewer characters as: 
 
@@ -68,7 +68,7 @@ E = \{e_1, e_2, e_3, e_4, e_5, e_6, e_7, e_8, e_9\}
 \end{aligned}
 $$
 
-Let $K$ be the set of all sets of effects that might be a description of the ⭐_world_ ⭐: 
+Let $K$ be the set of all sets of effects that might be a complete description of the ⭐_world_ ⭐: 
 
 $$
 \begin{aligned}
@@ -136,7 +136,7 @@ The second stipulation is that $S$ must be compatible with experience meaning th
 
 ## Occam's Razor
 
-So, Occam's razor is $c(T)$, but this doesn't necessarily get us to the truth... The strength of Occam's razor is that, if another truth-getting strategy is used, it will eventually be forced to make a reatraction in the absence of new information, like the Higgs boson, given $\{e_1, e_2, e_3, ?\}$, whereas Occam's razor can solve a problem $(K_e, Q)$ each time new information $e_i$ is revealed that is necessarily the simplest, most complete Theory that makes no _more_ retractions than any other arbitrary strategy.  In this sense, Occam's razor leads you to the truth the fastest, in the _worst case_.
+So, Occam's razor is $c(T)$, but this doesn't necessarily get us to the truth... The strength of Occam's razor is that, if another truth-getting strategy is used, it will eventually be forced to make a retraction in the absence of new information, like the Higgs boson, given $\{e_1, e_2, e_3, ?\}$, whereas Occam's razor can solve a problem $(K_e, Q)$ each time new information $e_i$ is revealed that is necessarily the simplest, most complete Theory that makes no _more_ retractions than any other arbitrary strategy.  In this sense, Occam's razor leads you to the truth the fastest, in the _worst case_.
 
 > The new idea is that these [alternative theories] are not exhaustive alternatives, for it may be that Ockham's razor somehow converges to the truth along the straightests or most direct path, where directness is, roughly speaking, a matter of not altering one's opinion more often or later than necessary.  
 
@@ -148,7 +148,7 @@ Nature is recalcitrant, and can pause at $e_3$ for infinity, then as soon as we 
 
 ## Critiques of Occam's Razor and Some Takeaways
 
-"Any theory worth it salt has an underlying mechanism, where's Occam's?" 
+"Any theory worth its salt has an underlying mechanism, where's Occam's?" 
 
 Occam's razor is useful when no current Theory contains $\pi$.  The worst case you get stuck in is the one where nature falsifies your "best" theory per $c(T)$, and the one retraction you make increases $c(T)$ by only one.  Your mechanism is not obliterated. 
 
