@@ -47,6 +47,9 @@ const ProjectCard = styled.div`
   background-repeat:no-repeat;
   background-size: cover;
   background-position: center;
+  @media (max-width: 768px) {
+    height: 20vh;
+  }
 `
 
 const ProjectTitle = styled.a`
@@ -61,9 +64,13 @@ const GridContainer = styled.div`
   padding-top: 20px;
   width: 100%;
   display: grid;
-  width: 100%;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
+  @media (max-width: 768px) {
+    grid-template-rows: 1fr;
+    grid-template-columns: 9fr;
+    height: 50vh;
+  }
 `
 
 
@@ -91,11 +98,11 @@ const LandingBio = () => (
 
           <ProjectCard style={{ backgroundImage: 'url("/images/katacoda.png")', backgroundSize: "30%", backgroundPositionY: "10%", paddingTop: "25%"}}><ProjectTitle href="https://www.katacoda.com/petersmurphy7" target="_blank" style={{color: "black", fontSize: "1.2em"}}>Grey Matter/Katacoda</ProjectTitle></ProjectCard>     
           <ProjectCard style={{ backgroundImage: 'url("/images/BSB.png")', backgroundSize: "100%", backgroundPositionY: "60%", paddingTop: "15%"}}><ProjectTitle href="https://github.com/MurphyPone/Sutton-Barto-Bhoag" target="_blank" style={{color: "black"}}>Barto, Sutton, Bhoag</ProjectTitle></ProjectCard>
-          <ProjectCard style={{ backgroundColor: '#2c3e50', lineHeight: '1em'}}><ProjectTitle href="https://www.fivefourpod.com" target="_blank" style={{color: '#f94848', fontFamily: 'Montserrat', fontWeight: 'bolder' }}>5-4 Podcast</ProjectTitle></ProjectCard>
+          <ProjectCard><ProjectTitle style={{color: "black"}}>project loading</ProjectTitle></ProjectCard>
          
           <a href="https://vthacks.com" target="_blank"><ProjectCard style={{ backgroundImage: 'url("/images/vthacks.png")'}}></ProjectCard></a>
           <a href="https://hackbi.org" target="_blank"><ProjectCard style={{ backgroundImage: 'url("/images/hackbi.png")'}}></ProjectCard></a>
-          <ProjectCard>project y</ProjectCard>
+          <a href="https://www.fivefourpod.com" target="_blank"><ProjectCard style={{ backgroundImage: 'url("https://www.fivefourpod.com/assets/img/profile.jpg")'}}></ProjectCard></a>
         </GridContainer>
       </OuterContainer>
     )}
