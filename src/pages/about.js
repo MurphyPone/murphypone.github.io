@@ -1,6 +1,8 @@
 import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import GoogleApiWrapper from "../components/map"
+
 
 const IndexPage = () => (
   <Layout>
@@ -16,7 +18,11 @@ const IndexPage = () => (
     I'm interested in reinforcement learning, Alan Turing, Rubik's Cubes, long
     walks on the beach, 3D modeling with respect audio visualization, and hackathons! 
     </p>
-    <iframe title="resume" src={"/images/resume.pdf#tool"} width="100%" height="700px" style={{border: "10px black"}}></iframe>
+
+    <h3>Hackathons I've organized, Coached, attended, and mentored</h3>
+    <GoogleApiWrapper/>                                                         
+    {/* <h3>Resume</h3> */}
+    <iframe title="resume" src={"/images/resume.pdf#tool"} width="100%" height="700px" style={{border: "10px black", marginTop: '105vh'}}></iframe>
   </Layout>
 )
 

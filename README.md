@@ -12,3 +12,5 @@
     - Alternatively, make sure there _is_ a static folder atroot of dev branch and reference static resources acc. to [this](https://www.gatsbyjs.org/docs/static-folder/)
 
     - issue where it undoes the custom domain on deployment, just tweak the setting 
+     
+- [ ] add responsive styling to the map/resume
