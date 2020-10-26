@@ -98,11 +98,12 @@ const LandingBio = () => (
 
           <ProjectCard style={{ backgroundImage: 'url("/images/katacoda.png")', backgroundSize: "30%", backgroundPositionY: "10%", paddingTop: "25%"}}><ProjectTitle href="https://www.katacoda.com/petersmurphy7" target="_blank" style={{color: "black", fontSize: "1.2em"}}>Grey Matter/Katacoda</ProjectTitle></ProjectCard>     
           <ProjectCard style={{ backgroundImage: 'url("/images/BSB.png")', backgroundSize: "100%", backgroundPositionY: "60%", paddingTop: "15%"}}><ProjectTitle href="https://github.com/MurphyPone/Sutton-Barto-Bhoag" target="_blank" style={{color: "black"}}>Barto, Sutton, Bhoag</ProjectTitle></ProjectCard>
-          <ProjectCard><ProjectTitle style={{color: "black"}}>project loading</ProjectTitle></ProjectCard>
          
+          <a href="https://www.fivefourpod.com" target="_blank"><ProjectCard style={{ backgroundImage: 'url("https://www.fivefourpod.com/assets/img/profile.jpg")'}}></ProjectCard></a>
           <a href="https://vthacks.com" target="_blank"><ProjectCard style={{ backgroundImage: 'url("/images/vthacks.png")'}}></ProjectCard></a>
           <a href="https://hackbi.org" target="_blank"><ProjectCard style={{ backgroundImage: 'url("/images/hackbi.png")'}}></ProjectCard></a>
-          <a href="https://www.fivefourpod.com" target="_blank"><ProjectCard style={{ backgroundImage: 'url("https://www.fivefourpod.com/assets/img/profile.jpg")'}}></ProjectCard></a>
+          <ProjectCard style={{ paddingTop: "15%", backgroundColor: "rgba(102, 102, 255, 0.8)"}}><ProjectTitle href="https://murphypone.github.io/hackathon-resources" target="_blank" style={{color: "white"}}>Hackathon Resources</ProjectTitle></ProjectCard>
+
         </GridContainer>
       </OuterContainer>
     )}

@@ -13,4 +13,8 @@
 
     - issue where it undoes the custom domain on deployment, just tweak the setting 
      
+## TODOs
 - [ ] add responsive styling to the map/resume
+    - [ ] add a legend/color code?
+    - [ ] get cleaner, circular icons
+- [ ] Blogpost about how to make the Google Wrapper API Component
