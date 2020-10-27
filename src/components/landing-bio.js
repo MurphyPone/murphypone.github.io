@@ -3,6 +3,7 @@ import { graphql, StaticQuery } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
 
+
 const Container = styled.div`
   text-align: center;
 `

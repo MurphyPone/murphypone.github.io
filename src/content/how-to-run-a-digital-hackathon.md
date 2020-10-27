@@ -1,6 +1,6 @@
 ---
 title: "How to Improve Your Digital Hackathon"
-date: "2020-09-01"
+date: "2020-10-26"
 description: "Everything as before + remote tools, engagement tactics, and more!"
 path: "/blog/how-to-run-a-digital-hackathon"
 ---
@@ -157,7 +157,7 @@ The aforementioned channel can/should contained a pin message reflecting your su
 > 
 > 6. Remember that you are only allowed to submit projects made during DemonHacks (and not at other events).
 
-† - the 4th bullet point may or may nore be relevant, which brings us the the next section
+† - the 4th bullet point may or may not be relevant, which brings us the the next section
 
 ### Asynchronous Judging
 

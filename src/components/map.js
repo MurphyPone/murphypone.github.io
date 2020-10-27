@@ -5,7 +5,7 @@ import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react'
 
 const hackathons = [
     {
-        name: "HackTJ 2015, 2016, 2018",
+        name: "HackTJ 2015, 2016, 2019",
         coords: { lat: 38.818479, lng: -77.168743 },
         icon: "https://pbs.twimg.com/profile_images/1223088247661891584/cxGkpgEs_400x400.jpg",
         website: "https://hacktj.org/",
