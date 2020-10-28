@@ -15,7 +15,7 @@ I was recently reminded of a map in my Uncle's office which was peppered with sm
 
 # Setup
 
-To recreate the React component depicted, we'll use the Google Maps API to embed a Static JavaScript map which we can decorate with Markers to indicate places we've traveled before. 
+To recreate the React component depicted, we'll use the Google Maps API to embed a Static JavaScript map which we can decorate with Markers to indicate places we've traveled. 
 
 I'm going to _assume_ that you have a react project already in place that you're looking to drop this component into, but in case you don't the [React Docs](https://reactjs.org/docs/create-a-new-react-app.html) have some good examples about how to get started with `create-react-app` if you just want a sandbox to experiment with.
 
@@ -25,11 +25,11 @@ In order for the component to play nicely with the rest of the React JSX on the 
 $ npm install google-maps-react
 ```
 
-You'll also need to claim an [API key](https://developers.google.com/maps/documentation/javascript/get-api-key) which is conveniently under the free tier of the Google Cloud suite.
+You'll also need to claim an [API key](https://developers.google.com/maps/documentation/javascript/get-api-key) which is conveniently available under the free tier of the Google Cloud suite.
 
 # Code!
 
-If you're starting with the default `create-react-app` folder structure, you'll likely only have an `App.js`, if you're working in a more-developed project, you may have a directory dedicated to components.  Regardless, you can create a new file, separate from `App.js` (or the analogous "main" file for your website) and call it `map.js`.  For starters, we're going to want some boilerplate code to render our map embed which can be found on any number of similar writeups:
+If you're starting with the default `create-react-app` folder structure, you'll likely only have an `App.js`; if you're working in a more-developed project, you may have a directory dedicated to components.  Regardless, you can create a new file, separate from `App.js` (or the analogous "main" file for your website), and call it `map.js`.  For starters, we're going to want some boilerplate code to render our map embed which can be found in the docs:
 
 ```JavaScript
 import React, { Component } from 'react';
@@ -41,7 +41,7 @@ const MAPS_KEY = "YOUR_GOOGLE_MAPS_API_KEY_GOES_HERE";
 const mapStyles = {
   padding: '0 1.0875rem 1rem',
   border: '0',
-  height: '100vh',
+  height: '100vh', 
 };       
 
 // an object we can pass to the container for the map to define custom styling
@@ -49,7 +49,7 @@ const containerStyle = {
   position: 'relative',  
   width: '100%',
   height: '100%',
-  paddingBottom: '100vh',
+  paddingBottom: '100vh', // makes sure nothing gets rendered behind the map, might need to tweak this number depending on your desired height
 };  
 
 // the definition of our component
@@ -74,9 +74,9 @@ export default GoogleApiWrapper({
 })(MapContainer);
 ```
 
-The above code should give us a blank map that we can use with the same controls as any other Google Map. 
+The above code should give us a blank map that we can interact with using the same, native controls as any other Google Map. 
 
-Next, we want to define a list of `Marker`s to indicate places we've traveled (or in my specific example, hackathons I've traveled to).  We can drop this code right underneat our declaration of our `MAPS_KEY`:
+Next, we want to define a list of `Markers` to indicate places we've traveled (or in my specific example, hackathons I've traveled to).  We can drop this code right underneath our declaration of our `MAPS_KEY`:
 
 ```JavaScript 
 const hackathons = [
@@ -94,6 +94,8 @@ const hackathons = [
   }
 ]
 ```
+
+The specific coordinates of any location can by found by right clicking within Google Maps and selecting the "What's Here?" option. 
 
 You can add as many places as you like.  Each "place" is really a JavaScript object containing fields for the `name`, `coordinates` of the location, a custom `icon` to render the location on the map, and a `website` associated with the location/event.  You can add more information as well if you'd like!
 
@@ -142,7 +144,7 @@ export class MapContainer extends Component {
       
 ```
 
-Sweet!  Now, let's add an information window to the map so that when we click on a marker, we can see some of the meta information associated with it like the name of the place, the website, and any other fields you decide to add you your "place" objects.  In order to dynamically render the `<InformationWindow>` object, we first need to instantiate some notion of state for this component to keep track of which `<Markers>` have been clicked.
+Sweet!  Now, let's add an information window to the map so that when we click on a marker, we can see some of the meta-information associated with it like the name of the place, the website, and any other fields you decide to add you your "place" objects.  In order to dynamically render the `<InformationWindow>` object, we first need to instantiate some notion of state for this component to keep track of which `<Markers>` have been clicked.
 
 Before we enter the `render()` call, let's define a state variable, and add some event handlers to the markers:
 

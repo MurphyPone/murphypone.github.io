@@ -17,6 +17,6 @@
 - [ ] add responsive styling to the map/resume
     - [ ] add a legend/color code?
     - [ ] get cleaner, circular icons
-- [ ] Blogpost about how to make the Google Wrapper API Component
-- [ ] Flesh out the digital hackathon post
+- [x] Blogpost about how to make the Google Wrapper API Component
+- [x] Flesh out the digital hackathon post
 - [ ] tinker with testimonial styling
