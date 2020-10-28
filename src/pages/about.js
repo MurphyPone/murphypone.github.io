@@ -4,8 +4,6 @@ import SEO from "../components/seo"
 import GoogleApiWrapper from "../components/map"
 import Testimonials from "../components/testimonials"
 
-
-
 const IndexPage = () => (
   <Layout>
     <SEO title="About" keywords={[`About`, `Peter Murphy`, `blog`, `MLH`, `Major League Hacking`]} />

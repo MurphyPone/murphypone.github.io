@@ -131,6 +131,7 @@ const containerStyle = {
     position: 'relative',  
     width: '100%',
     height: '100%',
+    paddingBottom: '100vh',
   }
 
 export class MapContainer extends Component {

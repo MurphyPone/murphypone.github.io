@@ -25,7 +25,7 @@ const Footer = styled.footer`
   display: flex;
   justify-content: center;
   border-top: 3px solid   rgb(102, 102, 255);
-  margin-top: 140vh;
+  margin-top: 10vh;
   @media (max-width: 768px) {
     margin-top: 140vh;
   }

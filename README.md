@@ -19,3 +19,4 @@
     - [ ] get cleaner, circular icons
 - [ ] Blogpost about how to make the Google Wrapper API Component
 - [ ] Flesh out the digital hackathon post
+- [ ] tinker with testimonial styling
