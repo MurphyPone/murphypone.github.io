@@ -118,6 +118,12 @@ const hackathons = [
         icon: "https://pbs.twimg.com/profile_images/1317273341900869635/NeUriJIJ_400x400.jpg",
         website: "https://vthacks.com/"
     },
+    {
+        name: "*HackPSU 2020",
+        coords: { lat: 40.797998, lng: -77.860136 },
+        icon: "https://pbs.twimg.com/profile_images/1314315545832034307/s84a5IHn_400x400.jpg",
+        website: "https://hackpsu.org"
+    },
 ];
 
 const MAPS_KEY = "AIzaSyDy6ZauygicYHQGfg43dm4kpvTCfyVqUj4";
