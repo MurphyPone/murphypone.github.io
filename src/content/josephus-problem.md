@@ -5,7 +5,6 @@ description: "p5.js"
 path: "/blog/josephus-problem"
 ---
 
-
 # What / Why?
 
 The [Josephus Problem](https://en.wikipedia.org/wiki/Josephus_problem) is a famous mathematical puzzle attributed to a Jewish historian from the 1st century who escaped execution at the hands of Roman soldiers / / mutual suicide from his fellow men after they were captured by determining where he ought to stand in a circle to be the last man alive.

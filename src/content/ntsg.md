@@ -1,7 +1,7 @@
 ---
 title: "The New Testament at a Glance"
 date: "2018-12-01"
-description: "An extended glance..."
+description: "a pen and a pencil i guess?"
 path: "/blog/new-testament"
 ---
 
