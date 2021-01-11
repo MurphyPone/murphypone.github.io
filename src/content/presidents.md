@@ -1,7 +1,7 @@
 ---
 title: "Survey of U.S. Presidents"
 date: "2017-12-15"
-description: "p5.js"
+description: "AP U.S. History"
 path: "/blog/presidents"
 ---
 
@@ -2475,75 +2475,248 @@ Presidency
 
 <a name="BillClinton"></a>
 
-
 # Bill “Slick Willie” Clinton
 ## Early Life 
 
-
+- Born on August 19th, 1949, in Hope, Arkansas 
+- Graduated from Georgetown University and Yale Law School
 
 ## Career Before Presidency 
 
-
+- Attorney General of Arkansas 
+- Governor of Arkansas twice 
 
 ## Election
 
-
+- 1992 - Boasting his lengthy, although mixed in performance, tenure as Arkansas governor, as well as his centrist policies, Clinton the presidency over from the incumbent: Bush
+- 1996 - Breaking the single term deadlock of Democratic presidents since FDR, Clinton retained the executive office largely due to Republican folly in their hyper-partisan rejection of Clinton 
 
 ## Presidency
 
-
+- **Twenty-Seventh Amendment (1992)** - Adjustments in salary for Senators and Representatives doesn’t take effect until the next election cycle 
+  - Must be re-elected in order to benefit from their proposed raises  
+- Economic Policy 
+  - Immediately after entering office, Clinton worked to get his economic plans passed while the Democrats still held Congress
+  - Against Republican’s urgings, his plans passed resulting in a finally balanced budget as well as large surplus from tax increases and spending reductions
+      - By the end of his terms, unemployment and inflation were at all time lows 
+- **North American Free Trade Agreement** - Removed mutual trade regulations between the countries facilitating increased friendly trade 
+- **Don’t Ask Don’t Tell** - Compromise regarding the participation of homosexuals in the armed forces
+- Health care reform - Organized by his wife, Hillary Clinton, this effort failed due to turnover in the House and in the Senate to a Republican majority which opposed her plans, as well as her questionable authority to lead such a task force 
+- Scandal 
+  - Clinton’s time as president was marked by several accusations of scandal involving embezzlement in a real estate savings and loan business, inappropriate sexual encounters both before and during his time in the White House
+  - Clinton v. Jones - Ruled that the president was capable of participating in his own legal defense against accusations of sexual harassment whilst still focusing on the presidency  
+  - Vindicating the aggressive accusations of Republicans that contributed to Clinton’s reelection in 1996, a sexual relationship between Clinton and a member of the White House staff, Monica Lewinsky, was uncovered
+      - President Clinton perjured himself attempting to salvage the situation 
+      - Clinton was impeached on charges of perjury and obstruction of justice amongst other things
+      - Plainly partisan vote did not yield the necessary 2/3rds vote to convict the president 
+      - Republicans faced backlash against their efforts to prosecute Clinton, which manifested in the midterm votes costing them representation 
+- Somalia - Inherited Bush’s humanitarian aid mission to Somalia that mutated into a violent conflict resulting in the deaths of several American soldiers, pressuring Clinton to withdraw support 
+- Rwandan Civil War 
+  - Hutus attempt to perform genocide on the Tutsi people
+  - Failure in Somalia postponed immediate response 
+- Enlargement Policy - Similar to Bush’s New World Order, this principle stressed cooperation between free democratic nations to leverage their influence and forces to prevent immoral nations’ actions 
+- With the Soviet Union continuing to shrink in influence, the United States took the forefront of the international stage and acted as the moral authority, helping mediate disputes between other nations
+  - UK - Clinton’s administration aided in negotiations between The Republic of Ireland, Britain, and a militant revolutionary group known as Sinn Fein 
+  - Israel and Egypt - Helped prevent tensions in the Middle-East from extrapolating into war
+  - Bosnia 
+      - Human rights violations against the Bosnians by the Serbs provoked U.S. involvement and the inclusion of NATO into the affair
+      - Use of force prompted peace talks known as the Dayton Peace Accords as well as the deployment of a peacekeeping operation into the Balkans to hold Bosnia together
+      - Calling for support from NATO, Clinton led extensive air raids against the Serbian government to prevent their genocidal attempts to remove Albanians from the region
+- Iraq - U.S. troops continued to remain in Iraq, searching for nuclear weapons 
+- Soviet Union 
+  - Expansion of NATO as Soviet Satellite nations regain their independence 
+  - Support for new Russian president, Boris Yeltsin, as well as the rebuilding of the Cold War superpower, allowed the United States to have hands on involvement in the disarmament of their nuclear capabilities 
 
 ## Life After Presidency
+
+- Remained politically active through his ties to his wife, Hillary Clinton, as well as his/their charitable organization the Clinton Presidential Foundation
 
 --- 
 
-<a name="JohnFitzgeraldKennedy"></a>
+<a name="GeorgeWBush"></a>
 
 
-- [George W. Bush](#GeorgeWBush)
+# George W. Bush
 ## Early Life 
 
-
+- Born on July 6th, 1946, in New Haven, Connecticut
+- Graduated from Yale as well as Harvard University  Business School 
 
 ## Career Before Presidency 
 
-
+- Member of the Air National Guard during the Vietnam War
+- Entered the oil business back in Texas, starting his own business, Arbusto Energy, and later Bush Exploration
+- Campaigned for his father whilst engaging in state level political races unsuccessfully 
+- Jointly purchased the Texas Rangers baseball team
+- Governor of Texas 
 
 ## Election
 
-
+- 2000 - Highly controversial election of which Bush lost the popular vote
+  - Decision came down to disputed Electoral votes in Florida in part because of confusing ballots 
+  - **Bush v. Palm Beach County Canvassing Board** & **Bush v. Gore** - Bush challenged the ruling of the Florida State Court to allow vote recounts that favored Gore
+      - Furthermore, there was no time to conduct a proper recount, so Bush won Florida 
+  - As Bush questionably received the Floridian electoral votes and therefore the presidency, his term was marked from the outset with national frustration and contention 
+- 2004 - Defeated John Kerry both in the electoral college and in the popular standing on the basis of justifying the inva
 
 ## Presidency
 
-
+- Compassionate Conservative 
+  - Created the Office of Faith-based and Community Initiatives - To supplement the role of government on the local level
+  - Upheld conservative Christian values by restricting government funding towards the destruction of embryos for stem cell research
+  - Successfully passed huge tax cuts to stimulate the economy and potentially increase the tax base 
+      - While the economy did prosper, his cuts had the adverse effect of shrinking the Federal tax revenue
+  - Social Security Reform - Incentivized retirement funds by offering up to $60K non taxable income towards savings
+      - Failed due to Democratic opposition, ambiguous reform prescriptions for the long term, and the issue of those drawing from SS whose benefits would be revoked
+- No Child Left Behind Act - Drastically increased education funding, aiding development on the local level, - particularly for underprivileged areas so that the national academic standards would be raised  
+- Medicare Modernization Act of 2003 - Attempted to privatize certain aspects of the Medicare system so as to allow more individual responsibility and liberty, and ultimately prevent the government from racking up large deficits 
+- Hurricane Katrina 
+  - Anticipating the catastrophe, Bush mobilized the Federal Emergency Management Agency to prepare for the intense storm headed towards Louisiana 
+  - When it reached the land, Katrina proved to be one of the deadliest natural disasters of the nation’s history 
+  - Bush came under fire for the absence of direct Federal aid, citing that that was largely the responsibility of state/local governments with the support of the Federal government
+      - Local efforts were unable to cope with the massive damage, excessive crime, and humanitarian crises that were arising out of the initial disaster
+- Financial Crisis of 2008 
+  - Regardless of Bush’s stimulus bailout that was passed with bipartisan support in response to the worrisome decline of the economy, the situation only became worse with the crash of the stock market
+  - Speculation within the housing market, as well as Bush’s initiative to  subsidize the market to increase housing, were two of the most significant contributing factors 
+  - Shedding conservative principle for a pragmatic response, Bush supported government intervention in the economy to prevent the crisis for spiraling out of control
+      - Emergency Economic Stabilization act - Formed the Troubled Assets Relief Program which provided huge amounts of money to stabilize the economy 
+- **September 11th, 2001** - War on terror became the primary focus of his presidency
+  - Fundamentalist terror attack on the World Trade Center, Pentagon, and attempt at the White House, killing almost 3,000 Americans 
+      - Ease of the attackers to seize airplanes used in the attack led to the creation of the Transportation Security Administration
+  - Following the immediate care for the wounded, Bush declared war on terrorism 
+- Afghanistan 
+  - Bush’s focus centered in Afghanistan, where the Taliban harbored Osama Bin Laden, the leader of Al Qaeda, the organization behind 9/11 
+  - Eight days after the attack, bush’s war cabinet agreed upon a military offensive to combat the Taliban and Al Qaeda, and begin heavy air strikes in Afghanistan
+  - Operation Anaconda - Saw the dispersion of Taliban/Al Qaeda forces out of Afghanistan
+  - After capturing the orchestrator of the 9/11 attack, rather than withdraw troops, Bush authorized the strengthening of U.S. presence in an attempt to secure the region and prevent the Taliban from returning 
+- **Bush Doctrine** - Voiced the United States strong stance against any nations supporting terrorism, focusing on:
+  - Preemptive cooperative efforts extinguish terror regimes before they could take off 
+  - United States expansion of its sovereign ability to defend itself from potential attackers
+  - Spread of democracy to prevent such barbaric behavior
+- Invasion of Iraq 
+  - Intention was to remove Saddam Hussein, replace him with a Democratic governing system, and destroy any outlets for production of Weapons of Mass Destruction 
+  - Several politicians opposed the impractical/aggressive ideals of the Bush Doctrine which was the basis for the invasion
+  - Upon razing the capital, Baghdad, and decisively invading Iraq, no WMDs were found, Hussein having unceremoniously gotten rid of them previously 	
+  - With Hussein out of power, the U.S. waited for Iraq to stabilize decreasing its military presence -no stability/Democracy rose out of the rubble 
+      - Huge opportunity for terror groups to fill the power vacuum, identify the antagonistic West, and rally massive amounts of support
+      - U.S. response was to send 20,000 more troops 
+  - Strategic Framework Agreement - Discussions with the new Iraqi government to wean them off of American support (Vietnamization of Iraq)
+- **War on Terror** 
+  - Creation of Department of Homeland Security 
+  - Patriot Act - Increased levels of surveillance in an attempt to prevent future attacks - exploited by   various government organizations
+  - Terrorist Surveillance Program - Granted the NSA the ability to access private information without a warrant for the purpose of preventing terror
+      - Challenged by Foreign Intelligence Surveillance Act - Restricted such efforts to only be used foreign nations, not U.S. citizens
+  - Guantanamo Bay - Cuban prison facility used to hold suspected terrorists, key location and terminology of inhabitants bent the law to allow the U.S. to do whatever they wanted to those they deemed agents of terror (torture)
+      - Military Commissions Act of 2006 - Law passed in response to outcry against the procedures being used justifying and enumerating the extent of the methods being used 
+- Africa  
+  - Increased cooperative spending with the UN to combat the spreading issue of  AIDS 
+  - International Mother and Child HIV Prevention Initiative - Bush’s program to prevent the maternal transmission of HIV to children
+  - President’s Emergency Plan for AIDS Relief - Initiated direct response to Africa to treat and prevent the spread of AIDS
+  - President’s Malaria Initiative - Helped reduce the disease which accounted for almost one tenth of African deaths 
+  - Millennium Challenge Account - Incentivized free markets and facilitated the formation of several international free trade agreements 
 
 ## Life After Presidency
+
+Resigned from the life of politics to pursue a life of recreation (painting) and philanthropy
 
 --- 
 
-<a name="JohnFitzgeraldKennedy"></a>
+<a name="BarackObama"></a>
 
-
-- [Barack Obama](#BarackObama)
+# Barack Obama
 ## Early Life 
 
-
+- Born August 4th, 1961, in Honolulu, Hawaii
+- Graduated from Harvard Law School magna cum laude 
 
 ## Career Before Presidency 
 
-
+- Member of the Illinois State Senate 
+- Senator of Illinois - Ran an anti-war platform
 
 ## Election
 
-
+- 2008 - His continued track record of opposition to the war, as well as slogans of change, which, in combination with his charisma and success in Illinois, made him the first black president of the United States
+- 2012 - Although unable to champion compelling results of his first term, as election day approached, Obama benefited from an uptick in popularity attributed to his immediate response to Hurricane Sandy, as well as economic improvements 
+  - Citizens United v. Federal Election Commission (2010) - Decreased regulations constraining the amount of money campaigns were allowed to spend/receive 
 
 ## Presidency
 
-
+- Financial Crisis 
+  - Entered office as the economic meltdown originating in the housing market expanded to other regions of the economy, most directly and worryingly, the banking sector
+  - Unemployment at 10% and rising quickly 
+  - American Recovery and Reinvestment Act 	
+      - Obama’s proposed stimulus package, similar to Bush’s TARP which had helped keep banks and the auto industry afloat
+      - Supplemented tax cuts, infrastructural repair, and subsidized business to counteract the growing unemployment issue
+- **Obama Care** - Healthcare reform 
+  - Potentially a huge expenditure due to Obama’s promises to make healthcare more affordable to all Americans, the idea provoked the formation of the new Tea Party movement which opposed all of Obama’s legislative action
+  - Patient Protection and **Affordable Care Act** aimed to:
+      - Increase the the general degree of insurance
+      - Subsidize insurance companies to make coverage affordable (duh)
+      - Became the largest point of controversy in Congress, with Republicans constantly lobbying for its repeal, which was later vetoed by Obama 
+      - Also hindered by the failure of the program’s launch via website 
+  - Health Care and Education Reconciliation Act - Attempted to resolve the disparities between visions for the bill between the Senate and the House 
+- Budget Negotiations 
+  - Obama failed to reach an agreement with Speaker of the House, John Boehner, further contributing to partisan tensions
+  - Saw the formation of a super-committee to determine how to go about balancing the budget which was accumulating hundreds of billions of dollars in deficits annually - did not work 
+- Hurricane Sandy -  Hurricane in 2012, to which Obama rapidly responded, boosting his popularity
+- **Supreme Court** 
+  - Having already replaced two liberal Justices, Obama’s opportunity to shift the 5-4 count of Conservative-Liberal Justices, and therefore move towards a more leftist ideology, came as a surprise with the death of Antonin Scalia 
+  - Republicans stubbornly refused to even entertain congressional hearings to discuss Obama’s selection for appointment, Merrick Garland, let alone to vote on whether or not to confirm him
+  - Although Garland appeared to be considerably centrist on many issues, and the potential threat of a far more liberal Justice was highly probable with the upcoming election in which Hillary Clinton would likely win, Republicans held out, and Obama’s nomination was neglected 
+  - **Obergefell v. Hodges** - Ruled state bans of same-sex marriage unconstitutional
+- Removal of “Don’t Ask, Don’t Tell” in favor of cooperative open acceptance of homosexuals into the military
+- New START - Agreement with Russia to decrease military capabilities
+- Sandy Hook Shootings - Provoked serious discussions regarding the Second Amendment as well as attempted increases on restrictions of firearms, but were shot down by Republicans in Congress
+- Border Security, Economic Opportunity, and Immigration Modernization Act - Attempted to facilitate immigration and citizenship programs for immigrants, but was repudiated by the Tea Party
+- Executive Orders - Obama’s only unilateral tool to get anything done due to heavy Republican opposition
+  - Environmental concerns expressed through his veto of the Keystone Pipeline, as well as Climate Action Plan which aimed to reduce air pollution
+  - Raised minimum wage of federal employees 
+  - Increased security requirement when purchasing firearms 
+- Militant Middle-East
+  - Significantly decreased residual military presence in Iraq (from 150,000+ to just over 100) 
+  - Increased military presence in Afghanistan to continue to repel Taliban/Al Qaeda forces from returning (almost reached 100,000)
+  - Navy SEAL raid which successfully resulted in the death of Osama Bin Laden May 2nd, 2011, allowed for the gradual withdrawal from the region as the Taliban/Al Qaeda were significantly weakened by the loss
+- Libya - Cooperatively supported the deposition of the dictator, Muammar el-Qaddafi, working with NATO troops
+- Syria - Opted to take a backseat in the civil war unfolding in Syria between rebels and the dictatorial leader Bashar al-Assad, (and later ISIS forces as well) 
+  - Took little action, even after Assad’s repeated violation of Obama’s threshold of violent actions known as his “red-line”
+  - Called for Russia to leverage its influence over Syria to pressure Assad to refrain from his tactics (involving chemical warfare on his own Syrian citizens)
+- Rise of the Islamic State of Iraq and the Levant
+  - Filling the power vacuum left by Saddam Hussein’s vacancy in Iraq, former Al Qaeda members formed an extremely hostile terror organization aimed at establishing a caliphate in the Middle-East 
+  - Obama authorized airstrikes in Syria as well as the deployment of a small amount U.S. troops specifically to combat this new terrorist organization 
+      - Wanted to avoid another Afghanistan, limited U.S. boots on the ground, supported foreign coalitions to oppose ISIS such as the Kurds 
 
 ## Life After Presidency
 
-- [Sources](#Sources)
+- With the freedom of no longer being burdened by the responsibility of the entire nation, president Obama is enjoying spending time with his family
+- Occasionally tweets out some tasty licks and assassinates Bernie Sanders' campaigns from the shadows whenever he tries to run for higher office
+
+---
+
+<a name="Sources"></a>
+
+# Sources
+
+"Affordable Care Act." _Medicaid.gov_. N.p., n.d. Web. 27 Apr. 2017.
+
+"Battle and Surrender at Appomattox." Civil War Trust. Civil War Trust, 2015. Web. 08 Jan. 2017.
+
+Friedel, Frank, and Hughes Sidey. _The White House_. The White House, 2006, www.whitehouse.gov/1600/presidents. Accessed 7 March. 2017.
+
+Klein, Christopher.  “Shot in the Chest 100 Years Ago, Teddy Roosevelt Kept on Talking.”  _History_. A+E Television Networks, 12 Oct. 2012, http://www.history.com/news/shot-in-the-chest-100-years-ago-teddy-roosevelt-kept-on-talking.  Accessed 5 Mar. 2017. 
 
 
+_Miller Center_. University of Virginia, 2017, millercenter.org/president. Accessed 7 March. 2017.
+
+_Oyez_. IIT Chicago-Kent College of Law, 2015, https://www.oyez.org.  Accessed 7 Mar. 2017.
+
+Richardson, Gary, Alejandro Komai, and Michael Gou. "Banking Act of 1935." _Federal Reserve History_. N.p., n.d. Web. 27 Apr. 2017.
+
+Resources, Office Of Protected. "Laws and Policies." _Office of Protected Resources_. N.p., 16 May  2012. Web. 27 Apr. 2017.
+
+“The Constitution of the United States of America.” _National Constitution Center_, American 
+Constitution Society, 2017, constitutioncenter.org/interactive-constitution.  Accessed 7 
+March. 2017.
+
+“Twenty-Five Landmark Cases in Supreme Court History.” _Constitution Facts_, Oak Hill Publishing,  www.constitutionfacts.com/content/supremeCourt/files/SupremeCourt_LandmarkCases.pdf.
 
