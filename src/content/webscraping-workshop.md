@@ -7,7 +7,7 @@ path: "/blog/webscraping-workshop"
 
 
 # What / Why?
-This post is intended to be a supplement for my hackathon workshop about how to do Webscraping in Python. The slides can be found [here]() and the full source code can be found [here]().  
+This post is intended to be a supplement for my hackathon workshop about how to do Webscraping in Python. The full source code can be found [here](https://github.com/MurphyPone/webscraping-workshop).  
 
 The premise of this project is that we're going to scrape iMDb for movie reviews and review usefulness scores for the top 250 or so movies on their list.  With this information we can then perform some naive sentiment analysis to gain some insight into other metricsabout movies (other than the average star rating) which might be indicative of the quality of a movie.
 
@@ -28,6 +28,7 @@ import pandas as pd     # to store our scraped data
 import requests         # to fetch the contents of our target website
 import numpy as np      # to handle Not a Number values
 import csv              # to save our pandas DataFrame to a file
+import time             # to prevent getting timedout by IMBd
 ```
 
 Notice that when working within a notebook, the values in a cell are cached/saved, so we only have to run this cell once at the beginning of our development session.  We can modify, rearrange, or delete any cells after this first one, and we'll still be able to reference all those imported libraries!
@@ -103,20 +104,20 @@ First, in a new cell, let's define an empty pandas DataFrame with column heading
 
 ```python
 df = pd.DataFrame(columns=["name", "stars", "date", "author", "review_text", "url", "usefulness"])
-
+URL_MOVIES_250 = "https://www.imdb.com/search/title/?groups=top_1000&view=simple&sort=user_rating,desc&count=250&start=0"
 ```
 
 Next let's define a function which takes in the url for a movie review page, and the DataFrame to append the relevant datapoints to:
 
 ```python
 def get_movie_info(the_url, frame):
-    response = request.get(the_url) # make a request to the url
+    response = requests.get(the_url) # make a request to the url
     if response.status_code != 200: # anything other than to success code 200 should halt the program
         print(f"GET failed with response code: {response.status_code}")
         raise
     
     # create a BS4 element tree that we can traverse based on the response test according to the html5 library
-    m_soup = bs4.NeautifuSoup(response.text, 'html5lib')
+    m_soup = bs4.BeautifulSoup(response.text, 'html.parser')
     
     # exract the name of the movie by identifying it by the h3 tag with an itemprop attribute that has the value 'name' by getting the text contents of the element
     name = m_soup.find('h3', {'itemprop': 'name'}).contents[1].text
@@ -139,7 +140,7 @@ def get_movie_info(the_url, frame):
         
         # 3. Store the username of the author of the review 
         # note that we encode and decode the following text fields to ensure that they're in a tractable format 
-        author = rev.find('span', {'class': 'display-name-link'}).contents[0].text.encod ('ascii','ignore').decode()
+        author = rev.find('span', {'class': 'display-name-link'}).contents[0].text.encode('ascii','ignore').decode()
 
         # 3. Store the text of the review itself
         review_text = rev.find('div', {'class': 'content'}).contents[1].text.encode('ascii','ignore').decode()
@@ -168,15 +169,10 @@ Regardless, we should now be able to pass in the url of each movie from the main
 In another cell, we can write the code to get the links to the top 250 movies:
 
 ```python
-URL_MOVIES_100 = "https://www.imdb.com/search/title/?groups=top_1000&view=simple&sort=user_rating,desc&count=250&start=0"
-
 # instantiate a new BS4 element tree from the top 1,000 list
-response = requests.get(URL_MOVIES_100)
-if response.status_code != 200:
-    print(f"GET failed with response code: {response.status_code}")
-    raise
+response = requests.get(URL_MOVIES_250)
         
-soup = bs4.BeautifulSoup(response.text, 'html5lib')
+soup = bs4.BeautifulSoup(response.text, 'html.parser')
 
 # fetch the URLS for all the movies and store them in a list
 movie_links = [m.find('a').attrs['href'] for m in soup.find_all('span', {'class': 'lister-item-header'})]
@@ -187,7 +183,7 @@ for link in movie_links:
     # modify the review url to sort the reviews by the total number of votes for usefulness
     m_url = f"https://www.imdb.com{link}reviews?sort=totalVotes&dir=desc&ratingFilter=0"
     df = get_movie_info(m_url, df) # for each movie, get the top 25 most voted on reviews
-    time.sleep(1) # set a timeout so that we don't overwhelm iMBDb 
+    # time.sleep(0.05) # set a timeout so that we don't overwhelm IMBDb 
 
 df # display our resultant DataFrame
 ```
@@ -199,6 +195,6 @@ Lastly, we'll want to save this DataFrame to a csv file so that we can skip this
 ```python 
 # save the dataframe to a csv file
 df_csv = df.to_csv()
-with open('Top_250_iMDb.csv', 'w') as f:
+with open('Top_250_IMDb.csv', 'w') as f:
     f.write(df_csv)
 ```
