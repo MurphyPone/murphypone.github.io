@@ -91,7 +91,7 @@ const hackathons = [
     {
         name: "HackUTD 2019",
         coords: { lat: 32.985919, lng: -96.751813 },
-        icon: "https://pbs.twimg.com/profile_images/1235053828099145731/vNuFTRzK_400x400.jpg",
+        icon: "https://pbs.twimg.com/profile_images/1326689061176811524/QmntFALg_400x400.jpg",
         website: "https://www.hackutd.co/"
     },
     {
@@ -123,6 +123,12 @@ const hackathons = [
         coords: { lat: 40.797998, lng: -77.860136 },
         icon: "https://pbs.twimg.com/profile_images/1314315545832034307/s84a5IHn_400x400.jpg",
         website: "https://hackpsu.org"
+    },
+    {
+        name: "*TAMUhack 2021", 
+        coords: { lat: 30.616629, lng: -96.339483 },
+        icon: "https://pbs.twimg.com/profile_images/1151692346209128448/27tlbWO5_400x400.png",
+        website: "https://tamuhack.com/"
     },
 ];
 
