@@ -43,25 +43,25 @@ const hackathons = [
     {
         name: "*SBUHacks 2020",
         coords: { lat: 40.911467, lng: -73.123732 },
-        icon: "/images/hackathon-icons/SBUHacks.jpg",
+        icon: "/images/hackathon-icons/SBUHacks.png",
         website: "https://sbuhacks.org/"
     },
     {
         name: "*MakeSPP 2020",
         coords: { lat: 40.715432, lng: -74.039755 },
-        icon: "/images/hackathon-icons/MakeSPP.jpg",
+        icon: "/images/hackathon-icons/MakeSPP.png",
         website: "https://makespp.com/"
     },
     {
         name: "KleinHacks 2019",
         coords: { lat: 30.019341, lng: -95.524648 },
-        icon: "/images/hackathon-icons/KleinHacks.jpg",
+        icon: "/images/hackathon-icons/KleinHacks.png",
         website: "https://kleinhacks.com/"
     },
     {
         name: "Hoya Hacks 2019",
         coords: { lat: 38.909846, lng: -77.074318 },
-        icon: "/images/hackathon-icons/HoyaHacks.jpg",
+        icon: "/images/hackathon-icons/HoyaHacks.png",
         website: "https://hoyahacks.georgetown.domains/"
     },
     {
@@ -79,13 +79,13 @@ const hackathons = [
     {
         name: "EarthHacks 2019, HealthHacks 2019",
         coords: { lat: 37.545632, lng: -77.455039 },
-        icon: "/images/hackathon-icons/EarthHacks.jpg",
+        icon: "/images/hackathon-icons/EarthHacks.png",
         website: "https://www.earthhacks.io/"
     },
     {
         name: "HackCU 2019",
         coords: { lat: 40.009453, lng: -105.242941 },
-        icon: "/images/hackathon-icons/HackCU.jpg",
+        icon: "/images/hackathon-icons/HackCU.png",
         website: "https://hackcu.org/"
     },
     {
@@ -103,7 +103,7 @@ const hackathons = [
     {
         name: "ElleHacks 2020",
         coords: { lat: 43.772171, lng: -79.506732 },
-        icon: "/images/hackathon-icons/ElleHacks.jpg",
+        icon: "/images/hackathon-icons/ElleHacks.png",
         website: "https://ellehacks.com/"
     },
     {
@@ -115,7 +115,7 @@ const hackathons = [
     {
         name: "VTHacks 2019, 2020, 2021",
         coords: { lat: 37.232949, lng: -80.423037 },
-        icon: "/images/hackathon-icons/VTHacks.jpg",
+        icon: "/images/hackathon-icons/VTHacks.png",
         website: "https://vthacks.com/"
     },
     {
@@ -127,7 +127,7 @@ const hackathons = [
     {
         name: "*TAMUhack 2021", 
         coords: { lat: 30.616629, lng: -96.339483 },
-        icon: "/images/hackathon-icons/TAMUhack.jpg",
+        icon: "/images/hackathon-icons/TAMUhack.png",
         website: "https://tamuhack.com/"
     },
 ];
@@ -182,7 +182,7 @@ export class MapContainer extends Component {
             icon={{
                 url: curr.icon,
                 size: new window.google.maps.Size(32, 32),
-                scaledSize: new window.google.maps.Size(24,24),
+                scaledSize: new window.google.maps.Size(32,32),
             }}
             website={curr.website} 
             key={i}
