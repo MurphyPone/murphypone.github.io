@@ -130,6 +130,12 @@ const hackathons = [
         icon: "/images/hackathon-icons/TAMUhack.png",
         website: "https://tamuhack.com/"
     },
+    {
+        name: "*GunnHacks 7.0", 
+        coords: { lat: 37.402345, lng: -122.133588 },
+        icon: "/images/hackathon-icons/GunnHacks7.png",
+        website: "https://www.gunnhacks.com/"
+    },
 ];
 
 const MAPS_KEY = "AIzaSyDy6ZauygicYHQGfg43dm4kpvTCfyVqUj4";
