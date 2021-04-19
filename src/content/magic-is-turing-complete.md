@@ -7,7 +7,7 @@ path: "/blog/mtg-turing-complete"
 
 ## Preface
 
-This post aims to summarize the 900 IQ construction of a Turing Machine using Magic: the Gathering (MTG) machanics described in the paper [_Magic: the Gathering_ is Turing Complete](https://arxiv.org/pdf/1904.09828.pdf) authored by Churchill, Biderman, and Herrick.
+This post aims to summarize the 900 IQ construction of a Turing Machine using Magic: the Gathering (MTG) mechanics described in the paper [_Magic: the Gathering_ is Turing Complete](https://arxiv.org/pdf/1904.09828.pdf) authored by Churchill, Biderman, and Herrick.
 
 > In this paper we show that optimal play in real-world _Magic_ is at least as hard as the Halting Problem, solving a problem that has been open for a decade. To do this, we present a methodology for embedding an arbitrary Turing machine into a game of _Magic_ such that the first player is guaranteed to win the game if and only if the Turing machine halts. Our result applies to how real Magic is played, can be achieved using standardsize tournament-legal decks, and does not rely on stochasticity or hidden information. Our result is also highly unusual in that all moves of both players are forced in the construction. This shows that even recognising who will win a game in which neither player has a non-trivial decision to make for the rest of the game is undecidable.
 
@@ -15,14 +15,15 @@ This post aims to summarize the 900 IQ construction of a Turing Machine using Ma
 
 Before we jump into the nitty gritty of the construction, we need to define some language to describe Turing Machines and their applications.
 
-- For our (and the authors') purposes, an **embedding** is an arrangement of a subset of rules of a system such that they simulate the working of a Turing Machine.
+- For our (and the authors') purposes, an **embedding** is an arrangement of a subset of rules of a system such that they simulate the workings of a Turing Machine.
 
 Additionally, we'll define that **Universal Turing Machine** (UTM) is a special kind of Turing Machine which can simulate other Turing Machines.  It can perform any computation that any other computer program can perform given the right inputs.
-    - If you can embed a UTM into a system, it means that your system is capable of simulating any other computer.  Furthermore, it means your system can perform any computable task.
 
-A UTM is a [Finite State Machine](https://en.wikipedia.org/wiki/Finite-state_machine#Example:_coin-operated_turnstile) with a read and write head, an infinitely long tape broken up into cells.  By moving along the tape, reading and writing symbols, a UTM can emulate (or rather, it _is_ by definition) a Finite State Machine. These two capacities are sufficient to describe any (non-quantum) computer that we would typically use.
+- If you can embed a UTM into a system, it means that your system is capable of simulating any other computer.  Furthermore, it means your system can perform any computable task.
 
-While there are several different configurations of UTMs, this paper employs a specific variety described by [Yurii Rogozhin](https://doi.org/10.1016/S0304-3975(96)00077-1) called a `UTM(2,18)`.  The arguments here mean that the UTM has 2 states, and 18 symbols.
+A UTM is a [Finite State Machine](https://en.wikipedia.org/wiki/Finite-state_machine#Example:_coin-operated_turnstile) with a read and write head, an infinitely long tape broken up into cells, and a controller.  By moving along the tape, reading and writing symbols, a UTM can emulate (or rather, it _is_ by definition) a Finite State Machine. These two capacities are sufficient to describe any (non-quantum) computer that we would typically use.
+
+While there are several different configurations of UTMs, this paper employs a specific variety described by [Yurii Rogozhin](https://doi.org/10.1016/S0304-3975(96)00077-1) called a $UTM(2,18)$.  The arguments here mean that the UTM has 2 states, and 18 symbols.
 
 - The **Church-Turing Thesis** states: 
 
@@ -57,7 +58,7 @@ $$
 
 Where $A$ is some other program, and $\bullet$ are arbitrary arguments for $A$. For example, $A$ could be another Turing Machine with arguments which could be symbols on a tape.  
 
-turing proved that such a program $H$ _does not exist_.  suppose you have some other program:
+Turing proved that such a program $H$ _does not exist_.  Suppose you have some other program:
 
 $$
 \begin{aligned}
@@ -90,16 +91,16 @@ MTG is a popular, famously complicated tabletop card game.  A simple premise of 
 
 There are two basic types of cards:
 
-- **Creatures** which have a subtype, _power_/ _toughness_ stats (ATK/DEF), as well as some flavor text describing the modification ofthe rules to be enacted once the creature enters play
-- **Land** mana to cast your spells. There are 5 types or colors of land
+- **Creatures** which have a subtype, _power_/_toughness_ stats (ATK/DEF), as well as some flavor text describing the modification of the rules to be enacted once the creature enters play
+- **Land** mana to cast your spells. There are 5 types, or colors, of land
 
 Most cards are spells, playable via the mana available to a player on their turn.  Once a card has been used, it becomes tap'd (making it unavailable for the rest of their turn, pending other rules).  After a combat interaction, dead creatures go to a graveyard after a stat comparison (_power_/_toughness_).
 
-For the sake of the paper, combat encounters are irrelevant to the UTM, but creatures' stats, which are modifiable by other cards, are the gatewat to the central proof.
+For the sake of the paper, combat encounters are irrelevant to the UTM, but creatures' stats, which are modifiable by other cards, are the gateway to the central proof.
 
 The authors are trying to embed a UTM into _Magic_ to gain access to the halting problem and everything that accompanies it.
 
-They use the aforementioned Rogozhin's UTM(2,18) which is sort of a minimum viable project to simulate _any computer in the world_ (non-quantum). Rogozhin's UTM(2,18) has two states $\{ q_1, q_2 \}$ where $q_i$ is a transition between states involving all or none of the options available to a Turing Machine: read, write, move.  Additionally the 18 states are:
+They use the aforementioned Rogozhin $UTM(2,18)$ which is sort of a minimum viable project to simulate _any computer in the world_ (non-quantum). Rogozhin's $UTM(2,18)$ has two states $\{ q_1, q_2 \}$ where $q_i$ is a transition between states involving all or none of the options available to a Turing Machine: read, write, move.  Additionally the 18 states are:
 
 $$
 \begin{aligned}
@@ -118,7 +119,7 @@ All these don't really matter, the point is that we can represent them using _Ma
 
 It's important to note that some games are obviously Turing Complete, like Minecraft.  However, MTG is _notably_ not intentionally Turing Complete.
 
-Now, the authors assert that it is possible to compute the board state given the current board state and a legal move:
+Now, the authors assert that it is possible to compute the _next_ board state given the current board state and a legal move:
 
 $$
 \begin{aligned}
@@ -126,19 +127,27 @@ $$
 \end{aligned}
 $$
 
-However, given the nature of MTG, there is no trivial $\tt is\_legal(move, board\_state)$. The authors acknowledge that previous work has shown that, working cooperatively (and making known, legal moves), players can construct a Turing Machine, but it is far more interesting to show that in a limited, competitive game, it is not possible to predict how a game will end.
+However, given the nature of MTG, there is no trivial $\tt is\_legal(move, board\_state)$ function or check. The authors acknowledge that previous work has shown that, working cooperatively (and making known, legal moves), players can construct a Turing Machine, but it is far more interesting to show that in a limited, competitive game, it is not possible to predict how a game will end.
 
 ## Construction
 
 The authors introduce our two arch-nemeses: Alice and Bob along with the 3 elements of a Turing Machine that need to be mapped to the game of Magic: the tape, controller, and read/write head.
 
-The tape is intuitively challenging to embed since there are no geometric or physical metrics.  All we have in a game of _Magic_ are stats, counters, modifiers, etc.
+The tape is intuitively challenging to embed since there are no geometric or physical metrics present in the game.  All we have in a game of _Magic_ are stats, counters, modifiers, etc.
 
-Nonetheless, using _lots_ of creatures, organized by color (with $\color{#0C0} \text{green}$ to the left of the head, and $ \overbrace{\color{#FFF}\text{white}}^{lol}$ to the right) yields a directional notation.
+Nonetheless, _lots_ of creatures, organized by color (with $\color{#0C0} \text{green}$ to the left of the head, and $ \overbrace{\color{#FFF}\text{white}}^{lol}$ to the right) yields a directional notation.
 
-The origin of the tape starts at 2 (in order to kill 2/2 creates) and the read/write head of the Turing Machine is _lethal_ as, in order to traverse the tape, it must slay a creature. 
+The origin of the tape starts is a Rotlung reanimator (2/2) and the read/write head of the Turing Machine is _lethal_ as, in order to traverse the tape, it must slay a creature. 
 
-Expanding outwards from the 2/2 origin are 3/3, 4/4, ..., n/n creatures. The authors select 18 creature types to correspond to Rogozhin's UTM(2,18) symbols. Notably, each of these 2/2 creatures spawns a another one of the 18 symbolic creatures upond death.  (NATO hates them, check out how these three computational theory researchers destroyed the standard phonetic alphabet):
+Expanding outwards in either direction from the 2/2 origin are 3/3, 4/4, ..., n/n creatures. The board might look something like this:
+
+$$
+\begin{aligned}
+    \color{#0C0} (n/n) , ... ,(4/4), (3/3), \color{#000} \underbrace{(2/2)}_{head}, \color{#BBB} (3/3), (4/4), ..., (n/n)
+\end{aligned}
+$$
+
+The authors select 18 creature types to correspond to Rogozhin's $UTM(2,18)$ symbols. Notably, each of these 2/2 creatures spawns a another one of the 18 symbolic creatures upond death.  (NATO hates them, check out how these three computational theory researchers destroyed the standard phonetic alphabet):
 
 ![](/images/mtg-1.png)
 
@@ -162,21 +171,14 @@ Computation begins as follows:
 
 ![](https://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=179424&type=card)
 
-Whe Alice casts Infest (-2/-2) it kills all 2/2 creatures which, as we noted above, is just the origin of our tape (which belongs to Bob, RIP). 
+When Alice casts Infest (-2/-2) it kills all 2/2 creatures which, as we noted above, is just the origin of our tape (which happens to belong to Bob, RIP). 
 
 > This kills one creature: the tape token at the position of the current read head, controlled by Bob. This will cause precisely one creature of Bob’s to trigger – either a Rotlung Reanimator or a Xathrid Necromancer... This Reanimator or Necromancer will create a new 2/2 token to replace the one that died. The new token’s creature type represents the symbol to be written to the current cell, and the new token’s colour indicates the direction for the machine to move: white for left or green for right.
 
-The board might look something like this 
-
-$$
-\begin{aligned}
-    \color{#0C0} (n/n) , ... ,(4/4), (3/3), \color{#000} \underbrace{(2/2)}_{head}, \color{#BBB} (3/3), (4/4), ..., (n/n)
-\end{aligned}
-$$
 
 Upon casting Infest, the center card at the head of the tape dies, but in order to traverse the tape, we must add a +1/+1 and -1/-1 buff and debuff respectively to the current and adjacent creature in order to move, as well as all $2n$ other creatures on either side as well... 
 
-this is cleverly accomplished by modifying creatures of a specific color.  
+This is cleverly accomplished by modifying creatures of a specific color.  
 
 > On Alice’s second turn, she casts Cleansing Beam, which reads “Cleansing Beam deals 2 damage to target creature and each other creature that shares a color with it.”
 
@@ -188,7 +190,7 @@ this is cleverly accomplished by modifying creatures of a specific color.
 
 > To ensure that the creatures providing the infrastructure (such as Rotlung Reanimator) aren’t killed by the succession of −1/−1 counters each computational step, we arrange that they also have game colours green, white, red and black, using Prismatic Lace, “Target permanent becomes the color or colors of your choice. (This effect lasts indefinitely.)” Accordingly, each cycle Cleansing Beam will put two +1/+1 counters on them, growing them faster than the −1/−1 counters shrink them.
 
-In this way, Cleansing Beam and Soul snuffers effectively facilitate the movement of the head across the tape. 
+In this way, Cleansing Beam and Soul Snuffer effectively facilitate the movement of the head across the tape. 
 
 The full construction includes details about several other cards which Alice and Bob possess in order to maintain the infrastructure prevented, but the embedding is hopefully clear at this point.  
 
