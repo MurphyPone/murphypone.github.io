@@ -136,6 +136,12 @@ const hackathons = [
         icon: "/images/hackathon-icons/GunnHacks7.png",
         website: "https://www.gunnhacks.com/"
     },
+    {
+        name: "*PickHacks 2021", 
+        coords: { lat: 37.953722, lng: -91.774834 },
+        icon: "/images/hackathon-icons/PickHacks21.png",
+        website: "https://pickhacks.io/"
+    },
 ];
 
 const MAPS_KEY = "AIzaSyDy6ZauygicYHQGfg43dm4kpvTCfyVqUj4";
