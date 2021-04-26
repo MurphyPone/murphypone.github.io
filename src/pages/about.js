@@ -18,8 +18,8 @@ const IndexPage = () => (
     in order to provide the best possible experience to their attendees.
     </p>
     <p>
-    I'm also a part time Software Engineer at <a href="https://greymatter.io/grey-matter" target="_blank">Decipher Technology Studios</a> where I 
-    contribute to the product’s backend control-plane features extending Envoy’s service mesh API, as well as the Grey Matter Sense team's Log Anomaly Detector.
+    Formerly, I worked as a part time Software Engineer at <a href="https://greymatter.io/grey-matter" target="_blank">Decipher Technology Studios</a> where I 
+    contributed to the product’s backend control-plane features extending Envoy’s service mesh API, as well as the Grey Matter Sense team's Log Anomaly Detector.
     </p>
     <p><a href="/images/resume.pdf" target="_blank">Here's the full CV</a></p>
     <p>
