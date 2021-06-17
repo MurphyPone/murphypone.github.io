@@ -29,7 +29,7 @@ const IndexPage = () => (
     <center><h3>Testimonials</h3></center>
     <Testimonials/>
     <br/>
-    <center><h3>Hackathons I've organized, Coached, attended, and mentored</h3></center>
+    <center><h3 id="map">Hackathons I've organized, Coached, attended, and mentored</h3></center>
     <GoogleApiWrapper/>                                                         
     
     {/* <iframe title="resume" src={"/images/resume.pdf#tool"} width="100%" height="700px" style={{border: "10px black", marginTop: '105vh'}}></iframe> */}
