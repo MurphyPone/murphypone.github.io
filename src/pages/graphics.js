@@ -50,13 +50,18 @@ const IndexPage = () => (
       <Col>
         <Head>Doodles, Tattoos</Head>
         <div class="trigger">
+          <img id="image" src="/gallery/thumbnails/thumb_LuckyDay.png"/>
+          <a id="lbl">Lucky Day</a>
+        </div>
+        <br/>
+        <div class="trigger">
           <img id="image" src="/gallery/thumbnails/thumb_Smoking Man.png"/>
           <a id="lbl">Smoking Man</a>
         </div>
         <br/>
         <div class="trigger">
           <img id="image" src="/gallery/thumbnails/thumb_smoking hand.png"/>
-          <a id="lbl">Troll w/Winni Blue</a>
+          <a id="lbl">Troll w/Winnie Blue</a>
         </div>
         <br/>
         <div class="trigger">
@@ -88,7 +93,7 @@ const IndexPage = () => (
         <Head>Commissions</Head>
         <div class="trigger">
             <img id="image" src="/gallery/thumbnails/thumb_ethanslogo.png"/>
-            <a id="lbl">Cthulu</a>
+            <a id="lbl">Cthulhu</a>
           </div>
           <br/>
           <div class="trigger">
