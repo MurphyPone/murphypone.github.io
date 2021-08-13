@@ -42,7 +42,18 @@ module.exports = {
             // Add any KaTeX options from https://github.com/KaTeX/KaTeX/blob/master/docs/options.md here
             strict: `ignore`
           }
-        }
+        },
+        {
+          resolve: 'gatsby-remark-mermaid',
+          options: {
+              language: 'mermaid',
+              theme: 'default',
+              viewport: {
+                  width: 200,
+                  height: 250
+              },
+          }
+       }
       ],
 
       },
@@ -79,6 +90,6 @@ module.exports = {
           families: ['Montserrat']
         }
       }
-    }
+    },
   ],
 }
