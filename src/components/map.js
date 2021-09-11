@@ -142,6 +142,12 @@ const hackathons = [
         icon: "/images/hackathon-icons/PickHacks21.png",
         website: "https://pickhacks.io/"
     },
+    {
+        name: "*SharHacks 3", 
+        coords: { lat: 40.746250, lng: -73.988077 },
+        icon: "/images/hackathon-icons/mlh.png",
+        website: "https://mlh.io/"
+    },
 ];
 
 const MAPS_KEY = "AIzaSyDy6ZauygicYHQGfg43dm4kpvTCfyVqUj4";
