@@ -143,7 +143,7 @@ const hackathons = [
         website: "https://pickhacks.io/"
     },
     {
-        name: "*SharkHacks 3", 
+        name: "*SharkHacks 3, *Backyard Hacks 2.0, *Data Day Grind 2.0 ", 
         coords: { lat: 40.746250, lng: -73.988077 },
         icon: "/images/hackathon-icons/mlh.png",
         website: "https://mlh.io/"
