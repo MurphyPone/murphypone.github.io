@@ -148,6 +148,12 @@ const hackathons = [
         icon: "/images/hackathon-icons/mlh.png",
         website: "https://mlh.io/"
     },
+    {
+        name: "*Pitt Challenge 2021", 
+        coords: { lat: 40.444279, lng: -79.960835 },
+        icon: "/images/hackathon-icons/PittChallenge.png",
+        website: "https://pittchallenge.com/"
+    },
 ];
 
 const MAPS_KEY = "AIzaSyDy6ZauygicYHQGfg43dm4kpvTCfyVqUj4";
