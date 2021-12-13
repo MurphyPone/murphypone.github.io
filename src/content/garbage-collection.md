@@ -156,5 +156,5 @@ for r in roots:
     print(s_i - s) # diff of garbage collected
 ```
 
-though the graph representation is a _bit_ ugly, it's easier to comprehend as satisfactorily achieves the desired output!
+though the graph representation is a _bit_ ugly, it's easier to comprehend and satisfactorily achieves the desired output!
 

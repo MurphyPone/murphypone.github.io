@@ -52,7 +52,7 @@ const outlineStyle = {
 const IndexPage = ({ data }) => {
   return (
     <Layout>
-      <SEO title="Blog" />
+      <SEO title="typo factory" />
       <Content>
       <center><h1>Blog</h1></center>
         {data.allMarkdownRemark.edges.map(({ node }) => (
