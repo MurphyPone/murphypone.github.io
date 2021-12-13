@@ -1,93 +1,93 @@
 ---
 title: "Abdicating to the Algorithms: Solving the Redistricting Problem"
-date: "2021-12-08"
+date: "2021-12-13"
 description: "Computation, Philosophy, Politics, and Economics"
 path: "/blog/redistricting"
 ---
 
 <style>
+    footer {
+        margin-top: 50px;
+        border-top: 1px solid silver;
+        font-size: 0.8em;
+    }
 
+    footer ol {
+        padding-left: 20px;
+    }
 
-footer {
-  margin-top: 50px;
-  border-top: 1px solid silver;
-  font-size: 0.8em;
-}
+    /**
+    * Initialiazing a `footnotes` counter on the wrapper
+    */
+    article {
+        counter-reset: footnotes;
+    }
 
-footer ol {
-  padding-left: 20px;
-}
+    /**
+    * Inline footnotes references
+    * 1. Increment the counter at each new reference
+    * 2. Reset link styles to make it appear like regular text
+    */
+    [aria-describedby="footnote-label"] {
+        counter-increment: footnotes; /* 1 */
+        text-decoration: none; /* 2 */
+        color: inherit; /* 2 */
+        cursor: default; /* 2 */
+        outline: none; /* 2 */
+    }
 
-/**
- * Initialiazing a `footnotes` counter on the wrapper
- */
-article {
-  counter-reset: footnotes;
-}
+    /**
+    * Actual numbered references
+    * 1. Display the current state of the counter (e.g. `[1]`)
+    * 2. Align text as superscript
+    * 3. Make the number smaller (since it's superscript)
+    * 4. Slightly offset the number from the text
+    * 5. Reset link styles on the number to show it's usable
+    */
+    [aria-describedby="footnote-label"]::after {
+        content: '[' counter(footnotes) ']'; /* 1 */
+        margin-left: 2px; /* 4 */
+        color: blue; /* 5 */
+        text-decoration: underline; /* 5 */
+        cursor: pointer; /* 5 */
+    }
 
-/**
- * Inline footnotes references
- * 1. Increment the counter at each new reference
- * 2. Reset link styles to make it appear like regular text
- */
-[aria-describedby="footnote-label"] {
-  counter-increment: footnotes; /* 1 */
-  text-decoration: none; /* 2 */
-  color: inherit; /* 2 */
-  cursor: default; /* 2 */
-  outline: none; /* 2 */
-}
+    /**
+    * Resetting the default focused styles on the number
+    */
+    [aria-describedby="footnote-label"]:focus::after {
+        outline: thin dotted;
+        outline-offset: 2px;
+    }
 
-/**
- * Actual numbered references
- * 1. Display the current state of the counter (e.g. `[1]`)
- * 2. Align text as superscript
- * 3. Make the number smaller (since it's superscript)
- * 4. Slightly offset the number from the text
- * 5. Reset link styles on the number to show it's usable
- */
-[aria-describedby="footnote-label"]::after {
-  content: '[' counter(footnotes) ']'; /* 1 */
-  margin-left: 2px; /* 4 */
-  color: blue; /* 5 */
-  text-decoration: underline; /* 5 */
-  cursor: pointer; /* 5 */
-}
+    [aria-label="Back to content"] {
+        font-size: 0.8em;
+    }
 
-/**
- * Resetting the default focused styles on the number
- */
-[aria-describedby="footnote-label"]:focus::after {
-  outline: thin dotted;
-  outline-offset: 2px;
-}
+    /**
+    * Highlight target note
+    */
+    footer :target {
+        background: rgba(102, 102, 255, 0.3);
+    }
 
-[aria-label="Back to content"] {
-  font-size: 0.8em;
-}
+    /**
+    * Visually hidden yet accessible content
+    */
+    .visually-hidden {
+        position: absolute;
+        clip: rect(0 0 0 0);
+        visibility: hidden;
+        opacity: 0;
+    }
 
-/**
- * Highlight target note
- */
-footer :target {
-  background: rgba(102, 102, 255, 0.3);
-}
+    .p {
+        text-align: center;
+        font-size: .75em;
+        padding-top: 150px;
+    }
 
-/**
- * Visually hidden yet accessible content
- */
-.visually-hidden {
-  position: absolute;
-  clip: rect(0 0 0 0);
-  visibility: hidden;
-  opacity: 0;
-}
-
-.p {
-  text-align: center;
-  font-size: .75em;
-  padding-top: 150px;
-}
+    /* Courtesy of https://www.sitepoint.com/accessible-footnotes-css/ */
 
 </style>
 
