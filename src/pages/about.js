@@ -11,7 +11,7 @@ const IndexPage = () => (
     <img src={"../../images/profilepic.JPG"} alt="profile pic" />
     <p>👋Hi!</p>
     <p>
-    My name is Peter, I'm a student at Virginia Tech studying Computer Science with a minor in Philosophy, Politics, and Economics.
+    My name is Peter, I'm a Software Enginer at Credit Karma. In 2021, I graduated from Virginia Tech where I studied Computer Science and minored in Philosophy, Politics, and Economics.
     </p>
     <p>
     On the weekends, I'm a <a href="https://mlh.io/" target="_blank">Major League Hacking</a> Coach, which means that I <strike>travel to events to</strike> digitally assist hackathon organizers 
