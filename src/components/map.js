@@ -29,7 +29,7 @@ const hackathons = [
         website: "https://www.bigparser.com/summer/"
     },
     {
-        name: "HackBI 2018, 2019, 2020, 2021",
+        name: "HackBI 2018, 2019, 2020, 2021, 2022",
         coords: { lat: 38.808963, lng: -77.080795 },
         icon: "/images/hackathon-icons/HackBI.jpg",
         website: "https://hackbi.org/"
