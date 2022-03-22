@@ -9,7 +9,7 @@ path: "/blog/mtg-turing-complete"
 
 This post aims to summarize the 900 IQ construction of a Turing Machine using Magic: the Gathering (MTG) mechanics described in the paper [_Magic: the Gathering_ is Turing Complete](https://arxiv.org/pdf/1904.09828.pdf) authored by Churchill, Biderman, and Herrick.
 
-> In this paper we show that optimal play in real-world _Magic_ is at least as hard as the Halting Problem, solving a problem that has been open for a decade. To do this, we present a methodology for embedding an arbitrary Turing machine into a game of _Magic_ such that the first player is guaranteed to win the game if and only if the Turing machine halts. Our result applies to how real Magic is played, can be achieved using standardsize tournament-legal decks, and does not rely on stochasticity or hidden information. Our result is also highly unusual in that all moves of both players are forced in the construction. This shows that even recognising who will win a game in which neither player has a non-trivial decision to make for the rest of the game is undecidable.
+> In this paper we show that optimal play in real-world _Magic_ is at least as hard as the Halting Problem, solving a problem that has been open for a decade. To do this, we present a methodology for embedding an arbitrary Turing machine into a game of _Magic_ such that the first player is guaranteed to win the game if and only if the Turing machine halts. Our result applies to how real Magic is played, can be achieved using standard size tournament-legal decks, and does not rely on stochasticity or hidden information. Our result is also highly unusual in that all moves of both players are forced in the construction. This shows that even recognizing who will win a game in which neither player has a non-trivial decision to make for the rest of the game is undecidable.
 
 ## Embeddings, Universal Turing Machines
 
@@ -167,7 +167,7 @@ Using a slew of other cards, the authors demonstrate how it is possible to map t
 
 Computation begins as follows: 
 
-> At the beginning of a computational step, it is Alice’s turn and she has the card Infest in hand. Her library consists of the other cards she will cast during the computation (Cleansing Beam, Coalition Victory, and Soul Snuffers, in that order). Bob’s hand and library are both empty. The Turing machine is in its starting state and the tape has already been initialised.
+> At the beginning of a computational step, it is Alice’s turn and she has the card Infest in hand. Her library consists of the other cards she will cast during the computation (Cleansing Beam, Coalition Victory, and Soul Snuffers, in that order). Bob’s hand and library are both empty. The Turing machine is in its starting state and the tape has already been initialized.
 
 ![](https://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=179424&type=card)
 

@@ -58,7 +58,7 @@ Obviously, identifying the audience of your documentation depends on what proble
 
 When reading other issues and writing your own:
  - Tag relevant people
- - Over communicate, ON THE ISSUE/TICKET, rather than undercommunicate secretly (e.g. private slack, email that gets lost, sticky note)
+ - Over communicate, ON THE ISSUE/TICKET, rather than under communicate secretly (e.g. private slack, email that gets lost, sticky note)
  - Comment of anything is unclear
 
 ## Interviewing SMEs

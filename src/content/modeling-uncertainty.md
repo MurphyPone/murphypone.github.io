@@ -19,7 +19,7 @@ If you have something that you want to workout but you can't do it analytically 
 
 A probability distribution can be intuitively represented as a finite chunk of play-doh.  The whole mass of the play-doh is the total distribution of all outcomes.
 
-Suppose we have an uncertain outcome, like the result of the 2020 presidential race 1 week after the election.  Based off of the most accurate polling results from that time, we might have a distrubution that looks something like this:
+Suppose we have an uncertain outcome, like the result of the 2020 presidential race 1 week after the election.  Based off of the most accurate polling results from that time, we might have a distribution that looks something like this:
 
 | Candidate | %  |
 |-|-|
@@ -37,7 +37,7 @@ Uncertainty and randomness are very similar.  We can model our uncertainty about
 
 We can _sample_ from our distribution by asking it for a randomly chosen number proportional the the probability mass we've assigned to that outcome.  If we were to sample from our confidence in election outcomes, we should expect that 94% of the time, we would receive the outcome "Joe Biden", and if we were to sample our distribution of a fair roll of a dice, we should expect the outcome "five" almost 17% of the time and a roll of a "seven" 0% of the time. 
 
-Consider a more practical example: You're playing Dungeons & Dragons (a game whose mechanics are modeled around the results of various n-sided dice) with your buddies and stumble across an encampment of nasty orcs in boot cut jeans.  In the inevitably ensewing violent encounter, you roll 1d20 to attack an orc and the outcome is a 20! Huzzah a critical hit.  This means that you have the opportunity to double the damage that is output by your weapon.  Suppose your weapon of choice is a gilded saber that deals 4d6 slashing damage.   The rules of D&D 5e dictate that on critical hits, players are allowed to roll all of their damage dice _twice_ and take the same of both sets of rolls (8d6 effective).  However, some house rules also allow for simply doubling the damage of one set of damage rolls (4d6 * 2).
+Consider a more practical example: You're playing Dungeons & Dragons (a game whose mechanics are modeled around the results of various n-sided dice) with your buddies and stumble across an encampment of nasty orcs in boot cut jeans.  In the inevitably ensuing violent encounter, you roll 1d20 to attack an orc and the outcome is a 20! Huzzah a critical hit.  This means that you have the opportunity to double the damage that is output by your weapon.  Suppose your weapon of choice is a gilded saber that deals 4d6 slashing damage.   The rules of D&D 5e dictate that on critical hits, players are allowed to roll all of their damage dice _twice_ and take the same of both sets of rolls (8d6 effective).  However, some house rules also allow for simply doubling the damage of one set of damage rolls (4d6 * 2).
 
 So the question is this: does it benefit you as the player to roll your damage dice twice, or simply double the result of a single damage roll.  Using a trivial Monte Carlo technique and a spreadsheet, we can model the this situation and simulate thousands of dice rolls to analyze which outcome results in the highest damage:
 
@@ -50,7 +50,7 @@ Here we have three sets of columns, the first two representing a set of 4d6 roll
   - minimum: `MIN(I:I)`
   - maximum: `MAX(I:I)`
 
-Additionally, we can also directly compare the difference between two methods of calculating damage as well as plot the distirubtions of each:
+Additionally, we can also directly compare the difference between two methods of calculating damage as well as plot the distributions of each:
 
 ![](/images/uncertainty-2.png)
 
@@ -74,7 +74,7 @@ So, although the averages are nearly the same, 4d6 * 2 allows for more _extreme_
 
 > It may surprise you to hear that it is equally valid to use these kinds of simulations for cases where there is _no randomness_ involved: only your own uncertainty. The math of probability for random events corresponds _exactly_ and _uniquely_ to an extension of true/false logic where you have uncertainty, but no randomness at all. That correspondence means that we can work _backwards_ and get answers to uncertainty questions by pretending that we can re-run the course of universal events numerous times. This correspondence between uncertainty on the one hand and randomness on the other is as deep and profound as they come.
 
-So here's a risk management example with no randomness, just uncertainty, and it comes from the book [How to Measure Anything](https://www.amazon.com/How-Measure-Anything-Intangibles-Business/dp/1118539273) - you should check it out.  Suppose you are a manufacturer considering leasing a machine for part of your production process.  You produce units! It costs $400,000/year paid annualy with no early-cancellation.  It's fancy and new fangled though, and you expect that it might save you money overall. Maybe. Probably. You have your internal experts put a 90% Confidence Interval on some important metrics: maintenance savings from having the machine, labor savings, raw materials savings, and production level.  That is, your experts are coming up with a range for which they believe the true value to lie within with 90% certainty. 
+So here's a risk management example with no randomness, just uncertainty, and it comes from the book [How to Measure Anything](https://www.amazon.com/How-Measure-Anything-Intangibles-Business/dp/1118539273) - you should check it out.  Suppose you are a manufacturer considering leasing a machine for part of your production process.  You produce units! It costs $400,000/year paid annually with no early-cancellation.  It's fancy and new fangled though, and you expect that it might save you money overall. Maybe. Probably. You have your internal experts put a 90% Confidence Interval on some important metrics: maintenance savings from having the machine, labor savings, raw materials savings, and production level.  That is, your experts are coming up with a range for which they believe the true value to lie within with 90% certainty. 
 
 #### Calibration
 
@@ -115,7 +115,7 @@ However, that outcome is only valid if each of those variables are equal to the 
 
 "Fitting" here means that taking the parameters we need for some distribution, and hooking it up to our ranges.  For any normal distribution, those parameters are just $\mu$, and $\sigma$, the mean and standard deviation of those distributions, respectively.  We have the mean of each distribution already, we've chosen it to be the midpoint, and we can get the standard deviation from the definition of a 90% Confidence Interval: we're 90% confident that the true value falls within that interval.  Or in other words, 90% of the probability mass is distributed between those two endpoints of the range.  So, we just need to convert the 90% confidence range into standard deviations.
 
-Because who the heck has any intuition for what a standard deviation is, it is worth memorizing the fact that, **for every normal distribution, 90% of the probability mass lies within the center 3.29 standard deviations.**  We can use this fact to re-scale our distriubtions into standard deviations just like we might perform any other unit conversion, say from miles to kilometers.  We simply apply the fact that there are 3.29 standard deviations per 90% confidence interval:
+Because who the heck has any intuition for what a standard deviation is, it is worth memorizing the fact that, **for every normal distribution, 90% of the probability mass lies within the center 3.29 standard deviations.**  We can use this fact to re-scale our distributions into standard deviations just like we might perform any other unit conversion, say from miles to kilometers.  We simply apply the fact that there are 3.29 standard deviations per 90% confidence interval:
 
 $$
 \begin{aligned}
@@ -130,9 +130,9 @@ And, using these parameters, we can just plug them right into our spreadsheet's 
 
 Columns I, J also give us additional information we will use to determine _how likely it is that we break even_ for thousands of sampled value of each of our Confidence Intervals: turns out we break even around 86% of the time.  Viewing our histogram we can visually confirm that number by seeing that the last negative number on the x-axis is rather to the left of the mean, making the vast majority of the probability mass imply that we're in the black.
 
-And just like that we've solved our really complicated probability problem.  We've modeled the _real_ universe with this little toy universe, and then we sampled from our toy universe to get an answer which turns out to be comprable to the real one.  This can vastly improve our ability to make informed decisions about the real universe.
+And just like that we've solved our really complicated probability problem.  We've modeled the _real_ universe with this little toy universe, and then we sampled from our toy universe to get an answer which turns out to be comparable to the real one.  This can vastly improve our ability to make informed decisions about the real universe.
 
-So, how does the randomness sneak in?  Nothing in the problem itself had _any_ randomness, it's entirely deterministic.  The deep corresponsdence between random sampling and uncertainty allowed us to take information we have about the _shape_ of our uncertainty and model it using the shape of a probability distribution, and then we can sample that distribution thousands of times even though in the real world _we cannot_ lease this machine a thousand times and re-run the universe with a single keystroke to see how it would go.
+So, how does the randomness sneak in?  Nothing in the problem itself had _any_ randomness, it's entirely deterministic.  The deep correspondence between random sampling and uncertainty allowed us to take information we have about the _shape_ of our uncertainty and model it using the shape of a probability distribution, and then we can sample that distribution thousands of times even though in the real world _we cannot_ lease this machine a thousand times and re-run the universe with a single keystroke to see how it would go.
 
 ### Other Types of Distributions we can Leverage
 
@@ -157,7 +157,7 @@ Turns out, this screws us really bad, and we break even less than 15% of the tim
 
 ### Conclusion
 
-If the answer you get from the simulation has an unacceptable variance, i.e. turns out the number of possibilities will not break even or the spread is so large that, even though the mean looks okay, you're not super confident in the decision since if outcomes err towards the extremes, things could go terribly wrong, the model _can tell you where you need to invest measurements_ to reduce uncertainty.  Since every factor is itself represented by a probability distribution you can "ask about it's standard deviation" and see _how confusedy you are_ correlated to how spread out the data is.  You can then invest in some studies within your business to get those ranges tightened further than that 90% CI you started with.  
+If the answer you get from the simulation has an unacceptable variance, i.e. turns out the number of possibilities will not break even or the spread is so large that, even though the mean looks okay, you're not super confident in the decision since if outcomes err towards the extremes, things could go terribly wrong, the model _can tell you where you need to invest measurements_ to reduce uncertainty.  Since every factor is itself represented by a probability distribution you can "ask about it's standard deviation" and see _how confused you are_ correlated to how spread out the data is.  You can then invest in some studies within your business to get those ranges tightened further than that 90% CI you started with.  
 
 Recall that 100% certainty is great!  But almost always unattainable, therefore any reduction in uncertainty is valuable.
 
@@ -189,7 +189,7 @@ If you haven't seen enough, here's another interesting example which comes from 
 
 ![](/images/uncertainty-5.jpg_large)
 
-This map is not based on _any primary sources_ such as polls, voting trends, economic conditions etc. Instead, Eli used the free API for Betfair.com, which is a prediction market that functions exactly like a gambling site for horse races (partially because it _is_ a gambling site for horse races).  Contracts are priced by their odds and the odds constantly fluctuate in responce to bets, they also correspond directly to probabilities.  In a sense, Dourado leveraged the well-studied wisdom of crowds in the form of tens of thousands of people confidence intervals about the uncertain outcome of the 2020 presidential election. 
+This map is not based on _any primary sources_ such as polls, voting trends, economic conditions etc. Instead, Eli used the free API for Betfair.com, which is a prediction market that functions exactly like a gambling site for horse races (partially because it _is_ a gambling site for horse races).  Contracts are priced by their odds and the odds constantly fluctuate in response to bets, they also correspond directly to probabilities.  In a sense, Dourado leveraged the well-studied wisdom of crowds in the form of tens of thousands of people confidence intervals about the uncertain outcome of the 2020 presidential election. 
 
 Those two globs on the bottom are the probability distributions over the number of electoral votes cast for either party. People were offering each other rather conservative odds at that point as it was still election night, but you can see that most people still thought Biden would win as reflected by the peak of the blue hump aligning with ~310 votes on the x-axis and the red hump's peak (or mean) being closer to 230.  
 

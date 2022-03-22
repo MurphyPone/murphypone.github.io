@@ -97,7 +97,7 @@ Nonetheless, I still recommend inviting hackers to join your server as soon as p
 
 One of the drawbacks/tradeoffs of digital events is that _the more content you provide to hackers, the more likely they are to be overwhelmed_. As mentioned above, though many-specialized channels make it easy for seasoned-Discord users to quickly navigate and find the information they're looking for, novice hackers. mentors, and sponsors may be turned off of your communication platform if they're met with hundreds of channels with no guidance as to how to tweak their notifications/permissions to refine the scope of information that may be blasted at them once they join your server. 
 
-Shout out to [Kyle Suero](https://kylesuero.com/), this secion is dedicated to you.  **Overuse of `@everyone` and `@here` can quickly sever a hacker's connection to the server.**  There's no hard-fast rules about tagging everyone, but I strongly recommend keeping such announcements to a minimum. My 2¢: permissions to tag whole channels/servers should be restricted to an as-needed Organizer-only basis, and should be kept to a minimum for information that everyone needs to know.  The overwhelming majority of the time, no announcement pertains to _everyone_.  Tailor your messages and relevant tags to the specific audience you want to communicate with.  
+Shout out to [Kyle Suero](https://kylesuero.com/), this section is dedicated to you.  **Overuse of `@everyone` and `@here` can quickly sever a hacker's connection to the server.**  There's no hard-fast rules about tagging everyone, but I strongly recommend keeping such announcements to a minimum. My 2¢: permissions to tag whole channels/servers should be restricted to an as-needed Organizer-only basis, and should be kept to a minimum for information that everyone needs to know.  The overwhelming majority of the time, no announcement pertains to _everyone_.  Tailor your messages and relevant tags to the specific audience you want to communicate with.  
 
 Broad categories include:
 - `@Organizers`
@@ -109,10 +109,6 @@ Broad categories include:
 If you choose to create voice/text channels for each team, it only takes one more step to create roles for each specific team as well, which can be useful in a variety of situations (announcing winning teams, communicating with the rest of a team if a the PoC is offline, etc.)
 
 Additionally, it's important to note that substituting `@everyone` with `@Hackers` would cause the same problem as before, to remember to be deliberate and concise in your communications with all the attendees of your event at risk of losing hackers to the onslaught of information coming at them from all angles/channels.
-
-
-
- 
 
 
 <a name="engagement"></a>
@@ -135,18 +131,18 @@ Due to the lowered commitment levels of digital events (which could/should be ma
 
 Despite all your efforts to communicate submission guidelines, deadlines, and advice with hackers, digital contexts appear to be at odds with ensuring that everyone is on the same page when it comes to crucial information like submission guidelines and judging logistics.  From an organizational perspective, it can be difficult to refine your judging plan if you don't have a good gauge for how many projects will be submitted.
 
-Encouraging hackers to submit to Devpost early, even as just a placeholder submission is a good start, but wihtout something more formalized than a mere announcement, many hackers will just ignore this recommendation. Personally, I'm a proponent of incentivizing hackers with "door" prizes for taking action on things like this, e.g. "submit to Devpost prior to midnight the day before judging for a chance to win XYZ small prize." 
+Encouraging hackers to submit to Devpost early, even as just a placeholder submission is a good start, but without something more formalized than a mere announcement, many hackers will just ignore this recommendation. Personally, I'm a proponent of incentivizing hackers with "door" prizes for taking action on things like this, e.g. "submit to Devpost prior to midnight the day before judging for a chance to win XYZ small prize." 
 
 Along with a dedicated `#submission-questions` channel, scheduled submission checkpoints or "office hours" throughout the event can help ensure that hackers are familiar with the submission platform (in my examples, Devpost).
 
-The aforementioned channel can/should contained a pin message reflecting your submissions guidelines (which should be duplicated across your Devpost home page and livesite, if you have it; additionally these guidelines should be highlighted during opening ceremmony).  Here's an example which can be tailored for your event:
+The aforementioned channel can/should contained a pin message reflecting your submissions guidelines (which should be duplicated across your Devpost home page and livesite, if you have it; additionally these guidelines should be highlighted during opening ceremony).  Here's an example which can be tailored for your event:
 
 >👨‍⚖️ **JUDGING INFORMATION** 👩‍⚖️
 > 1. Submit to Devpost early at `<devpost link>` - you can edit everything in your submission (write up, video, code, website, prizes, etc) all the way up to the deadline which is **9:00 AM EST, Sunday**
 >
 > 2. **Every submission must have a video demo** attached to it.  There's a required field on the submission page where you can link to a video. You can upload any video as a placeholder until you actually have time record a demo :slight_smile: .  You can record a video using free software like Open Broadcast Studio or the Google Chrome plugin: Loom.
 >
-> 3. Don't know what to put in your demo video/project write up?  No sweat, there will be a submission checkoint at 9:00 PM EST Friday and Saturday evening. Also, checkout this example post which has information about how to make a great demo! https://devpost.com/software/example-template-submission.  
+> 3. Don't know what to put in your demo video/project write up?  No sweat, there will be a submission checkpoint at 9:00 PM EST Friday and Saturday evening. Also, checkout this example post which has information about how to make a great demo! https://devpost.com/software/example-template-submission.  
 >     - definitely mention if this is your (or any of your teammates) first hackathon!!
 >     - include links to your project code if it's on repl.it, Netlify, GitHub, or anywhere else.  
 >     - Also be sure to include the domain of any website you registered through Domain.com, even if you didn't end up using it.
@@ -163,11 +159,11 @@ The aforementioned channel can/should contained a pin message reflecting your su
 
 This is an option which is gaining popularity at digital events. As there's an increased likelihood that hackers may be in different timezones across the world, imposing a time frame for them to be online and available to live demo their project to judges can impact your overall turnout.  The largest trade-off with this approach is that hackers may miss announcements about Devpost requirements, not realize that they need to upload a video, and be too hard-pressed for time leading up to the deadline to submit a demo video to qualify.  Additionally, judges are unable to effectively ask questions about projects via an async judging schema - though it is possible if each team has their own role on your communication platform that the more-proficient judges can tag.
 
-Again, this relies on **making sure everyone's on the same page** in terms of submission expectations and requirements.  With respect to early submissions if you require a video attatchment, just remind hackers that they can always go back and revise any part of their submission, so any (appropriate) video will work as a placeholder.
+Again, this relies on **making sure everyone's on the same page** in terms of submission expectations and requirements.  With respect to early submissions if you require a video attachment, just remind hackers that they can always go back and revise any part of their submission, so any (appropriate) video will work as a placeholder.
 
 ### Cheat Prevention
 
-Another challenge that arises from digital events is the ability to "participate" in several events at a time. Organizer discretion determines how you set the rules for your event, but in an attempt to maximize hacker engagement with the content of _your hackathon_, I'm in favor of disallowing multiple submissions in an effort to keep the hackers at your event _at your event_.  Regardless of your preference about multiple submission, or anyting else pertaining to your event, it's important to communicate the rules clearly and **make sure everyone's on the same page**.
+Another challenge that arises from digital events is the ability to "participate" in several events at a time. Organizer discretion determines how you set the rules for your event, but in an attempt to maximize hacker engagement with the content of _your hackathon_, I'm in favor of disallowing multiple submissions in an effort to keep the hackers at your event _at your event_.  Regardless of your preference about multiple submission, or anything else pertaining to your event, it's important to communicate the rules clearly and **make sure everyone's on the same page**.
 
 If you opt to disallow duplicate submissions, there's a few steps you can take to enforce this. 
 
@@ -189,6 +185,6 @@ Clearly _this hacker_ has submitted the same project to several prior events: di
 
 #### Other Cheat Checks
 
-If you suspect that a project was developed outside of the time frame of your event, or was multiply submitted, or in violation of your rules som other ways, there's a few other ways you can verify the integrity of the submission. If the submission includes a link to a GitHub repo, you can do some investigating in there to see when the first commit was, as well as what the commits entailed (e.g. one 10,000 line commit for the whole weekend might be suspicious unless there's jsut a single team member). Additionally, you can compare the current submission ahainst prior submissions visible in the users' portfolios to see if they took the effort to recycle the same idea from a prior/different event into a new submission.
+If you suspect that a project was developed outside of the time frame of your event, or was multiply submitted, or in violation of your rules som other ways, there's a few other ways you can verify the integrity of the submission. If the submission includes a link to a GitHub repo, you can do some investigating in there to see when the first commit was, as well as what the commits entailed (e.g. one 10,000 line commit for the whole weekend might be suspicious unless there's just a single team member). Additionally, you can compare the current submission against prior submissions visible in the users' portfolios to see if they took the effort to recycle the same idea from a prior/different event into a new submission.
 
 Another indicator that a project might be multiply submitted is if it doesn't seem to conform to any of the presented challenge/prize categories for your event.  While hackers are of course always able to work on whatever they like, high quality submissions that seem to ignore the theme of your event may be indicative of cheating...  

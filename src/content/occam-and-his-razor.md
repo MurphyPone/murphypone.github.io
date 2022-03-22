@@ -13,7 +13,7 @@ This article aims to qualitatively describe the notation from Kevin Kelly's pape
 
 in light of the of the claim that 
 
-> The standard literature on Ockam's razor contains no plausible, non-circular, explanation of how simplicity helps science to arrive at true theories.
+> The standard literature on Occam's razor contains no plausible, non-circular, explanation of how simplicity helps science to arrive at true theories.
 
 Kelly asks, then, "how _could_ Ockham's razor help one find true theory?"
 
@@ -21,13 +21,13 @@ Kelly asks, then, "how _could_ Ockham's razor help one find true theory?"
 
 When striving to define the "simplest" explanation of a claim, we start with the benchmarks of 
 
-- [Solomonoff Induction](https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference) - which I won't pretend to know enough about to make menaingful sense.
+- [Solomonoff Induction](https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference) - which I won't pretend to know enough about to make meaningful sense.
 
 and 
 
 - [Kolmogorov Complexity](https://en.wikipedia.org/wiki/Kolmogorov_complexity) - which can be thought of as the optimal encoding of a piece of information, or the lower bound of the length of program needed to recreate some input, roughly speaking. 
 
-For example, the kolmogorov complexity of a _simple_ string like `aaaaaaaaaaaaaaaaaaaaaaaaaa` (26 'a's) could be expressed in fewer characters as: 
+For example, the Kolmogorov complexity of a _simple_ string like `aaaaaaaaaaaaaaaaaaaaaaaaaa` (26 'a's) could be expressed in fewer characters as: 
 
 ```python
 a = 'a' * 26
@@ -36,7 +36,7 @@ a = 'a' * 26
 which isn't necessarily the _smallest_ program used to expressed the input string, but it's closer.
 
 
-Though not entirely relvant to the discussion, the formal definition of Kolmogorov complexity is given in terms of Turing machines, so you know I had to include it:
+Though not entirely relevant to the discussion, the formal definition of Kolmogorov complexity is given in terms of Turing machines, so you know I had to include it:
 
 > Kolmogorov complexity $K$ of a string, relative to a Turing machine $f$ of a string $x$ is :
 > $$\\ K_f(x) = \min \{|p| : f(p) = x\}$$
@@ -49,9 +49,9 @@ Kelly asks, "what's the fastest way to reach a true theory?" and answers, in far
 
 In real world applications, induction is limited  the fact that we want to derive general principles given only immediate specifics.  We can _never_ know that our inductive hypotheses is true, let alone absolute truth, but we can gain or lose confidence in it with each opportunity to be wrong and _hopefully_ know that our hypothesis is not wrong.  
 
-Fundementally, that's all science is: not being wrong lots of times.
+Fundamentally, that's all science is: not being wrong lots of times.
 
-Amongst other things, Kelly adds in his supplemental [conference slides](http://www.fitelson.org/few/few_05/kelly_2.pdf) that the if you know that "future" is simple, you can drop the heurisitc and skip straight to a solid principle.  However, the future is typically complex, hence the need for a formal means of reaching the simplest hypothesis to describe truth.
+Amongst other things, Kelly adds in his supplemental [conference slides](http://www.fitelson.org/few/few_05/kelly_2.pdf) that the if you know that "future" is simple, you can drop the heuristic and skip straight to a solid principle.  However, the future is typically complex, hence the need for a formal means of reaching the simplest hypothesis to describe truth.
 
 ## Notation
 
@@ -89,11 +89,11 @@ $$
 
 So, to play with this a lil bit: 
  
-- if we see $e_5$, then $T_1$ is imediately falsified as it does not consider $e_5$.
+- if we see $e_5$, then $T_1$ is immediately falsified as it does not consider $e_5$.
 
-- if we see $e_1$, then $T_1$ is not falsified, but the longer that time goes by before we see $e_2$, the lower our confidence in $T_1$ will be.  _However;_ Occam's razor, by defenition, will not retract $T_1$ as no new infromation has been presented to contradict it thus far.  More on this later.
+- if we see $e_1$, then $T_1$ is not falsified, but the longer that time goes by before we see $e_2$, the lower our confidence in $T_1$ will be.  _However;_ Occam's razor, by definition, will not retract $T_1$ as no new information has been presented to contradict it thus far.  More on this later.
 
-Let $M$ be a strategy that that chooses some $T \in Q$ at an arbitrary point in time which helps us converge on a true theory: a descrition of the ⭐_world_ ⭐ $w$.
+Let $M$ be a strategy that that chooses some $T \in Q$ at an arbitrary point in time which helps us converge on a true theory: a description of the ⭐_world_ ⭐ $w$.
 
 For example, let's let the _truth_ $w$ be $\{e_1, e_2, e_3, e_4, e_5\}$, then $M$ would point to $T_2$.  
 
@@ -138,7 +138,7 @@ The second stipulation is that $S$ must be compatible with experience meaning th
 
 So, Occam's razor is $c(T)$, but this doesn't necessarily get us to the truth... The strength of Occam's razor is that, if another truth-getting strategy is used, it will eventually be forced to make a retraction in the absence of new information, like the Higgs boson, given $\{e_1, e_2, e_3, ?\}$, whereas Occam's razor can solve a problem $(K_e, Q)$ each time new information $e_i$ is revealed that is necessarily the simplest, most complete Theory that makes no _more_ retractions than any other arbitrary strategy.  In this sense, Occam's razor leads you to the truth the fastest, in the _worst case_.
 
-> The new idea is that these [alternative theories] are not exhaustive alternatives, for it may be that Ockham's razor somehow converges to the truth along the straightests or most direct path, where directness is, roughly speaking, a matter of not altering one's opinion more often or later than necessary.  
+> The new idea is that these [alternative theories] are not exhaustive alternatives, for it may be that Ockham's razor somehow converges to the truth along the straightest or most direct path, where directness is, roughly speaking, a matter of not altering one's opinion more often or later than necessary.  
 
 Say one theory $T$ leaps to the correct answer and Occam's razor took the long path to get there.  As soon as nature reveals $e_i$, $T$ could be invalidated, but Occam's razor is still true, with one additional retraction.
 
@@ -154,7 +154,7 @@ Occam's razor is useful when no current Theory contains $\pi$.  The worst case y
 
 Take $T_4 = \Big\{ \{e_7, e_8\}\Big\}$ along with $T_1 = \Big\{\{e_1\}, \{ e_1, e_2, e_3, e_4 \}\Big\}$.  $T_4$ is _simpler_ than $T_1$ given _no_ $\pi$ yet, as there is no path we could be given that takes us to both $e_4$ and $e_7$.  $T_4$ is bolder because it's _more_ true or false, and that is the definition of simplicity.  The fragility of $T_4$ is directly proportional to its simplicity and therein lies the profundity of Occam's razor.
 
-> Since methods that approach the truth more directly have superior _connection_ to the truth or are more _conducive_ to find the truth, it is a relevant and non-circular response to the simplicity puzzle to priove that Ockham strategies approach the truth more directly than all competitors.
+> Since methods that approach the truth more directly have superior _connection_ to the truth or are more _conducive_ to find the truth, it is a relevant and non-circular response to the simplicity puzzle to prove that Occam strategies approach the truth more directly than all competitors.
 
 
 - What makes your theory _complex_ is the presence of other theories that predict a _subset_ of what your theory predicts

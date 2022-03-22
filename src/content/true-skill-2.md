@@ -8,11 +8,11 @@ path: "/blog/true-skill-2.md"
 ## Preface
 This article contains my summary of Daniel's summary of Microsoft Research's publication 2018 ["TrueSkill 2: An improved Bayesian skill rating system"](https://www.microsoft.com/en-us/research/uploads/prod/2018/03/trueskill2.pdf), an improvement on the original TrueSkill system developed for match making in Halo (3?, never played too much Halo 😬).
 
-This paper was pretty straightforward, so this article will just cover the keypoints made in each section, focusing on the applications of Bayesian Networks and Markov Chains for Monte Carlo Methods.
+This paper was pretty straightforward, so this article will just cover the key points made in each section, focusing on the applications of Bayesian Networks and Markov Chains for Monte Carlo Methods.
 
 ## Introduction
 
-The paper aims to develop an accurate and computationally efficient skill rating to estimate the ability of a player to win the next match.  In order to meet the requirements, set in place by the researchers _for_ developers, the probabilistic generative models must make assumptions about how match results are related to player skill and vice versa. Furthermore, there are meta-requirements to make this rating accurate with minimal data as the alternative of playing dozens of matches before noticing improved mathmaking would suck, and no one would play the game.  Bayesian inference is good at approximation with few data.
+The paper aims to develop an accurate and computationally efficient skill rating to estimate the ability of a player to win the next match.  In order to meet the requirements, set in place by the researchers _for_ developers, the probabilistic generative models must make assumptions about how match results are related to player skill and vice versa. Furthermore, there are meta-requirements to make this rating accurate with minimal data as the alternative of playing dozens of matches before noticing improved math making would suck, and no one would play the game.  Bayesian inference is good at approximation with few data.
 
 > "A system or model is only as good as its underlying assumptions."
 
@@ -24,7 +24,7 @@ The paper aims to develop an accurate and computationally efficient skill rating
 4. Aligned Incentives such that players seek to improve their skill rating by completing the objectives of the game, as an "optimally accurate" prediction model might be hackable e.g. _quitting while ahead_ or _camping to prevent deaths_
 5. Minimal training data requirements
 6. Low computational cost: $ 
-7. Minmal tuning: time
+7. Minimal tuning: time
 
 Improvements on TrueSkill 1 (_I refer to it explicitly TrueSkill 1 to distinguish from the focus of this paper_)
 
@@ -118,7 +118,7 @@ Each of the parameters above are tunable, so the only assumption is that $m_0, v
 
 ### Markov Chain Monte Carlo Methods
 
-If we know that $\text{skill}$ and $\text{perf}$ are normally distributed, it would make sense to assume that the model already suggests win/loss rate, but this is often not the case.  Usually, these compositions of distributions are intractable, meaning they are not sampleable.  Markov Chain Monte Carlo Methods le us work around this, with any such combination of disributions. If we follow the sample chain down to $\text{perf}_i$, we can roughly plot the resultant _would-be_ sample of our intractable "winner" distribution. This plot would be numerically correct or accurate, but not analytically correct.
+If we know that $\text{skill}$ and $\text{perf}$ are normally distributed, it would make sense to assume that the model already suggests win/loss rate, but this is often not the case.  Usually, these compositions of distributions are intractable, meaning they are not sampleable.  Markov Chain Monte Carlo Methods le us work around this, with any such combination of distributions. If we follow the sample chain down to $\text{perf}_i$, we can roughly plot the resultant _would-be_ sample of our intractable "winner" distribution. This plot would be numerically correct or accurate, but not analytically correct.
 
 ## Computing Skill Ratings
 
@@ -156,7 +156,7 @@ We can tune the aforementioned parameters until our model resembles historical d
 
 > Speculation: TrueSkill 2 uses RProp for its low computational cost and is potentially better suited for rocky training landscapes.  Additionally, the standard backpropagation might not have tracked match outcomes as well as RProp.
 
-With sufficient training data (1000 matches, for Halo 5: Slayer gamemode), the following paramter values resulted in satisfactory model accuracy:
+With sufficient training data (1000 matches, for Halo 5: Slayer game mode), the following parameter values resulted in satisfactory model accuracy:
 
 $m_0 = 3$ (team mates are very important)
 
@@ -189,7 +189,7 @@ $$
 
 ### Experience Effects
 
-In order to bias the change in $\text{skill}$ with experience towards improvement, the team introduce a variable $\text{experience}_t^t$ to be the number of matches played in the current gamemode before time $t$, capped at 200 for computationally efficient.
+In order to bias the change in $\text{skill}$ with experience towards improvement, the team introduce a variable $\text{experience}_t^t$ to be the number of matches played in the current game mode before time $t$, capped at 200 for computationally efficient.
 
 $$
 \begin{aligned}
@@ -214,11 +214,11 @@ This model worked for any team size are is unique to previous work on sports sco
 
 1. TrueSkill 2 incorporates the effect of match length (and the penalty of leaving early)
 
-2. TrueSkill 2 models correlationbetween individual statistics and a player's ability to win
+2. TrueSkill 2 models correlation between individual statistics and a player's ability to win
 
 3. TrueSkill 2 incorporates the effect of having many teams of different sizes
 
-By delineating between $\text{baseSkill}$ and \text{skill} in a specific gamemode, the model was also tunable per different modes s.t. the #1 free for all player doesn't get matched against the #1 player of a different game mode that he might suck at.
+By delineating between $\text{baseSkill}$ and \text{skill} in a specific game mode, the model was also tunable per different modes s.t. the #1 free for all player doesn't get matched against the #1 player of a different game mode that he might suck at.
 
 Adding in the additional assumptions defined for TrueSkill 2, the model now resembles:
 

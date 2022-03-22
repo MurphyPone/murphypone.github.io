@@ -19,7 +19,7 @@ This article aims to flesh out a simple, albeit inefficient, KNN algorithm as we
 # Setup
 The setup for this project is pretty straightforward – we'll be using the p5.js library to streamline the visual aspects of the project and vanilla JavaScript for the rest of the project.
 
-To begin, we'll need a barebones `index.html` file to reference our the p5 library and our JavaScript file:
+To begin, we'll need a bare bones `index.html` file to reference our the p5 library and our JavaScript file:
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script>
@@ -248,4 +248,5 @@ function showKNN(nearest) {
 ```
 
 # Additional Resources
+
 sentdex

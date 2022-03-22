@@ -17,28 +17,7 @@ The British mathematician and father of modern computing Alan Turing was born in
 
 In the aforementioned article, Turing describes a machine which would supersede human computational capabilities:
 
->_We may compare a man in the process of computing a real number to a machine
-which is only capable of a finite number of conditions q1, q2, ..., qR which will be
-called “m-configurations”. The machine is supplied with a “tape”, (the analogue of
-paper) running through it, and divided into sections (called “squares”) each capable
-of bearing a “symbol”. At any moment there is just one square, say the r-th, bearing
-the symbol S(r) which is “in the machine”. We may call this square the “scanned
-square”. The symbol on the scanned square may be called the “scanned symbol”.
-The “scanned symbol” is the only one of which the machine is, so to speak,
-“directly aware”. However, by altering its m-configuration the machine can
-effectively remember some of the symbols which it has “seen” (scanned)
-previously. The possible behaviour of the machine at any moment is determined by
-the m-configuration qn and the scanned symbol S(r). This pair qn, S(r) will be
-called the “configuration”: thus the configuration determines the possible behaviour
-of the machine. In some of the configurations in which the scanned square is blank
-(i.e. bears no symbol) the machine writes down a new symbol on the scanned
-square: in other configurations it erases the scanned symbol. The machine may also
-change the square which is being scanned, but only by shifting it one place to right
-or 1eft. In addition to any of these operations the m-configuration may be changed.
-Some of the symbols written down {232} will form the sequence of figures which is
-the decimal of the real number which is being computed. The others are just rough
-notes to “assist the memory”. It will only be these rough notes which will be liable
-to erasure._
+>_We may compare a man in the process of computing a real number to a machine which is only capable of a finite number of conditions q1, q2, ..., qR which will be called “m-configurations”. The machine is supplied with a “tape”, (the analogue of paper) running through it, and divided into sections (called “squares”) each capable of bearing a “symbol”. At any moment there is just one square, say the r-th, bearing the symbol S(r) which is “in the machine”. We may call this square the “scanned square”. The symbol on the scanned square may be called the “scanned symbol”. The “scanned symbol” is the only one of which the machine is, so to speak, “directly aware”. However, by altering its m-configuration the machine can effectively remember some of the symbols which it has “seen” (scanned) previously. The possible behaviour of the machine at any moment is determined by the m-configuration qn and the scanned symbol S(r). This pair qn, S(r) will be called the “configuration”: thus the configuration determines the possible behaviour of the machine. In some of the configurations in which the scanned square is blank (i.e. bears no symbol) the machine writes down a new symbol on the scanned square: in other configurations it erases the scanned symbol. The machine may also change the square which is being scanned, but only by shifting it one place to right or 1eft. In addition to any of these operations the m-configuration may be changed. Some of the symbols written down {232} will form the sequence of figures which is the decimal of the real number which is being computed. The others are just rough notes to “assist the memory”. It will only be these rough notes which will be liable to erasure._
 
 Turing goes on to elaborate on the exact specifications of the theoretical machine which I strongly encourage readers to pursue themselves.  But for the sake of the musings of this series, the layman's definition of a Turing machine can be understood as an infinitely-long tape (memory) with initially blank squares that can be written to.
 

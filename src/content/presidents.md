@@ -168,7 +168,7 @@ This is another post that is more self-serving for myself rather than of interes
   - Immediate harm to economy 
   - Long term benefits, Americans are forced to rely on their own ability to produce 
 - Non-Intercourse Act - re-opens trade with all nations but the still-quarrelling France and England 
-- **Twelfth Amendmen**t 
+- **Twelfth Amendment** 
   - Ratified on June 15th, 1804
   - Changed the election of Vice President from being the second place candidate for President, to being the winner of a separate ballot specifically for Vice President
 House of Representatives votes on president if there’s no electoral majority
@@ -290,7 +290,7 @@ Continues Washington’s precedent of two terms, endorses James Madison, his Sec
   - Economic growth followed by a slight decline resulted in artificial depression, causing an actual crisis
 - Missouri Compromise (1820)
   - Allowed Missouri to enter the Union as a slave state 
-  - Separated Massachussetts into two states, creating Maine as a free state to maintain balance
+  - Separated Massachusetts into two states, creating Maine as a free state to maintain balance
   - Laid out rules for determining all future states-slave/free status
       - Southern border of Missouri is Northern border of slavery for future westward territories
       - Short term benefit for South → Florida (closer to statehood than unsettled West)
@@ -427,7 +427,7 @@ Continues Washington’s precedent of two terms, endorses James Madison, his Sec
   - South Carolina repeals Nullification
 - Indian Removal
   - Being a man of the frontier, Jackson interacted with Indians a lot growing up
-  - White supremacism of the time facilitated the manipulation of Tribes westward 
+  - White supremacy of the time facilitated the manipulation of Tribes westward 
   - Although many Tribes exhibited similar traits of civilized society, Jackson did not consider them sovereign states
   - Had government pay for Tribes to move across the Mississippi
       - Execution was poor, corrupt people backed by government authority harassed tribes
@@ -1079,7 +1079,7 @@ Continues Washington’s precedent of two terms, endorses James Madison, his Sec
   - Radical Republicans working to oppose Johnson’s “lenient” reconstruction policies
   - Involved military occupation of the South
   - Made the 14th Amendment a requisite for re-joining the Union
-- Southern bias enabled the formation of “Black Codes” in the South which served as a reskin of slavery
+- Southern bias enabled the formation of “Black Codes” in the South which served as a re-skin of slavery
 - Dealing with Radical Republican Congress
   - First president whose veto was overridden by Congress
 - Freedman’s Bureau 
@@ -1485,7 +1485,7 @@ Continues Washington’s precedent of two terms, endorses James Madison, his Sec
   - Oversaw the creation of many new federally run national parks, forests, and monuments 
 - Meat Inspection Act and Pure Food and Drug Act of 1906 - Signed in response to muckrakers investigation of the poor conditions of industrial food production 
 - Oversaw the beginning of construction of the Panama Canal
-  - US sponsored a revolution in Panama, preventing Columbians from stopping US from proceeding with their plans to construct the Atlantic-Pacific passage
+  - US sponsored a revolution in Panama, preventing Colombians from stopping US from proceeding with their plans to construct the Atlantic-Pacific passage
   - Hay-Bunau Treaty - Granted US control over the Canal for $10 Million 
 - Roosevelt Corollary - Extrapolation of the Monroe Doctrine 
   - In an effort to preserve control over the Western Hemisphere, Roosevelt announced that the US would intervene on behalf of any Latin American, establishing the United States as “police” of the Western Hemisphere
@@ -1564,7 +1564,7 @@ Continues Washington’s precedent of two terms, endorses James Madison, his Sec
 
 ## Presidency
 
-- Underwood-Simmons Act - lowered tariffs enacted by previous Republican legislations and presidencies 
+- Underwood-Simmons Act - lowered tariffs enacted by previous Republican legislatures and presidencies 
 - Federal Reserve Act of 1913 - established several national banks, reclaiming control of the American economy from private bankers 
 - Establishment of the Federal Trade Commission - extension of antitrust movement aimed at restricting huge businesses
 - Clayton Antitrust Act - protected labor unions and small agrarian businesses from the Sherman Antitrust Act being used against them
@@ -1573,7 +1573,7 @@ Continues Washington’s precedent of two terms, endorses James Madison, his Sec
 - Mexican Conflict
   - Wilson cited moral diplomacy in challenging the validity of dictator Huerta’s control over Mexico as his rule did not reflect the values of the Mexican people
   - Capture of US sailors enabled Wilson to authorize naval occupation of the port city Veracruz
-  - Pancho Villa deviously murders several Americans in New Mexico to incite conflict between US and their prefered government led by Carranza 
+  - Pancho Villa deviously murders several Americans in New Mexico to incite conflict between US and their preferred government led by Carranza 
   - Wilson sends troops into Mexico to capture Pancho Villa, leads to violent outbreak between Carranza’s troops ands US forces
 - Entrance into World War I - 1917
   - Following the destruction of the The Lusitania, as well as the discovery of the Zimmerman Telegram, Wilson went to congress to declare war on Germany - April 4th, 1917
@@ -1589,7 +1589,7 @@ Continues Washington’s precedent of two terms, endorses James Madison, his Sec
   - Under Wilson’s War Industries Board, wartime productions caused massive increases in industrial output, as well as government involvement and regulation in business
   - Railroad becomes a government subsidiary after breaking down during the war
   - Installment of an income tax to fund the war 
-  - Committee on Public Information - dissuaded any negative opinions about the war on the homefront
+  - Committee on Public Information - dissuaded any negative opinions about the war on the home front
   - Espionage and Sedition Acts - Restricted free speech against the war effort
 - **16th Amendment** - Established the first federal income tax 
 - **17th Amendment** - Election of Senators decided by popular vote
@@ -1784,7 +1784,7 @@ Continues Washington’s precedent of two terms, endorses James Madison, his Sec
   - Civilian Conservation Corps - Organized hundreds of thousands of men to perform infrastructural maintenance and development tasks such cleanup and construction 
   - Civil Works Administration -  Financially enormous organization which allocated huge amounts of money for public works, employed millions of people 
   - Agricultural Adjustment Act - Subsidized farmers in order to prevent the overproduction of crops that was hurting the agricultural economy and enacted a parity on several agricultural goods which helped the farming market
-  - Farm Credit Association - Lent massive amounts of money to the povertous American farmers on the brink of losing their property in order to keep the “family-level” farming sector afloat 
+  - Farm Credit Association - Lent massive amounts of money to the poor American farmers on the brink of losing their property in order to keep the “family-level” farming sector afloat 
   - Farm Security Administration - Constructed labor camps for migrants to prevent over saturation of the farming market leading to competitive production and surplus which had already proven to harm that market
   - Rural Electrification Administration - Developed rural areas with the utility of electricity, helped establish power as a public necessity
   - Tennessee Valley Authority - Harnessed the regional natural resources and helped bring the poorest area in the nation out of their economic dark age, solidified the idea of public access to electricity  
@@ -1813,7 +1813,7 @@ Continues Washington’s precedent of two terms, endorses James Madison, his Sec
 - Reciprocal Trade Agreements Act - Enabled the US to designate preferential trade partners according to a decrease in tariff rates employed by other countries 
 - Indian Reorganization Act - Invalidated the Dawes Severalty Act by returning the ability to own land pseudo-communally, in accordance with traditional native values and culture, to the Native American people - the effects of which were somewhat repressed because of the unifying nationalist sentiments that increased as the nation approached WWII
 - World War II - Pulled the US out of the Depression by sheer requisite of production
-  - Neutrality Acts - Enveloped by the economic crisis on the homefront, Roosevelt focused on keeping the US out of war, although eventually volunteering preferential aid to Great Britain and other Allied nations 
+  - Neutrality Acts - Enveloped by the economic crisis on the home front, Roosevelt focused on keeping the US out of war, although eventually volunteering preferential aid to Great Britain and other Allied nations 
       - U.S. enacted Arms Embargo upon nations participating in the war
       - Cash and Carry process enabling other nations to procure non-military goods from the U.S. on the condition that they pay up front and ship the goods themselves 
       - As the Axis powers’ actions become increasingly identifiably reprehensible and support for the Allied forces also increased which was evident through policies such as :

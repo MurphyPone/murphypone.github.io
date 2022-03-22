@@ -140,7 +140,7 @@ Notes from Sutton & Barto's "[Reinforcement Learning: an Introduction"](https://
 
 ## <a name="ch1.1" class="n"></a> 1.1 Reinfrocement Learning
 
-> Reinfocement learning is different from _supervised learning_, the kind of learning studied in most current reserch in the field of machine learning. Supervised learning is learning from a training set of labeled examples provided by a knowledgable external supervisor. Each example is a description of a situation together with a specification—the label—of the correct action the system should take to that situation, which is often to identify a category to which the situation belongs. The object of this kind of learning is for the system to extrapolate, or generalize, its responses so that it acts correctly in situations not present in the training set.
+> Reinforcement learning is different from _supervised learning_, the kind of learning studied in most current research in the field of machine learning. Supervised learning is learning from a training set of labeled examples provided by a knowledgable external supervisor. Each example is a description of a situation together with a specification—the label—of the correct action the system should take to that situation, which is often to identify a category to which the situation belongs. The object of this kind of learning is for the system to extrapolate, or generalize, its responses so that it acts correctly in situations not present in the training set.
 
 Whereas reinforcement learning relies on interaction between an agent and the environment, supervised learning which utilizes the "omniscient" training data set.
 
@@ -154,15 +154,15 @@ Reinforcement learning exists outside the dual paradigms of supervision in part 
 
 > - A gazelle calf struggles to its feet minutes after being born. Half an hour later it is running at 20 miles per hour.
 
-In all of the exmaples given, the agent's actions affect the future state of the environment in an unknown, but predictable way.  
+In all of the examples given, the agent's actions affect the future state of the environment in an unknown, but predictable way.  
 
 > Correct choice requires taking into account indirect, delayed consequences of actions, and thus may require foresight or planning.
 
 ## <a name="ch1.3" class="n"></a> 1.3 Elements of Reinforcement Learning 
 
-Reinforcement learning can be chategorized by four main subelements (with main elements of agent, environment): 
+Reinforcement learning can be categorized by four main sub-elements (with main elements of agent, environment): 
 
-- **policy** - defines the agent's behaior. Can be considered as a mapping from percieved states of the environment to actions to be taken when in those states.
+- **policy** - defines the agent's behavior. Can be considered as a mapping from perceived states of the environment to actions to be taken when in those states.
 
 - **reqard signal** - defines the goal of the RL problem as the agent's purpose is to maximize reward
 
@@ -175,15 +175,15 @@ Reinforcement learning can be chategorized by four main subelements (with main e
 
 ## <a name="ch1.4" class="n"></a> 1.4 Limitations and Scope
 
-While this book focuses on valu-estimate functions as a core component of the algorithms discussed, alternative methods such as genetic algorithms and programming, simulated annealing, and other optimization methods have proven to be succcessful as well.
+While this book focuses on value-estimate functions as a core component of the algorithms discussed, alternative methods such as genetic algorithms and programming, simulated annealing, and other optimization methods have proven to be successful as well.
 
-If action spaces are sufficiently small, or good policies are common, then these _evolutionary_ approaches can be effective.  However, methods that can exploit the details of individual behavioral interacitons can be more efficient than the evolutionary methods listed above.
+If action spaces are sufficiently small, or good policies are common, then these _evolutionary_ approaches can be effective.  However, methods that can exploit the details of individual behavioral interactions can be more efficient than the evolutionary methods listed above.
 
 Some methods do not appeal to value functions, but merely search the policy spaces defined by a collection of numerical parameters, estimating the directions they need to tuned towards to most rapidly improve a policy's performance.  **Policy gradients** like this have proven useful in many cases. 
 
 ## <a name="ch1.5" class="n"></a> 1.5 An Extended Example Tic-Tac-Toe
 
-Consider a game of tic-tac-toe against an imperfect player whoe play is sometimes incurrect and allows us to win.  Whereas classical game theory techniques such as **minimax** offer solutions to intelligent/perfect opponents, they may fail in situations where they were not already disposed to win.
+Consider a game of tic-tac-toe against an imperfect player whose play is sometimes incorrect and allows us to win.  Whereas classical game theory techniques such as **minimax** offer solutions to intelligent/perfect opponents, they may fail in situations where they were not already disposed to win.
 
 > Classical optimization methods for sequential decision problems, such as dynamic programming, can compute an optimal solution for any opponent, but require as input a complete specification of that opponent, including the probabilities with which the opponent makes each move in each board state
 
@@ -199,11 +199,11 @@ $V(s) \leftarrow V(S) + \alpha [V(s') - V(s)]$
 
 $s,s', \alpha = \text{state before greedy move, state after greedy move, step-size parameter}$ 
 
-If the step-size parameter is reduced properly over time, this method converges, for any fixed opponent. If the step-size parameter is _not_ reduced all the way to zero over time, then the agent also plays well against opponenets that slowly change their strategy. 
+If the step-size parameter is reduced properly over time, this method converges, for any fixed opponent. If the step-size parameter is _not_ reduced all the way to zero over time, then the agent also plays well against opponents that slowly change their strategy. 
 
-Evolutionary methods struggle to retain association between which actions _caused_ positive reward, equally weighting all actions that contriubted to a "win". In contrast, value functions evaluate individual states.  Although both methods search the policy space, learning the value function takes advantage of the information available.
+Evolutionary methods struggle to retain association between which actions _caused_ positive reward, equally weighting all actions that contributed to a "win". In contrast, value functions evaluate individual states.  Although both methods search the policy space, learning the value function takes advantage of the information available.
 
-By adding a neural network to the tabular representation of the value-function, the agent can generalize from it's experiences so that it selects action based on information fomr _similar_ stated experienced in the past. Here, supervised learning methods can helpout, although neural nets are neither the only or best way to transcend tabularization.
+By adding a neural network to the tabular representation of the value-function, the agent can generalize from it's experiences so that it selects action based on information from _similar_ stated experienced in the past. Here, supervised learning methods can helpout, although neural nets are neither the only or best way to transcend tabularization.
 
 The tic-tac-toe example agent is model-free in this sense w.r.t its opponent: it has no model of its opponent.  However, this can be advantageous as it avoids complex method in which bottlenecks arise from constructing a sufficiently accurate environment model.
 
@@ -213,7 +213,7 @@ The tic-tac-toe example agent is model-free in this sense w.r.t its opponent: it
 
 # <a name="ch2" class="n"></a> Chapter 2: Multi-arm Bandits
 
-RL is an evaluation oriented approach which retroactively improves rather than prooactively instruct. Evaluative feedback depends on the actions taken, and instructive feedback is independent of the action. To study the evaluative aspect, we will work in a nonassociative setting which reduces the complexity of the RL problem to highlight the former topic: _the n-armed bandit problem_.
+RL is an evaluation oriented approach which retroactively improves rather than proactively instruct. Evaluative feedback depends on the actions taken, and instructive feedback is independent of the action. To study the evaluative aspect, we will work in a non-associative setting which reduces the complexity of the RL problem to highlight the former topic: _the n-armed bandit problem_.
 
 ## <a name="ch2.1" class="n"></a> 2.1 An $n$-Armed Bandit Problem
 
@@ -240,7 +240,7 @@ $$
 
 Note that as $\lim\limits_{N_t(a) \to \infty} Q_t(a) = q(a)$ which is called the _sample-average_ method for estimating action values as each estimate is the simple average o the sample of relevant rewards.
 
-> The simplest action selection rule is to select the action (or one of the actions) with highest estimated action value, that is, to select at step $t$ one of the greedy actions, $A^*_t$, for which $Q_t(A^*_t) = \max \limits_{a} Q_t(a)$. This greedy actionselection method can be written as
+> The simplest action selection rule is to select the action (or one of the actions) with highest estimated action value, that is, to select at step $t$ one of the greedy actions, $A^*_t$, for which $Q_t(A^*_t) = \max \limits_{a} Q_t(a)$. This greedy action selection method can be written as
 
 $A_t = \arg \max \limits_{a} Q_t(a)$
 
@@ -252,7 +252,7 @@ Tests against an arbitrary 10-armed-bandit problem show that $\varepsilon \in [0
 
 ## <a name="ch2.3" class="n"></a> 2.3 Incremental Implementation
 
-The problem with the straightforward estimatation of the value of an action as described in 2.1 is that it become memory and computationally intensive without bound over time. Each additional reward following an action requires more memory to store in order to determine $Q_t(a)$. To fix, let $Q_k$ deonte the estimate for an agent's $k$-th reward, that is the average of its first $k-1$ rewards. The average of all $k$ rewards is given by:
+The problem with the straightforward estimation of the value of an action as described in 2.1 is that it become memory and computationally intensive without bound over time. Each additional reward following an action requires more memory to store in order to determine $Q_t(a)$. To fix, let $Q_k$ denote the estimate for an agent's $k$-th reward, that is the average of its first $k-1$ rewards. The average of all $k$ rewards is given by:
 
 $$
 \begin{aligned}
@@ -264,7 +264,7 @@ $$
 \end{aligned}
 $$
 
-which only requires memory for $Q_k, k$, and minimaly computation for each new reward.
+which only requires memory for $Q_k, k$, and minimally computation for each new reward.
 
 The update rule is a form that occurs frequently throughout this textbook (foreshadowing the Bellman) whose general form is:
 
@@ -274,7 +274,7 @@ The $\text{error estimate}$ is reduced by taking steps towards the $Target$ whic
 
 ## <a name="ch2.4" class="n"></a> 2.4 Tracking a Nonstationary Problem
 
-In cases where the environment is nonstationary and the "bandit" is changing over time, it makes sense to weight recent rwards more heavily than long-past ones. By using a constant step-size parameter, and modifying the incremental update rule from 2.3, we can achieve this effect:
+In cases where the environment is non-stationary and the "bandit" is changing over time, it makes sense to weight recent rewards more heavily than long-past ones. By using a constant step-size parameter, and modifying the incremental update rule from 2.3, we can achieve this effect:
 
 $Q_{k+1} = Q_k + \alpha \big[R_k - Q_k \big]$ 
 
@@ -297,7 +297,7 @@ This is the weighted average sum where $(1-\alpha)Q_1 + \displaystyle\sum_{i=1}^
 
 $\displaystyle\sum^\infty_{k=1} \alpha_k(a) = \infty$ and $\displaystyle\sum^\infty_{k=1} \alpha^2_k(a)  \infty$
 
-The first condition guarantees that steps are large enough to eventually overcome any initial conditions or random fluctuations and the second guarantees that they eventually become small enough to assure convergence. Note that both conditions are met for the sample-average case, but not for the case of constant step-size paramter. 
+The first condition guarantees that steps are large enough to eventually overcome any initial conditions or random fluctuations and the second guarantees that they eventually become small enough to assure convergence. Note that both conditions are met for the sample-average case, but not for the case of constant step-size parameter. 
 
 ## <a name="ch2.5" class="n"></a> 2.5 Optimistic Initial Values
 
@@ -309,7 +309,7 @@ However, such and approach is not effective in nonstationary problems as the dri
 
 ## <a name="ch2.6" class="n"></a> 2.6 Upper-Confidence-Bound Action Selection
 
-Exploration is needed while estimates of action values are uncertain. $\varepsilon$-greedy action selection force non-actions to be tried indiscriminately, with no prference for those that are nearly greedy or particularly uncertain. 
+Exploration is needed while estimates of action values are uncertain. $\varepsilon$-greedy action selection force non-actions to be tried indiscriminately, with no preference for those that are nearly greedy or particularly uncertain. 
 
 > It would be better to select among the non-greedy actions according to their potential for actually being optimal, taking into account both how close their estimates are to being maximal and the uncertainties in those estimates. One effective way of doing this is to select actions as:
 
@@ -317,13 +317,13 @@ $A_t = \arg \max\limits_{a} \Big[Q_t(a) + c \sqrt{\frac{\ln{t}}{N_t(a)}} \Big ],
 
 where $c > 0$ controls the degree of exploration and for $N_t(a)=0$, $a$ is considered a maximizing action.
 
-> The idea of this upper confidence bound (UCB) action selection is that the square-root term is a measure of the uncertainty or variance in the estimate of $a$’s value.  Therefore, the quantity being $\max$'ed over is a sort of upport bound on the possible true valie of action $a$, with the $c$ parameter determining the confidence level.  Each time $a$ is selected, the uncertainty is presumably reduced; $N_t(a)$ i incremented, and the term is square root decreased.
+> The idea of this upper confidence bound (UCB) action selection is that the square-root term is a measure of the uncertainty or variance in the estimate of $a$’s value.  Therefore, the quantity being $\max$'ed over is a sort of upper bound on the possible true value of action $a$, with the $c$ parameter determining the confidence level.  Each time $a$ is selected, the uncertainty is presumably reduced; $N_t(a)$ i incremented, and the term is square root decreased.
 
 >  Another difficulty is dealing with large state spaces, ... In these more advanced settings there is currently no known practical way of utilizing the idea of UCB action selection.
 
 ## <a name="ch2.7" class="n"></a> 2.7 Gradient Bandits
 
-Another approach is learning a numerical _preference_ $H_t(a)$ for each $a$. While the preference indicates the frequency of an action being taken, it has no interpretation in terms of reward. Only relative prefence of one action over another is considered e.g. if we add an arbitrary, but equal amount to all the pereferences, there is no affect on the action probabilities which are determine according to a soft-max (or Gibbs, Boltzmann) distribution: 
+Another approach is learning a numerical _preference_ $H_t(a)$ for each $a$. While the preference indicates the frequency of an action being taken, it has no interpretation in terms of reward. Only relative preference of one action over another is considered e.g. if we add an arbitrary, but equal amount to all the preferences, there is no affect on the action probabilities which are determine according to a soft-max (or Gibbs, Boltzmann) distribution: 
 
 $\text{Pr} \{A_t = a\} =\frac{e^{H_t(a)}}{\sum^n_b=1 e^{H_t(b)}} = \pi_t(a)$, where initially, all preferences are the same ($H_1(a) = 0, \forall a$) so that all action have an initial equal probability of being selected.
 
@@ -335,7 +335,7 @@ and
 
 $H_{t+1}(a) = H_t(a) - \alpha (R_t - \bar{R_t})\pi_t(a), \forall a \neq A_t$,
 
-where $\alpha > 0$ is the step-size paramer, and $\bar{R_t} \in \R$ is the average of all the rewards up through and including $t$ which can be computed incrementall (2.3, 2.4 for stationary and nonstationary problems, respectively).  $\bar{R_t}$ is the benchmark reward against which each reward is compared.  The probability of taking $A_t$ is increased/decreased relative to it's difference with the benchmark.  Non-selected actions move in the opposite direction.
+where $\alpha > 0$ is the step-size param, and $\bar{R_t} \in \R$ is the average of all the rewards up through and including $t$ which can be computed incrementally (2.3, 2.4 for stationary and nonstationary problems, respectively).  $\bar{R_t}$ is the benchmark reward against which each reward is compared.  The probability of taking $A_t$ is increased/decreased relative to it's difference with the benchmark.  Non-selected actions move in the opposite direction.
 
 Deeper insight can be gained by understanding it as a stochastic approximation to gradient ascent.  In _exact_ gradient ascent, each preference $H_t(a)$ would be incrementing proportional to the increments effect on performance: 
 
@@ -354,7 +354,7 @@ $$
 \end{aligned}
 $$
 
-where $X_t$ can be any scalar independent of $b$. Here, the graident sums to zero over all the actions: 
+where $X_t$ can be any scalar independent of $b$. Here, the gradient sums to zero over all the actions: 
 
 $\sum_b \frac{\partial \pi_t(b)}{\partial H_t(a)} = 0$
 
@@ -391,7 +391,7 @@ $$
 \end{aligned}
 $$
 
-With the intention of writing the performance gradient as an expectation of soething that can be sampled at each step, and the updated on each step proportional to the sameple, we can substitute the above expectation for the performance gradient which yields:
+With the intention of writing the performance gradient as an expectation of something that can be sampled at each step, and the updated on each step proportional to the sample, we can substitute the above expectation for the performance gradient which yields:
 
 $H_{t+1}(1) = H_t(a) + \alpha (R_t - \bar{R_t})( \mathbb{I}_{a=A_t}-\pi_t(a)), \quad \forall a $
 
@@ -405,19 +405,19 @@ After proving that $\frac{\partial \pi_t(b)}{\partial H_t(a)} = \pi_t(b)(\mathbb
 
 When there are different actions that need to be associated with different situation, a policy –that is, a mapping from situations to the actions that are best in those situations– needs to be learned. 
 
-Suppose there are several differen $n$-armed bandit tasks and that on each play one of these different tasks is confronted at random. Unless you randomly select the true action value for the given task, this method will. Suppose, however, that when the bandit task is selected against your agent, you are given a distinct clue about its identity (but, importantly, not its action values).
+Suppose there are several different $n$-armed bandit tasks and that on each play one of these different tasks is confronted at random. Unless you randomly select the true action value for the given task, this method will. Suppose, however, that when the bandit task is selected against your agent, you are given a distinct clue about its identity (but, importantly, not its action values).
 
 ## <a name="ch2.9" class="n"></a> 2.9 Summary
 
 > - ε-greedy methods choose randomly a small fraction of the time, 
 > - UCB methods choose deterministically but achieve exploration by subtly favoring at each step the actions that have so far received fewer samples. 
 > - Gradient-bandit algorithms estimate not action values, but action
-preferences, and favor the more preferred actions in a graded, probabalistic
+preferences, and favor the more preferred actions in a graded, probabilistic
 manner using a soft-max distribution. 
 
 > The simple expedient of initializing estimates optimistically causes even greedy methods to explore significantly.
 
-While UCB appears to perform best in the $n$-bandit scenario, also note that each of the algorithms are fairly insensitive to their relevant hyperparemters. Further sophisticated means of balancing the exploration-exploitation conflict are discussed here.
+While UCB appears to perform best in the $n$-bandit scenario, also note that each of the algorithms are fairly insensitive to their relevant hyperparemeters. Further sophisticated means of balancing the exploration-exploitation conflict are discussed here.
 
 [Source Code](https://github.com/MurphyPone/Sutton-Barto-Bhoag/tree/master/CH2-Multi-Armed-Bandits)
 
@@ -443,19 +443,19 @@ In RL, the goal of the agent is formalized in terms of the reward function, wher
 
 ## <a name="ch3.3" class="n"></a> 3.3 Returns
 
-How do we formalize cumulative reward for maximization? If the sequence of rewards awarded after time step $t$ is deonted $R_{t+1}, R_{t+2}, R_{t+3}, ...$, then we can maximize the expected return $G_t = R_{t+1} + R_{t+2} + ... + R_T$, where $T$ is the final time step. This works for envornments with terminal states at the end of each episode followed by a reset to a standard starting state.  
+How do we formalize cumulative reward for maximization? If the sequence of rewards awarded after time step $t$ is denoted $R_{t+1}, R_{t+2}, R_{t+3}, ...$, then we can maximize the expected return $G_t = R_{t+1} + R_{t+2} + ... + R_T$, where $T$ is the final time step. This works for environments with terminal states at the end of each episode followed by a reset to a standard starting state.  
 
-> In episodic tasks we sometimes need to distinguish the set of all nonterminal states, denoted $\mathcal S$, from the set of all states plus the terminal state, denoted $\mathcal S^+$.
+> In episodic tasks we sometimes need to distinguish the set of all non-terminal states, denoted $\mathcal S$, from the set of all states plus the terminal state, denoted $\mathcal S^+$.
 
-In some cases, agent-environment interaction is not episodically divided; rather it is continuous and without limit.  In these cases, it's unsuitable to use $G_t$ as presented above as $T = \infty$, and return itself could be infinite (e.g. cart-pole).  To fix this issue, we use _discounting_ so that the agent tries to maxmimize the sum of discounted rewards ad-infinitum:
+In some cases, agent-environment interaction is not episodically divided; rather it is continuous and without limit.  In these cases, it's unsuitable to use $G_t$ as presented above as $T = \infty$, and return itself could be infinite (e.g. cart-pole).  To fix this issue, we use _discounting_ so that the agent tries to maximimize the sum of discounted rewards ad-infinitum:
 
 $G_t = R_{t+1} + \gamma R_{t+2} + \gamma R_{t+3} + ... = \displaystyle\sum^\infty_{k=0} \gamma ^k R_{t+k+1}$ where $ 0 \leq \gamma \leq 1$, and is called the discount rate. 
 
-Gamma controls how near/faresighted the agent is.
+Gamma controls how near/farsighted the agent is.
 
 > If $\gamma < 1$, the infinite sum has a finite value as long as the reward sequence $\{R_k\}$ is bounded. If $\gamma = 1$, the agent is “myopic” in being concerned only with maximizing immediate rewards: its objective in this case is to learn how to choose $A_t$ so as to maximize only $R_{t+1}$. 
 
-## <a name="ch3.4" class="n"></a> 3.4 Unifed Notation for Episodic and Continuing Tasks
+## <a name="ch3.4" class="n"></a> 3.4 Unified Notation for Episodic and Continuing Tasks
 
 $\{A, R, \pi, T, etc.\}_{t,i}$ refer to the the representation of a variable at time $t$ of episode $i$.  Additionally, the sum over a finite and infinite number of terms can be unified by considering the terminal step to be an _absorbing state_ which transition only to itself and generates zero reward.
 
@@ -467,19 +467,19 @@ So, $G_t = \displaystyle\sum^{T-t-1}_{k=0} \gamma ^k R_{t+k+1}$ which includes t
 
 A state signal that succeeds in retaining all relevant information is said to be _Markov_, meaning that it summarizes everything about the complete sequence of positions (transition dynamics: SARSA) that led to it.
 
-In the most general, discrete case, the necessary response may depend on everything that has happened earlier and can be definied as the complete probablity distribution: 
+In the most general, discrete case, the necessary response may depend on everything that has happened earlier and can be defined as the complete probability distribution: 
 
 $P(R_{t+1} = r, S_{t+1} = s' | S_0, A_0, R_1, ... , S_{t-1}, A_{t-1}, R_t, S_t, A_t)$
 
 If a state signal is _Markov_, i.e. the environment's response depends only on the state and action representations of the current time step, then the dynamics can be defined by: $(s', r | s, a)$. This, in turn, allows the agent to predict all future states and expected rewards from merely the given state.
 
-Even if a state is _non-Markov_, it is useful to treat it as such, as the current state is always the fundemental basis for predicting future rewards which influence action selection.
+Even if a state is _non-Markov_, it is useful to treat it as such, as the current state is always the fundamental basis for predicting future rewards which influence action selection.
 
 > The inability to have access to a perfect Markov state representation is probably not a severe problem for a reinforcement learning agent.
 
 ## <a name="ch3.6" class="n"></a> 3.6 Markov Decision Processes
 
-An RL task that satisfies the MArov property is called an _MDP_.  If the state and action spaces are finite, then it is call a _finite MDP_.
+An RL task that satisfies the Markov property is called an _MDP_.  If the state and action spaces are finite, then it is call a _finite MDP_.
 
 Given the dynamics specified by $p(s', r | s, a)$, the agent can computer anything else it needs to know about the environment:
 
@@ -501,7 +501,7 @@ A Value function estimates _how good_ it is to be in a given state, or how good 
 
 $v_\pi(s) = \mathbb{E} [G_t | S_t = s] = \mathbb{E}_\pi \Bigg[ \displaystyle\sum_{k=0}^\infty \gamma^k R_{t+k+1} \Big \vert S_t = s \Bigg]$.  
 
-Similarly, the value of taking action $a$ in state $s$ under policy $\pi$, denoted $q_\pi(s,a)$ is defined the expected return starting from $s$, taking action $a$, and therefter following $\pi$: 
+Similarly, the value of taking action $a$ in state $s$ under policy $\pi$, denoted $q_\pi(s,a)$ is defined the expected return starting from $s$, taking action $a$, and there after following $\pi$: 
 
 $q_\pi(s,a) = \mathbb{E} [G_t | S_t = s, A_t = a] = \mathbb{E}_\pi \Bigg[ \displaystyle\sum_{k=0}^\infty \gamma^k R_{t+k+1} \Big \vert S_t = s, A_t = a \Bigg ]$.  
 
@@ -519,7 +519,7 @@ $$
 \end{aligned}
 $$
 
-> [Which is ~simply~] a sum over all values of the three variables, $a, s', r$. For each triple, we compute its probability, $\pi(a|s)p(s', r|s, a)$, weight the quantity in brackets bythat probability, then sum over all possibilities to get an expected value.  This is the Bellman equation with $v_\pi$ as the solution.
+> [Which is ~simply~] a sum over all values of the three variables, $a, s', r$. For each triple, we compute its probability, $\pi(a|s)p(s', r|s, a)$, weight the quantity in brackets by that probability, then sum over all possibilities to get an expected value.  This is the Bellman equation with $v_\pi$ as the solution.
 
 ## <a name="ch3.8" class="n"></a> 3.8 Optimal Value Functions
 
@@ -535,7 +535,7 @@ $q^*(s,a) = \max \limits_{\pi} q_\pi(s,a) \quad \forall s,a \in \mathcal {S, A(s
 
 $q^*(s,a) = \mathbb E [R_{t+1} + \gamma v^*(S_{t+1} | S_t =a, A_t =a)]$.
 
-> Because $v^*$ is the value function for a policy, it must satisfy the self-consistency condition given by the Bellman equation for state values. The _Bellman optimality equation_ expresses the fact that the vlaue of a state under an optimal policy must equal the expected return for the best action from that state:
+> Because $v^*$ is the value function for a policy, it must satisfy the self-consistency condition given by the Bellman equation for state values. The _Bellman optimality equation_ expresses the fact that the value of a state under an optimal policy must equal the expected return for the best action from that state:
 
 $$
 \begin{aligned}
@@ -584,7 +584,7 @@ A policy's value functions assign to each state, or state-action pair, the expec
 
 # <a name="ch4" class="n"></a> Chapter 4: Dynamic Programming
 
-> Dynamic Programming (DP) referese to a collection of algorithms that can be used to compute optimal policies given a perfect model of the environment as an MDP. Classical DP algorithms are limited in their utility due to their assumption of perfect models and therefore computational expense, but they still offer theoretical value.
+> Dynamic Programming (DP) refers to a collection of algorithms that can be used to compute optimal policies given a perfect model of the environment as an MDP. Classical DP algorithms are limited in their utility due to their assumption of perfect models and therefore computational expense, but they still offer theoretical value.
 
 Assume the environment is a finite MDP, that state, action, and reward sets are finite and defined by $p(s', r |s, a) \quad \forall s, a, r, s' \in \mathcal{S, A(s), R, S^+}$
 
@@ -608,7 +608,7 @@ $$
 
 ## <a name="ch4.1" class="n"></a> 4.1 Policy Evaluation
 
-First, in order to compute the state-value function $v_\pi$ for and arbitrary policy, we refere to the _prediction_ problem mentioned in chapter 3, $\forall s \in \mathcal S$:
+First, in order to compute the state-value function $v_\pi$ for and arbitrary policy, we refer to the _prediction_ problem mentioned in chapter 3, $\forall s \in \mathcal S$:
 
 $$
 \begin{aligned}
@@ -620,7 +620,7 @@ $$
 
 Where the existence of $v_\pi$ is guaranteed by either $\gamma < 1$ or the eventual termination in all states under $\pi$.
 
-> Full _back ups_ involve subsituting thhe value of every state once to produce the new approximate value function $v_{k+1}$. All backs up done in DP algorithms are called _full_ backups because they are based on all possible next states rather than on a sample next stated.
+> Full _back ups_ involve substituting the value of every state once to produce the new approximate value function $v_{k+1}$. All backs up done in DP algorithms are called _full_ backups because they are based on all possible next states rather than on a sample next stated.
 
 $$
 \boxed{
@@ -650,11 +650,11 @@ $$
 \end{aligned}
 $$
 
-Here, if $q_\pi(s,a) > v_\pi(s)$, then it is better to select $a$ once in $s$ and thereafter follow $\pi$ than it would be to follow $\pi$ all the time, and therefore one would expect it to be better still to select $a$ _every time_ $s$ is encountereted, and that this should be the new policy as it's better overall.
+Here, if $q_\pi(s,a) > v_\pi(s)$, then it is better to select $a$ once in $s$ and thereafter follow $\pi$ than it would be to follow $\pi$ all the time, and therefore one would expect it to be better still to select $a$ _every time_ $s$ is encountered, and that this should be the new policy as it's better overall.
 
-This is true in the spcial case of a general result called the _policy improvement theorem_.  Let $\pi, \pi'$ be and pair of deterministic policies such that $\forall s \in \mathcal S$: $q_\pi(s, \pi'(s)) \geq v_\pi(s)$.  Then, the policy $\pi'$ must be as good as or better than $\pi$.  That is, it must obtain greater or equal expected return from all states.
+This is true in the special case of a general result called the _policy improvement theorem_.  Let $\pi, \pi'$ be and pair of deterministic policies such that $\forall s \in \mathcal S$: $q_\pi(s, \pi'(s)) \geq v_\pi(s)$.  Then, the policy $\pi'$ must be as good as or better than $\pi$.  That is, it must obtain greater or equal expected return from all states.
 
-> given a policy and its value function, we can easilyevaluate a change in the policy at a single state to a particular action. It is a natural extension to consider changes at _all_ states and to _all_ possible actions, selecting at each state the action that appears best according to $q_\pi(s, a)$. In other words, to consider the new greedy policy, $\pi'$ , given by
+> given a policy and its value function, we can easily evaluate a change in the policy at a single state to a particular action. It is a natural extension to consider changes at _all_ states and to _all_ possible actions, selecting at each state the action that appears best according to $q_\pi(s, a)$. In other words, to consider the new greedy policy, $\pi'$ , given by
 
 $$
 \begin{aligned}
@@ -664,7 +664,7 @@ $$
 \end{aligned}
 $$
 
-> Here, the greedy policy takes the action that looks best in the short term –after one step of lookahead– according to $v_\pi$.  By construction, the greedy policy meets the conditions of the policy improvement theorem, so we know that it's as good or better than the original policy.   The process of making a new policy that improves on an original polcy, by making it greedy w.r.t. the value function of an original policy is called _policy improvement_.
+> Here, the greedy policy takes the action that looks best in the short term –after one step of lookahead– according to $v_\pi$.  By construction, the greedy policy meets the conditions of the policy improvement theorem, so we know that it's as good or better than the original policy.   The process of making a new policy that improves on an original policy, by making it greedy w.r.t. the value function of an original policy is called _policy improvement_.
 
 if $v_\pi = v_{\pi'}$ then the above theorem is the same as the Bellman optimality equation and so both policies must be optimal.
 
@@ -737,13 +737,13 @@ $$
 
 ## <a name="ch4.5" class="n"></a> 4.5 Asynchronous Dynamic Programming
 
-Dyanamic Programming approaches discussed before are sometimes disadvantageous as they sweep the entirety of the state set. 
+Dynamic Programming approaches discussed before are sometimes disadvantageous as they sweep the entirety of the state set. 
 
 >If the state set is very large, then even a single sweep can be prohibitively expensive. 
 
-Thus, we introduce _asynchronous_ DP algorithms which are in-place iterative, and organized independently of the terms of systematic sweeps of the state set.  They back up the values of states in any order whatsoever, using whatever values of ther states that happen to be available.  To conver correct, the async. algorithm must continue to backup the values of _all_ states.
+Thus, we introduce _asynchronous_ DP algorithms which are in-place iterative, and organized independently of the terms of systematic sweeps of the state set.  They back up the values of states in any order whatsoever, using whatever values of there states that happen to be available.  To convert correctly, the async. algorithm must continue to backup the values of _all_ states.
 
-Async backups do not necessarily imply less computation, but they do mean that an algoirthm doesn't need to get locked in a hopelessly long sweep before progress can be made in improving the policy.  
+Async backups do not necessarily imply less computation, but they do mean that an algorithm doesn't need to get locked in a hopelessly long sweep before progress can be made in improving the policy.  
 
 > We can try to take advantage of this flexibility by selecting the states to which we apply backups so as to improve the algorithm’s rate of progress. We can try to order the backups to let value information propagate from state to state in an efficient way. Some states may not need their values backed up as often as others. We might even try to skip backing up some states entirely if they are not relevant to optimal behavior.
 
@@ -751,7 +751,7 @@ Async backups do not necessarily imply less computation, but they do mean that a
 
 > Policy iteration consists of two simultaneous, interacting processes, one making the value function consistent with the current policy (policy evaluation), and the other making the policy greedy with respect to the current value function (policy improvement). 
 
-These two processes alternate until _hopefully_ the processes update all states, convergin on the optimal value function and policy.
+These two processes alternate until _hopefully_ the processes update all states, converging on the optimal value function and policy.
 
 The term _generalized policy iteration_ (GPI) refers to this idea of interaction between evaluation and improvement.  If both evaluation and improvement stabilize, i.e. no longer produce changes, the the value function and optimal policy must be optimal.
 
@@ -765,13 +765,13 @@ While DP may not be practical for very large programs, they're relatively effici
 
 ## <a name="ch4.8" class="n"></a> 4.8 Summary
 
-_Policy evaluation_ and _policy improvement_ typically refer to the iterative computation of the value functions for a given policy and the improvement of that polucy given the value function of its prior self, respectively. 
+_Policy evaluation_ and _policy improvement_ typically refer to the iterative computation of the value functions for a given policy and the improvement of that policy given the value function of its prior self, respectively. 
 
 Combined, these two terms yield _policy iteration_ and _value iteration_ refer to the two most popular DP methods which reliably computer optimal policies and value functions for finite MDPs, given complete knowledge of the MDP.
 
-Class DP methods operate in sweeps through a state set, performing full backup operation on each state, updating the value of the state based on the values of all weighted possibibilities of the values of successor states.  These are related to Bellman equationsL there are four primary value funcitons ($v_\pi, v^*, q_\pi, q^*$) corresponding to four Bellman equations and their full backups.
+Class DP methods operate in sweeps through a state set, performing full backup operation on each state, updating the value of the state based on the values of all weighted possibilities of the values of successor states.  These are related to Bellman equationsL there are four primary value functions ($v_\pi, v^*, q_\pi, q^*$) corresponding to four Bellman equations and their full backups.
 
-Generalized Policy Iteration is the general idea of two interacting processes revolving around approximate polciies and value functions is that eahc process changes the basis for the other, overall workign towards a convergent, joint solution where eahc, consequently, is optimal.
+Generalized Policy Iteration is the general idea of two interacting processes revolving around approximate policies and value functions is that each process changes the basis for the other, overall working towards a convergent, joint solution where each, consequently, is optimal.
 
 Note that all DP methods update estimates of the values of states based on the estimates of the values of successor states, which is called bootstrapping.
 
@@ -781,7 +781,7 @@ Monte Carlo methods require only _experience_ composed of sample sequences of st
 
 > Monte Carlo methods can thus be incremental in an episode-by-episode sense, but not in a step-by-step (online) sense... Here we use it specifically for methods based on averaging complete returns (as opposed to methods that learn from partial returns, considered in the next chapter).
 
-Monte Carlo methods sample average _returns_ for state-action pairs like the bandit methods sampled average _rewards_ previously - the difference being each state represents a bandit problem _and_ are interrelated to one another. Thus, the problems aren onstationary.
+Monte Carlo methods sample average _returns_ for state-action pairs like the bandit methods sampled average _rewards_ previously - the difference being each state represents a bandit problem _and_ are interrelated to one another. Thus, the problems are nonstationary.
 
 To handle this nonstationary component of practical RL contexts, we adapt the General Policy Iteration techniques from CH 4 where we _computed_ value functions to _learning_ value functions from sample returns of an MDP.
 
@@ -827,7 +827,7 @@ With a model, state values alone would be sufficient to determine an optimal pol
 
 > Thus, one of our primary goals for Monte Carlo methods is to estimate $q^∗$. To achieve this, we first consider the policy evaluation problem for action values
 
-Similarly, the evalutation problem for action values is to estimate $q_\pi(s,a)$: the expected return starting from $s$, taking action $a$, and following $\pi$ thereafter. We simply modify the MC method to handle state-action pairs rather than only the states. Just as before, these MC methods converge quadratically upon the expected values as the number of visits to all state-action pairs approaches infinity.
+Similarly, the evaluation problem for action values is to estimate $q_\pi(s,a)$: the expected return starting from $s$, taking action $a$, and following $\pi$ thereafter. We simply modify the MC method to handle state-action pairs rather than only the states. Just as before, these MC methods converge quadratically upon the expected values as the number of visits to all state-action pairs approaches infinity.
 
 Difficulties arise as many state-action pairs may never be visited.  If $\pi$ is deterministic, then following it will observe returns only for _one_ of the actions from each state. The no returns from the missing actions, the MC estimates of those will not improve with experience.  This hinders the intentional ability to compare estimated values of all actions from each state. 
 
@@ -895,7 +895,7 @@ $$
 \end{aligned}}
 $$
 
-Under an explatory start, all returns for each state-action pair are accumulated and averaged, regardless of what policy they were earned under. This implies that an MS ES cannot converge to any sub-optimal policy, otherwise the value function would eventually converge to the value function for that bad policy, forcing a change in the policy.
+Under an exploratory start, all returns for each state-action pair are accumulated and averaged, regardless of what policy they were earned under. This implies that an MS ES cannot converge to any sub-optimal policy, otherwise the value function would eventually converge to the value function for that bad policy, forcing a change in the policy.
 
 > Convergence to this optimal fixed point seems inevitable as the changes to the action-value function decrease over time, but has not yet been formally proved.
 
@@ -903,9 +903,9 @@ Under an explatory start, all returns for each state-action pair are accumulated
 
 The two general approaches to avoid the unlikely assumption of exploring starts is –to ensure that all actions are selected inifnitely often– are called _on-policy_ and _off-policy_ methods.
 
-> Onpolicy methods attempt to evaluate or improve the policy that is used to make decisions, whereas off-policy methods evaluate or improve a policy different from that used to generate the data.
+> On policy methods attempt to evaluate or improve the policy that is used to make decisions, whereas off-policy methods evaluate or improve a policy different from that used to generate the data.
 
-In on-policy control methods, the policy is _soft_, meaning that $\pi(a | s) > 0, \quad \forall s,a \in \mathcal S, \mathcal A(s)$, but gradually shifted closer to a determinisitc optimal policy. We can use ε-greedy, or ε-_soft_ exploration to achieve this. 
+In on-policy control methods, the policy is _soft_, meaning that $\pi(a | s) > 0, \quad \forall s,a \in \mathcal S, \mathcal A(s)$, but gradually shifted closer to a deterministic optimal policy. We can use ε-greedy, or ε-_soft_ exploration to achieve this. 
 
 > The overall idea of on-policy Monte Carlo control is still that of GPI. As in Monte Carlo ES, we use first-visit MC methods to estimate the action-value function for the current policy.
 
@@ -927,7 +927,7 @@ $$
 
 > We now prove that equality can hold only when both $\pi'$ and $\pi$ are optimal among the ε-soft policies, that is, when they are better than or equal to all other ε-soft policies.
 
-> Consider a new environment that is just like the original environment, except with the requirement that policies be ε-soft “moved inside” the environment. The new environment has the same action and state set as the original and behaves as follows. If in state s and taking action a, then with probability $1 − ε$ the new environment behaves exactly like the old environment. With probability $ε$ it repicks the action at random, with equal probabilities, and then behaves like the old environment with the new, random action. The best one can do in this new environment with general policies is the same as the best one could do in the original environment with ε-soft policies. Let $\widetilde{v}^*$ and $\widetilde{q}^*$ denote the optimal value functions for the new environment. Then a policy $π$ is optimal among ε-soft policies if and only if $v_π = \widetilde{v}^*$. From the definitionof $\widetilde{v}^*$ we know that it is the unique solution to
+> Consider a new environment that is just like the original environment, except with the requirement that policies be ε-soft “moved inside” the environment. The new environment has the same action and state set as the original and behaves as follows. If in state s and taking action a, then with probability $1 − ε$ the new environment behaves exactly like the old environment. With probability $ε$ it re-picks the action at random, with equal probabilities, and then behaves like the old environment with the new, random action. The best one can do in this new environment with general policies is the same as the best one could do in the original environment with ε-soft policies. Let $\widetilde{v}^*$ and $\widetilde{q}^*$ denote the optimal value functions for the new environment. Then a policy $π$ is optimal among ε-soft policies if and only if $v_π = \widetilde{v}^*$. From the definition of $\widetilde{v}^*$ we know that it is the unique solution to
 
 $$
 \begin{aligned}
@@ -973,7 +973,7 @@ $$
 
 Here, $\pi$ is the _target policy_ and $\mu$ is the _behavior policy_.  The goal and challenge of off-policy learning is learning about a policy given only episodic experience from no that policy.
 
-In order to meaningfully learn from $\mu$, we must ensure that every action taken under $\pi$ is also taken, at least occaisionally, under $\mu$: $\pi \subset \mu$.  This is called the _assumption of coverage_: $\pi(a | s) > 0 \implies \mu(a | s) > 0$.  Thus $\mu$ must be stochasticin states where it is not identical to $\pi$, although the target $\pi$ can be deterministic.
+In order to meaningfully learn from $\mu$, we must ensure that every action taken under $\pi$ is also taken, at least occasionally, under $\mu$: $\pi \subset \mu$.  This is called the _assumption of coverage_: $\pi(a | s) > 0 \implies \mu(a | s) > 0$.  Thus $\mu$ must be stochastic in states where it is not identical to $\pi$, although the target $\pi$ can be deterministic.
 
 Importance Sampling is the general technique used for estimating expected values under one distribution ($\pi$) given samples from another ($\mu$). Given a starting state $S_t$, the probability of the subsequent state-action trajectory, $A_t, S_{t+1}, A_{t+1}, ..., S_T$, occurring under any policy $\pi$ is:
 
@@ -995,7 +995,7 @@ $V(s) = \frac{\sum_{t \in \mathcal T(s)} \rho_t^{T(t)} G_t}{\sum_{t \in \mathcal
 
 (accounting for division by 0 making the whole term 0). 
 
-> Formally, the difference between the two kinds of importance sampling is expressed in their variances. The variance of the ordinary importancesampling estimator is in general unbounded because the variance of the ratios is unbounded, whereas in the weighted estimator the largest weight on any single return is one.
+> Formally, the difference between the two kinds of importance sampling is expressed in their variances. The variance of the ordinary importance sampling estimator is in general unbounded because the variance of the ratios is unbounded, whereas in the weighted estimator the largest weight on any single return is one.
 
 We can verify that the variance of importance-sampling-scaled returns is infinite:
 
@@ -1083,11 +1083,11 @@ However, this method only learns from the _tails_ of episodes, after learning th
 
 ## <a name="ch5.8" class="n"></a> 5.8 Importance Sampling on Truncated Returns
 
-In cases where discounted returns are 0 as $\gamma \rightarrow 0$, the ordinary importance sampling will be scalled by the _entire_ product, even if the last 99 factors are zero.  These 0 terms are irrelevant to the expected return of a policy, but enormously contribute to the variance (in some cases making it infinite). We can avoid this by thinking of discounting as determining a probability of termination, or a _degree_ of partial termination.  For any $\gamma \in [0, 1)$, we can think of the return $G_0$ as partly terminating in one step, to the degree $1 - \gamma$, producing a return of _just_ the first reward $R_1$; partly terminating after two steps to the degree $(1 - \gamma)\gamma$ yielding return of $R_1 + R_2$; so on. The partial Each $\gamma^n$ refers to the termination not occurring in any of the prior $n-1$ steps.  The partial returns here are called _flat partial returns:_
+In cases where discounted returns are 0 as $\gamma \rightarrow 0$, the ordinary importance sampling will be called by the _entire_ product, even if the last 99 factors are zero.  These 0 terms are irrelevant to the expected return of a policy, but enormously contribute to the variance (in some cases making it infinite). We can avoid this by thinking of discounting as determining a probability of termination, or a _degree_ of partial termination.  For any $\gamma \in [0, 1)$, we can think of the return $G_0$ as partly terminating in one step, to the degree $1 - \gamma$, producing a return of _just_ the first reward $R_1$; partly terminating after two steps to the degree $(1 - \gamma)\gamma$ yielding return of $R_1 + R_2$; so on. The partial Each $\gamma^n$ refers to the termination not occurring in any of the prior $n-1$ steps.  The partial returns here are called _flat partial returns:_
 
 $\bar G_t^h = R_{t+1} + R_{t+2} + ... + R_{h}, \qquad 0 \leq t < h \leq T, $
 
-> where "flat" denotes the absence of discounting, and "partial" denotes that these returns do not extend all the way to termination, but instead stop at the horizon $h$. The conventional full return $G_t$ can be viewed as a sum of flat partial returns assuggested above as follows:
+> where "flat" denotes the absence of discounting, and "partial" denotes that these returns do not extend all the way to termination, but instead stop at the horizon $h$. The conventional full return $G_t$ can be viewed as a sum of flat partial returns as suggested above as follows:
 
 $$
 \begin{aligned}
@@ -1117,13 +1117,13 @@ MC methods presented in this chapter learn optimal value functions and policies 
 
 3. MC methods can _focus_ on small subsets of states to learn regions of special interest.
 
-MC methods follow a similar GPI process presented in Chapter 4, with the difference being avaluation of returns from a start state rather than computing values for each state from a model. MC methos focus on state-action values rather than state values alone, intermixing evaluation and improvement steps. 
+MC methods follow a similar GPI process presented in Chapter 4, with the difference being evaluation of returns from a start state rather than computing values for each state from a model. MC methods focus on state-action values rather than state values alone, intermixing evaluation and improvement steps. 
 
 The issue of maintaining sufficient exploration is resolved by assuming that episodes begin with state-action pairs randomly selected over all possibilities.  
 
 On-policy methods commit to exploring and trying to find the best policy that still explores, whereas off-policy methods learn a deterministic optimal policy that may be unrelated to the policy being followed.  Off-policy prediction refers to learning the value of a target policy from data generated by a distinct behavior policy based on importance sampling.
 
-- Ordinary importance sampling uses a simple average of weighted returns, and produces unbiased estimates but runs the risk of larger, potentiall infinit, variance, 
+- Ordinary importance sampling uses a simple average of weighted returns, and produces unbiased estimates but runs the risk of larger, potentially infinite, variance, 
 
 - Weighted importance sampling uses a weighted average and ensures finite variance (it's typically better).
 
@@ -1187,7 +1187,7 @@ We call these sample backups because they involve looking ahead to a sample succ
 
 Advantages of TD methods over DP and MC methods include:
 
-- they do not require a model of the environment, its rewards, or the next-state probability distributioons, unlike DP methods which do;
+- they do not require a model of the environment, its rewards, or the next-state probability distributions, unlike DP methods which do;
 
 - they are naturally implemented in an online, fully incremental fashion, unlike MC methods where one must wait till the end of an episode when the return is known.  TD methods only need a single time step;
 
@@ -1199,9 +1199,9 @@ On top of all that, TD methods are still guaranteed to converge.  The natural qu
 
 Even without limited (non-infinite) experiences, incremental learning can converge on a solution by repeatedly training on the available experiences. 
 
-> Given an approximate value function, V , the increments specified by previous chapters are computed for every time step $t$ at which a nonterminal state is visited, but the value function is changed only once, by the sum of all the increments. Then all the available experience is processed again with the new value function to produce a new overall increment, and so on, until the value function converges.  We call this _batch updating_ because updates are made only after processing each complete batch of training data.
+> Given an approximate value function, V , the increments specified by previous chapters are computed for every time step $t$ at which a non-terminal state is visited, but the value function is changed only once, by the sum of all the increments. Then all the available experience is processed again with the new value function to produce a new overall increment, and so on, until the value function converges.  We call this _batch updating_ because updates are made only after processing each complete batch of training data.
 
-$TD(0)$ converges deterministically under _batch training_ with sufficiently samll step-size parameter $\alpha$.  A contant-α MC method also converges deterministically, but to a different answer.  This is ullustrated by example exercises 6.3, 6.4. The conlcusion is that Batch MC methods always find the estimates that minimize MSA on the training set, whereas $TD(0)$ always finds the estimates that would be exactly correct for the maximum-likelihood model of the MDP, where the _maximum-likelihood estimate_ of a parameter is the parameter value whose probability of generating the data is greatest. A _certainty-equivalence estimate_ is the estimate of the vlaue function that would be exactly correct if the model were exactly correct. $TD(0)$ convereges to the former, and therefore converge (with batch training) to a solution faster than MC methods. Without batch trianing, TD methods do not achieve certainty-equivalence or MSE estimates, but roughly approach them. 
+$TD(0)$ converges deterministically under _batch training_ with sufficiently small step-size parameter $\alpha$.  A contant-α MC method also converges deterministically, but to a different answer.  This is illustrated by example exercises 6.3, 6.4. The conclusion is that Batch MC methods always find the estimates that minimize MSA on the training set, whereas $TD(0)$ always finds the estimates that would be exactly correct for the maximum-likelihood model of the MDP, where the _maximum-likelihood estimate_ of a parameter is the parameter value whose probability of generating the data is greatest. A _certainty-equivalence estimate_ is the estimate of the value function that would be exactly correct if the model were exactly correct. $TD(0)$ converges to the former, and therefore converge (with batch training) to a solution faster than MC methods. Without batch trianing, TD methods do not achieve certainty-equivalence or MSE estimates, but roughly approach them. 
 
 ## <a name="ch6.4" class="n"></a> 6.4 Sarsa: On-Policy TD Control
 
@@ -1261,7 +1261,7 @@ Example 6.6 compares Sarsa to Q-Learning.
 
 ## <a name="ch6.6" class="n"></a> 6.6 Games, Afterstates, and Other Special Cases
 
-State-action values colelcted for a value function _after_ an agent has acted, like in a game of tic-tac-toe, are called _afterstates_. Afterstates are useful when we have knowledge of an initial part of the environment's dynamics, but not necessarily the full dynamics. We know typically know the immediate effects of our moves, but not necessarily how our opponent will reply. Afterstate value functions are a natural way to take advantage of this kind of knowledge and produce more efficient learning methods as different actions in different states can still lead to the same state.  
+State-action values collected for a value function _after_ an agent has acted, like in a game of tic-tac-toe, are called _afterstates_. Afterstates are useful when we have knowledge of an initial part of the environment's dynamics, but not necessarily the full dynamics. We know typically know the immediate effects of our moves, but not necessarily how our opponent will reply. Afterstate value functions are a natural way to take advantage of this kind of knowledge and produce more efficient learning methods as different actions in different states can still lead to the same state.  
 
 ## <a name="ch6.7" class="n"></a> 6.7 Summary
 
@@ -1334,11 +1334,11 @@ $\max \limits_s \Big | \mathbb E_\pi \big[ G_t^{t+n}(v(S_{t+n})) \Big | S_t = s 
 
 This is called the _error reduction property_ of $n$-step returns, and can be used to formally prove that on- and off-line TD prediction methods using $n$-step backups converge to the correct predictions under appropriate technical conditions. 
 
-Despite this, $n$-step TD methods are rarely used because they suck to implement.  Computing their returns requires waiting $n$ steps to observe the resultant rewards and states, which very quickly becomes problematic.  This is moslty theoretical fluff.  Anyways heres ~~Wonderwall~~ Example 7.1 where you're gonna do it anyway lol.
+Despite this, $n$-step TD methods are rarely used because they suck to implement.  Computing their returns requires waiting $n$ steps to observe the resultant rewards and states, which very quickly becomes problematic.  This is mostly theoretical fluff.  Anyways heres ~~Wonderwall~~ Example 7.1 where you're gonna do it anyway lol.
 
 ## <a name="ch7.2" class="n"></a> 7.2 The Forward View of $TD(\lambda)$
 
-$n$-step returns can be average for any amount as long as the weights on the component returns are positive and sum to 1.  A backup that averages simpler component backups is called a _complex backup_. The $TD(\lambda)$ can be understood as one way of averaging $n$-step backups, each weighted proprtional to $\lambda^{n-1}, \quad \lambda \in [0,1]$ and normalized by a factor of $1-\lambda$ to ensure summation to 1.  The resulting backup towards a return is called the $\lambda$-return:
+$n$-step returns can be average for any amount as long as the weights on the component returns are positive and sum to 1.  A backup that averages simpler component backups is called a _complex backup_. The $TD(\lambda)$ can be understood as one way of averaging $n$-step backups, each weighted proportional to $\lambda^{n-1}, \quad \lambda \in [0,1]$ and normalized by a factor of $1-\lambda$ to ensure summation to 1.  The resulting backup towards a return is called the $\lambda$-return:
 
 $L_t = (1 - \lambda) \displaystyle\sum_{n=1}^\infty \lambda^{n-1}G_t^{t+n} (V_t(S_{t+n}))$
 
@@ -1358,9 +1358,9 @@ The overall perfomance of $\lambda$-return algorithms is comparable to that of t
 
 ## <a name="ch7.3" class="n"></a> 7.3 The Backward View of $TD(\lambda)$
 
-This section defines $TD(\lambda)$ mechanistically to show that it can closely approximate the forward view. The _backward_ view is useful because it is simple both computationally and conceptually. Whereas the forward view is not directly implementable because it is acausal, using at each step knowledge of what will happen many steps later, the backwards view provides a causal, incremental mechanism for approximating the forward view.  In the online case, it achieves the forward view exactly.
+This section defines $TD(\lambda)$ mechanistically to show that it can closely approximate the forward view. The _backward_ view is useful because it is simple both computationally and conceptually. Whereas the forward view is not directly implementable because it is a causal, using at each step knowledge of what will happen many steps later, the backwards view provides a causal, incremental mechanism for approximating the forward view.  In the online case, it achieves the forward view exactly.
 
-In the backward view of $TD(\lambda)$, there is an additional memory variable associated with each state: the _eleigibility trace_, denoted as a random variable $E_t(S) \in \mathbb R^+ \forall s \text{ at } t$. On each step, the eligibility traces of all non-visted states decay by $\gamma\lambda$:
+In the backward view of $TD(\lambda)$, there is an additional memory variable associated with each state: the _eligibility trace_, denoted as a random variable $E_t(S) \in \mathbb R^+ \forall s \text{ at } t$. On each step, the eligibility traces of all non-visited states decay by $\gamma\lambda$:
 
 $E_t(s) = \gamma\lambda E_{t-1}(s), \quad \forall s \in \mathcal S, s \neq S_t$, where $\gamma$ is the discount rate, and $\lambda$ becomes a _trace-decay parameter_.
 
@@ -1406,11 +1406,11 @@ $$
 
 > The backward view of $TD(\lambda)$ is aptly oriented backward in time. At each moment, we look at the current TD error and assign it backward to each prior state according to the state's eligibility trace at that time. 
 
-Consider what happens at various values of $\lambda$.  For $\lambda = 0$, all traces are zero at $t$ except for the trace corresponding to $S_t$.  Thus the $TD(\lambda)$ update reduces to the simple TD rule from 6.2: $TD(0)$. For larger values of $\lambda < 1$, more preceeding states behind are changed, but each more temporaly distant state is changed less because of the smaller magnitude of its leigibility trace. They're given less credit for contributing to the current TD error.
+Consider what happens at various values of $\lambda$.  For $\lambda = 0$, all traces are zero at $t$ except for the trace corresponding to $S_t$.  Thus the $TD(\lambda)$ update reduces to the simple TD rule from 6.2: $TD(0)$. For larger values of $\lambda < 1$, more preceeding states behind are changed, but each more temporally distant state is changed less because of the smaller magnitude of its legibility trace. They're given less credit for contributing to the current TD error.
 
 if $\lambda = 1$, then the credit given to the earlier states falls only by $\gamma$ per step which matches MC behavior.
 
-Two alternative variations of eligibility traces have been porposed to address limitations of accumulating trace (caused by poor hyper-parameter tuning). On each step, all three trace types decay the traces of the non-visited state in the same way according to $\gamma\lambda$, but they differ in how the visited stae is incremented.  The first variation is the _replacing trace_ which caps the eligibility to 1 whereas accumulation allows for larger values. The second variation is the _dutch trace_ which is an intermediate between the first tow, depending on the step-size parameter $\alpha$: 
+Two alternative variations of eligibility traces have been purposed to address limitations of accumulating trace (caused by poor hyper-parameter tuning). On each step, all three trace types decay the traces of the non-visited state in the same way according to $\gamma\lambda$, but they differ in how the visited state is incremented.  The first variation is the _replacing trace_ which caps the eligibility to 1 whereas accumulation allows for larger values. The second variation is the _dutch trace_ which is an intermediate between the first tow, depending on the step-size parameter $\alpha$: 
 
 $E_t(S_t) = (1 - \alpha) \gamma\lambda E_{t-1}(S_t) + 1$
 
@@ -1465,7 +1465,7 @@ $$
 
 This chapter explores how eligibility traces can be used for control, rather than simply prediction as in $TD(\lambda)$ by combining them with sarsa to produce an on-policy TD control method.  As usual, the primary approach is to learn action values $Q_t(s,a)$ rather than state values $V_t(s)$.  
 
-> The idea in Sarsa($\lambda$) is to apply the $TD(\lambda)$ prediction method to state–action pairs rather than to states. Obviously, theb, we need a trace not just for each state, but for each state-action pair. 
+> The idea in Sarsa($\lambda$) is to apply the $TD(\lambda)$ prediction method to state–action pairs rather than to states. Obviously, the, we need a trace not just for each state, but for each state-action pair. 
 
 We can the redefine our three types of traces as follows:
 
@@ -1515,7 +1515,7 @@ Chris Watkin's, the initial author of Q-learning, also proposed a simple way to 
 
 > Recall that Q-learning is off-policy, meaning that the policy learned about need not be the same as the one used to select actions.
 
-Because Q-learning typically takes exploratory actions (under an ε-greedy policy), special care must be taken when introducing eligibility traces in order to ensure that $n$-step returns bear relationshop to the greedy policy.
+Because Q-learning typically takes exploratory actions (under an ε-greedy policy), special care must be taken when introducing eligibility traces in order to ensure that $n$-step returns bear relationship to the greedy policy.
 
 Unlike $TD(\lambda)$ or Sarsa($\lambda$), Watkin's Q($\lambda$) does not look ahead all the way to the end of the episode in it's backup, only as far aheaf as the next exploratory action. Lookahead for each of these algorithms ceases at episode termination otherwise.
 

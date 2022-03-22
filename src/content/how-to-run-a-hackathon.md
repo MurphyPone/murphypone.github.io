@@ -191,7 +191,7 @@ It's worth noting that these efforts should begin at least one fiscal quarter pr
 ##<a name="judge"></a>Judging
   - **Recommended judging systems:**
       1. Batches + spreadsheet
-        - Requires one spreahsheet wizard who divides the teams into batches,
+        - Requires one spreadsheet wizard who divides the teams into batches,
         - Batches are distributed to judges who are instructed to pick their top choice (or top 3 depending on volume of submissions) and report back,
         - spreadsheet wizard records that judge's top 3 and assigns them another batch,
         - Repeat until each team has been seen by multiple judges/groups of judges,

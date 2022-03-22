@@ -8,7 +8,7 @@ path: "/blog/places-traveled"
 
 # What / Why?
 
-I was recently reminded of a map in my Uncle's office which was peppered with small colored pins and string to indicate all the places he had traveled, either for work or leisure.  Kind of like Charlie's Pepe Silvia Board, but more wholesome!  Nostalgic of the days when traveling was a luxury of envy rather than a mark of negligence, I was inspired to create my own map of places travled!  An example of the product of this post can be found on my [about page](/about).  
+I was recently reminded of a map in my Uncle's office which was peppered with small colored pins and string to indicate all the places he had traveled, either for work or leisure.  Kind of like Charlie's Pepe Silvia Board, but more wholesome!  Nostalgic of the days when traveling was a luxury of envy rather than a mark of negligence, I was inspired to create my own map of places traveled!  An example of the product of this post can be found on my [about page](/about).  
 
 ![](https://i.imgur.com/0ZnWnAS.gif?noredirect)
 

@@ -9,10 +9,10 @@ path: "/blog/webscraping-workshop"
 # What / Why?
 This post is intended to be a supplement for my hackathon workshop about how to do Webscraping in Python. The full source code can be found [here](https://github.com/MurphyPone/webscraping-workshop).  
 
-The premise of this project is that we're going to scrape iMDb for movie reviews and review usefulness scores for the top 250 or so movies on their list.  With this information we can then perform some naive sentiment analysis to gain some insight into other metricsabout movies (other than the average star rating) which might be indicative of the quality of a movie.
+The premise of this project is that we're going to scrape iMDb for movie reviews and review usefulness scores for the top 250 or so movies on their list.  With this information we can then perform some naive sentiment analysis to gain some insight into other metrics about movies (other than the average star rating) which might be indicative of the quality of a movie.
 
 # Setup
-For this project we're going to use [Python 3.8+](https://www.python.org/downloads/) as well as two libraries: pandas (to neatly store our scraped data) and BeautifulSoup (to handle the webscraping itself). They can be installed via pip with the following commmand:
+For this project we're going to use [Python 3.8+](https://www.python.org/downloads/) as well as two libraries: pandas (to neatly store our scraped data) and BeautifulSoup (to handle the webscraping itself). They can be installed via pip with the following command:
 
 `pip install beautifulsoup4 pandas`
 
@@ -28,7 +28,7 @@ import pandas as pd     # to store our scraped data
 import requests         # to fetch the contents of our target website
 import numpy as np      # to handle Not a Number values
 import csv              # to save our pandas DataFrame to a file
-import time             # to prevent getting timedout by IMBd
+import time             # to prevent getting timed out by IMBd
 ```
 
 Notice that when working within a notebook, the values in a cell are cached/saved, so we only have to run this cell once at the beginning of our development session.  We can modify, rearrange, or delete any cells after this first one, and we'll still be able to reference all those imported libraries!
@@ -41,7 +41,7 @@ The webscraping process follows the general approach along these lines:
 3. write and test your code!
 
 
-### Idenitfying the Target Data Source
+### Identifying the Target Data Source
 we want to query the iMDb [top 1,000 list]("https://www.imdb.com/search/title/?groups=top_1000&view=simple&sort=user_rating,desc&count=250&start=0") for movie reviews, star ratings, and usefulness scores.
 
 ### Examining Page Layout and Patterns
@@ -72,7 +72,7 @@ https://www.imdb.com/search/title/
 
 but for the sake of this workshop, we should have more than enough data from just the top 250 movies.
 
-Opening you browser's developer console, we can inspect the elements on the page to figure out _what_ type of element each of our desired components is, as well as their possible names, IDs, or any othe unique information that might help us isolate the info we want.
+Opening you browser's developer console, we can inspect the elements on the page to figure out _what_ type of element each of our desired components is, as well as their possible names, IDs, or any other unique information that might help us isolate the info we want.
 
 For our first page of interest, we can see that the links to each specific movie page is stored within a `<span>` element with class `lister-item-header`.
 
@@ -92,7 +92,7 @@ If we navigate to that user reviews page, and once again inspect the composition
 - the text of the review itself, 
 - and a usefulness score based on how helpful other users found the review. 
 
-Each of these datapoints are stored in various `<span>`, `<div>`, and `<a>` tags within the parent div with specific class names that we can use to easily identify which peices of information we want to fetch on a page.
+Each of these data points are stored in various `<span>`, `<div>`, and `<a>` tags within the parent div with specific class names that we can use to easily identify which pieces of information we want to fetch on a page.
 
 ![](/images/webscraping-2.png)
 
@@ -100,14 +100,14 @@ Each of these datapoints are stored in various `<span>`, `<div>`, and `<a>` tags
 
 Now that we have a good handle on the layout and patterns of the page, we can start to write some code to systematically extract the above data points on the review page for each of the 250 movies listed on our main page.
 
-First, in a new cell, let's define an empty pandas DataFrame with column headings for each datapoint we want to collect for a movie review:
+First, in a new cell, let's define an empty pandas DataFrame with column headings for each data point we want to collect for a movie review:
 
 ```python
 df = pd.DataFrame(columns=["name", "stars", "date", "author", "review_text", "url", "usefulness"])
 URL_MOVIES_250 = "https://www.imdb.com/search/title/?groups=top_1000&view=simple&sort=user_rating,desc&count=250&start=0"
 ```
 
-Next let's define a function which takes in the url for a movie review page, and the DataFrame to append the relevant datapoints to:
+Next let's define a function which takes in the url for a movie review page, and the DataFrame to append the relevant data points to:
 
 ```python
 def get_movie_info(the_url, frame):
@@ -119,7 +119,7 @@ def get_movie_info(the_url, frame):
     # create a BS4 element tree that we can traverse based on the response test according to the html5 library
     m_soup = bs4.BeautifulSoup(response.text, 'html.parser')
     
-    # exract the name of the movie by identifying it by the h3 tag with an itemprop attribute that has the value 'name' by getting the text contents of the element
+    # extract the name of the movie by identifying it by the h3 tag with an itemprop attribute that has the value 'name' by getting the text contents of the element
     name = m_soup.find('h3', {'itemprop': 'name'}).contents[1].text
 
     # find all the divs containing reviews 
@@ -160,7 +160,7 @@ def get_movie_info(the_url, frame):
     return frame
 ```
 
-Hopefully you can match all the `.find()` function calls and their arguments to the anotomy of the main `imdb-user-review` on the review page. 
+Hopefully you can match all the `.find()` function calls and their arguments to the anatomy of the main `imdb-user-review` on the review page. 
 
 Note that there is unfortunately no way to adjust the URL for a review page to show _more_ than 25 reviews by default.  In order to reveal more, if available, we'd need to click the "Load More" button near the bottom of the page which is a bit outside the scope of both this workshop and BeautifulSoup.  (Checkout [Selenium](imdb-user-review) for a more powerful automated tool).
 

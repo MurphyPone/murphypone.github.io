@@ -137,7 +137,7 @@ $P(\underbrace{+_{\tiny > 0}}_{\text{with n studies}} \land \text{ t })$
 
 $= P(\underbrace{+}_{\text{\S}} \land \text{ t }) \cdot P(\text{t}) $ 
 
-$\quad \text{\S}2.1: P(+ \land \text{ t }) = \displaystyle\sum^{n} P_n $ which could be ... a lot of probabilites
+$\quad \text{\S}2.1: P(+ \land \text{ t }) = \displaystyle\sum^{n} P_n $ which could be ... a lot of probabilities
 
 $\quad \text{\S}2.2:  (1 - P(-_{\forall \tiny n} \vert \text{ t })) \cdot P(\text{t}) $ which is the negative results of all $n$ studies
 

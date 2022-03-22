@@ -154,6 +154,13 @@ const hackathons = [
         icon: "/images/hackathon-icons/PittChallenge.png",
         website: "https://pittchallenge.com/"
     },
+    {
+        name: "*UniHacks 2022", 
+        // 36.01891593323501, -78.91946794833676
+        coords: { lat: 36.018915, lng: -78.919467 },
+        icon: "/images/hackathon-icons/unihacks.png",
+        website: "https://unihacks.ncssm.edu/"
+    },
 ];
 
 const MAPS_KEY = "AIzaSyDy6ZauygicYHQGfg43dm4kpvTCfyVqUj4";

@@ -12,7 +12,7 @@ A summary of [Sergey's understanding of Bottlenecks](https://arxiv.org/pdf/1902.
 # The Problem
 $f$ approximation error is not actually a major problem
 
-Sergey managed to deduce –with low dimensional "oracle based" unit tests like mazes– a series of empirical benchmarks that did not previously exists.  By using pre-computed answers from a "master" training set and gradually swapping out master examples for actual training, Sergey and co were able to measure which aspects of DQNs get stuck, and documet methods & techniques that contribute to fixing them.
+Sergey managed to deduce –with low dimensional "oracle based" unit tests like mazes– a series of empirical benchmarks that did not previously exists.  By using pre-computed answers from a "master" training set and gradually swapping out master examples for actual training, Sergey and co were able to measure which aspects of DQNs get stuck, and document methods & techniques that contribute to fixing them.
 
 # Discussion
 Q-learning _will_ converge (depending on the Q values being tabular, linear, etc.).  If it does not, it is implied that the action space is employing $f$ approximation operators, as infinite action spaces cannot be tabulated.  Even when $Q$ does not converge, divergence only occurs with a 0.9% probability and can be remediated with early-stop protocols.
@@ -53,7 +53,7 @@ Larger architectures remove error bias whereas networks with like 6 nodes get de
 
 # High Entropy Distribution Sampling
 
-Makes sure $Q$ can't game the system by getting familiar with easy samples from the replay buffer.  As $Q$ increases, we need to make sure we have a robust sampling process via High Entropy Distribution Sampling.  The solution is creating another network to fight $Q$ in a bellman curve weighting "fitness game" such that they both become really good and when the outcome of the game is highly unpredictable. Then we can map the graph of the outcome to the replay buffer samplingto ensure both random, and surprising samples such that we aren't surprised in production.  High variance in outcome --> entropy --> good samples.
+Makes sure $Q$ can't game the system by getting familiar with easy samples from the replay buffer.  As $Q$ increases, we need to make sure we have a robust sampling process via High Entropy Distribution Sampling.  The solution is creating another network to fight $Q$ in a bellman curve weighting "fitness game" such that they both become really good and when the outcome of the game is highly unpredictable. Then we can map the graph of the outcome to the replay buffer sampling to ensure both random, and surprising samples such that we aren't surprised in production.  High variance in outcome --> entropy --> good samples.
 
 To do this is difficult in theory, so we add human interference.  This process is akin to walking in on two people and giving them swords to accelerate the process.  Just a very complicated overkill-method of generating random numbers to sample from the replay buffer.
 

@@ -9,6 +9,7 @@ path: "/blog/extensional-vs-intuitive"
 This article contains my summary of Daniel's summary of [Tversky and Kahneman's paper on the fallacy of extensionalism](http://pages.ucsd.edu/~mckenzie/TverskyKahneman1983PsychRev.pdf).
 
 ## Extensionalism
+
 Perhaps the simplest and most basic qualitative law of probability is the conjunction rule: The probability of a conjunction, $\text {P(A} \cap \text{B)}$, cannot exceed the probabilities of its constituents, $\text {P(A), P(B)}$, because the extension (or the possibility set) of a conjunction is included in the extension of its constituents.  However, the representativeness and availability heuristics can make a conjunction appear more probable than one of its constituents.
 
 **Representativeness Heuristic** - "the degree to which an event (i) is similar in essential characteristics to its parent population, and (ii) reflects the salient features of the process by which it is generated".
