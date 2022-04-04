@@ -9,7 +9,7 @@ path: "/blog/voting-power"
 
 In which, I get to erase something that's been on my whiteboard todo list for over 2 years!  Might as well have used a sharpie – dry-erase wasn't meant to lay dormant for that long. So I've been wanting to look into voting power indexes for awhile and was excited at the thought of implementing them as part of a supporting util library for other game theory experiments (all of this is in the service of [cake cutting](https://en.wikipedia.org/wiki/Fair_cake-cutting)), but we must walk before we can run.
 
-What are a voting power indexes?  At a high level, they're used to measure the distribution of influence of players in a weighted voting system.  A practical example is the electoral college - where states have different amounts of votes proportionate to their seats in the House. California, Texas, and New York have a lot more weight than Wyoming.  
+What are voting power indexes?  At a high level, they're used to measure the distribution of influence of players in a weighted voting system.  A practical example is the electoral college - where states have different amounts of votes proportionate to their seats in the House. California, Texas, and New York have a lot more weight than Wyoming.  
 
 An _im_personal example might be, say, a bachelor party.  Let's say, **purely** hypothetically, we have groomsmen Peter, Charlie, $P_3$, $P_4$, and $P_5$ as well as the bachelor: Jack.  Suppose, again _totally hypothetically_, there are unequal contributions towards the Debaucherous Dowry for the bachelor party.  This resembles a weighted voting system where weight is analogous to the financial investments of the groomsmen.  Obviously the groom isn't paying anything, and he gets veto power/cart blanche but he's chill, and will play along with the voting system.  Agent Charlie is a student, so we don't hold his contributions or lackthereof against him, and he's the DD, so that brings him into the fold of voting power.  Agent Peter is also super chill and laid back, definitely not the type of guy to write an algorithm to quantifiably prove that he should have more say in the matter as the best man – hypothetically. Agents $P_3$, $P_4$ and $P_5$ are arbitrary (sorry fellas, pay up if you want to be named, no free clout 😤😤 etc. etc.).  
 
@@ -347,4 +347,4 @@ i_am_not_a_control_freak_i_swear = Measure(51, weights, agents)
     }
 ```
 
-In conclusion, get destroy $P_3, P_4, P_5$.  Jokes, I love you guys. Congrats, Jack.
+In conclusion, get destroyed $P_3, P_4, P_5$.  Jokes, I love you guys. Congrats, Jack.
