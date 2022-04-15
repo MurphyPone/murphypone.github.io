@@ -60,7 +60,6 @@ export class MapContainer extends Component {
       <Map
         google={this.props.google}
         containerStyle={containerStyle}
-        google={this.props.google}
         zoom={4}                                                // this is zoomed out enough to see all of the United States
         style={mapStyles}
         initialCenter={{ lat: 39.365741, lng: -93.957218 }}>    // coordinates for roughly the center of the country
