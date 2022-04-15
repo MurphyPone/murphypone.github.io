@@ -791,7 +791,7 @@ This is a general equivalent form of the first Linear Program since (5) requires
 
 ---
 
-Two-player General-sum Games are notably more challenging since the problem can longer be expressed as an optimization problem between tow diametrically opposed players.  Furthermore, no know [reduction]() TODO exists from this proble to an NP-Complete decision problem.  
+Two-player General-sum Games are notably more challenging since the problem can longer be expressed as an optimization problem between tow diametrically opposed players.  Furthermore, no know [reduction]() TODO exists from this problem to an NP-Complete decision problem.  
 
 Computing a sample Nash Equilibria relies on a different complexity class which describes the problem of finding a solution which always exists.  This complexity class is known as **Polynomial Parity Argument, Directed** (PPAD).  
 
@@ -815,9 +815,6 @@ Proof: Because $\odot$ is a source, there must be some sink $\mathcal{T}$ which 
 Theorem: The problem of finding a sample Nash Equilibria of a general-sum finite game with two or more players is PPAD-Complete.
 
 Similar to proving NP-Completeness, the proof for this theorem can be achieved by showing that the problem is in PPAD and that any other problem in PPPAD is isomorphically reducable to it in polynomial time.
-
-
-
 
 ## Further Reading 
 
