@@ -5,17 +5,36 @@ description: "Philosophy, Economics"
 path: "/blog/game-theory"
 ---
 
+<style> .n { visibility: hidden; } </style>
+
 ## Preface
 
 The front third of this post is more explanation, the middle half is notes on computational methods, and the last sixth is (hopefully) the implementation from scratch of some of the algorithms described.
 
-## Intro to Game Theory: a Lightspeed Overture
+## Contents
+
+1. [Intro to Game Theory](#intro)
+     - [Glossary](#glossary)
+2. [Types of Games](#games)
+   1. [Prisoner's Dilemma](#pd)
+   2. [Battle of the Sexes](#bos)
+   3. [Chicken](#chicken)
+   4. [Rock, Paper, Scissors](#rps)
+   5. [Penny Matching](#pennies)
+   6. [Prisoner's Dilemma](#pdi)
+3. [Types of Agents](#agents)
+4. [Formalizing Game Theory](#formalizing)
+5. [Linear Programs](#linear-programs)
+   - [Simplex Algorithm](#simplex)
+6. [Further Reading](#further-reading)
+
+## <a name="intro" class="n"></a> Intro to Game Theory: a Lightspeed Overture
 
 Broadly speaking, Game Theory is a field dedicated to modeling the interactions between different (types of) agents, and it has vast applications.  As the section header indicates, this is a super crash course, but I highly recommend doing some [further reading](#) because this topic is SO COOL.
 
 You know the drill: first, some definitions.
 
-### Glossary 
+### <a name="glossary" class="n"></a> Glossary 
 
 - **Agent**: A player in a game
 - **Game**: Usual represented as a payout matrix (or tensor, graph for games with multiple players).  Types of games include:
@@ -124,11 +143,13 @@ For games with mixed strategies at play, the equilibria are determined by the op
 
 _What the hell are are these games??_ Thanks for asking.
 
-### Types of Games
+## <a name="games" class="n"></a> Types of Games
 
 There are numerous examples of 2 player games:
 
-1. **Prisoner's Dilemma (one shot)** - perhaps the most quintessential "game." Guy de Maupassant provides an excellent depiction of this game in his short story [_Two Friends_](https://americanliterature.com/author/guy-de-maupassant/short-story/two-friends).  Consider the following excerpt
+### <a name="pd" class="n"></a> 1. **Prisoner's Dilemma (one shot)** 
+
+Perhaps the most quintessential "game." Guy de Maupassant provides an excellent depiction of this game in his short story [_Two Friends_](https://americanliterature.com/author/guy-de-maupassant/short-story/two-friends).  Consider the following excerpt
 
 > The two fishermen remained silent. The German turned and gave an order in his own language. Then he moved his chair a little way off, that he might not be so near the prisoners, and a dozen men stepped forward, rifle in hand, and took up a position, twenty paces off.
 > 
@@ -258,7 +279,9 @@ $$
 \end{aligned}
 $$
 
-2. **Battle of the Sexes** - a coordination game between a couple who can't agree on how to spend their evening together.  The wife would like to go to a ballet, and the husband a boxing match.  Each would rather spend their time together at the activity they least prefer rather than alone, at their preferential activity:
+### <a name="bos" class="n"></a> 2. **Battle of the Sexes**
+
+The Battles of the Sexes is a coordination game between a couple who can't agree on how to spend their evening together.  The wife would like to go to a ballet, and the husband a boxing match.  Each would rather spend their time together at the activity they least prefer rather than alone, at their preferential activity:
 
 <style type="text/css">
   .tg  { border-collapse: collapse; border-spacing: 0 ;}
@@ -303,7 +326,9 @@ $$
   </tbody>
 </table>
 
-3. **Chicken** - is an example of a _pure coordination_ game as the agents have no conflicting interests.  Consider two vehicles speeding towards each other.  They must mutually, but independently of one another (i.e., without communicating) decide which direction to swerve –or, less violently, which lane to drive in– so as not to hit the other player.  Pray that you're not playing against a Brit!
+## <a name="chicken" class="n"></a> 3. Chicken
+
+Chicken is an example of a _pure coordination_ game as the agents have no conflicting interests.  Consider two vehicles speeding towards each other.  They must mutually, but independently of one another (i.e., without communicating) decide which direction to swerve –or, less violently, which lane to drive in– so as not to hit the other player.  Pray that you're not playing against a Brit!
 
 <style type="text/css">
   .tg  { border-collapse: collapse; border-spacing: 0 ;}
@@ -344,7 +369,9 @@ $$
 </table>
 
 
-3. **Rock Paper Scissors** - Need I explain the rules? Now we introduce a more interesting "game" model:
+### <a name="rps" class="n"></a> 4. Rock, Paper, Scissors 
+
+Need I explain the rules? Now we introduce a more interesting "game" model:
 
 <style type="text/css">
   .tg  { border-collapse: collapse; border-spacing: 0 ;}
@@ -414,7 +441,9 @@ $$
 
 On the real, the best way to win is to wait like half a second for your opponent to throw their selection, throw its usurping strategy and 
 
-4. **Penny Matching** is another example of a zero-sum game.  The premise is that there are two players, Even and Odd. The goal for the Even player is to match the Odd player's selection, and the Odd player wants to be a deviant.
+### <a name="pennies" class="n"></a> 5. Penny Matching
+
+Penny Matching is another example of a zero-sum game.  The premise is that there are two players, Even and Odd. The goal for the Even player is to match the Odd player's selection, and the Odd player wants to be a deviant.
 
 <style type="text/css">
   .tg  { border-collapse: collapse; border-spacing: 0 ;}
@@ -536,11 +565,19 @@ Trivially yielding a frequency of $\frac{1}{2}$.
 
 Note that this means the change in Even's payoff affects _Odd's_ strategy, not evens.
 
-6. **Prisoners' Dilemma (Iterated, mind the apostrophe)**
+### <a name="pdi" class="n"></a> 6. Prisoners' Dilemma 
 
-And many more!
+(Iterated, mind the apostrophe). In any _iterated_ game, where players are allowed to have repeated interactions with their opponent (or soon-to-be ally), strategies necessarily change, as we'll see in the next section about agents.  If two (or more) agents are able to play the same game over and over and over, learning one another strategies or strategy distributions.  Crucially, if the number of games to be played in a series is known, then each presumably rational agent is able to find a dominant, degenerate strategy.
+
+I.e. 
+
+> $P_1$ "I will back stab $P_2$ on the second to last game to maximize my utility"
+
+> $P_2$ "I suspect $P_1$ will back stab me on the second to last game, so I must preempt this strategy by betraying him on the third-to-last game
+
+and so on until we're back to square one.  However, if the number of games to be played is not known, then this backwards induction can no longer be applied effectively.  Interestingly enough, cooperation can organically and rationally be achieved in the iterated prisoners' dilemma. [Numerous meta-strategies](https://en.wikipedia.org/wiki/Prisoner%27s_dilemma#Strategy_for_the_iterated_prisoner's_dilemma) arise from iterated contexts which you've likely heard of including.
   
-### Types of Agents
+## <a name="agents" class="n"></a> Types of Agents
 
 Most Game Theory takes place under the umbrella of Economic theory which assumes rational agents called ***Homo Economicus*** whose utility function is focused on maximization of self-interest.  That's not to say that his utility function couldn't be altruistically oriented, but, inductively, he is a rube as you may be able to discern in this awesome simulation about the [Christmas Truce](https://ncase.me/trust/), which outlines a variety of different strategies.
 
@@ -554,7 +591,7 @@ Homo Economicus is loosely derived from Hobbes' grim State of Nature depicted in
 
 David Hume's _Treatise of Human Nature_ published just under a century later paints a slightly less brutal image of human nature in which repeated (iterated) interactions between agents in the state of nature can give way to a compassionate society, yielding the model of ***Homo Sociologicus***.  This is, again, a rather vast over simplification of two of the most influential texts on Game Theory.
 
-## Formalizing Game Theory
+## <a name="formalizing" class="n"></a> Formalizing Game Theory
 
 Define a finite normal-form game as a tuple of the form 
 
@@ -574,7 +611,7 @@ where:
 
 Two-player, zero-sum games have Nash Equilibria which can be expressed as a Linear Program, meaning the solution can be found in polynomial time.
 
-### Linear Programs
+## <a name="linear-programs" class="n"></a> Linear Programs
 
 A linear program is defined by a set of real-valued variables, a linear objective function (weighted sum of the variables), and a set of linear constraints.
 
@@ -613,7 +650,9 @@ $$
 \end{aligned}
 $$
 
-Linear Programs can also be expressed in matrix form as such:
+---
+
+Linear Programs can also be expressed in matrix form as follows:
 - Let $\mathbf{w}$ be an $n \times 1$ vector containing the weights $w_i$
 - Let $\mathbf{x}$ be an $n \times 1$ vector containing the variables $x_i$
 - Let $\mathbf{A}$ be an $m \times n$ matrix of constants $a_{ij}$
@@ -664,7 +703,7 @@ The set of feasible solutions to Linear Programs corresponds to a convex polyhed
 
 One means of identifying such a vertex is known as the 
 
-### Simplex Algorithm
+### <a name="simplex" class="n"></a> Simplex Algorithm
 At a high level, the algorithm is pretty straight forward:
 1. Identify a vertex of the polyhedron
 2. Take an uphill (objective-improving) step to neighboring vertices until an optimum is found.
@@ -673,7 +712,7 @@ This approach is exponential in the worst case, but empirically very efficient.
 
 ![](/images/game-theory-1.png)
 
-Additionally, the hyper-constraint that the variables must be integers gives way to combinatorial optimizations like [SAT]() TODO.
+Additionally, the hyper-constraint that the variables must be integers gives way to combinatorial optimizations like [SAT](/blog/algorithm-notes#ch12).
 
 Notably **binary integer problems are sufficient to express any problem in NP**:
 
@@ -791,7 +830,9 @@ This is a general equivalent form of the first Linear Program since (5) requires
 
 ---
 
-Two-player General-sum Games are notably more challenging since the problem can longer be expressed as an optimization problem between tow diametrically opposed players.  Furthermore, no know [reduction]() TODO exists from this problem to an NP-Complete decision problem.  
+### <a name="ppad" class="n"></a> PPAD
+
+Two-player General-sum Games are notably more challenging since the problem can longer be expressed as an optimization problem between tow diametrically opposed players.  Furthermore, no know [reduction](/blog/algorithm-notes#ch12) exists from this problem to an NP-Complete decision problem.  
 
 Computing a sample Nash Equilibria relies on a different complexity class which describes the problem of finding a solution which always exists.  This complexity class is known as **Polynomial Parity Argument, Directed** (PPAD).  
 
@@ -816,16 +857,14 @@ Theorem: The problem of finding a sample Nash Equilibria of a general-sum finite
 
 Similar to proving NP-Completeness, the proof for this theorem can be achieved by showing that the problem is in PPAD and that any other problem in PPPAD is isomorphically reducable to it in polynomial time.
 
-## Further Reading 
+## <a name="further-reading" class="n"></a> Further Reading 
 
 Gaus, Gerald F. "On Philosophy, Politics, and Economics," _University of Arizona_, 2008. 
 
 Moehler, Michael. "Why Hobbes' State of Nature is Best Modeled by an Assurance Game," _Utilitas_ Vol. 21 No. 3,  pp. 297-326, 2009, https://philpapers.org/rec/MOEWHS
 
-[book](http://www.masfoundations.org/mas.pdf)
+Shoham, Yoav and Kevin Leyton-Brown. "Multiagent Systems: Algorithmic, Game-Theoretic, and Logical Foundations. [Link](http://www.masfoundations.org/mas.pdf)
+
+Karlin, Anna R. and Yuval Peres. ["Game Theory, Alive."](https://homes.cs.washington.edu/~karlin/GameTheoryBook.pdf) 2015.
 
 [Coding the Simplex Algorithm from scratch using Python and Numpy](https://medium.com/@jacob.d.moore1/coding-the-simplex-algorithm-from-scratch-using-python-and-numpy-93e3813e6e70)
-
-[Game Theory, Alive](https://homes.cs.washington.edu/~karlin/GameTheoryBook.pdf)
-
-[Cornell](https://blogs.cornell.edu/info2040/2014/09/12/applying-nash-equilibrium-to-rock-paper-and-scissors/)
