@@ -1,15 +1,22 @@
 ---
 title: "Towards Computational Game Theory"
-date: "2022-04-20"
+date: "2022-04-17"
 description: "Philosophy, Economics"
 path: "/blog/game-theory"
 ---
 
-<style> .n { visibility: hidden; } </style>
+<style> 
+  .n { visibility: hidden; } 
+  
+  table {
+    margin-left: 40%;
+  }
+
+</style>
 
 ## Preface
 
-The front third of this post is more explanation, the middle half is notes on computational methods, and the last sixth is (hopefully) the implementation from scratch of some of the algorithms described.
+The front half of this post is mostly explanation, and the latter half are notes.
 
 ## Contents
 
@@ -30,18 +37,18 @@ The front third of this post is more explanation, the middle half is notes on co
 
 ## <a name="intro" class="n"></a> Intro to Game Theory: a Lightspeed Overture
 
-Broadly speaking, Game Theory is a field dedicated to modeling the interactions between different (types of) agents, and it has vast applications.  As the section header indicates, this is a super crash course, but I highly recommend doing some [further reading](#) because this topic is SO COOL.
+Broadly speaking, Game Theory is a field dedicated to modeling the interactions between different (types of) agents, and it has vast applications.  As the section header indicates, this is a super crash course, but I highly recommend doing some [further reading](#further-reading) because this topic is SO COOL.
 
 You know the drill: first, some definitions.
 
 ### <a name="glossary" class="n"></a> Glossary 
 
 - **Agent**: A player in a game
-- **Game**: Usual represented as a payout matrix (or tensor, graph for games with multiple players).  Types of games include:
-  - **Zero Sum**: One player wins at the expense of all others – purely competitive. Examples include: poker, chess, checkers, (most conquest-driven board games), cake cutting (divided unequally).  Formally, if we have $A = (a_{ij}), B = (b_{ij})$ then, in a zero-sum game: $\\ a_{ij} + b_{ij} = 0$
+- **Game**: Usual represented as a payout matrix (or tensor, or a graph for games with multiple players).  Types of games include:
+  - **Zero Sum**: One player wins at the expense of all others – purely competitive. Examples include: poker, chess, checkers, (most conquest-driven board games), cake cutting (divided unequally).  Formally, if we have $A = (a_{ij}), B = (b_{ij})$ then, in a zero-sum game: $\\ a_{ij} + b_{ij} = 0$.
   - **Non-zero Sum**: One player's strategy does not necessarily impact the outcome for another player.  These games can be win-win. Examples include: Battle of the Sexes, Prisoner's Dilemma, markets.
-  - **Constant Sum Game**: one where there exists some constant $c$ such that, for each strategy profile $a_{ij}, b_{ij}, a_{ij} + b_{ij} = c$.  It's like a zero-sum game, but replace 0 with $c$. 
-  - **General Sum**: In these games, there is no _optimal strategy_, instead players choose hte best response to their opponent's strategy.
+  - **Constant-Sum**: one where there exists some constant $c$ such that, for each strategy profile $a_{ij}, b_{ij}; a_{ij} + b_{ij} = c$.  It's like a zero-sum game, but replace 0 with $c$. 
+  - **General Sum**: In these games, there is no _optimal strategy_, instead players choose the best response to their opponent's strategy.
 
 
 An example of a generic "game" might look like this:
@@ -91,7 +98,7 @@ An additional note to make is that agents in different types of games can have *
   - **Dominant**: Exists in a game where there is a single optimal strategy for each player, regardless of what their opponent(s) choose. In the above example, player **A** has a dominant strategy since, regardless of what player **B** chooses, their optimal outcome is to play down-left. 
   - **Pure**: A pure strategy is one where the agent chooses an action consistently.
   - **Mixed**: A mixed strategy is one where a player chooses a strategy based on a probability distribution over strategies available to her.
-- **Nash Equilibrium/Equilibria**: A set of strategies over players are said to be at Nash Equilibrium if all player's optimal choices coincide with one another such that neither player/no players would want to change their behavior or strategy after other players' strategies are revealed.  This implies that player's choose the optimal strategy according to what they assume other players will select for their respective strategies. 
+- **Nash Equilibrium/Equilibria**: A set of strategies over players are said to be at Nash Equilibrium if all players' optimal choices coincide with one another such that neither player/no players would want to change their behavior or strategy after other players' strategies are revealed.  This implies that players choose the optimal strategy according to what they _assume_ other rational players will select for their respective strategies. 
   - There can be multiple Nash Equilibria in a given game, for example: 
 
 <table>
@@ -149,7 +156,7 @@ There are numerous examples of 2 player games:
 
 ### <a name="pd" class="n"></a> 1. **Prisoner's Dilemma (one shot)** 
 
-Perhaps the most quintessential "game." Guy de Maupassant provides an excellent depiction of this game in his short story [_Two Friends_](https://americanliterature.com/author/guy-de-maupassant/short-story/two-friends).  Consider the following excerpt
+Perhaps the most quintessential "game." Guy de Maupassant provides an excellent depiction of this game in his short story [_Two Friends_](https://americanliterature.com/author/guy-de-maupassant/short-story/two-friends).  Consider the following excerpt:
 
 > The two fishermen remained silent. The German turned and gave an order in his own language. Then he moved his chair a little way off, that he might not be so near the prisoners, and a dozen men stepped forward, rifle in hand, and took up a position, twenty paces off.
 > 
@@ -209,26 +216,26 @@ Perhaps the most quintessential "game." Guy de Maupassant provides an excellent 
       <th class="tg-baqh" colspan="2">B</th>
     </tr>
     <tr>
-      <th class="tg-0lax" style="font-weight: normal;">cooperate</th>
-      <th class="tg-0lax" style="font-weight: normal;">defect</th>
+      <th class="tg-0lax" style="font-weight: normal;">confess</th>
+      <th class="tg-0lax" style="font-weight: normal;">silence</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td class="tg-nrix" rowspan="2">A</td>
-      <td class="tg-0lax">cooperate</td>
-      <td class="tg-0lax">3, 3</td>
-      <td class="tg-0lax">0, 5</td>
+      <td class="tg-0lax">confess</td>
+      <td class="tg-0lax">-1, -1</td>
+      <td class="tg-0lax">-4, 0</td>
     </tr>
     <tr>
-      <td class="tg-0lax">defect</td>
-      <td class="tg-0lax">5, 0</td>
-      <td class="tg-0lax" style="color: red;">1, 1</td>
+      <td class="tg-0lax">silence</td>
+      <td class="tg-0lax">0, -4</td>
+      <td class="tg-0lax" style="color: red;">-3, -3</td>
     </tr>
   </tbody>
 </table>
 
-Here, the two Frenchman poetically, but irrationally chose defect, defect. Here, the numbers chosen are _sort of arbitrary_; any game with payouts following this relation can be considered an instance of the Prisoner's Dilemma:
+Here, the two Frenchman poetically, but  irrationally chose to remain silent. Here, the numbers chosen are _sort of arbitrary_; any game with payouts following this relation can be considered an instance of the Prisoner's Dilemma:
 
 <style type="text/css">
   .tg  { border-collapse: collapse; border-spacing: 0 ;}
@@ -281,7 +288,7 @@ $$
 
 ### <a name="bos" class="n"></a> 2. **Battle of the Sexes**
 
-The Battles of the Sexes is a coordination game between a couple who can't agree on how to spend their evening together.  The wife would like to go to a ballet, and the husband a boxing match.  Each would rather spend their time together at the activity they least prefer rather than alone, at their preferential activity:
+The Battles of the Sexes is a coordination game between a couple who can't agree on how to spend their evening together.  The wife would like to go to a ballet, and the husband a boxing match.  Each would rather spend their time together at the activity they least prefer rather than spend the evening on their lonesome at their preferential activity:
 
 <style type="text/css">
   .tg  { border-collapse: collapse; border-spacing: 0 ;}
@@ -296,7 +303,7 @@ The Battles of the Sexes is a coordination game between a couple who can't agree
 </style>
 <table class="tg" style="undefined;table-layout: fixed; width: 300px">
   <colgroup>
-  <col style="width: 40px">
+  <col style="width: 50px">
   <col style="width: 80px">
   <col style="width: 80px">
   <col style="width: 80px">
@@ -328,7 +335,7 @@ The Battles of the Sexes is a coordination game between a couple who can't agree
 
 ## <a name="chicken" class="n"></a> 3. Chicken
 
-Chicken is an example of a _pure coordination_ game as the agents have no conflicting interests.  Consider two vehicles speeding towards each other.  They must mutually, but independently of one another (i.e., without communicating) decide which direction to swerve –or, less violently, which lane to drive in– so as not to hit the other player.  Pray that you're not playing against a Brit!
+Chicken is an example of a _pure coordination_ game as the agents have no conflicting interests.  Consider two vehicles speeding towards each other.  They must mutually, but independently of one another (i.e., without communicating), decide which direction to swerve –or, less violently, which lane to drive in– so as not to hit the other player.  Pray that you're not playing against a Brit!
 
 <style type="text/css">
   .tg  { border-collapse: collapse; border-spacing: 0 ;}
@@ -343,9 +350,9 @@ Chicken is an example of a _pure coordination_ game as the agents have no confli
 </style>
 <table class="tg" style="undefined;table-layout: fixed; width: 350px">
   <colgroup>
-  <col style="width: 40px">
-  <col style="width: 40px">
-  <col style="width: 40px">
+  <col style="width: 30px">
+  <col style="width: 30px">
+  <col style="width: 30px">
   </colgroup>
   <thead>
     <tr>
@@ -427,7 +434,9 @@ $$
 \begin{aligned}
   \mathbb{E}[u_1 (\text{rock})] &= 0 \cdot P_2(\text{rock}) + (-1) \cdot P_2(\text{paper}) + 1 \cdot P_2(\text{scissors}) \\
   \mathbb{E}[u_1 (\text{paper})] &= 1 \cdot P_2(\text{rock}) + 0 \cdot P_2(\text{paper}) + (-1) \cdot P_2(\text{scissors}) \\
-  \mathbb{E}[u_1 (\text{scissors})] &= (-1) \cdot P_2(\text{rock}) + 1 \cdot P_2(\text{paper}) + 0 \cdot P_2(\text{scissors})
+  \mathbb{E}[u_1 (\text{scissors})] &= (-1) \cdot P_2(\text{rock}) + 1 \cdot P_2(\text{paper}) + 0 \cdot P_2(\text{scissors}) \\ 
+  &\vdots \\
+  \mathbb{E}[u_2 (\text{scissors})] &= (-1) \cdot P_1(\text{rock}) + 1 \cdot P_1(\text{paper}) + 0 \cdot P_1(\text{scissors}) \\ 
 \end{aligned}
 $$
 
@@ -439,11 +448,11 @@ $$
 \end{aligned}
 $$
 
-On the real, the best way to win is to wait like half a second for your opponent to throw their selection, throw its usurping strategy and 
+On the real, the best way to win at RPS is to wait like half a second for your opponent to throw their selection, then throw its usurping strategy and gaslight your opponent until they concede.
 
 ### <a name="pennies" class="n"></a> 5. Penny Matching
 
-Penny Matching is another example of a zero-sum game.  The premise is that there are two players, Even and Odd. The goal for the Even player is to match the Odd player's selection, and the Odd player wants to be a deviant.
+Penny Matching is another example of a zero-sum game.  The premise is that there are two players, Even and Odd. The goal for the Even player is to match the Odd player's selection, and the goal for the Odd player is the inverse: _to be an utter deviant_, a copper crook, a parsimonious penny pilferer, a fractional filcher.   
 
 <style type="text/css">
   .tg  { border-collapse: collapse; border-spacing: 0 ;}
@@ -533,7 +542,7 @@ This is another example of a mixed strategy game. Consider what happens if we mo
   </tbody>
 </table>
 
-It would appear to behoove the Even player to try to play Heads as much as possible, but Odd knows this as well.  Enter the spiral of inductive reverse psychology!  Or, simply compute the Expected Utility for each player to determine at what frequency each player should play either strategy:
+It would appear to behoove the Even player to try to play Heads as much as possible, but Odd knows this as well.  Enter the spiral of inductive reverse psychology!  Or, simply compute the Expected Utility for each player to determine at what frequency each player should play either strategy, yielding the following mixed strategy:
 
 $$
 \begin{aligned}
@@ -542,7 +551,7 @@ $$
 \end{aligned}
 $$
 
-where $x$ is the probability of the opponent choosing odd.  These must be equal, thus:
+where $x$ is the probability of the opponent choosing odd.  The total frequency that they _play any move at all_ must sum to 1, so each of these equations must be equal. Thus:
 
 $$
 \begin{aligned}
@@ -563,17 +572,28 @@ $$
 
 Trivially yielding a frequency of $\frac{1}{2}$.
 
-Note that this means the change in Even's payoff affects _Odd's_ strategy, not evens.
+Note that this means the change in Even's payoff affects _Odd's_ strategy, and not the other way around!  Indirectly, it might seem like Even ought adjust his strategy, or perhaps introduce noise into his selection frequency, but this is actually irrelevant (or even incorrect) when the game is played ad infinitum as: 
 
-### <a name="pdi" class="n"></a> 6. Prisoners' Dilemma 
+1. Odd is a rational agent who is not susceptible to psychological warfare, and 
+2. any selection frequency that doesn't converge on the the frequency needed to achieve the expected utility above does not maximize utility and is therefore a _losing strategy_.
 
-(Iterated, mind the apostrophe). In any _iterated_ game, where players are allowed to have repeated interactions with their opponent (or soon-to-be ally), strategies necessarily change, as we'll see in the next section about agents.  If two (or more) agents are able to play the same game over and over and over, learning one another strategies or strategy distributions.  Crucially, if the number of games to be played in a series is known, then each presumably rational agent is able to find a dominant, degenerate strategy.
+Even's best bet at this point is to flip his coin and present it to Odd!
+
+### <a name="pdi" class="n"></a> 6. Iterated Prisoners' Dilemma 
+
+Mind the apostrophe^^ the implication of iteration gives way to cooperation, hence the dilemma is shared between both players. 
+
+In any ***iterated*** game, where players are allowed to have repeated interactions with their opponent (or soon-to-be ally), strategies necessarily change, as we'll see in the next section about agents.  If two (or more) agents are able to play the same game over and over and over, learning one another strategies or strategy distributions.  Crucially, if the number of games to be played in a series is known, then each presumably rational agent is able to find a dominant, degenerate strategy.
 
 I.e. 
 
-> $P_1$ "I will back stab $P_2$ on the second to last game to maximize my utility"
+> $P_1$: "I will cooperate with $P_2$ until the second to last game at which point I will back stab her to maximize my utility."
 
-> $P_2$ "I suspect $P_1$ will back stab me on the second to last game, so I must preempt this strategy by betraying him on the third-to-last game
+> $P_2$: "I suspect $P_1$ will back stab me on the second to last game, so I must preempt this strategy by betraying her on the third-to-last game."
+
+> $\vdots$
+
+> $P_1$: "But if she suspects that I suspect that she suspects that I suspect,,, then I should just go mask off and stab $P_2$ in the face right now!!"
 
 and so on until we're back to square one.  However, if the number of games to be played is not known, then this backwards induction can no longer be applied effectively.  Interestingly enough, cooperation can organically and rationally be achieved in the iterated prisoners' dilemma. [Numerous meta-strategies](https://en.wikipedia.org/wiki/Prisoner%27s_dilemma#Strategy_for_the_iterated_prisoner's_dilemma) arise from iterated contexts which you've likely heard of including.
   
