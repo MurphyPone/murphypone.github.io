@@ -1,5 +1,5 @@
 ---
-title: "ML 2: A Discussion of Action Spaces"
+title: "12 | ML 2: A Discussion of Action Spaces"
 date: "2019-06-27"
 description: "RL"
 path: "/blog/ml-2"

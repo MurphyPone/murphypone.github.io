@@ -1,5 +1,5 @@
 ---
-title: "ML 3.5: A Post by Peter?"
+title: "16 | ML 3.5: A Post by Peter?"
 date: "2019-08-01"
 description: "Weird, but understandable, fixation on Judaism"
 path: "/blog/rnntesterdotpy"

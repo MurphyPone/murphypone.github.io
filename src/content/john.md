@@ -1,5 +1,5 @@
 ---
-title: "Understanding the Christology of the Gospel of John: The Bread of Life"
+title: "6 | Understanding the Christology of the Gospel of John: The Bread of Life"
 date: "2018-09-01"
 description: "Historical critcisim"
 path: "/blog/john"

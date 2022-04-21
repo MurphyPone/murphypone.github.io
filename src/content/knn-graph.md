@@ -1,5 +1,5 @@
 ---
-title: "Build a K-Nearest Neighbors Graph From Scratch"
+title: "10 | Build a K-Nearest Neighbors Graph From Scratch"
 date: "2019-05-12"
 description: "p5.js"
 path: "/blog/knn-graph"
@@ -246,7 +246,3 @@ function showKNN(nearest) {
   }
 }
 ```
-
-# Additional Resources
-
-sentdex

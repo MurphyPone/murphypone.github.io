@@ -1,5 +1,5 @@
 ---
-title: "Survey of U.S. Presidents"
+title: "3 | Survey of U.S. Presidents"
 date: "2017-12-15"
 description: "AP U.S. History"
 path: "/blog/presidents"

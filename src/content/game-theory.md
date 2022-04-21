@@ -1,5 +1,5 @@
 ---
-title: "Towards Computational Game Theory"
+title: "34 | Towards Computational Game Theory"
 date: "2022-04-17"
 description: "Philosophy, Economics"
 path: "/blog/game-theory"

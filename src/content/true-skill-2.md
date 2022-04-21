@@ -1,5 +1,5 @@
 ---
-title: "Digest: TrueSkill 2: Better Bayesian Assumptions Boogaloo"
+title: "22 | Digest: TrueSkill 2: Better Bayesian Assumptions Boogaloo"
 date: "2020-08-12"
 description: "Optimal Match Making using Bayesian Inference"
 path: "/blog/true-skill-2.md"

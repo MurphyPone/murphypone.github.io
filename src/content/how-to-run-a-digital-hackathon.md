@@ -1,6 +1,6 @@
 ---
-title: "How to Improve Your Digital Hackathon"
-date: "2020-10-26"
+title: "25 | How to Improve Your Digital Hackathon"
+date: "2020-10-25"
 description: "Everything as before + remote tools, engagement tactics, and more!"
 path: "/blog/how-to-run-a-digital-hackathon"
 ---

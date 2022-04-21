@@ -1,5 +1,5 @@
 ---
-title: "The Deafening Sound of Life : A Comparison of the Compson Brother’s Reactions to Tragedy"
+title: "1 | The Deafening Sound of Life : A Comparison of the Compson Brother’s Reactions to Tragedy"
 date: "2017-03-01"
 description: "Modernism"
 path: "/blog/faulkner"

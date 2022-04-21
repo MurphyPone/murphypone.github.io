@@ -1,5 +1,5 @@
 ---
-title: "Digest: Extensional vs. Intuitive Reasoning"
+title: "13 | Digest: Extensional vs. Intuitive Reasoning"
 date: "2019-07-05"
 description: "A Summary of a Summary of a Summary"
 path: "/blog/extensional-vs-intuitive"

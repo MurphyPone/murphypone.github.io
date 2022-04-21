@@ -1,5 +1,5 @@
 ---
-title: "ML 1: Reinforcement Learning, So Hot Right Now"
+title: "11 | ML 1: Reinforcement Learning, So Hot Right Now"
 date: "2019-06-26"
 description: "Overview of a Summary of Reinforcement Learning"
 path: "/blog/ml-1"

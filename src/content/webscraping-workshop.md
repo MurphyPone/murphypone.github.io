@@ -1,5 +1,5 @@
 ---
-title: "Webscraping Workshop"
+title: "27 | Webscraping Workshop"
 date: "2020-11-19"
 description: "Python, BeautifulSoup, Pandas"
 path: "/blog/webscraping-workshop"

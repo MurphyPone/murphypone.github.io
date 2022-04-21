@@ -1,5 +1,5 @@
 ---
-title: "Garbage Collection"
+title: "24 | Garbage Collection"
 date: "2020-10-15"
 description: "Python"
 path: "/blog/garbage-collection"

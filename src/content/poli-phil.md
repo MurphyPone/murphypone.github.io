@@ -1,5 +1,5 @@
 ---
-title: "PoliSci Annotated Bibliography"
+title: "5 | PoliSci Annotated Bibliography"
 date: "2018-08-01"
 description: "~facts~ + *logic*"
 path: "/blog/philbib"

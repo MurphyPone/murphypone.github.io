@@ -1,5 +1,5 @@
 ---
-title: "Justification by Faith: The Letter to the Hebrews"
+title: "8 | Justification by Faith: The Letter to the Hebrews"
 date: "2018-10-01"
 description: "Historical critcisim"
 path: "/blog/hebrews"

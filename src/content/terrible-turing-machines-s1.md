@@ -1,5 +1,5 @@
 ---
-title: "Terrible Turing Machines - Season 1"
+title: "17 | Terrible Turing Machines - Season 1"
 date: "2019-08-01"
 description: "too much free time"
 path: "/blog/terrible-turing-machines-s1"

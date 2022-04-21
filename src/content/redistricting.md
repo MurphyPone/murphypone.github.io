@@ -1,5 +1,5 @@
 ---
-title: "Abdicating to the Algorithms: Solving the Redistricting Problem"
+title: "32 | Abdicating to the Algorithms: Solving the Redistricting Problem"
 date: "2021-12-13"
 description: "Computation, Philosophy, Politics, and Economics"
 path: "/blog/redistricting"

@@ -1,5 +1,5 @@
 ---
-title: "Fibonacci Numbers as Conversion Heuristics"
+title: "18 | Fibonacci Numbers as Conversion Heuristics"
 date: "2019-10-11"
 description: "Python, Visdom"
 path: "/blog/fibonacci-fun"

@@ -1,5 +1,5 @@
 ---
-title: "Digest: Occam's Razor"
+title: "23 | Digest: Occam's Razor"
 date: "2020-10-14"
 description: "Daniel's Knowledge, ~simplicity~"
 path: "/blog/occcam-and-his-razor"

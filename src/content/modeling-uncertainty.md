@@ -1,5 +1,5 @@
 ---
-title: "Digest: Modeling Uncertainty"
+title: "31 | Digest: Modeling Uncertainty"
 date: "2021-08-13"
 description: "Daniel's knowledge, Monte Carlo simulations"
 path: "/blog/modeling-uncertainty"

@@ -1,5 +1,5 @@
 ---
-title: "Comparing Apples and Oranges"
+title: "2 | Comparing Apples and Oranges"
 date: "2017-08-14"
 description: "Husserl and phenomenology"
 path: "/blog/apples-oranges"

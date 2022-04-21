@@ -1,5 +1,5 @@
 ---
-title: "Digest: Why Most Published Research Findings Are False"
+title: "20 | Digest: Why Most Published Research Findings Are False"
 date: "2020-06-24"
 description: "Daniel's Knowledge"
 path: "/blog/research-is-false"

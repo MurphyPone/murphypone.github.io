@@ -1,5 +1,5 @@
 ---
-title: "'Places Traveled' React Component"
+title: "26 | 'Places Traveled' React Component"
 date: "2020-10-26"
 description: "Google Maps API, react"
 path: "/blog/places-traveled"

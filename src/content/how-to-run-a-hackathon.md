@@ -1,5 +1,5 @@
 ---
-title: "How to Improve Your Hackathon"
+title: "19 | How to Improve Your Hackathon"
 date: "2019-11-11"
 description: "A plan, a good team, and lots of lead time!"
 path: "/blog/how-to-run-a-hackathon"

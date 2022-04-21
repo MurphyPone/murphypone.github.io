@@ -1,5 +1,5 @@
 ---
-title: "ML 4: Kit & Kaboodle"
+title: "21 | ML 4: Kit & Kaboodle"
 date: "2020-06-26"
 description: "Sutton, Barto, Bhoag"
 path: "/blog/ml-4"

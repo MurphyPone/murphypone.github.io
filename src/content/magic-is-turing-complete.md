@@ -1,5 +1,5 @@
 ---
-title: "Digest: Magic: the Gathering is Turing Complete"
+title: "29 | Digest: Magic: the Gathering is Turing Complete"
 date: "2021-03-05"
 description: "Daniel's Knowledge, TERRIBLE TURING MACHINES SEASON 2 BABY!!"
 path: "/blog/mtg-turing-complete"

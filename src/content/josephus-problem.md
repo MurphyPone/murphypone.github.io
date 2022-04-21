@@ -1,5 +1,5 @@
 ---
-title: "Visualizing the Josephus Problem"
+title: "28 | Visualizing the Josephus Problem"
 date: "2020-12-17"
 description: "p5.js"
 path: "/blog/josephus-problem"

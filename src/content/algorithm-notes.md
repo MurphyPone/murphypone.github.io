@@ -1,5 +1,5 @@
 ---
-title: "CS 4104 Algorithms Notes"
+title: "30 | CS 4104 Algorithms Notes"
 date: "2021-07-01"
 description: "Graphs, analysis, networks flows, borderline fake math"
 path: "/blog/algorithm-notes"

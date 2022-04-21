@@ -1,5 +1,5 @@
 ---
-title: "The Post-Revolutionary Literary Revolutionary"
+title: "4 | The Post-Revolutionary Literary Revolutionary"
 date: "2018-03-01"
 description: "Modernism, but Egyptian"
 path: "/blog/mahfouz"

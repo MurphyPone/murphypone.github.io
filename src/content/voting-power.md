@@ -1,5 +1,5 @@
 ---
-title: "Voting Power"
+title: "33 | Voting Power"
 date: "2022-03-31"
 description: "Shapley-Shubrik, Banzhaf, python, a suspicious amount of hypotheticals"
 path: "/blog/voting-power"
