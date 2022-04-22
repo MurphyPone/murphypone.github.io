@@ -37,11 +37,11 @@ $$
 
 But we can go even further to strive for statistical rigor in terms of the fairness of our judges' outcome.  As Anish points out, normalization in this manner is ineffective unless judges view a majority of projects. This is covered in more depth later on in the explanation of the graph construction which underlies Gavel, but a decent high level model of understanding would be that _unless the judges scores enough projects overlapping with the normalized scores of other judges as well_, the result will just be a disconnected graph of normalized scores which have no relation to one another.  (The proposed alternative covered in the second half of this post resolves this issue by dispatching cohorts of judges with explicit overlap of project coverage).
 
-We could also just do away with these absolute scores entirely, and instead opt for a means of scoring which produces a transitive set of ordered preferences from out judges via [Condorcet Methods](https://en.wikipedia.org/wiki/Condorcet_method).
+We could also just do away with these absolute scores entirely, and instead opt for a means of scoring which produces a transitive set of ordered preferences from our judges via [Condorcet Methods](https://en.wikipedia.org/wiki/Condorcet_method).
 
 ## Condorcet Methods
 
-Condorcet methods attempt to find a **pairwise champion** given a set of options.  That is, the candidate who wins the majority vote in _every_ head-to-head election against each other opponent.  There is not a guarantee of finding a condorcet winner with multiple voters, though individual preferences are guaranteed to be transitive since voters are forced to order their preferences. E.g. Judge 1 might have the following preferences over a set of options present to him: $J_1: A \succ D \succ C \succ B$.
+Condorcet methods attempt to find a **pairwise champion** given a set of options.  That is, the candidate who wins the majority vote in _every_ head-to-head election against each other opponent.  There is not a guarantee of finding a Condorcet winner with multiple voters, though individual preferences are guaranteed to be transitive since voters are forced to order their preferences. E.g. Judge 1 might have the following preferences over a set of options presented to him: $J_1: A \succ D \succ C \succ B$.
 
 Resolving the paradoxes that might arise in the absence of a Condorcet winner (i.e. an election between rock, paper, and scissors determined by $R \succ S, P \succ R, S \succ P$) is possible with other extensions of social choice theory in order to mitigate the influence of bias and strategic voting. 
 
@@ -51,7 +51,7 @@ Resolving the paradoxes that might arise in the absence of a Condorcet winner (i
 
 An election will have a Condorcet winner if and only if one candidate is preferred over all others after a pairwise comparison between each option. A Condorcet method finds the corresponding winner if one exists among $n$ candidates using $n-1$ pairwise comparisons.  Counts are conducted by pitting every option or candidate against every other.  The result of a sequence of these elections can be represented as a matrix or a directed graph:
 
-Suppose we have judges $J_1$ with preferences $D \succ A \succ C \succ B$ and $J_2$ with preferences $A \succ C \succ B \succ D$, the matrix representations would be:
+Suppose we have judges $J_1$ with preferences $D \succ A \succ C \succ B$ and $J_2$ with preferences $A \succ C \succ B \succ D$, their matrix representations would be:
 
 $$
 \begin{aligned}
@@ -107,7 +107,7 @@ J_2 =
 \end{aligned}
 $$
 
-where rows entries represent victories of the incumbent over the columnal opponent.  Therefore $J_{\Iota_{ij}}$ represents the number of times the incumbent was favored over an opponent by the $\Iota^{th}$ Judge.
+where row entries represent victories of the incumbent over the columnal opponent.  Therefore $J_{\Iota_{ij}}$ represents the number of times the incumbent was favored over an opponent by the $\Iota^{th}$ Judge.
 
 Via matrix addition, we can combine Judges' scores to get the following measure of cumulative pairwise preferences:
 
@@ -130,7 +130,7 @@ $$
 \end{aligned}
 $$
 
-Here, option $A$ is the Condercet winner since it beat every other candidate the most times.
+Here, option $A$ is the Condorcet winner since it beat every other candidate the most times.
 
 As a directed graph, these preferences and outcomes resemble the following, where a directed edge from $v_i$ to $v_j$ indicates that $v_j$ was favored over $v_i$:
 
@@ -139,6 +139,8 @@ $$
     v_i \rarr v_j \implies v_j \succ v_i
 \end{aligned}
 $$
+
+(refer to the Rock, Paper, Scissors election above for a more intuitive illustration).
 
 $J_1 = $
 
@@ -178,7 +180,7 @@ $$
 
 yielding a directed graph on $n$ nodes $e_1, e_2, ..., e_n$ with edge $(v_i, v_j)$ having $w_{ij} \geq 0$.
 
-From this formal representation, the algorithm proceeds.  While a topological sort produces an ordering that no judges disagree with, one such ordering might not exist since $G$ could be cyclic. To ameliorate this possibility, Gavel introduces a cost function to optimize.
+From this formal representation, the algorithm proceeds.  While a topological sort produces an ordering that no judges disagree with, one such ordering might not exist since the resulting graph $G$ could be cyclic. To ameliorate this possibility, Gavel introduces a cost function to optimize.
 
 Given $G = (V, E)$ with edges $(v_i, v_j)$ having weight $w_{ij}$, a permutation of nodes can be defined as $\sigma: \{1,2, ..., |V| \}$, with backward edges defined as a function of the permutation:
 
@@ -205,7 +207,7 @@ $$
 \end{aligned}
 $$
 
-Informally, this optimization finds the ranking that the fewest judges disagree with.  This is also an NP-hard problem (which in and of itself makes reasoning about it less accessible than, say, a spreadsheet).
+Informally, this optimization finds the ranking that the fewest judges disagree with (regardless of whether or not a cycle exists in the graph – so it's just about as close to a "strict" topological sort as possible).  This is also an NP-hard problem (which in and of itself makes reasoning about it less accessible than, say, a spreadsheet).
 
 Anish goes on to engage in a brief psychological lit review in order to justify some useful assumptions which help simplify the model.  
 
@@ -216,7 +218,7 @@ An option's _true_ quality is the mean of the corresponding distribution.  Given
 ![](https://www.anishathalye.com/_next/static/images/gaussians-a8cd66910b95dd8791b596cfaff5fd4b.png.webp)
 
 
-For example, consider two options $X, Y$: 
+For example, consider two options $X, Y$ whose values are sampled from a normal distribution: 
 
 $$
 \begin{aligned}
@@ -240,7 +242,7 @@ $$
     \phi(z) = \frac{1}{\sqrt(2\pi)}e^{-\frac{1}{2}z^2}
 $$
 
-With this information, we can compute the probability that a judge will choose a given option: 
+With this information, we can compute the probability that a judge will select option $A$ over $B$: 
 
 $$
 P(X > Y) = P(X - Y > 0)
@@ -275,7 +277,7 @@ Given a single pair of options $X,Y$, the number of times each option is chosen 
 $$
 \begin{aligned}
     L(x,y) &= P(x, y | \mu_{XY}) \\
-    &= {{ x + y } \choose x } P(X > Y)^x P(X > Y)^y \\
+    &= {{ x + y } \choose x } P(X > Y)^x P(Y > X)^y \\
     &= {{ x + y } \choose x } \Phi(\mu_{XY})^x \Phi(-\mu_{XY})^y
 \end{aligned}
 $$
@@ -307,7 +309,7 @@ $$
 \end{aligned}
 $$
 
-In order to achieve a sound global ranking, we need to collect a sufficient amount of comparisons to construct a connected graph (lest we suffer the same pitfalls of relying on localized normalization of absolute scores from our judges as mentioned earlier). A good way to guarantee robust data collection (which holds for the alternative model to be proposed shortly as well) is to have the judges rank a sequence of options.  Gavel deviates from the alternative by rigidly sticking to pairwise comparisons and having each $i^{th}$ option be pitted against the next consecutive option, resulting in $n-1$ data points for $n$ elections adjudicated by a given judge.
+In order to achieve a sound global ranking, we need to collect a sufficient amount of comparisons to construct a connected graph (lest we suffer the same pitfalls of relying on localized normalization of absolute scores from our judges as mentioned earlier). A good way to guarantee robust data collection (which holds for the alternative model to be proposed shortly as well) is to have the judges rank a sequence of options.  Gavel deviates from the alternative by rigidly sticking to pairwise comparisons and having the winner of a comparison between $(i, i+1)$ be compared to $i+2$, carrying the winning option until it's defeated, and then using the new winner as the incumbent resulting in $n-1$ data points for $n$ elections adjudicated by a given judge.
 
 Phew, hopefully that wasn't too dense.  Let's now consider what I contend is a more accessible, extensible, and transparent approach which produces comparable outcomes.
 
@@ -315,7 +317,7 @@ Phew, hopefully that wasn't too dense.  Let's now consider what I contend is a m
 
 Stack judging relies on some of the same core principles of the Condorcet optimization techniques employed above.  The Big Idea™️ is that, instead of using arguably slow pairwise comparisons, we instead assign judges **batches** of projects to evaluate and rank using a [Borda Count](https://en.wikipedia.org/wiki/Borda_count#:~:text=The%20Borda%20count%20is%20a,number%20of%20candidates%20ranked%20lower.).   
 
-For example, if a judge is assigned 15 projects to evaluate, they would be divided into a set amount of batches (say 3 batches of 5 teams apiece) as well as votes with weights $\{5, 4, 3, 2, 1 \}$ to assign to each project, where the best project in the batch would be awarded 5 points, the 2nd best 4 points and so on.  (For larger batches, Borda counts are still _correct_ if voters are allotted fewer weighted votes than candidates.  E.g., the same set of $\{5, 4, 3, 2, 1 \}$ could be discretely distributed across more than 5 projects, with the "losing" options receiving 0 points).  
+For example, if a judge is assigned 15 projects to evaluate, they would be divided into a set amount of batches (say 3 batches of 5 teams apiece) as well as votes with weights $\{5, 4, 3, 2, 1 \}$ to assign to each project, where the best project in the batch would be awarded 5 points, the second best 4 points and so on.  (For larger batches, Borda counts are still _correct_ if voters are allotted fewer weighted votes than candidates.  E.g., the same set of $\{5, 4, 3, 2, 1 \}$ discrete votes could be discretely distributed across more than 5 projects, with the "losing" option(s) receiving 0 points).  
 
 ## Judging Allocations
 
@@ -343,15 +345,17 @@ The greatest strengths of Stack Judging is that it can be orchestrated via a col
 
 This is where you'll import your submission data.  The example provided expects Devpost data because that's the de facto standard. If I'm going to die on any hills, the first is that you should use Stack Ranking, and the second is that you should use Devpost.  
 
-From the hackathon management > metrics tab within Devpost, export your submission data and import > replace the current sheet.  All we're really concerned about is the `Project Title` and `Submission Url` columns, so if you're using something other than Devpost, you can substitute the appropriate fields here. 
+From the hackathon management > metrics tab within Devpost, export your submission data and import > replace the current sheet with your submission data.  All we're really concerned about is the `Project Title` and `Submission Url` columns, so if you're using something [other than Devpost](https://64.media.tumblr.com/bb644ae076b433a05c509362bc22bda2/tumblr_pdz8e4tiMA1x6m6njo2_500.gifv), you can substitute the appropriate fields here. 
 
-The rest of the columns are still useful if you need to go searching for a specific project by keyword or whatever.  For the sake of this example, all of the submission URLs are the same, but obviously yours would reflect your event's actual submissions.
+The rest of the columns are still useful if you need to go searching for a specific project by keyword or whatever.  For the sake of this example, all of the submission URLs are the same, but obviously your data would reflect your event's actual submissions.
 
 ![](/images/judging-6.png)
 
 ### Confirmed Judges
 
 This is where you'll enumerate all your judges.  Big thanks to Judges A through L for volunteering for my fictitious event this evening.
+
+![](/images/judging-7.png)
 
 ### Judges Progress
 
@@ -364,19 +368,19 @@ To configure this tab, an organizer has to import each judge's personal rubric i
 =COUNTIF(IMPORTRANGE("<SHEET_URL>", "A2:A"), ">=0")
 ```
 
-You should be prompted to _allow access_ to the sheet.  If you don't see a prompt, try removing the enclosing `=COUNTIF()` command momentarily.
+You should be prompted to _allow access_ to the sheet.  If you don't see a prompt, try removing the enclosing `=COUNTIF()` command momentarily so that the `=IMPORTRANGE` command is the outermost instruction, then re-adding the `COUNTIF` command once you've accepted the dialogue box that should pop up to allow sharing access between the Master sheet and that individual judge's rubric sheet..
 
 ![](/images/judging-1.png)
 
-This gives us a useful completion metric for each judge by counting how many rows in their personal rubric sheet have non-zero scores.  Here we can see that Judges A and C have filled out some scores (although damning) for all their assignments as reflected by the completion bar, thanks Judges A and C!
+This gives us a useful completion metric for each judge by counting how many rows in their personal rubric sheet have non-zero scores.  Here we can see that Judges A and C have filled out some scores in their individual rubrics (although damning) for all their assignments as reflected by the completion bar, thanks Judges A and C!
 
 ### Individual Rubrics
 
-On the matter of **individual rubrics** you'll also find several other spreadsheets in the shared folder; one for each judge.  This is a place for judges to cast keep track of their project scores.  The axes of criteria are arbitrary, but it's recommended that you calibrate your judges with some examples of what a 10/10 in $XYZ$ category means versus, say, a 2/10. 
+On the matter of **individual rubrics** you'll also find several other spreadsheets in the shared folder; one for each judge.  This is a place for judges to cast their absolute project scores.    
 
 Once judges receive project range assignments, they ought to copy columns A, B, and C from the **Stack Judging** tab into the same columns within their personal rubric (or, you can do this for them if you have the bandwidth).
 
-Similarly to Gavel, _we don't actually care at all_ what the absolute scores judges ascribe to their assigned projects are– only the relative orderings of projects in their batches.  
+The axes of criteria are arbitrary, but it's recommended that you calibrate your judges with some examples of what a 10/10 in $XYZ$ category means versus, say, a 2/10. Similarly to Gavel, _we don't actually care at all_ what the absolute scores judges ascribe to their assigned projects are– only the relative orderings of projects in their batches. 
 
 ![](/images/judging-2.png)
 
@@ -388,7 +392,7 @@ It's recommended that this whole process is demonstrated to judges in advance of
 
 The breakable bits of this tab can be further obfuscated as you see fit, but centralizing the data helps minimize the amount of time spent juggling browser windows.
 
-Note that the batch assignments are staggered to achieve the same effect as the sequential judging assignment noted described in Gavel's data collection process.  Here, the goal is to construct a connected graph as well, but we don't concern ourselves with actually _thinking about the graph_, just making sure we have overlap.  I'm also aware that teams 1-10, and 21-30 are disadvantaged in this illustration as they are viewed by fewer cohorts of judges than the middle range.  In practice, you would "wrap around" the range of team submissions to guarantee equal amounts of viewing for each team.
+Note that the batch assignments are staggered to achieve the same effect as the sequential judging assignment described in Gavel's data collection process.  Here, the goal is to construct a connected graph as well, but we don't concern ourselves with actually _thinking about the graph_, just making sure that we have overlap.  I'm also aware that teams 1-10, and 21-30 are disadvantaged in this illustration as they are viewed by fewer cohorts of judges than the middle range.  In practice, you would "wrap around" the range of team submissions to guarantee equal amounts of viewing for each team.
 
 With respect to the _extensibility_ of this spreadsheet, see also rows 2-4.  For unique categories like those included in the example, you might also provide additional criteria for judges to keep in mind when viewing project demos.  In this example, the categorical eligibility spans all the projects assigned to a judge, and they're asked to pick some teams to nominate for those categories.  The mode of each of those rows is calculated in the **Winners** tab to automatically select a winner.
 
@@ -406,7 +410,7 @@ This tab is pretty self-explanatory insofar as it imports the `Overall Score` co
 
 I chose to leave this tab in as a reminder that, as the organizers of your event, you should feel empowered to make executive decisions in order to keep the event on schedule.  If you wish to spread the wealth of prizes across submissions so that the sense of accomplishment of your participants can be shared by more folks, then you should do so! 
 
-This is also why the Winners tab displays the top 10 overall projects rather than just 3.  If one project sweeps all the categories, and you'd rather have 7 winning teams rather than 1 mega project which wins all the prizes, then you can quickly select the runner up in any given category to find the next eligible team. Yes this whole post is about equitable judging outcomes, but at the end of the day, I am not beholden to math, and neither are you.  We're here to have fun and deliver fun, after all. 
+This is also why the Winners tab displays the top 10 overall projects rather than just 3.  If one project sweeps all the categories, and you'd rather have 7 winning teams rather than 1 mega project which wins all the prizes, then you can quickly select the runner up in any given category to find the next eligible team. Yes, this whole post is about equitable judging outcomes, but at the end of the day, I am not beholden to math, and neither are you.  We're here to have fun and deliver fun, after all. 
 
 As the wikipedia article on Borda Counts methods mentions: 
 
