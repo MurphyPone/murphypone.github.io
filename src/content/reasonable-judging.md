@@ -37,7 +37,7 @@ $$
 
 But we can go even further to strive for statistical rigor in terms of the fairness of our judges' outcome.  As Anish points out, normalization in this manner is ineffective unless judges view a majority of projects. This is covered in more depth later on in the explanation of the graph construction which underlies Gavel, but a decent high level model of understanding would be that _unless the judges scores enough projects overlapping with the normalized scores of other judges as well_, the result will just be a disconnected graph of normalized scores which have no relation to one another.  (The proposed alternative covered in the second half of this post resolves this issue by dispatching cohorts of judges with explicit overlap of project coverage).
 
-We could also just do away with these absolute scores entirely, and instead opt for a means of scoring which produces a transitive set of ordered preferences from out judges via [Condorcet Methods](https://en.wikipedia.org/wiki/Condorcet_method#:~:text=A%20Condorcet%20method%20(English%3A%20%2F,there%20is%20such%20a%20candidate.).
+We could also just do away with these absolute scores entirely, and instead opt for a means of scoring which produces a transitive set of ordered preferences from out judges via [Condorcet Methods](https://en.wikipedia.org/wiki/Condorcet_method).
 
 ## Condorcet Methods
 
@@ -45,7 +45,7 @@ Condorcet methods attempt to find a **pairwise champion** given a set of options
 
 Resolving the paradoxes that might arise in the absence of a Condorcet winner (i.e. an election between rock, paper, and scissors determined by $R \succ S, P \succ R, S \succ P$) is possible with other extensions of social choice theory in order to mitigate the influence of bias and strategic voting. 
 
-TODO image of RPS paradox
+![](/images/judging-rps.png)
 
 (There are numerous methods for tie-breaking and revealing voter preferences of ordering detailed in the linked articles.) Gavel's approach is to minimize the amount of disagreement between electors.  
 
