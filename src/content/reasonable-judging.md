@@ -7,7 +7,7 @@ path: "/blog/reasonable-judging"
 
 # Preface
 
-I want to preface this post by saying that I have the utmost respect for [Anish Athalye](https://www.anishathalye.com/), the creator of [Gavel](https://www.anishathalye.com/2015/03/07/designing-a-better-judging-system/), for doing hacker praxis and creating a practical tool which attempts to solve an issue he and his team experienced when coordinating judges for hackathon project submissions. Gavel is super a neat tool which uses some sophisticated graph theory to attempt to produce _the fairest ranking_ of projects.
+I want to preface this post by saying that I have the utmost respect for [Anish Athalye](https://www.anishathalye.com/), the creator of [Gavel](https://www.anishathalye.com/2015/03/07/designing-a-better-judging-system/), for doing hacker praxis and creating a practical tool which attempts to solve an issue he and his team experienced when coordinating judges for hackathon project submissions. Gavel is a super neat tool which uses some sophisticated graph theory to attempt to produce _the fairest ranking_ of projects.
 
 **But... organizers should not use Gavel.**  In this post I want to provide a comparison between Gavel and another, nearly-as-equitable solution to the challenge of judging projects which, in my humble opinion, is vastly more accessible, extensible, and transparent.
 
