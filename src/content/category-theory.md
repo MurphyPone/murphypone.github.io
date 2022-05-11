@@ -34,6 +34,7 @@ This is a collection notes on Category Theory for personal reference.
 - ### [5 | Products and Coproducts](#prog-ch5)
 - ### [6 | Simple Algebraic Data Types](#prog-ch6)
 - ### [7 | Functors](#prog-ch7)
+- ### [8 | Functoriality](#prog-ch8)
 
 ## <a name="glossary" class="n"></a> Glossary 
 
@@ -1082,3 +1083,380 @@ An infinite sum of product tuples which can be:
   - We also need to preserve the composition of these morphisms.  E.g., if we have $h = g \circ f$, we want its image under $F$ to be a composition of the images of $f, g$
 
 ![](/images/category-theory-10.png)
+
+- Finally, we want all identity morphisms in $\mathbf{C}$ to be mapped to the identity morphisms in $\mathbf{D}$:
+
+$$
+F\mathbf{id}_a = \mathbf{id}_{Fa}
+$$
+
+where $\mathbf{id}_a$ is the identity at object $a$ and $\mathbf{id}_{Fa}$ is the identity at $Fa$.
+
+- Not that functors are more restrictive than regular functions in that they _must_ preserve the structure of the program.  They can't introduce and "tears," but they can "combine" morphisms. 
+  - This restriction is roughly analogous to the occasional requirement of continuity of functions in calculus
+- Functors can also collapse and embed, just like functions as described earlier, where embedding is more prominent when the source category is smaller than the target category; I.e., the source being the Singleton, and the target is any other arbitrary Category (excluding the empty category, of course)
+- A functor from a singleton to any other category will just select an object from the target, just like a morphisms from a singleton set
+- The maximally collapsing functor is called the constant $\Delta_\mathbf{C}$, which maps every object in the source category to one object in $\mathbf{C}$, the target, and also maps every morphism in the source to the identity $\mathbf{id_C}$
+  - It's like a black hole
+
+### 7.1 - Functors in Programming
+
+- We have the category of types and functions
+- An **endofunctor** of this category maps to the category itself
+
+#### 7.1.1 - The Maybe Functor
+
+Recall the `Maybe` doohicky:
+
+```haskell
+data Maybe a = Nothing | Just a
+```
+
+Here, `Maybe` is not a type, but a **_type constructor_**.  It needs a type argument to be a type, otherwise it's just a function on types
+
+For example, for any function from `a` to `b`: 
+
+```haskell
+f :: a -> b
+```
+
+we want to produce a function 
+
+```Haskell
+Maybe a -> Maybe b
+```
+
+- In the case of having `Nothing` in the `Maybe`, we just return `Nothing`
+- In the case of `Just`, we apply `f` to its contents such that the image of `f` under `Maybe` is 
+
+```haskell
+f' :: Maybe a -> Maybe b
+f' Nothing = Nothing
+f' (Just x) = Just (f x)
+```
+
+- In Haskell, we can implement the morphism-mapping part of a functor as a higher order function call `fmap`, which would resemble the previous case:
+  
+```haskell
+fmap :: (a -> b) -> (Maybe a -> Maybe b)
+```
+
+![](/images/category-theory-11.png)
+
+- We say that a `fmap` _lifts_ a function
+- To show that the type constructor `Maybe` along with the `fmap` function forms a functor, we have to show that `fmap` preserves both identity and composition: the Functor Laws 
+
+#### 7.1.2 - Equational Reasoning
+
+- Equational reasoning is a means of proof which relies on substitution.  I.e., base on the definition of `fmap` given above, if we saw an expression like `fmap f Nothing`, we could replace it with just `Nothing`
+- Using this to show that `fmap` preserves identity we get:
+
+```haskell
+fmap id = id -- which has two cases
+
+-- case Nothing
+fmap id Nothing = Nothing      -- the definition of fmap
+                = id Nothing   -- definition of id
+
+-- case Something
+fmap id (Just x) = Just (id x) -- definition of fmap
+                 = Just x      -- definition of id
+                 = id (Just x) -- definition of id 
+```
+
+- Then, to show preservation of composition:
+
+```haskell
+fmap (g . f) = fmap g . fmap f 
+
+-- case Nothing
+fmap (g .f) Nothing = Nothing        -- definition of fmap
+                    = fmap g Nothing -- definition of fmap
+                    = fmap g (fmap f Nothing)
+                                     -- definition of fmap
+
+-- case Something
+fmap (g .f) (Just x) = Just ((g . f) x)    -- definition of fmap
+                     = Just (g (f x))      -- definition of composition
+                     = fmap g (Just (f x)) -- definition of fmap
+                     = fmap g (fmap f (Just x)) 
+                                           -- definition of fmap
+                     = (fmap g . fmap f) (Just x) 
+                                           -- definition of composition
+```
+
+#### 7.1.3 - Optional
+
+- Ugly sketch of an implementation in c++ 
+
+#### 7.1.4 - Typeclasses
+
+- How do we abstract the functor 
+  - This is an utterly psycho question. Where do you draw the line bruh
+- Typeclasses define a family of types that support a common interface 
+
+For example, the class of objects which support equality:
+
+```haskell
+class Eq a where
+  (==) :: a -> a -> bool
+
+data Point = Pt Float Float 
+instance Eq Point where
+  (Pt x y) == (Pt x' y') = x == x' && y == y'
+
+```
+
+- Problem: a functor is not defined as a type, but as a mapping of types... But Haskell typeclasses work with type constructors as well as types:
+
+```haskell
+class Functor f where
+  fmap :: (a -> b) -> fa -> fb
+```
+
+Here, `f` is a functor, and if there exists an `fmap` w that type signature, then the Haskell compiled can deduce that `f` is a type constructor, not a type
+
+```haskell
+instance Functor Maybe where
+  fmap _ Nothing = Nothing
+  fmap f (Just x) = Just (f x)
+```
+
+#### 7.1.5 - Functor in c++
+
+- I sleep
+
+#### 7.1.6 - The List Functor
+
+- Any type that is parameterized by another type is a good candidate for to be a functor, I.e., most generic collections
+
+```haskell
+data List a = Nil | Cons a (List a)
+```
+
+- To show that `List` is a functor, we have to define the lifting functions: given a function `a -> b`, define a function `List a -> List b`
+
+```haskell
+fmap :: (a -> b) -> (List a -> List b)
+```
+
+which also has two cases:
+
+- `Nil`: easy, since there's not much to do with an empty list
+- `Cons List a`: a bit tricky with recursion:
+  - We have a list of `a`, a function `f` that turns `a -> b`, and we want a list of `b`
+  - The constructor `Cons` joins the head of a list with the tail
+  - We apply `f` to the head and apply the lifted `f` to the tail
+
+```haskell
+fmap f (Cons x t) = Cons (f x) (fmap f t)
+-- this is recursively bound by the necessarily shrinking 
+-- portion of the list until we reach Nil and we have 
+-- previously defined: fmap f Nil = Nil, which will terminate
+```
+
+All together then:
+
+```haskell
+instance Functor List where
+  fmap _ Nil = Nil
+  fmap f (Cons x t) = Cons (f x) (fmap f t)
+```
+
+#### 7.1.7 - Reader Functor
+
+- Consider a mapping of type `a` to the type of a function returning `a`
+  - Mappings of function types are coming down the road, but we have some programming intuition about function types
+
+- `(a ->b)` takes `a` and returns `b` and is equivalent to `(->) a b`
+
+- Just like with regular functions, type functions of more than one argument can be _partially_ applied such that when we provide just one type argument, it still expects another on, meaning that `(->) a` is a type constructor, awaiting a type `b` to produce a complete type signature
+- This defines a whole family of type constructors parameterized by `a`.  
+  - Are they functors, though?  Lets rename the argument type to be `r` and the result type to be `a` so the type `Cons` takes any type `a` and maps it to type `r -> a`.  
+  - To show that it's a functor, we need to lift a function `a -> b` to a function `(->) a` which returns `(r -> b)` (the types formed using the type constructor `(-> r)` acting on `a, b` respectively)
+
+
+```haskell
+fmap :: (a -> b) -> (r -> a) -> (r -> b)
+```
+
+Given a function 
+
+```haskell
+f :: a -> b
+```
+and 
+
+```haskell
+g :: r -> a
+```
+
+we want to create `r -> b`, and there is only one way to compose `f, g` and the result is `r -> b`
+
+```haskell
+instance Functor ((->) r) where
+  fmap f g = f . g -- equiv. to just fmap = (.)
+```
+
+### 7.2 - Functors as Containers
+
+- The reader functor treats functions as data which should feel a bit abnormal, but recall that functions can be memoized and execution can be tabularizeed
+- In may functional programming languages, traditional collections may be implemented as functions
+
+```haskell
+naturals :: [Integer] -- built in type constructor 
+naturals :: [1..]     -- list literal, can't be stored in memory
+                      -- but the compiler implements as a function that 
+                      -- generates ints on demand
+```
+
+Thus, we can blur the lines and move freely between code <--> data
+- Think of the functor object (generated by an endofunctor) as containing a value or values of the type over which it is parameterized, even if those values are not physically present
+  - It _may_ contain the value, or the recipe for generating those values
+  - `Future` may have the value, maybe not 
+  - From a functor level, we [_don't care_](https://www.youtube.com/watch?v=kXLu_x0SRm4) if we can access the values at any given time, just that they can be manipulated and composed properly
+
+To illustrate that, let's define a type which completely ignores its argument
+
+```haskell
+Data Const c a = Const c
+fmap :: (a -> b) -> Const c -- I don't care, I don't
+-- because functor ignores the argument, 
+-- the impl of fmap is free to ignore its function args
+
+instance Functor (Const c) where
+  fmap _ (Const v) = Cons v
+```
+
+Observe that the Constant functor is a special case of $\Delta_\mathbf{C}$: the endofunctor case of the black hole
+
+### 7.3 - Functor Composition
+
+- Jsut as functions compose between sets, functors compose between categories
+- Recall the `maybeTail` example:
+
+
+```haskell
+maybeTail :: [a] -> Maybe [a]
+maybeTail [] = Nothing
+maybeTail (x:xs) = Just xs
+```
+
+- What if we want to apply some `f` to the contents of the composite `Maybe List`?
+  - We have to break through two layers of functors.  `fmap` breaks through the outer, `Maybe` later, but we can't just send `f` inside `Maybe` because it doesn't work on Lists.  We have to send `(fmap f)` to operate on the inner list: 
+
+For example, if we want to swuare the elements of a `Maybe List`:
+
+```haskell
+square x = x * x
+
+ms :: Maybe [Int]
+ms = Just [1, 2, 3]
+
+ms2 = fmap (fmap square) ms
+```
+
+The compiler will recognize that he first, outer `fmap` pertains to the `Maybe` component, and the inner `fmap` to the `List`, which is also equivalent to 
+
+```haskell
+ms2 = (fmap . fmap) square ms
+-- since a functor can be considered a function with one arg:
+fmap :: (a -> b) -> (f a -> f b)
+-- and in our case, the 2nd fmap in (fmap . fmap) takes as its argument
+square :: Int -> Int
+-- and returns
+[Int -> Int]
+-- first fmap then takes that function and returns a function 
+Maybe [Int] -> Maybe [Int]
+-- finally, that function is applied to ms
+```
+
+- It's obvious that functor composition is associative and that there exists a trivial identity functor in every category which maps every object to itself, and every morphism to itself
+  - So, functors have all the same properties as morphisms in some category
+  - But _what_ category? It would have to be a category in which objects themselves are categories, and morphisms are functors; a category of categories!
+  - But, a category of all categories would have to include itself, and we get into the same kind of Set Theoretical paradoxes that make the Set of all Sets impossible
+  - There exists a category which contains all **_Small_ Categories** called **Cat** (which itself is Big, so it can contain itself)
+    - All objects in a small category form a set, as opposed to something larger than a set
+
+## <a name="prog-ch8" class="n"></a> 8 | Functoriality
+
+- Building larger funcors from smaller functors (which correspond to mappings between objects in a category) can be extended to functors (which include mappings between morphisms)
+
+### 8.1 - Bifunctor
+
+- Since functors are morphisms in **Cat**, a lot of intuititons about morphisms can apply to functors as well
+- A **Bifunctor** is a functor of two arguments on objects. It maps every pair of objects $(a, b) | a \in \mathbf{C}, b \in \mathbf{D}$ to an object in $\mathbf{E}$.  
+  - In other words, it's a mapping from a Cartesian product of categories.  This alone is straightforward, but functoriality means that a bifunctor also has to map morphisms 
+
+![](/images/category-theory-12.png)
+
+- A pair of morphisms is just a single morphism in the product category of $\mathbf{C} \times \mathbf{D} = \mathbf{E}$, and these can be interpreted in the obvious way:
+
+$$
+(f, g) \circ (f', g') = (f \circ f', g \circ g')
+$$
+
+which is associative, has an identity $\mathbf{id} = (\mathbf{id}, \mathbf{id})$ and thus is a category
+
+- We _could_ consider a bifunctor as two separate functors, checking each constituent argument.  However, general, separate functoriality does not prove joint functoriality
+  - Categories in which joint functoriality fails are called **_pre-monoidal_**
+
+- In Haskell, we can define a bifunctor between three identical categories: namely, the category of Haskell types
+
+```haskell
+class Bifunctor f where
+  bimap :: (a -> c) -> (b -> d) -> f a b -> f c d
+  bimap g h = first g . second h
+  first :: (a -> c) -> f a b -> f c b
+  first g = bimap g id 
+  second :: (b -> d) -> f a b -> f a d
+  second = bimap id
+```
+
+![](/images/category-theory-13.png)
+
+- The type variable `f` represents the bifunctor. It's evident from all the type signature, it's always applied to two type arguments, and the result is a lifted function `(f a b -> f c d)`, operating on types generated by the bifunctor's type constructor
+- There's a default implementation of `bimap` in terms of `first` and `second`, but this might not always be an available pattern because two maps may not commute (more on what the hell this means later, but for the time being):
+
+$$
+first(g) \circ second(h) \overset{?}{=}  second(h) \circ first(g)
+$$
+
+The two other signatures of `first` and `second` are the two `fmap`s witnessing the functoriality of `f` in the first and second arguments of the bifunctor
+
+#### First
+
+![](/images/category-theory-14.png)
+
+#### Second 
+
+![](/images/category-theory-15.png)
+
+- When declaring an instance of bifunctor, you either have to define `bimap` and accept the defaults for `first, second` or implement `first, second` yourself and accept the defaults for `bimap`
+
+## 8.2 - Product and Coproduct Bifunctors
+
+- A categorical product is a bifunctor. The simplest example is the bifunctor instance for a `Pair` constructor:
+
+```haskell
+instance Bifunctor (,) where
+  bimap f g (x ,y ) = (f x, g y)
+```
+
+which is preetty straightforward, `bimap` applies `first` to `x` and `second` to `y`
+
+```haskell
+bimap :: (a -> c) -> (b -> d) -> (a, b) -> (c, d)
+```
+
+and the action of the bifunctor here is to make pairs of types:
+
+```haskell
+(,) a b = (a, b)
+```
+
+and, by duality, a coproduct if its defined for every pair in the category, is also a bifunctor.  
+
+- We can now add to our definition of a **Monoidal Category** that the binary operator must be a bifunctor
+
+### 8.3 - Functorial Algebraic Data Types
