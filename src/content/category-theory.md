@@ -35,6 +35,9 @@ This is a collection notes on Category Theory for personal reference.
 - ### [6 | Simple Algebraic Data Types](#prog-ch6)
 - ### [7 | Functors](#prog-ch7)
 - ### [8 | Functoriality](#prog-ch8)
+- ### [9| Function Types](#prog-ch9)
+- ### [10 | Natural Transformation](#prog-ch10)
+- ### [11 | Declarative Programming](#prog-ch11)
 
 ## <a name="glossary" class="n"></a> Glossary 
 
@@ -65,7 +68,7 @@ This is a collection notes on Category Theory for personal reference.
     - If $f \in \mathbf{C}(A,B)$ and $g \in \mathbf{C}(B,C)$, then $F(g \circ f) =  F(g) \circ F(f)$.  That is, $F$ preserves compositions
     - Similarly, $F(\mathbf{id}_A) = \mathbf{id}_{F(A)}$, so $F$ preserves identities as well
   - Functors take objects to objects and morphisms to morphisms subject to sensible composition laws
-      - Forgetful functors take objects to a _superclass_ of themself by dropping some properties of the initial subclass
+      - Forgetful functors take objects to a _superclass_ of themselves by dropping some properties of the initial subclass
 
 Classes of sameness
 
@@ -1460,3 +1463,980 @@ and, by duality, a coproduct if its defined for every pair in the category, is a
 - We can now add to our definition of a **Monoidal Category** that the binary operator must be a bifunctor
 
 ### 8.3 - Functorial Algebraic Data Types
+
+- We can specify the construction of complex types from simpler types relying on the sum and product types (which we've just shown are functorial) as ADTs
+
+- What are the building blocks of parameterized ADTs?
+  - First, there are items with no dependency on the type parameter(s) of the function.  For example, $Nothing \in Maybe$, $Nil \in List$, or any other form of our `Const` functor
+  - Then, there are also elements which _Just_ encapsulate the type parameter itself, like $Just \in Maybe$
+      - These are equivalent to the identity functor:
+
+
+```haskell
+data Identity a = Identity a
+instance Functor Identity where
+  fmap f (Identity x) = Identity (f x)
+```
+
+We can no redefine `Maybe` in terms of these ADTs:
+
+```haskell
+data Maybe a = Nothing | Just a
+ 
+-- vs
+
+type Maybe a Either (Const () a) (Identity a) 
+```
+
+Thus, `Maybe`is the composition of the bifunctor `Either` with two functors: `Const ()` and `Identity`
+
+- We can express this composition with a Haskell datatype, paramterized by a bifunctor (a type variable that is a type constructor that takes two types as arguments), two functors `fu, gu` (which take one type variable each), and two regular types
+
+```haskell
+newtype BiComp bf fu gu a b = BiComp (bf (fu a) (gu b))
+```
+
+- This type is a bifunctor in `a, b` but only if `bf` is a bifunctor and `fu, gu` are functors. The compiler must know that there _will_ be a definition of `bimap` available for `bf` and have `fmap` definitions for `fu, gu`
+  - In Haskell, this is expressed as a precondition in the instance declaration:
+
+```haskell
+instance (Bifunctor bf, Functor fu, Functor gu) =>
+  Bifunctor (BiComp bf fu gu) where
+    bimap f1 f2 (BiComp x) = BiComp ((bimap (fmap f1) (fmap f2)) x)
+```
+
+- The implementation of `bimap` for `BiComp` is given in terms of `bimap` for `bf` and the two `fmap`s for `fu, gu`.  the compiler auto-infers all the types and picks the correct overloaded functions whenever `BiComp` is invoked
+- The `x` in the above definition has the type `bf (fu a) (gu b)`
+- The outher `bimap`breaks through the outer `bf` layer, and the two `fmap`s "dig" under `fu` and `gu`, respectively.  If the types of `f1, f2` are:
+
+```haskell
+f1 :: a -> a'
+f2 :: b -> b'
+```
+
+then the final result of `bf (fu a') (gu b')` is 
+
+```haskell
+bimap :: (fu a -> fu a') -> (gu b -> gu b') -> (bf (fu a) (gu b) -> bf (fu a') (gu b'))
+```
+
+- The Haskell compiler can and will derive all this for you if the appropriate flags are set, and will do the same for other ADTs due to their mechanical regularities
+
+### 8.4 - Functors in C++
+
+you thought
+
+### 8.5 - The Writer Functor
+
+- Returning to the Kleisli category, recall that morphisms were represented as _embellished_ functions returning a `Writer` data structure:
+
+```haskell
+type Writer a (a, String)
+```
+
+- Now, we can recognize that the `Writer` type constructor is a functorial in `a`, which doesn't even need an `fmap` since it's just a simple product
+- What, then, is the relationship between a Kleisli category and a functor
+  - Recall that composition within this category was defined by the fish operator:
+
+
+```haskell
+(>=>) ::(a -> Writer b) -> (b -> c) -> (a -> Writer c)
+m1 >=> m2 = \x ->
+  Let (y, s1) = m1 x 
+      (z, s2) = m2 y
+  in (z s1 ++ s2)
+
+-- and the identity morphisms is given by:
+
+return :: a -> Writer a
+return x = (x, "")
+```
+
+- We can combine the types of these functions to produce a function with the right signature to serve as `fmap`:
+
+```haskell
+fmap f = id >=> (\x -> return (f x))
+```
+
+the fish operator combines two functions: 
+- `id`
+- a lambda expression that applies return to the result of `f` and the lambda argument `\x`
+
+How it works:
+
+1. The identity will take `Writer a` and "turn it into" `Writer a`
+1. The fish will extract the value of `a` and pass it as `x` to the lambda where `f` will turn it into a `b` and `return` will embellish it to become a `Writer b`
+2. All together, it takes a `Writer a` and yields a `Writer b` which is what `fmap` is s'posed to do
+
+As long as the type constructor (in this case `Writer`) supports the fish operator (composition) and `return` (identity), this constructor can define `fmap` for anything, thus _Embellishment in the Kleisli category is always a functor_ (but not vice versa)
+
+### 8.6 - Covariant and Contravariant Functors
+
+- Let's return once more to the `Reader` functor that we based on the partially-applied arrow type constructor
+
+```haskell
+(->) r
+
+-- which is synonymous with
+
+type Reader r a = r -> a
+
+-- for which we have the familiar functor instance
+
+instance Functor (Reader r) where
+  fmap f g = f . g 
+``
+
+- Is `Reader` functorial in the first argument?  Let's start with a type synonym like reader with its argumeents flipped
+
+```haskell
+type Op r a = a -> r
+```
+
+- Can we construct an `fmap :: (a -> b) -> (a -> r) -> (b -> r)` ?
+  - With just tow functions taking `a` and return `b, r` respectively, no!
+  - We can't inveert an arbitrary function, but we _can_ go to the opposite category
+      - Recall that, for all categories $\mathbf{C}$, there exists an opposite category $\mathbf{C}^{op}$, its dual with all the same objects, but with inverted morphisms
+      - Q: Why can't we just invert arbitrary functions then
+
+Consider a functor that goes between $\mathbf{C}^{op}$ and $\mathbf{D}$
+
+$$
+F :: \mathbf{C}^{op} \rarr \mathbf{D}
+$$
+
+which maps a morphism $f^{op} :: a \rarr b$ in $\mathbf{C}^{op}$ to the morphisms $Ff :: Fa \rarr Fb$ in $\mathbf{D}$.  But $f^{op}$ secretly corresponds to some morphism $f :: b \rarr a$ in the original category $\mathbf{C}$
+
+- $F$ is a regular functor, but we can define another mapping based on $F$, which will _not_ be a functor, call it $G$, which maps from $\mathbf{C}$ to $\mathbf{D}$.  It maps objects the same way that $F$ does, but when mapping morphisms, it _reverses_ them such that a morphism $f :: b \rarr a$ in $\mathbf{C}$ is first mapped to the opposite morphism: $f^{op} :: a \rarr b$, then uses $F$ on it to get $\\ Ff^{op} :: Fa \rarr Fb$
+- Since $Fa, Fb$ is the same as $Ga, Gb$, the whole composition can be described as 
+
+$$
+Gf :: (b \rarr a) \rarr (Ga \rarr Gb)
+$$
+
+a functor with a _twist_.
+
+- A mapping of categories that inverts the direction of morphisms in this manner is called a **Contravariant Functor**
+  - It's just a regular functor from the opposite category
+  - "regular" functors are **covariant**
+
+![](/images/category-theory-16.png)
+
+As a Haskell typeclass, the contravariant functor (endofunctor) is 
+
+```haskell
+class Contravariant f where
+  contramap :: (b -> a) -> (f a -> f b)
+
+-- our ype constructor Op is an instance of this:
+
+instance Contravariant (Op r) where
+  -- (b -> a) -> Op r a -> Op r b
+  contramap f g = g . f
+```
+
+### 8.7 - Profunctors
+
+- We've seen that the function-arrow operator is contravariant in its first argument, and covariant in the second, what should we call this?
+  - If the target category is $\mathbf{Set}$, it's called a **Profunctor**
+  - Since a contravairant functor is equivalent to a covariant functor from the opposite category, a profunctor is defined as 
+
+
+$$
+  \mathbf{C}^{op} \times \mathbf{D} \rarr \mathbf{Set}
+$$
+
+- From Haskell's data profunctor library, this name is appled to a type constructor `P` of two arguments which is contrafunctorial in its first argument, and functorial in its second:
+
+
+```haskell
+class Profunctor p where
+  dimap :: (a -> b) -> (c -> d) -> p b c -> p a d
+  dimap f g = lmap f . rmap g
+  lmap :: (a -> b) -> p b c -> p a c
+  lmap f = dimap f id
+  rmap :: (b -> c) -> p a b -> p a c
+  rmap = dimap id
+
+-- all with default implementatiosn similar to bifunctor
+```
+
+#### dimap
+
+TODO 
+![](/images/category-theory-17.png)
+
+- Thus, we can assert that the function-arrow operator is an instance of a profunctor
+
+```haskell
+instance Profunctor (->) where
+  dimap ab cd bc = cd . bc . ab
+  lmap = flip (.)
+  rmap = (.)
+
+  -- reusing the `flip` function defined earlier:
+
+flip :: (a -> b -> c) -> (b -> a -> c)
+flip f y x = f x y
+```
+
+### 8.8 - The Hom-functor
+
+- The homset $\mathbf{C}(a, b)$ is a functor from the product category $\mathbf{C}^{op} \times \mathbf{C}$ to the category of sets: $\mathbf{Set}$
+- A morphism in $\mathbf{C}^{op} \times \mathbf{C}$ is a Pair of morphisms from $\mathbf{C}$ :
+
+$$
+  f :: a' \rarr a \\
+  g :: b \rarr b'
+$$
+
+Lifting of this pair must be a morphism from $\mathbf{C}(a, b)$ to $\mathbf{C}(a', b')$: just pick any element $h$ for $\mathbf{C}(a, b)$ –it's morphism from $a \rarr b$– and assign to it:
+
+$$
+  g \circ h \circ f
+$$
+
+which is an element of $\mathbf{C}(a', b')$
+
+- The hom-functor is a special case of a profunctor
+
+## <a name="prog-ch9" class="n"></a> 9 | Function Types
+
+Function types are different from other types:
+- `Integer` is just a set of ints, `Bool` is a two-element set, etc. 
+- function `a -> b` is a set of morphisms between two objects `a, b`
+  - recall that a set of morphism between two objects in a category is called a **hom-set**
+
+- In the category $\mathbf{Set}$, every hom-set is itself an object in the same category _because it is, after all, a set_
+
+![](/images/category-theory-17.png)
+
+But the same is not true of other categories where hom-sets are external to a category, they're called **external hom-sets**
+
+![](/images/category-theory-18.png)
+
+- It is possible, in some categories, to construct objects that represent hom-sets: **internal hom-sets**
+
+### 9.1 - Univeral Construction
+
+- Suspending belief that function types are sets momentarily, and try to construct an internal hom-set from scratch
+  - A function type may be considered a compositiee type because of its relation to the arguments and return type: thus we need a patteern which makes use of three objects representing function type, argument(s), and the return type
+  - This patteern is known as _functional application_ or _evaluation_ 
+  - Given a candidate for: 
+      - a function type $z$, 
+      - an argument type $a$,
+      - the application maps this pair to $b$
+  - We also have the application itself, which is a mapping
+- Granularly, if we wanted to look inside these objects, we could select $\\ f \in z, \\ x \in a, \\ f \, x \in b$
+- But instead of dealing with individual pairs $(f, x)$, we can deccribe the whole product of the function type $z$ and argument $a$:
+  - $z \times a$ is an object, and we can pick our application morphism, an arrow $g$ from that object to $b$
+  - In $\mathbf{Set}$, $g$ would be the function that maps every pair $(f, x)$ to $fx$
+  - This yields the desired patter: a product of two objects $z, a$ connected to another object by morphism $g$:
+
+![](/images/category-theory-19.png)
+
+- This pattern isn't specific enough to single out the function type using a universal construction for every category, but it works for the categories we're interested in at the moment
+- Would it be possible to define a function object without first defining a product?  
+  - There exist categories in which there is no product, or at least not a product for each pair of objects, so there's no function type if there's no product type
+- Returning to universal construction, our imprecise query yields too many candidates, especially in the category of $\mathbf{Set}$, where everything is connected to everything (excluding the empty set)
+  - Thus, we need to filter patterns by _ranking_ like we've done in previously, eliminating candidates by requirements of:
+      - Unique mapping between candidate objects
+      - Mapping that factorizes our constructor
+  - We'll decree that $z$, together with the morphism $g$ from $z \times a \rarr b$ is better than all other $z'$ with their own $g'$ if and only if there exists a unique mapping $h$ from $z' \rarr z$ such that the application of $g'$ factors through the application of $g$
+
+![](/images/category-theory-20.png)
+
+- Given $h :: z' \rarr z$, we want to choose the diagram that has both $z'$ and $z$ crossed with $a$; that is, a mapping from $z' \times a \rarr z \times a$. And we can do this because of the functoriality of the product
+- I.e., we can _lift_ pairs of morphisms, which is the definition not only of the product of objects, but also of morphisms:
+  - Since we're not touching the second component, the target of the morphism, we can lift with the morphism $(h, \mathbf{id})$, where the latter component of the pair is an identity of $a$
+  - We can factor one application $g$ out of another $g'$: 
+  
+$$
+g' = g \circ (h \times \mathbf{id})
+$$
+
+- Lastly, we must select the object which is universally _besT_ which we'll call $a \implies b$ (a single object), which comes with its own application – a morphism from $(a \implies b) \times a$ to $b$– which we will call **eval**
+  - $a \implies b$ is the best if any other candidates for a function object can be uniquely mapped to it in such a way that its application morphism $g$ factorizes through eval
+
+![](/images/category-theory-21.png)
+
+
+Formally:
+- a function _object_ from $a \rarr b$ together with the morphism 
+
+$$
+eval :: ((a \implies b) \times a) \rarr b
+$$
+
+such that, for any other object $z$ with a morphism 
+
+$$
+g :: z \times a \rarr b
+$$
+
+there is a unique morphism 
+
+$$
+h :: z \rarr (a\implies b)
+$$
+
+that facotrs $g$ through $eval$ 
+
+$$
+g = eval \circ (h \times \mathbf{id})
+$$
+
+---
+
+- There is no guarantee that object $a \implies b$  exists for any given pair of objects $a,b$ in a given category.
+- It _does_ happen to exist in $\mathbf{Set}$, and then this object is also isomorphic to the hom-set $\mathbf{Set}(a,b)$
+
+### 9.2 - Currying
+
+- Take a look at all the candidates for the function object, this time considering the morphism $g$ as a function of two variables: $z, a$
+
+$$
+g :: z\times a \ rarr b
+$$
+
+- Pretty much just a function of two variables.  In Set, $g$ maps from pairs of values of two sets to another value in set $b$
+- The universal property tells us that for each $g$, there exists a unique $h$ that maps $z$ to a function object $a \implies b$:
+
+$$
+h :: z \rarr (a \implies b)
+$$
+
+- In Set, this just means that $h$ is a function of one variable type $z$, and returns a function from $a$ to $b$, making $h$ a higher order function
+  - Therefore, the universal construction establishes a one-to-one correspondence between a function of two variables and a function $f$ of one variable.  This correspondence is called **currying**, and $h$ is called the curried version of $g$
+- The correspondence is one-to-one because, given any $g$, there exists a unique $h$, and given any $h$, we can always recreate the second function $g$ using 
+
+$$
+g = eval \circ (h \times \mathbf{id})
+$$
+
+- Currying is built into Haskell syntax:
+
+```haskell
+a -> (b -> c)
+a -> b -> c
+
+-- trivial to convert between two representations with two higher order functions
+curry :: ((a -> b) ->) -> (a -> b -> c)
+curry f a b = f (a, b)
+
+-- just the factorizer for the universal construction
+uncurry :: (a -> b -> c) -> ((a -> b) ->)
+uncurry f (a, b) =  f a b
+
+-- where
+f :: ((a, b) -> c) -> (a -> (b, c))
+f g = \a -> (\b -> g (a, b))
+```
+
+### 9.3 - Exponentials
+
+- The **function object** or the internal hom-object between two objects $a,b$ is called the **exponential** and denoted by $b^a$
+  - It might appear weird at first that the argument type is in the exponential. Consider functions between finites types: `Bool`, `char`, `Int`
+  - Such functions _can_ be fuly memoized and turned into lookup datastructures
+  - This is the essence of equivalence between functions which are morphisms and function types which are objects
+  - A pure function from Bool is completely specified by a pair of values corresponding to True/False
+  - The set of all possible functions from Bool to Int is the set of all pairs of Ints:
+
+$$
+Int \times Int = Int^2
+$$
+
+For example, C++'s `char` contains 256 possible values.  Predicates like `isUpper` and `isLower` are implemented with lookup tables, equivalent to tuples of 256 boolean values.  A tuple is a product, so the product of 256 bools is $bool \times bool \times ... $
+- An iterated product defines a power, so we have $bool^{char}$ read "bool to the power of char" = $s^{256}$
+
+### 9.4 - Cartesian Closed Categories
+
+Cartesian Closed Categories must contain:
+
+1. The terminal object
+2. A product of any pair of objects
+3. An exponential for any pair of objects
+
+- This category can be thought of as one supporting products of an arbitrary arity
+  - The terminal object can be though of as a product of zero objects or the zeroth power of an object 
+- A cartesian closed category that also supports the duals of the terminal object and product, and in which the product can be distributed over the coproduct:
+
+$$
+\begin{aligned}
+
+a \times (b + c) &= a \times b + a \times c  \\
+(b + c) \times a &= b \times a + c \times a
+\end{aligned}
+$$
+
+is called a **bicartesian closed category**
+
+### 9.5 - Exponentials and Algebraic Data Types
+
+All the baseic identities of arithmeetic exponentials hold for these:
+
+#### 9.5.1 - Zeroth Power
+
+$$
+\begin{aligned}
+
+a^0 = 1,   \quad &0 = \text{initial object} \\
+                 &1 = \text{final object} \\
+                 &'=' \text{isomorphism} \\
+\end{aligned}
+$$
+
+Represents the set of morphisms going from the initial object to an arbitrary $a$ (Haskell's absurd `Void -> a`) 
+
+#### 9.5.2 - Powers of One
+
+$$
+\begin{aligned}
+1^a = 1
+\end{aligned}
+$$
+
+Corresponds to the definition of the terminal object: there exists a unique morphism from any object to the terminal object which is the unit
+
+#### 9.5.3 - First Power
+
+$$
+\begin{aligned}
+a^1 = a
+\end{aligned}
+$$
+
+Corresponds to Haskell's `() -> a`, the isomorphism between elements of set $a$, and the functions they that pick those elements
+
+#### 9.5.4 - Exponentials of Sums
+
+$$
+\begin{aligned}
+a^{b+c} = a^b \times a^c
+\end{aligned}
+$$
+
+States that the exponent from a coproduct of two objects is isomorphic to a product of two exponentials
+
+
+#### 9.5.5 - Exponentials of Exponentials
+
+$$
+\begin{aligned}
+(a^b)^c = a^{b \times c}
+\end{aligned}
+$$
+
+Expresses currying purely in terms of exponential objects: a function returning a function is equivalent to a function from a product (a two argument function)
+
+#### 9.5.6 - Exponentials over Products
+
+$$
+\begin{aligned}
+(a \times b)^c = a^c \times b^c
+\end{aligned}
+$$
+
+A function returning a pair is equivalent to a pair of functions, each producing one element of the pair
+
+### 9.6 - Curry-Howard Isomorphism
+
+Just as:
+- `Void, ()` correspond to False, True respectively
+- Prod, Sum correspond to AND, OR
+- $a \rarr b$ correspond to "if a then b"
+
+**Curry-Howard Isomorphism** states that every type can be interpreted as a morphism: T/F
+  - True if the type is inhabited, False otherwise
+  - I.e., logical implication is true if the function type corresponded to it is inhabited, which means that there exists a function of that type where the implementation of this function is itself a proof!
+
+For example:
+
+$$
+\begin{aligned}
+  eval &:: ((a \rarr b), a) \rarr b \\
+       &:: (a \implies b) \times a \rarr b \\
+       &:: (a \implies b) \land a \implies b \\
+\end{aligned}
+$$
+
+Which is modus ponens: if it's true that $b$ follows from $a$, and $a$ is true, then $b$ must be true
+
+Similarly, a false proposition cannot by implemented:
+
+$$
+a \lor b \implies a
+$$
+
+```haskell
+Either a b -> a
+-- has no implementation sincee you can't product
+-- a value of type a if you're called with the Right value
+```
+
+## <a name="prog-ch10" class="n"></a> 10 | Natural Transformations
+
+> I'm transcribing these chapters with a broken finger, so just infer any typos
+
+- We've esablished that a fuctor "embeds" one category within another, potentially collapsing multiple things into one, but never breaking connections
+
+  - Functors _model_ one category within another
+  - There may be many different ways of embedding one category within another
+  - **Natural Transformations** help use compare different embeddings
+
+- Consider two functors $F,G$ betweeen categories $\mathbf{C,D}$. If you focus on just one object $a \in \mathbf{C}$, it is mapped to two object: $Fa, Ga$. A mapping of functors should therefore map $\\ Fa \rarr Ga$
+
+![](/images/category-theory-22.png)
+
+$Fa, Ga$ are objects in the same category $\mathbf{D}$, so mappings between them should conform to the same categories morphisms
+
+- A **natural transformation** is a selection of morphisms which, for every object $a$, picks one morphisms from $Fa$ to $Ga$.  If we call the natural transformation $\alpha$, this morphism is called the **component** at $a$:
+
+$$
+\alpha_a :: Fa \rarr Ga 
+$$
+
+Keep in mind that $a$ is an object in $\mathbf{C}$, and $\alpha_a$ is a morphism in $\mathbf{D}$.  If, for some $a$, there is no morphism $Fa \rarr Ga$ in $\mathbf{D}$, then there can be no natural transformation between $F,G$
+
+- What about the morphisms mapped by functors?  How do they fit into natural transformations?
+  - They're _fixed_: under any natural transformation between $F,G$, $Ff$ must be transformed into $Gf$. This constraint drastically reduces the number of choices we have in defining a natural transformation compatible with the desired mapping
+
+- Given a morphism $f$ between $a, b \in \mathbf{C}$, it's mapped to two morphisms $Ff, Gf \in \mathbf{D}$:
+
+$$
+Ff :: Fa \rarr Fb \\
+Gf :: Ga \rarr Gb \\
+$$
+
+and the natural transformation $\alpha$ provides tow additional morphisms that complete the diagram:
+
+$$
+\alpha_a :: Fa \rarr Ga \\
+\alpha_b :: Fb \rarr Gb
+$$
+
+![](/images/category-theory-23.png)
+
+Now we have two ways of getting from $Fa \rarr Ga$. To ensure that they are equal, we impose that the **naturality condition** holds for any $f$:
+
+$$
+Gf \circ \alpha_a = \alpha_b \circ Ff
+$$
+
+which is rather stringent: if morphisms $Ff$ is invertible, then naturality determines $\alpha_b$ in terms of $\alpha_a$: it _transports_ $\alpha_a$ along $f$:
+
+$$
+\alpha_b = (Gf) \circ \alpha_a \circ (Ff)^{-1}
+$$
+
+![](/images/category-theory-24.png)
+
+- If there are more than one invertible morphisms between two objects, all these transportations have to agree. 
+- In general, morphisms aren ot invertible, so the existeence of a natural transformation between functors is far from guaranteed
+- Component wise, natural transformations map objects to morphisms.  Per the naturality condition, we can say that a natural transformation maps morphisms to commuting squares: there exists one commuting naturality square in $\mathbf{D}$ for all morphisms in $\mathbf{C}$
+
+![](/images/category-theory-25.png)
+
+- Natural transformations may be used to define isomorphisms of functors:
+  - Two functors which are naturally isomorphic are "basically the same"
+  - A **natural isomorphisms** is defined as a natural transformation whose components are all isomorphisms (or invertible isomorphisms)
+
+### 10.1 - Polymorphic Functions
+
+- To construct a natrual transformation, we start with an object: type `a`
+  - One functor `F` maps it to the type `Fa`
+  - And another functor `G` maps it to type `Ga`
+  - The component of thee natural transformation $\alpha$ at $a$ is a function from `Fa -> Ga`
+  - It's polymorphic on all types `a`
+
+```haskell
+alpha :: forall a . Fa -> Ga
+-- `forall` is an optional Haskell language extension
+```
+
+- It's a family of functions parameterized by `a`
+  - In Haskell, a polymorphic function must be defined uniformly for all types: **parametric polymorphism**
+  - In bad languages (c++) templates don't have to be well defined, instead being chosen at instantiation-time: **ad hoc polymorphism**
+
+- Haskell's parametric polymorphism has the consequence that any polymorphic function of type 
+
+```haskell
+alpha :: Fa -> Ga
+```
+
+where `F, G` are functors automatically satisfies the naturality condition:
+
+$$
+Gf \circ \alpha_a = \alpha_b \circ Ff
+$$
+
+- The action of the functor `G` on morphism `f` is implemented using `fmap`: 
+
+
+```haskell
+fmap_G :: . alpha_a = alpha_b . fmap_F f
+-- pseudo explicit type annotations, but the following works via compiled
+
+fmap f . alpha = alpha . fmap f
+```
+
+- Because of the stringency of parametric polymorphism, we get satisfaction of the naturality condition for "free"
+  - If functors are containers, natrual transformations are recipes for repackaging contents of one container into another
+  - The naturality condition becomes the statement that it doesn't matter if we modify the items first, and then repackage, or repackage and theen modify; the two actions are orthogonal
+
+For example: A natural transformation between the `List` functor and `Maybe` functor, returning the head of the list if it's non-empty:
+
+```
+safe_head :: [a] -> Maybe a
+safe_head [] = Nothing
+safe_head (x:xs) = Just x
+```
+
+this function is polymorphic in `a` for all `a`!  Therefore it is also a natural tranformation between the two functors.
+
+We can verify as well:
+
+```haskell
+fmap f . safe_head = safe_head . fmap f
+-- 2 cases:
+-- case 1: empty list
+
+fmap f (safe_head []) = fmap f Nothing = Nothing
+safe_head (fmap f []) = safe_head [] = Nothing
+
+-- case 2: non-empty
+fmap f (safe_head (x:xs)) = fmap f (Just x) = Just (f x)
+safe_head (fmap f (x:xs)) = safe_head (f x: fmap xs) = Just (f x)
+```
+
+- When one of the functors is the trivial `Const` functor, the natural transofmration to or from it looks just like a function that's either polymorphic in its return type or argument type, i.e. `length` as a natural transformation from `List` to `Const Int`:
+
+```haskell
+length :: [a] -> Const Int
+length [] = Const 0
+length (x:xs) = Const (1 + unConst (length xs))
+
+-- where
+
+unConst :: Const c a -> c 
+unConst (Const x) = x
+```
+
+- Finding a parametrically polymorphic function _from_ a `Const` functor is harder since it requires creation of a value from nothing
+  - The best we can do is something like:
+
+```haskell
+scam :: Const Int a -> Maybe a
+scam (Const x) = Nothing
+```
+
+- Another common functor is the `Reader`
+
+```haskell
+newtype Reader e a = Reader (e -> a)
+-- parameterized by two types, but is covariantly functorial only in the second
+  fmap f (Reader g) = Reader (\x -> f (g x))
+```
+
+For every type `e`, we can define a family of natural transformations from `Reader e` to any other functor `f`:
+- I.e., the unique type with one element `()`, the functor `Reader ()` takes any type `a` and maps it into a single function type `() -> a` which is all the functions that pick a single element from the set `a`, of which there are as many as there are elements in `a`
+- Consider a natural transformation to the `Maybe` functor:
+
+```haskell
+alpha :: Reader () a -> Maybe a
+-- just 2
+dumb (Reader _) = Nothing
+obvious (Reader g) = Just (g ())
+```
+
+### 10.2 - Beyond Naturality
+
+- A parametrically polymorphic function between two functors (including the oddity fof the `Const` functor) is always a natural transformation since all standard ADTs are functors, any polymorphic function between those types is a natural transformation
+- We can also use function types, which are functorial in their return type, to build functors and define natural transformations that are higher order functions
+  - Not covariant in argument type, but are contravariant
+  - Recall that this implies that they're equivalent to covariant functors from the opposite category
+  - Therefore, polymorphic functions between two contravariant functors are still natural transofrmations in the categorical sense, just working on functors from the opposite category
+
+For example, the familiar contravariant functor:
+
+```haskell
+newtype Op r a = Op (a -> r) -- is contravariant in `a` by
+
+instance contravariant (Op r) where
+  contramap f (Op g) = Op (g . f)
+
+-- allowing us to write a polymorphic function from Op -> Bool, Op -> String, etc
+predToStr (Op f) = Op (\x if f x then "T" else "F")
+```
+
+But since the two functors are not covariant, this is not a natural transformation in Hask, but since they're both contravariant, they satisfy the "opposite" naturality condition
+
+```haskell
+contrampa f . predToStr = predToStr . contramap f
+
+-- note that f must go in the opposite dir to than what we'd use
+-- with fmap bc of the signature of contramap :
+
+contramap :: (b -> a) -> (Op Bool a -> Op Bool b)
+```
+
+What about type constructors that are not functor, like `a -> a`?
+- This is not a functor since the same type `a` is used in both the positive covariant and negative contravariant position
+- Therefore, we can't implement `fmap` or `contramap` for this type
+
+```haskell
+(a -> a) -> f a
+-- can't be a N.T., but dinatural transformations, a generalization of
+-- this pattern, let us deal with such cases
+```
+
+### 10.3 - Functor Category
+
+- Since we can map between functors via natural transformations, do functors constitute a category? yeeaa boi
+- For each pair of categories $\mathbf{C, D}$, there exists a category where 
+  - objects are functors from $\mathbf{C} \rarr \mathbf{D}$ 
+  - morphisms are natural transformations beetween these functors
+  - To define a composition of natural transformations, we simply look at the components of the natural transformations which themselves are composable morphisms
+
+For example, take the natural transformation $\alpha$ from $F$ to $G$ whose component at $a$ is some morphism
+
+$$
+\alpha_a :: Fa \rarr Ga
+$$
+
+and we want to compose $\alpha$ with $\beta$ which is another natural transformation from $G$ to $H$ with the component at $a$ given by
+
+$$
+\beta_a :: Ga \rarr Ha
+$$
+
+These morphisms are composable as follows:
+
+$$
+\beta_a \circ \alpha_a :: Fa \rarr Ha
+$$
+
+which can be the component of the natural transformation $\beta \cdot \alpha$, the composition of two natural transformation "β after α":
+
+$$
+(\beta \cdot \alpha)_a = \beta_a \circ \alpha_a 
+$$
+
+![](/images/category-theory-26.png)
+
+Which expresses that the resultant composition is a natural transformation from $F \rarr H$: 
+
+$$
+Hf \circ (\beta \cdot \alpha)_a = (\beta \cdot \alpha)_b \circ Ff
+$$
+
+![](/images/category-theory-27.png)
+
+- Composition of natural transformations is associative because they _are_ components, which are regular morphisms, which are associative with respect to composition
+- For each functor $F$, there exists an identitive natural transformation $\mathbf{1}_F$ whose components are the identity morphisms 
+
+$$
+\mathbf{id}_{Fa} :: Fa \rarr Fa
+$$
+
+Therefore, functors form a category.
+
+#### Noational Aside About "$\cdot$" vs "$\circ$"
+
+- Dot notation is preferred for this kind of natural transformation, but know that there are two ways of composing them: vertically, and horizontally
+
+The diagrams above utilize the former whereas the following diagram uses the latter:
+
+![](/images/category-theory-28.png)
+
+---
+
+The functor category between categories $\mathbf{C,D}$ is written $\mathbf{Fun(C,D)}$, or $[\mathbf{C,D}]$, or $\mathbf{D^C}$ where the last expression indicates that a functor category itself might be considered a function object (an exponential) in some other category since an object in a product category $\mathbf{C \times D}$ consists of a pair of object $c,d \in \mathbf{C,D}$, a morphism between two such pairs $(c,d) \rarr (c',d')$ is a pair of morphisms $(f, g)$ where 
+ 
+$$
+f :: c \rarr c'  \\ 
+g:: d \rarr d' 
+$$
+
+which compose component wise – and we know that there's always an identity pair.  
+
+Thereform, $\mathbf{Cat}$ is a cartesian closed category in which there exists an exponential object (a category!) $\mathbf{D ^C}$ for any pair of categories which is just the functo category between $\mathbf{C,D}$
+
+### 10.4 - 2-Categories
+
+- By definition, any hom-set in **Cat** is a set of functors (with richer structure than just a set) which form a category with natural transofmration acting as morphisms (morphisms between morphisms)
+  - This _richer_ structure is an example of a **2-cateogry**: a generalization of a category where, besides objects and morphisms (which might be called 1-morphisms in this context), there are also 2-morphisms, which are those between morphisms
+
+**Cat** as a 2-category:
+- Objects: small categories
+- 1-morphisms: functors between categories
+- 2-morphisms: natural transformation between functors
+
+
+Instead of a hom-set between two categories $\mathbf{C,D}$, we have a hom-category $\mathbf{D^C}$. We have a regular functor composition: functor $F$ from $\mathbf{D^C}$ composed with functor $G$ from $\mathbf{E^D}$ to yield $G \circ F$ from $\mathbf{E^C}$
+  - But we also have composition within each hom-category – vertical composition of natural transformations (2-morphisms between functions)
+
+- How do these two types of composition interact? Take two functors (1-morphisms) in **Cat**:
+
+$$
+F :: \mathbf{C} \rarr \mathbf{D} \\
+G :: \mathbf{D} \rarr \mathbf{E} \\
+$$
+
+and their composition 
+
+$$
+G \circ F :: \mathbf{C \rarr E}
+$$
+
+and suppose we have two natural transformations $\alpha, \beta$ acting on $F,G$ respectively 
+
+$$
+\alpha :: F \rarr F' \\
+\beta :: G \rarr G'
+$$
+
+![](/images/category-theory-29.png)
+
+Note that we can't apply vertical composition to this pair because the target of $\alpha$ is different from the source of $\beta$
+
+- We can, however, apply composition to $F', G'$ since the target of the former is the source of the latter: $\mathbf{D}$
+- What's the relation whetween $G' \circ F'$ and $G \circ F$?  With  $\alpha, \beta$ at our disposal, we can define a natural transformation from $G \circ F \rarr G' \circ F'$:
+
+![](/images/category-theory-30.png)
+
+Let's break that one down:
+- Starting with $a \in \mathbf{C}$, its image splits into two object in $\mathbf{D}: Fa, F'a$ which are connected by the morphism, a component of $\alpha$:
+
+$$
+\alpha_a :: Fa \rarr F'a
+$$
+
+- When going from $\mathbf{D \rarr E}$, these two object split further into _four_ objects:
+  - $G(Fa), G'(Fa), G(F'a), G'(F'a)$ 
+- with four morphisms forming a square, two of which are the components of the natural transformation $\beta$:
+
+$$
+\beta_{Fa} :: G(Fa) \rarr G'(Fa) \\
+\beta_{F'a} :: G(F'a) \rarr G'(F'a) \\
+$$
+
+and the other two being symmetric images of $\alpha_a$ under the two functors:
+
+$$
+G\alpha_a :: G(Fa) \rarr G(F'a) \\
+G'\alpha_a :: G'(Fa) \rarr G'(F'a) \\
+$$
+
+- We want a morphism which goes from $G(Fa) \rarr G'(F'a)$, a candidate for the component of a natural transformation connecting the two functors 
+
+$$
+G \circ F \\ 
+G' \circ F'
+$$
+
+and there are two such paths we can take from $G(Fa) \rarr G'(F'a)$:
+
+$$
+\begin{aligned}
+G'\alpha_a &\circ \beta_{Fa} \\
+\beta_{F'a} &\circ G \alpha_a
+\end{aligned}
+$$
+
+which are equal because the square we formed happens to be the _naturality square_ for $\beta$
+
+- We've defined a component of a natural transformation from $G(Fa) \rarr G'(F'a)$.  We call it the _horizontal component_ of $\alpha, \beta$:
+
+$$
+\beta \circ \alpha :: G \circ F \rarr G' \rarr F'
+$$
+
+- A good rule of thumb is that: every timee we encounter a composition, look for a cateegory.
+  - With vertical composition, which is a part of the functor category
+  - Whatabout the horizontal composition then? Where does that live?
+
+- Consider **Cat** _sideways_, where the natrual transformations are not arrows between functors, but as arrows between other categories. A natural transformation sit between two categories, the ones connect by the functors it transforms:
+
+![](/images/category-theory-31.png)
+
+- If we focus on two objects of **Cat** $\mathbf{C, D}$, we can observe a set of natural natural transformation that go between functors connecting them ($\mathbf{C, D}$).  
+- These natural transformation are our new arrows from $\mathbf{C \rarr D}$. Similarly, there are natural transformation from $\mathbf{D \rarr E}$, which we can treat as arrows from and to, respectively.
+- Horizontal composition is the composition of these arrows
+  - We also have the identity arrow from $\mathbf{C}$ to itself, which is just the identitive natural transformations that maps the identitive functor on $\mathbf{C}$ to itself
+  - Not that the identitive horizontal composition is also the identity for vertical composition, **but not vice versa**
+- Finally, the two compositions satisfy the interchangeability law:
+
+$$
+(\beta' \cdot \alpha') \circ (\beta \cdot \alpha) = (\beta' \circ \beta) \cdot (\alpha' \circ \alpha)
+$$
+
+- In this sideways interpretation of **Cat**, there are two ways of getting from object to object: a functor, or a natural transformation
+  - We can re-interpret the functor arrow as a special kind of natural transformation: the identitive natural transformation acting on this functor: $F \circ \alpha$ where $F :: \mathbf{D \rarr E}$, and $\alpha$ is the natural transformation from $\mathbf{C \rarr D}$
+  - Since we can't compose a functor with a natural transformation, this should be interpreted as a horizontal composition of the identity natural transformation $\mathbf{1}_F$ after $\alpha$.  Similarly, $\alpha \circ F$ is a horizontal composition of $\alpha$ after $\mathbf{1}_F$ 
+
+### 10.5 - Conclusion
+
+- This concludes the first section, covering "basic" vocabulary and grammar of category theory:
+  - Objects: nouns
+  - Arrows: 
+      - Morphisms: connect objects
+      - Functors: connect categories
+      - Natural transformation: connect functors
+
+#### Abstraction
+- A set of morphisms becomes a function object which can be the source or target of another morphism, resulting in higher order functions
+- A functor maps objects to objects, so we can use it as a type constructor or a parametric type.  They can also map morphisms, so they're like higher order functions like `fmap`
+  - Simple functors include `Const`, product, and sum which can be used to build more complex data types
+  - Function types are also functorial, both covariant and contravariant
+- Functors are objects in the functor category, acting as the source and target of morphisms (natural transformation) - which themselves are special polymorphic functions
+
+## <a name="prog-ch11" class="n"></a> 11 | Declarative Programming
+
+Composition may be defined declaratively:
+
+```haskell
+h = g .f
+```
+
+or imperatively: call `f`, store the result, call `g` on result:
+
+```haskell
+h x = let y = f x
+      in g y
+```
+
+which is more sequentially-_coded_.  I.e., `g` cannot happen beforee the eexecution of `f` completes (at least, that's the interpretation in a lazy, _call-by-need_ language) - but the compiler might do some clever inlining/wizardy to blur the lines between the two methodologies
+
+- The two methodologies differ drastically, begging the question: do we always have a choice, and if a declarative solution exists, can it always be translated into code? The answer is nebulous
+
+### 10.0 - Physics Anecdote
+
+In physics theere's a duality of expressing laws
+- First: using _local_ or infinitesmal considerations by examining a system under a microlens and predicting how it will evolve within the next instant of time
+  - This frame of understanding usually expresses systems in terms of differential equations to be integrated over a time interval, which resembles imperative thinking: a solution can be reached by following a sequence of smaller steps which are dependent on the previous step
+  - E.g., a game of asteroids may be modeled by iterating over a set of differential equation:
+
+$$
+F = m \frac{dv}{dt}, \; v = \frac{dx}{dt} 
+$$
+
+and this trival example can be extended to more complex systems and underlying process of discretzing time and space
+
+- The other approach is _global_, examining instead initial and final system states and computing a "trajectory" connecting them by optimizing a certain function, i.e. Fermat's principle of Least Time which states that 
+
+> Light rays propagate along paths ftat minimize flight time (in the absence of reflecting or refracting objects, this is a straight line).  The path of minimal time makes the ray refract at the boundary of meterials with different densities, yielding Snell's law
+> 
+> $\frac{v_1}{v_2} = \frac{\sin(\theta_1)}{\sin(\theta_2)}$ 
+
+
+where $v_1, v_2$ are the velocities of light in the different materials, and $\theta_1, \theta_2$ are the angles from the normal to the boundary.
+
+- All of classical mechanics can be derived from this pronciple of Least Action which be calculated for any trajectory by integrating the lagrangian which is the _difference_ (as the sum would be the total energy) between the kinetic and potential energies of the states.
+- Feynman generalized this principle to quantum mechanics, formulating the problem in terms of initial and final states. A Feynman Path integral between initial and final states is used to calculate the probability of transition between states
+- The point of all this being that there exists a duality in the way we can describe things, with the main difference being the way that we treat or represent time
+  - Category Theory encourages the latter, global approach which aligns with declarative programming
+  - In category theory, there is no notion of distance, neighborhoods, or time; just abstract objects and abstract connections between them
+  - If you can get from $A$ to $B$ in a series of steps, you can also get there in one step (the composition of hte constituent steps)
+  - The iniversal construction also epitomizes the global approach
+
