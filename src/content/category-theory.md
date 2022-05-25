@@ -2412,7 +2412,7 @@ which is more sequentially-_coded_.  I.e., `g` cannot happen beforee the eexecut
 
 ### 10.0 - Physics Anecdote
 
-In physics theere's a duality of expressing laws
+In physics there's a duality of expressing laws
 - First: using _local_ or infinitesmal considerations by examining a system under a microlens and predicting how it will evolve within the next instant of time
   - This frame of understanding usually expresses systems in terms of differential equations to be integrated over a time interval, which resembles imperative thinking: a solution can be reached by following a sequence of smaller steps which are dependent on the previous step
   - E.g., a game of asteroids may be modeled by iterating over a set of differential equation:

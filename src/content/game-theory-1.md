@@ -782,6 +782,108 @@ Here, the gray region is our polyhedron or feasible solution space, and by selec
 
 ---
 
+## The Lagrangian
+
+Analytically, we can solve such optimization problems using the Lagrangian, which is a method used to directly solve constrained optimization problems by reformulating them as _unconstrained_.  Starting first with Lagrange multipliers, we can then unify the steps of that process into the generalized Lagrangian expression proper which is more easily computable.
+
+Consider the following problem:
+
+$$
+\begin{aligned}
+  \text{maximize} \; &f(x,y) = x + y\\
+  \text{subject to} \; &x^2 + y^2 = 1
+\end{aligned}
+$$
+
+This problem can be visualized as follows, where the red lines depict our object function, and the blue concentric circles being the constraints, with the innermost circle being the particular constraint $x^2 + y^2 = 1$ 
+
+![](/images/game-theory-1-L1.png)
+
+We can reason ourselves to the conclusion that the optimal $(x,y)$ solution lies at $(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}})$ on the unit circle (which can be exhaustively verified, if not proven by plotting any other pair of coordinates within the constraint to see that they produce lower results).  Furthermore, the minimum lies at the negative conjugate (TODO: make sure this is what that means) $(-\frac{1}{\sqrt{2}}, -\frac{1}{\sqrt{2}})$.
+
+![](/images/game-theory-1-L2.png)
+
+We can observe that, for any extrema along the constraint, our objective function will be tangent to the constraint.  With this useful piece of information, we can restate our initial question to be the following: _Find all locations where the gradient of the objective function and constraint are proportional_; this will be our solution.
+
+We can form a system of equations to solve this problem, starting with:
+
+$$
+\nabla f(x,y) = \lambda \nabla g(x,y)
+$$
+
+where $g$ is our constraining function, and $\lambda$ is some proportionality coefficient called the Lagrange multiplier.
+
+Expanding this equation and substituting the example definitions in our problem, we get:
+
+$$
+\begin{aligned}
+\nabla (x+y) &= \lambda \nabla (x^2 + y^2) \\
+{1 \brack 1} &= \lambda {2x \brack 2y}
+\end{aligned}
+$$
+
+To solve, we need the third equation: $x^2 + y^2 = 1$, given in the problem statement, which yields the familiar points: 
+
+$$
+(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}), (-\frac{1}{\sqrt{2}}, -\frac{1}{\sqrt{2}})
+$$
+
+and plugging them into our objective function confirms that the former point is the maximum that we're looking for.
+
+This method enabled us to solve constrained optimization problems easily, but it's cumbersome to make a computer replicate this process.  To streamline the approach, we'll take our system of equations unify all the necessary information into a single expression – **The Lagrangian**:
+
+$$
+\mathcal{L}(x,y,\lambda) = f(x,y) - \lambda(g(x,y) - b)
+$$
+
+where $b$ is the right hand side of the constraint, in our case $1$.  To replicate the method of Lagrange multipliers shown above, we simply set the gradient of the Lagrangian to 0, and solve for its constituent variables:
+
+$$
+\begin{aligned}
+  \nabla \mathcal{L} &= 0\\
+
+  \begin{bmatrix}
+   \frac{\partial \mathcal{L}}{\partial x}  \\[6pt]
+   \frac{\partial \mathcal{L}}{\partial y} \\[6pt]
+   \frac{\partial \mathcal{L}}{\partial \lambda} 
+  \end{bmatrix} & = 
+   \begin{bmatrix}
+   0 \\ 0 \\ 0
+  \end{bmatrix} \\
+  
+  \begin{bmatrix}
+   \frac{\partial f}{\partial x} - \lambda \frac{\partial g}{\partial x} \\[6pt]
+   \frac{\partial f}{\partial y} - \lambda \frac{\partial g}{\partial y} \\[6pt]
+   -g(x, y) + b
+  \end{bmatrix} & = 
+   \begin{bmatrix}
+   0 \\ 0 \\ 0
+  \end{bmatrix} \\
+
+  \begin{bmatrix}
+   \frac{\partial f}{\partial x} \\[6pt]
+   \frac{\partial f}{\partial y} \\[6pt]
+   g(x, y) + b
+  \end{bmatrix} & = 
+   \begin{bmatrix}
+   \lambda \frac{\partial g}{\partial x} \\[6pt]
+   \lambda \frac{\partial g}{\partial y} \\[6pt]
+   b
+  \end{bmatrix} \\
+\end{aligned}
+$$
+
+which matches the same set of equations manually constructed with lagrange multipliers.  Therefore, it can be applied to any problem of the form
+
+$$
+\begin{aligned}
+  \text{maximize/minimize} \; &f(x,y, ...) \\
+  \text{subject to} \; &g(x, y, ...) = b
+\end{aligned}
+$$
+
+---
+
 ### Example
 
 Putting this all together, two-player Zero-sum Games have Nash Equilibria which can be expressed as a linear program, meaning the solution can be found in polynomial time. Given a game 
