@@ -9,8 +9,12 @@ path: "/blog/category-theory"
   .n { visibility: hidden; } 
   
   img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     align: center;
   }
+
 </style>
 
 
