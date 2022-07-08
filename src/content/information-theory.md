@@ -24,7 +24,7 @@ Notes on Information Theory from various sources
   - $H(x)$ can be compressed into $n(H(x) + \epsilon)$ bits with negligible loss
   - or alternatively compressed into  $n(H(x) - \epsilon)$ bits entailing certain loss
   - Given a noisy communication channel whose behavior is given by a stochastic channel law and considering a message of $k$ bits output by a source coder, the theorem states that every such channel has a precisely defined real numbered **capacity** that quantifies the maximum rate of reliable communication
-  - Given a noisy channel with a capacity $C$, if information is transmitted at rate $R$ (meaning $k=nR$ message bits are transmitted in $n$ uses of the channel), then if $R < C$, there exist coding schemes (encoding and decoding pairs) that guarantee negligible probability of miscommunication, whereas if $R > C$, then –regardless of a coding scheme– the probability of an error at the received is bounded below some constant (which increases proportionately to $R$)
+  - Given a noisy channel with a capacity $C$, if information is transmitted at rate $R$ (meaning $k=nR$ message bits are transmitted in $n$ uses of the channel), then if $R < C$, there exist coding schemes (encoding and decoding pairs) that guarantee negligible probability of miscommunication, whereas if $R > C$, then –regardless of a coding scheme– the probability of an error at the receiver is bounded below some constant (which increases with $R$)
     - Conversely, when $R > C$, the probability of miscommunication goes exponentially to 1 in $k$
 
 ### 1 - A Simple Code
@@ -73,7 +73,20 @@ $$
 \delta(x,y) = \frac{\Delta(x,y)}{n}
 $$
 
+- The **distance** of an error correcting code is the measurement of error resilience quantified in terms of how many errors need to be introduced to cofuse one codeword with another
+- The minimum distance of a code $C$ denoted $\Delta(C)$ is the minimum Hamming distance between two distinct codewords of $C$: 
+
+$$
+    \Delta(C) = \min\limits_{{c_1, c_2 \in C \atop c_1 \neq c_2}} \Delta(c_1, c_2) \\
+    
+$$
+
+- For every pair of distinct codewords in $C$, the Hamming Distance is at least $\Delta(C)$
+- The relative distance of $C$ denoted $\delta(C)$ is the normalized quantity $\frac{\Delta(C)}{n}$ where $n$ is the block length of $C$. Thus, any two codewords of $C$ differ in at least a fraction of $\sigma(C)$ positions
+- For example, the parity check code, which maps $k$ bits to $k+1$ bits by appending the parity of the message bits, is an example of a distance 2 code with rate $k/(k+1)$ 
+
 ### Hamming Weight
+
 The **Hamming Weight** is the number of non-zero symbols in a string $x$ over alphabet $\Sigma$ 
 
 $$
@@ -179,7 +192,7 @@ General codes may have no structures, but of particular interest to us are a sub
 
 ### Aside about Parity-Bit Check Codes
 
-In simple Parity-bit Check code uses an additional bit denoting the even or odd parity of a messages Hamming Weight is appended to the message to serve as a mechanism for error detection (but not correction since it provides no means of determing the position of error). 
+A simple Parity-bit Check code uses an additional bit denoting the even or odd parity of a messages Hamming Weight which is appended to the message to serve as a mechanism for error detection (but not correction since it provides no means of determing the position of error). 
 
 - Such methods are inadeqaute for multi-bit errors of matching parity e.g., 2 bit flips might still pass a parity check, despite a corrupted message
 
@@ -404,7 +417,7 @@ $$
 
 - **Source-Channel Separation Theorem**: Treating the problems of data compression and error correction separately, rather than seeking a jointly optimal source/channel coding solution, is asymptotically optimal in block sizes
 
-- Because of redundancy introduced by the channel coder, there must bee more symbols at the output of the coder than at the input.  A channel coder operates by accepting a block of $k$ input symbols and outputting a block of $n > k$ symbols.  
+- Because of redundancy introduced by the channel coder, there must be more symbols at the output of the coder than at the input.  A channel coder operates by accepting a block of $k$ input symbols and outputting a block of $n > k$ symbols.  
 - The **Rate** of a channel coder is $R = k/n < 1$
 - **Channel Coding Theorem**: Provided that the rate $R$ of transmission is less than the channel capacity $C$, there exists a code such that the probability of error can be made arbitrarily small
 
