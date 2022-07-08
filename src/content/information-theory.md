@@ -96,7 +96,8 @@ $$
 \end{aligned}
 $$
 
-### Hamming Ball
+### Hamming 
+
 A **Hamming Ball** is given by the radius $r$ around a string $x \in \Sigma^n$ given by the set 
 
 $$
@@ -124,7 +125,7 @@ which is the amount of non-redundant information per bit in codewords of $C$.
 
 ### Distance
 
-- The **distance** of an error correcting code is the measurement of error resilience quantified in terms of how many errors need to be introduced to cofuse one codeword with another
+- The **distance** of an error correcting code is the measurement of error resilience quantified in terms of how many errors need to be introduced to confuse one codeword with another
 - The minimum distance of a code $C$ denoted $\Delta(C)$ is the minimum Hamming distance between two distinct codewords of $C$: 
 
 $$
@@ -132,7 +133,7 @@ $$
     
 $$
 
-- For every pair of distinct codewords in $C$, the Hamming Distance is at least $\Delta(C)$
+- For every pair of distinct codewords in $C$, the Hamming distance is at least $\Delta(C)$
 - The relative distance of $C$ denoted $\delta(C)$ is the normalized quantity $\frac{\Delta(C)}{n}$ where $n$ is the block length of $C$. Thus, any two codewords of $C$ differ in at least a fraction of $\sigma(C)$ positions
 - For example, the parity check code, which maps $k$ bits to $k+1$ bits by appending the parity of the message bits, is an example of a distance 2 code with rate $k/(k+1)$ 
 
