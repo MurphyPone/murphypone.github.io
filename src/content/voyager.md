@@ -3,6 +3,7 @@ title: "40 | Voyager"
 date: "2022-07-09"
 description: "Information Theory"
 path: "/blog/voyager"
+tags: ["Information Theory"]
 ---
 
 <style>
@@ -522,12 +523,12 @@ $$
 
     & & & & & 0 & 0 & | 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & | & | & |& |  \\ % good
     
-    & & & & & & & \color{blue} 1 & \color{blue} 0 & \color{blue} 1 & \color{blue} 0 & \color{blue} 1 & \color{blue} 1 & \color{blue} 1 & \color{blue} 0 & \color{blue} 0 & \color{blue} 0 & \color{blue} 1 & \color{blue} 1 & \downarrow & | & | & |  \\ \hline % good
+    & & & & & & & | \color{blue} 1 & \color{blue} 0 & \color{blue} 1 & \color{blue} 0 & \color{blue} 1 & \color{blue} 1 & \color{blue} 1 & \color{blue} 0 & \color{blue} 0 & \color{blue} 0 & \color{blue} 1 & \color{blue} 1 & \downarrow & | & | & |  \\ \hline % good
 
     & & & & & & & 0 & | 1 & 0 & 1 & 1 & 1 & 1 & 0 & 1 & 1 & 1 & 1 & 0  & | & | & | \\ % good
     & & & & & & &   & | \color{blue} 1 & \color{blue} 0 & \color{blue} 1 & \color{blue} 0 & \color{blue} 1 & \color{blue} 1 & \color{blue} 1 & \color{blue} 0 & \color{blue} 0 & \color{blue} 0 & \color{blue} 1 & \color{blue} 1 & \downarrow & \downarrow & \downarrow  \\ \hline % good
 
-    & & & & & & & & & & & | 1 & 0 & 0 & 1 & 1 & 1 & 1 & 0 & 1 & 0 & 0 & 0 \\ % good
+    & & & & & & & & 0 & 0 & 0 & | 1 & 0 & 0 & 1 & 1 & 1 & 1 & 0 & 1 & 0 & 0 & 0 \\ % good
     & & & & & & & & & & & | \color{blue} 1 & \color{blue} 0 & \color{blue} 1 & \color{blue} 0 & \color{blue} 1 & \color{blue} 1 & \color{blue} 1 & \color{blue} 0 & \color{blue} 0 & \color{blue} 0 & \color{blue} 1 & \color{blue} 1   \\ \hline % good
 
     & & & & & & & & & & & 0 & \color{green} 0 & \color{green}1 & \color{green}1 & \color{green}0 & \color{green}0 & \color{green}0 & \color{green}0 & \color{green}1 & \color{green}0 & \color{green}1 & \color{green}1 \\ % good
