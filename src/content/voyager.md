@@ -1,7 +1,7 @@
 ---
-title: "40 | Voyager"
+title: "40 | Voyager 2"
 date: "2022-07-09"
-description: "Information Theory, Hamming & Golay Codes"
+description: "Information Theory, Error Correcting Codes
 path: "/blog/voyager"
 ---
 
