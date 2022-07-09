@@ -1,9 +1,8 @@
 ---
 title: "40 | Voyager"
 date: "2022-07-09"
-description: "Information Theory"
+description: "Information Theory, Hamming & Golay Codes"
 path: "/blog/voyager"
-tags: ["Information Theory"]
 ---
 
 <style>
@@ -32,7 +31,7 @@ tags: ["Information Theory"]
 
 ![](https://voyager.jpl.nasa.gov/assets/images/posters/grand_tour.jpg)
 
-## Introduction
+# Introduction
 
 The date is July 9th, 1979.  You are the Voyager 2 space craft, and for the past 23 months, you have been _voyaging_ towards the outer planets of Earth's solar system.  Cape Canaveral is over 440 million miles away and growing about half a million miles[^1] more distant every “day,” but mankind has never been closer to Europa.  Europa looks dope btw.
 
@@ -65,7 +64,7 @@ Among the numerous tried and true scapegoats which software engineers so often l
 
 But in _**OUTER SPACE**_, where part of the goal of the mission is to _measure_ cosmic rays, said cosmic rays are slighlty more prevalent.  Bit flips are bound to happen at some point during the ~16 hour transit from the HGA back to Houston.  And the engineers at NASA knew this to be the case before sending their half-a-billion dollar reconnaisance babies out into the wild.  **How, then, is the integrity of the data preserved?**
 
-## Information Theory: Forward Correction 
+# Information Theory: Forward Correction 
 
 Luckily, with their backs against the wall, and Nixon's cronies looking for a reason to scuff the entire program,[^2] NASA did not have to also invent the wheel of Error Correcting Codes.  Much of the groundwork of this realm of Information Theory had already been laid by Claude Shannon, John Hamming, and other bright minds of Bell Research and Signal Corps Laboratories.  I have a few other ever-growing posts on [Information Theory](/blog/information-theory) which house the supporting research for this post in particular, which go into more depth about what error correcting codes are and how they work. But the relevant bits have been included here, since that's kind of like the whole purpose.  
 
@@ -224,7 +223,7 @@ $$
 c = [\underbrace{m, m, ...., m}_{n \text{ copies}} ]
 $$
 
-The rate of such a code is $R = 1/n$: _abysmal_
+The rate of such a code is _abysmal_.
 
 ### Parity Check
 
@@ -297,7 +296,6 @@ $$
 
 thus distributing the error across the message, making it easier to recover small the complete message (lots of "small" errors are preferable to one gaping hole in our data as we'll see shortly).
 
-
 ## Error Correction and Detection: Better Approaches
 
 ### Hamming Codes
@@ -309,48 +307,28 @@ The simplest **Full Hamming Code** is $[3, 1, 3]_2$ and can be represented geome
 
 ![](/images/voyager-2.png)
 
-Opposite coreners are necessarily three edges away from each other per this code's Hamming Ball property.  We have two codewords which we assume are accurate ($000$, $111$) representing our 1-bit message, and label all the other corners with "what we might get" if one of the bits gets corrupted. 
+Opposite corners are necessarily three edges away from each other per this code's Hamming Ball property.  We have two codewords which we assume are accurate ($000$, $111$) representing our 1-bit message, and label all the other corners with "what we might get" if one of the bits gets corrupted. 
 
-"_But Peter,_" you might say "_that's not a sphere, that's a cube._"
 
-Go fuck yourself: 
+<details>
+  <summary><u class="my-link"><em>"But Peter,"</em> you might say, <em>"that's not a sphere, that's a cube."</em></u></summary>
+  
+  Go fuck yourself: 
 
 ![](/images/it-4.png)
+</details>
 
-To decode, we take the correct message to correspond to the majority of the bits in our code word.  The corners adjacent to codeword $000$ are $001, 010, 100$.  If we "round" according to the majority, we preserve our target message of $0$.
+<br>
+
+To decode, we take the correct message to correspond to the majority of the bits in our code word.  The corners adjacent to codeword $000$ are $001, 010, 100$.  If we "round" according to the majority of bits present, we preserve our target message of $0$.
 
 This code is **"perfect"** since each corner is used as either a target $\{``000", ``111" \}$ or a correction vector.  If the receiver of an encoded message observes a correction vector, the decoding component will select the nearest composite codeword target.
 
 The next full Hamming Codes are $[7, 4, 3]$ and $[15, 11, 3]$, the former of which is also perfect on a 7-dimensional hypercube.  Note that the degree of accuracy of all three of these codes $3, 7, 15, ...$ are all $2^n - 1$, that is, one less than a power of 2.
 
-#### Another Construction
+## Linear Codes and Generator Matrices
 
-The original presentation of the Hamming code was offered by guess-who in 1949 to correct 1-bit errors using fewer redundant bits.  Chunks of 4 information bits $x_1, x_2, x_3, x_4$ get mapped to a codeword ("encoded") of 7 bits as 
-
-$$
-x_1, x_2, x_3, x_4, \\ x_2 \oplus x_3 \oplus x_4, \\ x_1 \oplus x_3 \oplus x_4,
-\\ x_1 \oplus x_2 \oplus x_4
-$$
-
-which can be equivalently represented as a mapping from $x$ to $Gx$ (operations performed $\mod 2$) where $x$ is the column vector $[x_1x_2x_3x_4]^T$ and $G$ is the matrix 
-
-$$
-G = \begin{bmatrix}
-        1 & 0 & 0 & 0 \\
-        0 & 1 & 0 & 0 \\
-        0 & 0 & 1 & 0 \\
-        0 & 0 & 0 & 1 \\
-        0 & 1 & 1 & 1 \\
-        1 & 0 & 1 & 1 \\
-        1 & 1 & 0 & 1 
-    \end{bmatrix}
-$$
-
-Two distinct 4-bit vecotrs $x,y$ get mapped to the code words $Gx, Gy$ which differ in the last 3 bits.  This code can correct all single bit-flip errors since, for any 7-bit vector, there is at most one codeword which can be obtained by a single bit flip.  For any $y \in \{0,1 \}^7$ which is not a codeword, there is always a code word which can be obtained by a single bit flip.
-
-### Linear Codes and Generator Matrices
-
-General codes may have no structure, but of particular interest to us are code with an additional structure called **Linear Codes**. 
+General codes may have no structure as we've seen above, but of particular interest to us are code with an additional structure called **Linear Codes**. 
 
 If $\Sigma$ is a field and $C \subset \Sigma^n$ is a subspace of $\Sigma^n$ then $C$ is said to be a Linear Code.  As $C$ is a subspace, there exists a basis $c_1, c_2, ..., c_k$ where $k$ is the dimension of the subspace.  Any codeword can be expressed as the linear combination of these basis vecors.  We can write these vectors in matrix form as the columns of an $n \times k$ matrix (as above) which is called a **Generator Matrix**.
 
@@ -386,18 +364,64 @@ $$
 
 and we can see that $HG = \mathbf 0$.
 
-### Correcting single errors with Hamming codes
+#### Linear Construction
+
+The original presentation of the Hamming code was offered by guess-who in 1949 to correct 1-bit errors using fewer redundant bits.  Chunks of 4 information bits $x_1, x_2, x_3, x_4$ get mapped to a codeword ("encoded") of 7 bits as 
+
+$$
+x_1, x_2, x_3, x_4, \\ x_2 \oplus x_3 \oplus x_4, \\ x_1 \oplus x_3 \oplus x_4,
+\\ x_1 \oplus x_2 \oplus x_4
+$$
+
+which can be equivalently represented as a mapping from $x$ to $Gx$ (operations performed $\mod 2$) where $x$ is the column vector $[x_1x_2x_3x_4]^T$ and $G$ is the matrix 
+
+$$
+G = \begin{bmatrix}
+        1 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0 \\
+        0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 1 \\
+        0 & 1 & 1 & 1 \\
+        1 & 0 & 1 & 1 \\
+        1 & 1 & 0 & 1 
+    \end{bmatrix}
+$$
+
+Two distinct 4-bit vectors $x,y$ get mapped to the code words $Gx, Gy$ which differ in the last 3 bits.  This code can correct all single bit-flip errors since, for any 7-bit vector, there is at most one codeword which can be obtained by a single bit flip.  For any $y \in \{0,1 \}^7$ which is not a codeword, there is always a code word which can be obtained by a single bit flip.
+
+
+#### Graph Construction
+
+A Wolf trellis for a Hamming Code is a graph associated with a block of a given called.  Paths on the graph correspond to cectors $\mathbf v$ that satisfy the parity check condition $\mathbf vH^T = \mathbf 0$.  The trellis states at the $k$th stage are obtained by taking all possible binary linear combinations of the first $k$ columns of $H$.  The **Viterbi Algorithm** for decoding this representation finds the best path through the graph.
+
+For example, this is the Wolf trellis for the hopfully now familiar $[7,4,3]_2$ Hamming Code:
+
+![](/images/it-8.png)
+
+#### Mogul 
+
+I'm just going to come out and say it.  John Conway's was a lizard man with an unparalled case of chronice pattern-matching-brain.  The man was of a different breed; the opposite of a maastrichtian.
+
+Legend has it that a collegial IEEE Fellow of Conway's saw him dominating the school yard children in various games like *Turning Turtles* and *Dots and Boxes* and said "I bet you can't turn that into a Binary Lexicode of $[n \leq 44, k, d \leq10]_2$" to which Conway famously responded "Hold my beer."[^7]
+
+Attached for the author's amusement is an image of this _absurd_ paper:
+
+![](/images/it-9.png)
+
+
+## Correcting Single Errors with Hamming codes
 
 Suppose that $y$ is a corrupted version of some unknown codeword $c \in C$ with a single error (bit flip).  We know that by the distance property of $C_\text{Ham}$, $c$ is uniquely determined by $y$.  We could determine $c$ by flipping each bit of $y$ and check if the resulting vector is in the null space of $H$ 
 - Recall that the nullspace of a matrix $A$ is the set of all $n$-dimensional column vectors $x$ such that $Ax = \mathbf 0$ 
 
-However, a more efficient correction can be performed.  We know that $y = c + e_i$, where $e_i$ is the column vector of all zeros except for a single 1 in the $i$th position.  Note that $Hy = H(c+ e_i) = Hc + He_i =$ the $i$th column of $H$ which is the binary representation of $i$, and thus this recovers the location $i$ of the error
-- **Syndrome**: We  say that $Hy$ is the _syndrome_ of $y$ 
+However, a more efficient correction can be performed.  We know that $y = c + e_i$, where $e_i$ is the column vector of all zeros except for a single 1 in the $i$th position.  Note that $Hy = H(c+ e_i) = Hc + He_i =$ the $i$th column of $H$ which is the binary representation of $i$, and thus this recovers the location $i$ of the error. We  say that $Hy$ is the **_syndrome_** of $y$ 
 
-#### Examples of Hamming Codes
+### Examples of Hamming Codes
 - $[n, n-1, 2]_2$ corresponds to the binary parity check code consisting of all vectors in $\mathbb F_2^n$ of even Hamming Weight
 - $[n, 1, n]_2$ is a binary repetition code consisting of the two vectors $\mathbf 0^n, \mathbf 1^n$
 - $[7,4,3]_2$ is the linear Hamming Code discussed above
+
+While fascinating, these codes can only correct 1 error, so a more robust code may be needed.  
 
 #### Perfect Codes
 
@@ -405,8 +429,6 @@ There are a few perfect binary codes:
 - The Hamming Code $C^{(r)}_\text{Ham}$ 
 - The Golay Code
 - The trivial codes consistng of just 1 codeword, or the whole space, or the repetition code $\{0^n, 1^n\}$ for odd $n$
-
-While fascinating, these codes can only correct 1 error, so a more robust code may be needed.  
 
 ## The Golay Code
 
@@ -563,7 +585,6 @@ An algorithm for decoding the parity bits of a Golay Code is as follows:
 4. Rotate the codeword cyclically left by 1 bit and go to (1)
 5. Rotate the codeword back to its initial position.
 
-
 ## How to Actually Beam Them Up, Scotty?
 
 _"Okay but how do these encodings actually get transmitted?  I mean we're talking about space here, not an IRC channel."_
@@ -598,31 +619,195 @@ We can expand this representation to two dimensions by introducing another signa
 
 ![](/images/it-3.png)
 
-Maximum-Likelihood Estimation is used to TODO: . pp. 66 determine which signals correspond to which codewords
+Once our message has been encoded for error correction, and further transformed via signal constellation $\mathcal S$ into a waveform, it must be read by a receiver somewhere.  We call the transmitted value $\mathbf S \in \mathcal S$, chosen with prior probability $P(\mathbf S=s)$.  The receiver uses the received point $\mathbf R =r$ to determine what value to acsribe to the signal. This estimated decision is denoted
 
-TODO: diagram of source, encoder, channel, receiver decoder
+$$
+\hat s = \begin{bmatrix} \hat a_1 \\ \hat a_2\end{bmatrix} \in \mathcal S
+$$
 
-### Performance of Error Correcting Codes
+and is used to determine the likelihood of observing a signal given a received data point $P(s | r)$.  The decision rule which minimizes the probability of error is to choose $\hat s$ to be the value of $s$ which maximizes $P(s | r)$, where the possible values of $s$ are those in the signal constellation:
 
-## Conclusion
+$$
+\begin{aligned}
+    \hat s &= \arg \max \limits_{s \in \mathcal S} \;P(s | r) \\
+\tag{Bayes' rule} &= \arg \max \limits_{s \in \mathcal S} \;\frac{p_{R | S}(r | s)P(s)}{p_R(r)}
+\end{aligned}
+$$
 
-Today Voyager 2 is 12 billion miles away, and travelling almost over 840,000 miles per day.
+Since the denominator of this expression does not depend on $s$, we can further simplify:
 
-## References
+$$
+= \arg \max \limits_{s \in \mathcal S}\; p_{R | S}(r | s)P(s)
+$$
+
+leaving us with the maximum **_a posteriori_** decision rule.  And, in the case that all priors are equal (as we assume with our binary code), this can also be further simplified to a **Maximum Likelihood** decision rule
+
+$$
+\hat s = \arg \max \limits_{s \in \mathcal S} \;p_{R | S}(r | s)
+$$.
+
+Once the decision $\hat s$ is made, the corresponding bits are determined by the constellation; the output of the receiver is a maximum likelihood estimate of the actual bits transmitted.  $\hat s$ is selected to be the closest point according to Euclidian distance $\parallel r - \hat s^2 \parallel$.  
+
+The "raw" signal distributions are dueling Gaussians about the corresponding mean measurements of $b \in \{0, 1\}$ under our projections to $\hat{b} \in \{-1, 1\}$. 
+
+$$
+p(r|s=\sqrt{E_b}) = \frac{1}{2 \pi}e^{-\frac{1}{2 \sigma^2}(r - \sqrt{E_b})^2} \\ 
+p(r|s=-\sqrt{E_b}) = \frac{1}{2 \pi}e^{-\frac{1}{2 \sigma^2}(r + \sqrt{E_b})^2}
+$$
+
+![](/images/it-5.png)
+
+and the weighted conditional densities of the Maximum A Posteriori decision rule distribution:
+
+![](/images/it-6.png)
+
+where $\tau$ is threshold at which 
+
+$$
+p(r|s =\sqrt{E_b})P(s=\sqrt{E_b}) = p(r|s = -\sqrt{E_b})P(s=-\sqrt{E_b})
+$$
+
+which, when met or exceeded, the decision rule becomes
+
+$$
+\hat{s} = \begin{cases}
+  -\sqrt{E_b} &\implies b_i = 0 &\text{if } r < \tau \\
+   \sqrt{E_b} &\implies b_i = 1& \text{if } r > \tau \\ 
+\end{cases}
+$$
+
+which can be computed explicitly by solving for the intersection point:
+
+$$
+\tau = \frac{\sigma^2}{2\sqrt{E_b}}\ln \frac{P(s = -\sqrt{E_b})}{P(s = \sqrt{E_b})}
+$$.
+
+Binary _Detection_ errors in signal reception can still occur when a received point $R$ exceeds this threshold $\tau$ which can be computed with a Cumulative Distribution Function:
+
+$$
+Q(x) = P(N > x) = \frac{1}{\sqrt{2\pi}} \int_x^\infty e^{-n^2/2} dn
+$$
+
+which we will use in measuring the performance of various coding schemas.
+
+In the special case where measured signal strengths are assumed to be equal, the overall probability of error is given by:
+
+$$
+P(\varepsilon) = Q\Big(\frac{|b-a|}{2\sigma}\Big)
+$$
+
+where $a,b$ are signals.
+
+All together, our Binary Phase-Shift Keying transmission system from HGA to Houston looks something like this:
+
+![](/images/it-7.png)
+
+## Performance of Error Correcting Codes
+
+How "expensive" is it to add these redundant bits to our transmission?  _Is it worth it?_ What, you didn't think Europa looked cool? 
+
+Recall that in our system, $k$ inputs result in $n$ output bits where $n > k$.  $R=k/n$ is the rate of our correcting code, and for some arbitrary transmission budget we have $E_b$ joules/bit for the unencoded $k$ bits of data which is spread over more $n$ _encoded_ bits.  This relationship can be expressed as $E_c = RE_b$, where $E_c$ is understood as the "energy per coded bit," and necessarily $E_c < E_b$ meaning that unencoded transmission performs better in terms of energy, but we risk error by ommitting the encoding process.
+
+At the receiver, the detected coded bits are passed to the decoder to attempt to correct errors.  In order to be of any use to us, the value of the code must be strong enough so that the bits received can compensate for the lower energy per bit in the channel. 
+
+### Reptition Code
+
+For a repetition code with a transmission rate of 1 bit/second, we must send $n$ coded bits/second and with $n$ times as many bits to send, there is still a constant amount of power shared by all bits: $E_c = E_b/n$.  Thus there is less energy available for each bit to convery information, and the probability of error is 
+
+$$
+Q(\sqrt{2E_c/N_0}) = Q(\sqrt{2E_b/nN_0})
+$$
+
+Notice that the probability of error is higher as a result of using such a code!  
+
+### Golay Code
+
+As a concrete example, let's compare the relative performance of a Golay Code against a pure stream of data, that is a message that has 0 redundant bits (but high risk of data loss): 
+- System $A$ trasmits data bits directly
+- System $B$ trasmits a totle 23 bits for every 12 data bits
+
+We assume a constant unit of power is available to each system.  We transmit roughly twice as many bits in system $B$ as in $A$, so the strength of energy across each bit is halved.  $a$ is the amplitude of detected output, which will be $1/\sqrt{2}$ since $E \propto A^2$, but the cost of these penalty bits is necessary to ensure corrective ability. $P(\varepsilon)$ is the measure of penalty in terms of error for decreasing the power of transmission by a factor of 2.
+
+| | $E_b$ | a | $P(\varepsilon)$ |  
+|-|-|-|-|
+| A | $1$ | 1 | $0.0005$ |
+| B | $1/2$ | $1/\sqrt{2}$ | $0.001$ |
+
+### The Hadamard Code
+
+The Dual of the Hamming Code $C^{(r)}_\text{Ham}$ has a generator matrix $G_r = (H_r)^T$ which is a $(2^r-1)\times r$ matrix whose rows are all non-zero bit vectors of length $r$.  This yields a $[2^r-1, r]_2$ code and is called a **simplex code**.
+
+The **Hadamard Code**, the Hamming Code’s dual, is obtained by adding an all-zeros row to $G_r$.
+
+$\text{Had}_r$ is a $[2^r, r]_2$ linear code whose $2^r \times r$ generator matrix has all $r$-bit vecotrs as its rows. Its encoding map encodes $x \in \mathbb F_2^r$ by a string in $F_2^{2^r}$ consisting of the dot product $\langle x,a \rangle$ for every $a \in \mathbb F^k_q$. The Hadamard code can also be defined over $\mathbb F_q$, by encoding a message in $\mathbb F_q^k$ with its dot product with every other vector in that field.
+
+It is _the most redundant_ linear code in which no two codeword symbols are equal in every codeword, implying a robust distance property:
+- The Hadamard Code has a minimum distance of $2^{r-1}$.  
+- The $q$-ary Hadamard Code of dimension $r$ has a distance $(1-\frac{1}{q})q^r$ 
+
+Binary codes cannot have a relative distance $\delta(c)$ of more than $\frac{1}{2}$, unless they only have a fixed number of code words.  Thus, the relative distance of Hadamard Codes is optimal, but their rate is necessarily poor.
+
+## Limits of Error Correcting Codes
+
+The Hamming and Hadamard codes exhibit two extreme trade-offs between _rate_ and _distance_
+- Hamming Code’s _rates_ appraoch 1 (optimal), but their _distance_ is only 3
+- Conversely, Hadamard Code’s have an optimal relative _distance_ of $\frac{1}{2}$, but their _rate_ approaces 0
+
+The natural question that follows is _is there a class of codes which have good rate and good relative distance_ such that neither approach 0 for large block lengths? To answer this question, we consider asymptotic behavior of code families:
+
+Define a code family $\mathcal C$ to be an infinite collection $\{ C_i | i \in N \}$, where $C_i$ is a $q_i$-ary code of block length $n_i$, with $n_i > n_{i-1}$ and $q_i > q_{i-1}$
+	
+The **Familial Rate** and **Distance** of a category of codes are denoted
+
+$$
+\mathcal {R(C)} = \lim_{i \rightarrow \infty } \frac{k_i}{n_i} 
+$$
+
+$$
+\delta\mathcal {(C)} = \lim_{i \rightarrow \infty } \frac{\Delta(C_i)}{n_i} 
+$$
+
+- A $q$-ary family of codes is said to be asymptotically _good_ if its rate and relative distance are bounded away from zero such that there exist constant $\mathcal{R_0> 0, \delta_0 >0 \; s.t. R(C) > R_0, \delta(C) > \delta_0}$ 
+
+While a good deal is known about the existence or even explicit construction of good codes as well as their limitations, the best _possible_ asymptotic trade-off between rate and relative distance for binary codes remains a fundamental open question which has seen no improvement since the late 70s in part due to the the fundamental trade off between large rate and large relative distance.
+
+The Hamming and Hadamard Codes help to highlight the flexibility and main take aways of the Channel Coding Theorem as outlined by Wiley:
+- As long as $R < C$, arbitrarily reliable transmission is possible
+- Code lengths may have to be long to achieve desired reliability.  The closer $R$ is to $C$, the larger we would expect $n$ to need to be in order to obtain some specified degree of performance
+- The theorem is general, based on ensembles of ranom codes, and offers little insight into what _the best code_ should be.  We don't know how to design the, just that they exist
+- Random codes have a higher probability of being good, so we can reliably just pick one at random
+
+> What then, is the problem?  Why the need for decades of research into the field if random selection of a code might be our best bet?
+
+The answer lies in the complexity of representing and decoding a "good" code.  To represent a random code of length $n$, there must be sufficent memory to store _all_ associated codewords, which requires $n2^{Rn}$ bits.  To decode a recived word $y$, maximum ikelihood estimation decoding for a random signal requires that a received vector must be compared with all $2^{Rn}$ possible codewords.  For a middling rate of $R=1/2$, with block length $n = 1,000$ (still relatively modest), $2^500$ comparisons must be made for each received signal vector... This is prohibitively expensive, beyond practical feasibility for even massiviley parallelized computing systems, let alone our 70kb, Fortran-backed integrated circuit.
+
+
+# Conclusion
+
+Today Voyager 2 is 12 billion miles away, and travelling over 840,000 miles further each day.  We're still actively transmitting and receiving data (intact) from both of the Voyager space craft.  
+
+It's somewhat difficult to appreciate the absurd amounts of genius which made make that feat possible.  I find the difference in the orders of magnitude between the 30,000-odd words worth of computing power available to the space craft and the _billions of miles_ of distance separating the scientists from their experiment which they expertly designed _to outlive_ them to be mind boggling. 
+
+Pretty sick if you ask me.
+
+Happy Discovery of Adrastea day.
+
+## References and Footnotes
 
 [^1]: Um, so yeah. I'm going to be using imperial measurements.  If only there were a convenient way to <a href="/blog/fibonacci-fun">quickly convert</a> between metric and imperial, say the 42nd and 43rd numbers of the Fibonacci sequence? Easily, we recall that 433,494,437 precedes 701,408,733 in the sequence and thus, 440 million miles is roughly 700 million kilometers. 
 
 [^2]: Nixon was actually a large proponent of the space program, but this story needs an antogonist, and he's as good as any.
 
-[^3]: Marcel was a crackhead for thinking this is a sufficient explanation for the construction.  [The Paper](http://www.lama.univ-savoie.fr/pagesmembres/hyvernat/Enseignement/1617/info528/TP-Golay/golay_paper.pdf), if it can even be called that, could fit on a napkin.  Mathematicians of a certain flavor exhibit the same kind of stoney-Macgyver behavior. TODO: 
+[^3]: Marcel was a crackhead for thinking this is a sufficient explanation for the construction.  [The Paper](http://www.lama.univ-savoie.fr/pagesmembres/hyvernat/Enseignement/1617/info528/TP-Golay/golay_paper.pdf), if it can even be called that, could fit on a napkin.  Mathematicians of a certain flavor exhibit the same kind of stoney-Macgyver behavior, see Conway.
 
-[^4]: This diagram took me 4 hours.  Please clap.
+[^4]: These diagrams took me several hours.  Please clap.
 
 [^5]: This diagram was taken from _Error Correction Coding: Mathematical Methods and Algorithms_ which is a good book.
 
-- Your device has more computing power: https://www.nasa.gov/mission_pages/voyager/multimedia/vgrmemory.html
-- Voyager timeline: https://voyager.jpl.nasa.gov/mission/timeline/#event-voyager-2-encounters-jupiter
-- Voyager fast facts: https://voyager.jpl.nasa.gov/frequently-asked-questions/fast-facts/
-- Voyager Gallery: https://voyager.jpl.nasa.gov/galleries/
-- Nixon cuts funding: https://www.planetary.org/articles/20141003-how-richard-nixon-changed-nasa#:~:text=Nixon's%201971%20budget%20included%20a,the%20success%20of%20Apollo%2011.
-- Other geometric representations: https://giam.southernct.edu/DecodingGolay/decoding.html
+[^6]: More lizard brain pattern matching [at work here](http://neilsloane.com/doc/Me122.pdf).
+
+[^7]: [Lexicographic Codes: Error-Correcting Codes from Game Theory](http://neilsloane.com/doc/Me122.pdf)
+
+[^8]: [Voyager timeline](https://voyager.jpl.nasa.gov/mission/timeline/#event-voyager-2-encounters-jupiter)
+
+[^9]: [Other geometric representations of codes](https://giam.southernct.edu/DecodingGolay/decoding.html)
