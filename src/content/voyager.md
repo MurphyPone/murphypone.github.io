@@ -779,7 +779,7 @@ The Hamming and Hadamard Codes help to highlight the flexibility and main take a
 
 > What then, is the problem?  Why the need for decades of research into the field if random selection of a code might be our best bet?
 
-The answer lies in the complexity of representing and decoding a "good" code.  To represent a random code of length $n$, there must be sufficent memory to store _all_ associated codewords, which requires $n2^{Rn}$ bits.  To decode a recived word $y$, maximum ikelihood estimation decoding for a random signal requires that a received vector must be compared with all $2^{Rn}$ possible codewords.  For a middling rate of $R=1/2$, with block length $n = 1,000$ (still relatively modest), $2^500$ comparisons must be made for each received signal vector... This is prohibitively expensive, beyond practical feasibility for even massiviley parallelized computing systems, let alone our 70kb, Fortran-backed integrated circuit.
+The answer lies in the complexity of representing and decoding a "good" code.  To represent a random code of length $n$, there must be sufficent memory to store _all_ associated codewords, which requires $n2^{Rn}$ bits.  To decode a recived word $y$, maximum ikelihood estimation decoding for a random signal requires that a received vector must be compared with all $2^{Rn}$ possible codewords.  For a middling rate of $R=1/2$, with block length $n = 1,000$ (still relatively modest), $2^{500}$ comparisons must be made for each received signal vector... This is prohibitively expensive, beyond practical feasibility for even massiviley parallelized computing systems, let alone our 70kb, Fortran-backed integrated circuit.
 
 
 # Conclusion
