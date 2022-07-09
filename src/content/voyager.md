@@ -1,8 +1,8 @@
 ---
 title: "40 | Voyager 2"
 date: "2022-07-09"
-description: "Information Theory, Error Correcting Codes
-path: "/blog/voyager"
+description: "Information Theory, Error Correcting Codes"
+path: "/blog/voyager-2"
 ---
 
 <style>
