@@ -754,7 +754,7 @@ We assume a constant unit of power is available to each system.  System $\mathsc
 | $\mathscr S_1$ | $1$ | 1 | $1/2000$ |
 | $\mathscr S_2$ | $1/2$ | $1/\sqrt{2}$ | $1/100$ |
 
-Thus, $\mathscr S_2$ is twenty-times _more susceptible_ to error because of the reduced strength of energy per bit, meaning that the receiver will have more difficulty correctly measuring which codeword is being transmitted.  However, the redundancies which the Golay Code introduces allow for guaranteed recovery of the complete message, whereas one in two thousand bits in our pure stream of data from $\mathscr S_1$ are simply lost forever.
+Thus, $\mathscr S_2$ is twenty-times _more susceptible_ to error because of the reduced strength of energy per bit, meaning that the receiver will have more difficulty correctly measuring which codeword is being transmitted.  However, the redundancies which the Golay Code introduces allow for guaranteed recovery of the complete message, whereas one in two thousand bits in our pure stream of data from $\mathscr S_1$ are simply lost forever like the Bitcoin I mined on the family computer ten years ago.
 
 ### The Hadamard Code
 
