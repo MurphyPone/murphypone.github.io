@@ -17,8 +17,6 @@ path: "/blog/category-theory"
 
 </style>
 
-
-
 # Preface 
 
 This is a collection notes on Category Theory for personal reference. 
@@ -42,6 +40,7 @@ This is a collection notes on Category Theory for personal reference.
 - ### [9| Function Types](#prog-ch9)
 - ### [10 | Natural Transformation](#prog-ch10)
 - ### [11 | Declarative Programming](#prog-ch11)
+- ### [12 | Limits and Colimits](#prog-ch12)
 
 ## <a name="glossary" class="n"></a> Glossary 
 
@@ -2414,7 +2413,7 @@ which is more sequentially-_coded_.  I.e., `g` cannot happen beforee the eexecut
 
 - The two methodologies differ drastically, begging the question: do we always have a choice, and if a declarative solution exists, can it always be translated into code? The answer is nebulous
 
-### 10.0 - Physics Anecdote
+### 11.1 - Physics Anecdote
 
 In physics there's a duality of expressing laws
 - First: using _local_ or infinitesmal considerations by examining a system under a microlens and predicting how it will evolve within the next instant of time
@@ -2442,5 +2441,70 @@ where $v_1, v_2$ are the velocities of light in the different materials, and $\t
   - Category Theory encourages the latter, global approach which aligns with declarative programming
   - In category theory, there is no notion of distance, neighborhoods, or time; just abstract objects and abstract connections between them
   - If you can get from $A$ to $B$ in a series of steps, you can also get there in one step (the composition of hte constituent steps)
-  - The iniversal construction also epitomizes the global approach
+  - The universal construction also epitomizes the global approach
+
+## <a name="prog-ch12" class="n"></a>12 | Limits and Colimits
+
+- Revisiting the universal construction of the product, let's see if we can't simplify and further generalize it with our new knowledge of functors and natual transformation
+
+![](/images/category-theory-3.png)
+
+- Recall that the construction of a product starts with the selection of two objects $a, b$.  What does it mean to _select_ object?
+  - We can abstract this into more "categorical" terms by considering a category called $\mathbf 2$ with just two objects in it: $1, 2$, and no morphisms other than the obligatory identities
+  - Now, selection of two objects in $\mathbf C$ can be rephrased as the definition of a functor $D$ from $\mathbf 2 \rarr \mathbf C$, mapping the two objects to their images (or image if the functor collapses, which is fine) as well as the identity morphisms in $\mathbf 2$ to $\mathbf C$
+  - This construction removes the imprecise terms of "selection" and replaces it with well defined categorical directive
+
+![](/images/category-theory-32.png)
+
+- Now, to "select" the candidate object $c$, we use the constant functor $\Delta$ from $\mathbf 2 \rarr \mathbf C$ by $\Delta_c$ which maps all objects into $c$ and all morphisms into $\mathbf{id}_c$
+- Now, with two functors from $\mathbf 2 \rarr \mathbf C$ we can consider possible natural transformations between them.  We have two componenets:
+  - object $1 \in \mathbf 2$ mapped to $c$ by $\Delta_c$ and to $a$ by $D$, so the component of a natural transformation between $\Delta_c$, $D$ at $1$ is a morphism from $c \rarr a$ call it $p$
+  - The second component is a morphisms $q :: c \rarr b$, the image of object $2 \in \mathbf 2$ under $D$
+- These directly correspond to the two projections used in the original construction of a product.  Instead of selecting an object and projections, we instead use functors and natural transformations
+- And, because in our trivial example, there are no morphisms in $\mathbf 2$ other than the identity, the natural condition is satisfied!
+
+![](/images/category-theory-33.png)
+
+- Further generalizations which contain non-trivial morphisms will impose natural conditions on the transformation between $\Delta_c$ and $D$
+  - We call such transformations a _cone_ where the image of $\Delta$ is the apex of a pyramid whose sides are formed by the components of the natural transformation, and $D$ forms the base
+
+- To build a cone, we start with a category $\mathbf I$ that defines the pattern, usually a small, finite category
+  - Pick a functor $D$ from $\mathbf I \rarr \mathbf C$ and call its image a _diagram_
+  - Pick some $c \in \mathbf C$ as the apex and use it to define the constant functor $\Delta_c$ from $\mathbf I \rarr \mathbf C$
+  - A natural transformation from $\Delta_c \rarr D$ is the cone
+- For finite $\mathbf I$, it's just a bunch of morphisms connecting $c$ to the diagram, that is: the image of $\mathbf I$ under $D$
+
+TODO: Cone image
+
+- naturality requires that all triangles (walls of a cone) in this diagram commute
+  - Take any morphism $f$ in $\mathbf I$, not that $D$ maps it to a morphism $Df \in \mathbf C$, a morphism that forms the base of some triangle
+  - The constant functor $\Delta_c$ maps $f$ to the identity morphism on $\mathbf C$ and $\Delta$ squishes the two ends of the morphism into one object, and thus the naturality square becomes a commuting triangle, two arms of which are the components of the natural transformation
+
+Nother cone
+
+- This constructs _one_ cone, but we want a _universal_ cone, and there are many possible ways to do this
+- We can define a category of cones based on a given functor $D$ where objects are cones, but not every object $c \in \mathbf C$ can be an apex of a cone since there might not be a natural transformation from $\Delta_c \rarr D$
+- We also need morphisms between cones which would be etermined by morphisms between cone apexes, but we've added the constraint that morphisms between candidate objects must be common factors for the projections
+
+```haskell 
+p' = p . m 
+q' = q . m
+```
+
+which translates, in the general case, to the condition that the triangle whose one side is the facotrizing morphism all commute
+
+[image of such a N.T.]
+
+- The bold lines of such an image of such a natural transformation represent the commuting triangle connecting two cones, with teh morphism $h$ (the lower cone being the universal one, with $\lim D$) is its apex.
+  - Take those factorizing morphisms as the morphisms in our category of cones, and we can easily verify the conclusion that they compose, and are identitive.  Therefore, cones form a category
+
+- Now, we can define the _universal cone_ as the terminal object in the category of cones, there is a unique morphism from any object to that object
+  - In this case, there must be a unique, factorizing morphism from the apex of any other cone to the apex of the universal cone
+  - We call this universal cone the **Limit** of the diagram $D: \lim D$ 
+  - As shorthand, the apex of this cone ca be called the limit since the apexes are our primary "handles" on the cones in this category
+- The limit embodies the properties of the whole diagram in a single object.  For example, the limit of the two-object diagram in the above is the product of the two objects.  The product together with the two projections contains the information about both objects with no extraneous junk, thus making it universal
+
+### 12.1 - Limit as a Natural Isomorphism
+
+
 

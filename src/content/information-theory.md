@@ -1,5 +1,5 @@
 ---
-title: "39 | Notes: Information Theory"
+title: "39 | Notes on Information Theory"
 date: "2022-07-01"
 description: "Claude, Hamming, Hadamard, CMU, Wiley"
 path: "/blog/information-theory"
@@ -13,7 +13,8 @@ Notes on Information Theory from various sources
 - [Lectures](#lectures)
   - [1 | Introduction to Coding Theory](lectures-1)
 - [Error Correction Coding, wiley](#wiley)
-  -  [1 | A context for Error Correction Coding](wiley-1)
+  -  [1 | A Context for Error Correction Coding](wiley-1)
+  -  [2 | Groups and Vector Space](wiley-2)
 
 # <a name="lectures" class="n"></a> Lectures
 
@@ -366,7 +367,7 @@ $$
 
 # <a name="wiley" class="n"></a> Error Correction Coding: Mathematical Methods and Algorithms - Todd Moon
 
-## <a name="wiley-1" class="n"></a> 1 | A context for Error Correction Coding
+## <a name="wiley-1" class="n"></a> 1 | A Context for Error Correction Coding
 
 ### 1.2 - Where Are Codes
 
@@ -474,3 +475,444 @@ and ca be related to the average energy per bit
 $$
 E_b = \frac{\text{energy per signal}}{\text{bits per signal}} = \frac{E_s}{m}
 $$
+
+## <a name="wiley-2" class="n"></a> 2 | Groups and Vector Space
+
+### 2.1 - Introduction
+
+Linear block codes form a group and a vector space, which is useful
+
+### 2.2 - Groups
+
+A **Group** formalizes some basic rules of arithmetic necessary for cancellation and solution of simple equations
+
+A **binary operation** $*$ on a set is a rule that assigns to each ordered pair of elements of a set $a,b$ some element of the set
+- Since the operation is deinfed to return an element of the set, this operation is _closed_
+- We can further assume that all binary operations are closed
+
+- Examples include: $\min(a, b), \; fst(a,b), \; a + b$
+
+A **Group** $\langle G, * \rangle$ is a set $G$ with a binary operation $*$ on $G$ such that 
+- The operator is associative: for any $a, b, c \in G\; (a * b) * c = a * (b * c)$
+- For all $a\in G$ there exists $b \in G$ which is the inverse of $a$ such that $a * b = e$, where $e$ is called the **identity** of the group.  The inverse can be denoted $a^{-1}, -a$ for multiplication-like and addition-like operations, respectively
+
+When $*$ is obvious from context, the group may be referred to as _just_ the set $G$. 
+
+If $G$ has a finite number of elements, it is said to be a finite group with order $|G|$, the number of elements.  
+
+A group $G$ is **commutative** if $a * b = b * a; \; \forall a, b \in G$.
+
+- $\langle \Z, + \rangle$, the integers under addition, forms a group with the identity $0$ since $a + 0 = 0 + a; \; \forall a \in \Z$
+  - The invert of $a \in \Z = -a$.  Thus the group is commutative.
+  - Groups with an addition-like operator are called **Abelian**
+
+- $\langle \Z, \cdot \rangle$, the integers under multiplication, _does not_ form a group since there does not exist a multiplicative inverse for every element of the integers.
+
+- $\langle \mathbb Q \backslash \{0\}, \cdot \rangle$, the rationals without zero under multiplication with the identity of $1$ and the inverse $a^{-1} = \frac{1}{a}$ forms a group
+
+These rules are strong enough to introduce the notion of **cancellation**.  In a group $G$, if $a * b = a * c$, then $b = c$ by left cancellation via 
+
+$$
+\begin{aligned}
+& a^{-1} * (a * b) = a^{-1} (b * c)\\
+\implies & (a^{-1} * a) * c = e * c\\
+\implies &= c \\
+\end{aligned}
+$$
+
+and similarly for right hand cancellation via properties of associativity and identity.
+
+We can also identify that solution to linear equations of the form $a *x = b$ are unique.
+- Immediately, we get $a = a^{-1} b$.  If $x_1, x_2$ are the two solutions such that 
+
+$$
+a * x_1 = b = a * x_2
+$$
+
+then by cancellation, we get $x_1 = x_2$.
+
+For example, let $\langle \Z_5, + \rangle$ be addition $\mod 5$ on the set $\{0, 1, 2, 3, 4, 5 \}$ with the identity $0$.  
+
+| $+$ | $\mathbf 0$ | $\mathbf 1$ | $\mathbf 2$ | $\mathbf 3$ | $\mathbf 4$ | 
+|-|-|-|-|-|-|-|
+| $\mathbf 0$ | $0$ | $1$ | $2$ | $3$ | $4$ | 
+| $\mathbf 1$ | $1$ | $2$ | $3$ | $4$ | $0$ | 
+| $\mathbf 2$ | $2$ | $3$ | $4$ | $0$ | $1$ | 
+| $\mathbf 3$ | $3$ | $4$ | $0$ | $1$ | $2$ | 
+| $\mathbf 4$ | $4$ | $0$ | $1$ | $2$ | $3$ | 
+
+- Since $0$ appears in each row and column, every element has an inverse.  
+- By uniqueness of solution, we must have every element appearing in every row and column, which we do.  So $\langle \Z_5, + \rangle$ is a Abelian group.
+
+One way to form groups is via the Cartesian production.  Given groups $\langle G_1, * \rangle, \langle G_2, * \rangle, \langle G_3, * \rangle, .. \langle G_r, * \rangle$, the direct product group $G_1 \times G_2 \times ... \times G_r$ has elements $(a_1, a_2, ..., a_r)$ where $a_i \in G_i$.   The operation is performed elementwise such that if 
+
+$$
+(a_1, a_2, ..., a_r) \in G 
+$$
+
+and 
+
+$$
+(b_1, b_2, ..., b_r) \in G 
+$$
+
+then 
+
+$$
+(a_1, a_2, ..., a_r) * (b_1, b_2, ..., b_r) = (a_1 * b_1, a_2 * b_2, ..., a_r * b_r)
+$$
+
+#### Example
+
+The group $\langle \Z_2 \times Z_2, + \rangle$ consists of the tuplies and addition $\mod 2$.
+
+| $+$ | $(\mathbf {0, 0})$ | $(\mathbf {0, 1})$ | $(\mathbf {1, 0})$ | $(\mathbf {1, 1})$ |
+|-|-|-|-|-|-|-|
+| $(\mathbf {0, 0})$ | $(0, 0)$ | $(0, 1)$ | $(1, 0)$ | $(1, 1)$ | 
+| $(\mathbf {0, 1})$ | $(0, 1)$ | $(0, 0)$ | $(1, 1)$ | $(1, 0)$ | 
+| $(\mathbf {1, 0})$ | $(1, 0)$ | $(1, 1)$ | $(0, 0)$ | $(0, 1)$ | 
+| $(\mathbf {1, 1})$ | $(1, 1)$ | $(1, 0)$ | $(0, 1)$ | $(0, 0)$ | 
+
+This is called the **Klein 4-group**, and intorduces the concept of permutations as elements of a group, and is a composable function as our operation as opposed to simple arithmetic groups.
+
+#### Example
+
+A permutation of set $A$ is a bijection (one to one, and onto) of $A$ onto itself.  Let 
+
+$$
+A = \{ 1,2,3,4 \}
+$$
+
+then a permutation 
+
+$$
+p_1 = \begin{pmatrix}
+  1 & 2 & 3 & 4 \\
+  3 & 4 & 1 & 3
+\end{pmatrix}
+$$
+
+meaning 
+
+$$
+p_1 = \begin{pmatrix}
+  1 & 2 & 3 & 4 \\
+  \downarrow & \downarrow & \downarrow & \downarrow \\
+  3 & 4 & 2 & 1
+\end{pmatrix}
+$$
+
+There are $n!$ different permutations on $n$ distinct elements.  We can think of $p_1$ as a prefix operation: $p_1 \circ 1 = 3$ or $p_1 \circ 4 = 1$. If
+
+$$
+p_2 = \begin{pmatrix}
+  1 & 2 & 3 & 4 \\
+  4 & 3 & 1 & 2
+\end{pmatrix}
+$$
+
+then 
+
+$$
+p_2 \circ p_1 = \begin{pmatrix}
+  1 & 2 & 3 & 4 \\
+  3 & 4 & 2 & 1
+\end{pmatrix} \circ
+\begin{pmatrix}
+  1 & 2 & 3 & 4 \\
+  4 & 3 & 1 & 2
+\end{pmatrix} = \begin{pmatrix}
+  1 & 2 & 3 & 4 \\
+  1 & 2 & 3 & 4 
+\end{pmatrix} = e
+$$
+
+is the construction of permutations which is closed under the set of permutations with the identity $e$ and the inverse 
+
+$$
+p_1^{-1} = \begin{pmatrix}
+  1 & 2 & 3 & 4 \\
+  3 & 4 & 1 & 2
+\end{pmatrix} = p_2
+$$
+
+Composition of permutations is associative: for 
+
+$$
+p_1, p_2, p_3; \\ 
+
+(p_1 \circ p_2) \circ p_3 = p_1 \circ (p_2 \circ p_3)
+$$ 
+
+and thus the set of all $n!$ permutations on $n$ elements forms a group under composition.
+
+- This is known as a symmetric group on $n$ letters $S_n$.
+- Note that composition is not commutative since $p_1 \circ p_2 \neq p_2 \circ p_1$, so $S_4$ is a non-commutative group
+
+### 2.2.1 Subgroups
+
+A subgroup $\langle H, * \rangle$ of $G$ is a group formed from a subset of elements of $G$ where $H < G$ indicates the relation between the two sets where $H \subset G$ is said to be a **proper**  subgroup.
+
+The subgroups $H \backslash \{e\} \subset G$ and $H = G$ are the trivial subgroups.
+
+#### Example
+
+Let $G = \langle \Z_6, + \rangle, H = \langle \{ 0, 2, 4\}, +\rangle$, both $\mod 6$.  We can show that $H \subset G$ is a group: $K = \langle \{0, 3\}, + \rangle$. 
+
+Similarly, $\langle \Z, + \rangle < \langle \mathbb Q, + \rangle < \langle \mathbb R, + \rangle < \langle \mathbb C, + \rangle$
+
+#### Example
+
+Consider the group of permutations on $S_4$, which has a subgroup formed by the closed compositions:
+
+$$
+p_0 = \begin{pmatrix}
+      1 & 2 & 3 & 4 \\
+      1 & 2 & 3 & 4 
+      \end{pmatrix}, \;
+p_1 = \begin{pmatrix}
+      1 & 2 & 3 & 4 \\
+      2 & 3 & 4 & 1 
+      \end{pmatrix},
+      \\
+
+p_2 = \begin{pmatrix}
+      1 & 2 & 3 & 4 \\
+      3 & 4 & 1 & 2
+      \end{pmatrix}, \;
+p_3 = \begin{pmatrix}
+      1 & 2 & 3 & 4 \\
+      4 & 1 & 2 & 3
+      \end{pmatrix},
+      \\
+
+p_4 = \begin{pmatrix}
+      1 & 2 & 3 & 4 \\
+      2 & 1 & 4 & 3
+      \end{pmatrix}, \;
+p_5 = \begin{pmatrix}
+      1 & 2 & 3 & 4 \\
+      4 & 3 & 2 & 1
+      \end{pmatrix},
+      \\
+
+p_6 = \begin{pmatrix}
+      1 & 2 & 3 & 4 \\
+      3 & 2 & 1 & 4
+      \end{pmatrix}, \;
+p_7 = \begin{pmatrix}
+      1 & 2 & 3 & 4 \\
+      1 & 4 & 3 & 2
+      \end{pmatrix}
+      \\
+$$
+
+### 2.2.2 Cyrclic Groups and the Order of an Element
+
+In a group $G$ with a multiplication-like operation, we use $a^n$ to indicate 
+
+$$
+\underbrace{a * a * ... * a}_{n \text{ times}}
+$$
+
+with $a^0=e$ being the identity element for $G$.
+
+For a group with additive operations $na$ is used to indicate
+
+$$
+\underbrace{a + a + ... + a}_{n \text{ times}}
+$$
+
+If $a \in G$, any subgroup containing $a$ must also include $a^2, a^3$, etc.
+
+It must also adhere to $e = aa^{-1}, a^{-n} = (a^{-1})^n$. 
+
+For any $a \in G$, the set $\{a^n | n \in \Z\}$ generates a subgroup of $G$ called the **cyclic subgroup**.  $a$ is said to be the **generator** of the subgroup and the resultant group is denote $\langle a \rangle$. 
+
+If every element of a group can be gneerated from a single element, the group is said to be **cyclic**.  
+
+#### Example
+
+$\langle \Z_5, + \rangle$ is cyclice since every element can be generated by $a = 2$.
+
+$$
+\begin{aligned}
+2 &= 2 \\ 
+2 + 2 &= 4 \\
+2 + 2 + 2 &= 1 \\  
+2 + 2 + 2 + 2 &= 3 \\  
+2 + 2 + 2 + 2 + 2 &= 0 \\  
+\end{aligned}
+$$
+
+In a group $G$ with $a \in G$, the smallest $n$ such that $a^n$ is equal to the identity in $G$ is said to be the **order** of _the element_ $a$. 
+- If no such $n$ exists, $a$ is of **infinite order**.
+- In $\Z_5$, 2 is of order $5$, as are all non-zero elements of the set.
+
+#### Example
+
+If $G = \langle \Z_6, + \rangle$, then 
+
+$$
+\begin{aligned}
+\langle 2 \rangle &= \{ 0, 2, 4\}, \\ 
+\langle 3 \rangle &= \{ 0, 3\}, \\ 
+\langle 5 \rangle &= \{ 0, 1, 2, 3, 4, 5 \}
+\end{aligned}
+$$ 
+
+Therefore $a \in \Z_6$ is a generator for the group if and only if $a$ and $6$ are relatively prime
+
+[IMAGE Of the planes]
+
+### 2.3 - Cosets
+
+The **left coset** of $H, H < G$ ($G$ not necessarily being commutative), $a * H$ is the set 
+
+$$
+\{a * h | h \in H \}
+$$
+
+and the right coset $H * a$ is given by the symmetric relation.  In a commutative group, they are obviously equal.
+
+Let $G$ be a group, $H$ a subgroup of $G$, and the left coset $a * H \in G$.  Then, $b \in a *H$ if and only f $b = a * h, h \in H$.  By cancellation, we have $a^{-1}*b \in H$.
+
+To determine if $a,b$ are in the same (left) coset, we simply check the above condition.
+
+#### Exmaple
+
+Let $G = \langle \Z, + \rangle$ and $S_0 = 3 \Z = \{ ..., -6, -3, 0, 3, 6, ...\}$ such that $S_0 < G$.  Now, form the cosets:
+
+$$
+\begin{aligned}
+S_1 &= S_0 + 1 = \{ ..., -5, -2, 1, 4, 7, ...\} \\ 
+S_2 &= S_0 + 2 = \{ ..., -4, -1, 3, 5, 8, ...\} \\ 
+\end{aligned}
+$$
+
+and observe that neither $S_1, S_2$ are subgroups as they do not have an identity, but the union of all three cover the original group: $G = S_0 \cup S_1 \cup S_2$.
+
+We can determine whether or not two numbers $a =4, b =6$ are in the same coset of $S_0$ by checking whether 
+
+$$
+(-a) + b \in S_0 \\
+-a + b = 2 \notin S_0
+$$
+
+### 2.2.4 - Lagrange's Theorem
+
+Basically, it's a prescription of subgroup size relative to its group.
+- Every coset of $H$ in a group $G$ has the same number of elements
+- Let $(a * h_1), (a * h_2 )\in a * H$ be two elements ub tge ciset $a * H$.  If they are equal, then we have $h_1 = h_2$, and thereform the elements of a coset are uniquely identified by elements in $H$
+
+It follows, then, that we have the following properties of cosets:
+- **reflecivity**: An element $a$ is in the same coset of itself
+- **symmetry**: If $a,b$ are in the same coset, then $b,a$ are in the same coset
+- **transitivity**: If $a,b$ are in the same coset, and $b,c$ are in the same coset, then $a, c$ are in the same coset as well
+
+Therefore, the relation of "being in the same coset" is an **equivalence relation**, and thus, every equivalence relation _partitions_ its elements into **disjoint sets**.
+- It follows then that the distinct coets of $H$ in a group $G$ are disjoint
+
+With these properties and lemmas, **Lagrange's Theorem** states that: If $G$ is a group of finite order, and $H$ a subgroup of $G$, then the order of $H$ _divides_ the order of $G$ such that $|G| \mod |H| = 0$.  We say $a | b$ "$a$ divides $b$" without remainder
+- If $|G| < \infty$ and $H < G$, then $|H| \big| |G|$
+
+Lagrange's Theorem implies that every group of prime order is cyclic.
+- Let $G$ be of prime order, with $a \in G$ and $e = \mathbf {id}_G$.  Let $ H = \langle a \rangle$, the cyclic subgroup generated by $a$.  Then $a,e \in H$.  But by Lagrange's Theorem, the order of $H$ must ("cleanly") divide the order of $G$.  Since $|G|$ is prime, we must have $|H| = |G|$, thus $a$ generates $G$, so $G$ must be cyclic.
+
+### 2.2.5 - Induced Operations; Isomorphism
+
+Returning to the three sentence cosets we defined earlier, we have $S = \{S_0, S_1, S_2 \}$ and define addition on $S$ as follows: for 
+
+$$
+A, B, C \in S; \\
+
+A + B = C
+$$
+
+if and only if $a + b = c; \; \forall a, b, c \in A, B, C$.  That is, addition of the sets is defined by **representatives** in the sets.  The operation is said to be the **induced operations** on the coset: $S_1 + S_2 = S_0$.
+
+Taking $1 \in S_1, 2 \in S_2$ and noting that $1 + 2 = 3 \in S_0$.   Similarly, $S_1 + S_1 = S_2$ via $1 + 1 = 2$, taking the representatives to be $1 \in S_1$.  Based on this induced operation, we can obtain the following table 
+
+
+| $+$   | $S_0$ | $S_1$ | $S_2$ |
+|-------|-------|-------|-------|
+| $S_0$ | $S_0$ | $S_1$ | $S_2$ |
+| $S_1$ | $S_1$ | $S_2$ | $S_0$ |
+| $S_2$ | $S_2$ | $S_0$ | $S_1$ |
+
+which we say is $\cong$ to the table for $\langle \Z_3, + \rangle$: 
+
+| $+$   | $0$ | $1$ | $2$ |
+|-------|-------|-------|-------|
+| $0$ | $0$ | $1$ | $2$ |
+| $1$ | $1$ | $2$ | $0$ |
+| $2$ | $2$ | $0$ | $1$ |
+
+Two groups $\langle G, * \rangle, \langle \mathcal G, \diamond \rangle$ are said to be (group) **isomorphic** if there exists a one-to-one, onto function $\phi: G \rarr \mathcal G$ called the isomorphism such that 
+
+$$
+\forall a, b \in G, \; \underbrace{\phi(a * b)}_{\text{operation in }  G} = \underbrace{\phi(a) \diamond \phi(b)}_{\text{operation in } \mathcal G}
+$$
+
+We denote isomorphism via $G \cong \mathcal G$. Isomorphic groups are essentially "the same thing"
+
+Let $\langle G, * \rangle$ be a group, $H$ a subgroup, and $S = \{ H_0 = H, H_1, H_2, ..., H_m\}$ the set of cosets in $G$.  The induced operation between cosets $A,B \in S$ is defined by $A * B = C$ if and only if $a * b = c$ for any $a, b, c \in A,B,C$ provided that the operation is **well-defined** (no ambiguity for those operands).  
+
+For any commutative group, the induced operation is always well-defined, otherwise only for **normal** groups 
+- A subgroup $H$ of $G$ is **normal** if $g^{-1}Hg = H \; \forall g \in G$.  All Abelian groups are normal.
+
+If $H$ is a subgroup of a commutative group $\langle, G, * \rangle$ the induced operation $*$ on the set of cosets of $H$ satisfies 
+
+$$
+(a * b) * H = (a * H) * (b * H)
+$$
+
+The group formed by the cosets of $H$ in a commutative (or normal subgroup) group $G$ with the induced operation is said to be the **factor group**  of $G \mod H$, denoted $G / H$ and the cosets are called the **residue classes** of $G \mod H$
+- We could express $\Z_3 \cong \Z_6/H_0, \; Z/3\Z \cong Z_3$ and in general $\Z / n\Z \cong \Z_n$.
+
+A **Lattice** is formed by taking all the possible linear combination of a set of basis vectors. That is $[\mathbf{v_1}, \mathbf{v_1}, ..., \mathbf{v_1}]$ are a set of linearly independent vectors. A lattive is then formed from the basis by 
+
+$$
+\varLambda = \{ v\mathbf{z} : \mathbf{z} \in \Z^n \}
+$$
+
+e.g. the lattice formed by $V = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$ is the set of points with the integer coorinates in the plane denoted $\Z^2$.
+
+For the lattice $\varLambda = \Z^2$, let $\varLambda' = 2\Z^2$ be a subgroup with the cosets 
+
+$$
+\begin{aligned}
+S_0 = \varLambda (\cdot), \; &S_1 = (1, 0) + \varLambda' (\circ) \\
+S_2 = (0, 1) + \varLambda' (\diamond), \; &S_3 = (1, 1) + \varLambda' (\star) \\
+\end{aligned}
+$$
+
+and $\varLambda / \varLambda' \cong \Z_2 \times \Z_2$
+
+![](/images/it-10.png)
+
+### 2.2.6 - Homomorphism
+
+A **homomorphism** is a weaker condition than the structural and relational equivalence defined by an isomorphism. A **homorphism** exists when sets have when sets have the same algebraic structure, but they might have a different number of elements.
+
+The groups $\langle G, * \rangle, \langle \mathcal G, \diamond \rangle$ are said to be **homomorphic** if there exists a function. (not necessarily one to one) $\phi: G \rarr \mathcal G$ called the homomorphism such that:
+
+$$
+\phi(a * b) = \phi(a) \diamond \phi(b)
+$$
+
+#### Example
+
+Let $G = \langle \Z, + \rangle, \mathcal G = \langle \Z_n, + \rangle$, and $\phi(a) = a \mod n$.  For $a, b \in \Z$, we have 
+
+$$
+\phi(a + b) = \phi(a) + \phi(b)
+$$
+
+This $\Z, \Z_n$ are homomorphic though they clearly have different orders.
+
+Let $\langle G, * \rangle$ be a commutative group, $H$ a subgroup, so that $G / H$ is the factor group.  Let $\phi: G \rarr G/H$ be defined by $\phi(a) = a * H$, then $\phi$ is a homomorph known as the **natural** or **canonical** homomorphism.
+
+The **kernel** of a homomorphism $\phi$ of a group $G$ into a group $\mathcal G$ is the set of all elements of $G$ which mapped to $\mathbf{id}_\mathcal{G}$ by $\phi$.
+
+### 2.3 - Fields

@@ -480,7 +480,6 @@ The coding scheme below for 23 binary symbols and a max of 3 transmission errors
 $$
 
 \begin{aligned} 
-J_2 = 
 \begin{array}{rcl} 
 	&\begin{array}{c} 1 \ \ \ \ 2 \ \ \ \ 3 \ \ \ \ 5 \ \ \ \ 6  \ \ \ \ 7  \ \ \ \ 8  \ \ \ \ 9  \ \ \ \ 10  \ \ \ \ 11  \ \ \ \ 12 \end{array} \\
 
