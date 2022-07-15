@@ -1417,38 +1417,10 @@
     "core-js-pure" "^3.0.0"
     "regenerator-runtime" "^0.13.4"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2":
-  "integrity" "sha512-JONRbXbTXc9WQE2mAZd1p0Z3DZ/6vaQIkgYMSTP3KjRCyd7rCZCcfhCyX+YjwcKxcZ82UrxbRD358bpExNgrjw=="
-  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.7.2.tgz"
-  "version" "7.7.2"
-  dependencies:
-    "regenerator-runtime" "^0.13.2"
-
-"@babel/runtime@^7.10.2":
-  "integrity" "sha512-RzGO0RLSdokm9Ipe/YD+7ww8X2Ro79qiXZF3HU9ljrM+qnJmH1Vqth+hbiQZy761LnMJTMitHDuKVYTk3k4dLw=="
-  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.10.3.tgz"
-  "version" "7.10.3"
-  dependencies:
-    "regenerator-runtime" "^0.13.4"
-
-"@babel/runtime@^7.10.3":
-  "integrity" "sha512-RzGO0RLSdokm9Ipe/YD+7ww8X2Ro79qiXZF3HU9ljrM+qnJmH1Vqth+hbiQZy761LnMJTMitHDuKVYTk3k4dLw=="
-  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.10.3.tgz"
-  "version" "7.10.3"
-  dependencies:
-    "regenerator-runtime" "^0.13.4"
-
-"@babel/runtime@^7.8.4":
-  "integrity" "sha512-RzGO0RLSdokm9Ipe/YD+7ww8X2Ro79qiXZF3HU9ljrM+qnJmH1Vqth+hbiQZy761LnMJTMitHDuKVYTk3k4dLw=="
-  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.10.3.tgz"
-  "version" "7.10.3"
-  dependencies:
-    "regenerator-runtime" "^0.13.4"
-
-"@babel/runtime@^7.9.2":
-  "integrity" "sha512-RzGO0RLSdokm9Ipe/YD+7ww8X2Ro79qiXZF3HU9ljrM+qnJmH1Vqth+hbiQZy761LnMJTMitHDuKVYTk3k4dLw=="
-  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.10.3.tgz"
-  "version" "7.10.3"
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.3", "@babel/runtime@^7.12.5", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
+  "integrity" "sha512-t9wi7/AW6XtKahAe20Yw0/mMljKq0B1r2fPdvaAdV/KPDZewFXdaaa6K7lxmZBZ8FBNpCiAT6iHPmd6QO9bKfQ=="
+  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.18.6.tgz"
+  "version" "7.18.6"
   dependencies:
     "regenerator-runtime" "^0.13.4"
 
@@ -7870,12 +7842,12 @@
     "@babel/runtime" "^7.10.3"
     "@emotion/babel-preset-css-prop" "^10.0.27"
 
-"gatsby-plugin-google-analytics@^2.3.11":
-  "integrity" "sha512-4ktlF13r/o2cFf6EBcwlKwl0lNedVUjGpk8MJFZM6h54QIflwBxDXVS5ku8YrZ/2VfhY+7+pVS5U0yluYj8iYg=="
-  "resolved" "https://registry.npmjs.org/gatsby-plugin-google-analytics/-/gatsby-plugin-google-analytics-2.3.11.tgz"
-  "version" "2.3.11"
+"gatsby-plugin-google-analytics@^2.11.0":
+  "integrity" "sha512-aVFmzoozd0ifn5HJJY0W8R7DHkyTEvj/ueRyJJNlQMadQagIAYq+7efKon4gJzd4NZkLcoDb6moiAR066FwIIg=="
+  "resolved" "https://registry.npmjs.org/gatsby-plugin-google-analytics/-/gatsby-plugin-google-analytics-2.11.0.tgz"
+  "version" "2.11.0"
   dependencies:
-    "@babel/runtime" "^7.10.3"
+    "@babel/runtime" "^7.12.5"
     "minimatch" "3.0.4"
 
 "gatsby-plugin-manifest@^2.4.14":
@@ -8158,7 +8130,7 @@
     "semver" "^5.7.1"
     "sharp" "^0.25.1"
 
-"gatsby@^2.23.11":
+"gatsby@^2.0.0", "gatsby@^2.23.11":
   "integrity" "sha512-ozEqqXt3pxXU73gYNTdLesBr6GKPmPFOo/+Yjl/Le5wseyWQ5fH+JauLmpFvOlRa/jGLOPNMC4xTJsEMm3Vxgg=="
   "resolved" "https://registry.npmjs.org/gatsby/-/gatsby-2.23.11.tgz"
   "version" "2.23.11"
@@ -13576,7 +13548,7 @@
     "strip-ansi" "3.0.1"
     "text-table" "0.2.0"
 
-"react-dom@^16.13.1":
+"react-dom@^16.13.1", "react-dom@^16.4.2 || ^17.0.0":
   "integrity" "sha512-81PIMmVLnCNLO/fFOQxdQkvEq/+Hfpv24XNJfpyZhTRfO0QcmQIF/PgCa1zCOj2w1hrn12MFLyaJ/G0+Mxtfag=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-16.13.1.tgz"
   "version" "16.13.1"
@@ -13691,7 +13663,7 @@
   dependencies:
     "prop-types" "^15.6.2"
 
-"react@^16.13.1", "react@^16.8.0":
+"react@^16.13.1", "react@^16.4.2 || ^17.0.0", "react@^16.8.0":
   "integrity" "sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w=="
   "resolved" "https://registry.npmjs.org/react/-/react-16.13.1.tgz"
   "version" "16.13.1"
@@ -13891,15 +13863,10 @@
   "resolved" "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz"
   "version" "0.11.1"
 
-"regenerator-runtime@^0.13.2", "regenerator-runtime@^0.13.3":
-  "integrity" "sha512-naKIZz2GQ8JWh///G7L3X6LaQUAMp2lvb1rvwwsURe/VXwD6VMfr+/1NuNw3ag8v2kY1aQ/go5SNn79O9JU7yw=="
-  "resolved" "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.3.tgz"
-  "version" "0.13.3"
-
-"regenerator-runtime@^0.13.4":
-  "integrity" "sha512-ZS5w8CpKFinUzOwW3c83oPeVXoNsrLsaCoLtJvAClH135j/R77RuymhiSErhm2lKcwSCIpmvIWSbDkIfAqKQlA=="
-  "resolved" "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.5.tgz"
-  "version" "0.13.5"
+"regenerator-runtime@^0.13.3", "regenerator-runtime@^0.13.4":
+  "integrity" "sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA=="
+  "resolved" "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz"
+  "version" "0.13.9"
 
 "regenerator-transform@^0.14.2":
   "integrity" "sha512-EaJaKPBI9GvKpvUz2mz4fhx7WPgvwRLY9v3hlNHWmAuJHI13T4nwKnNvm5RWJzEdnI5g5UwtOww+S8IdoUC2bw=="
