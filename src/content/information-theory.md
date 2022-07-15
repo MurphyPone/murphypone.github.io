@@ -916,3 +916,69 @@ Let $\langle G, * \rangle$ be a commutative group, $H$ a subgroup, so that $G / 
 The **kernel** of a homomorphism $\phi$ of a group $G$ into a group $\mathcal G$ is the set of all elements of $G$ which mapped to $\mathbf{id}_\mathcal{G}$ by $\phi$.
 
 ### 2.3 - Fields
+
+A **Field** $\langle \mathbb F, + , \cdot \rangle$ is a set of of objects $\mathbb F$ on which addition, multiplication, and their inverse operations apply arithmetically (analagously to their behavior on the reals).  The operations of a field must satisfy the following conditions:
+
+1. Closure under addition: $\forall a, b, \in \mathbb F, \; a + b \in \mathbb F$
+2. There is an additive identity: $\forall a \in \mathbb F,  \; \exist e \in \mathbb F \; \text{s.t.} \; a + e = a + e = a$ which we denote $0$ 
+3. There is an additive inverse (subtraction): $\forall a \in \mathbb F, \; \exist b \in \mathbb F \text{ s.t. } a + b = b + a = 0$ denoted $-a = b$
+4. Additive associativity: $\forall a,b,c \in \mathbb F, \; (a + b) + c = a + (b + c)$
+5. Additive Commutativity: $\forall a,b \in \mathbb F\, ; a + b = b + a$
+6. Closure under multiplication: $\forall a, b \in \mathbb F, \; a \cdot b \in \mathbb F$
+7. There is a multiplicative identity: $\forall a \in \mathbb F \backslash \{0\} \;\exist e \in \mathbb F$ denoted $1$ such that $a \cdot 1 = a$
+8. Multiplicative inverse: $\forall a \in \mathbb F \backslash \{0\}, \exist b \in \mathbb F \text{ s.t. } a \cdot b = b \cdot a = 1$ denoted $a^{-1} = b$ and called the reciprocal of $a$
+9. Multiplicative associativity: $\forall a,b,c \in \mathbb F, \; (a \cdot b) \cdot c = a \cdot (b \cdot c)$
+10. Multiplicative commutativity: $\forall a, b \in \mathbb F, \; a \cdot b = b\cdot a$
+11. Multiplicative distribution: $\forall a,b,c \in \mathbb F, \; a\cdot(a + b) = a\cdot b + a\cdot c$
+
+The first four requirements imply that elements of $\mathbb F$ form a group under addition and, with the fifth requirement, commmutativity is obtained. The latter conditions imply that the non-zero elements form a commutative group under multiplication.
+
+Like the shorthand for groups, a field $\langle \mathbb F, + , \cdot \rangle$ may be referred to as just $\mathbb F$, and the order of the field may be subscripted as well: a field with $q$ elements may be denoted $\mathbb F_q$.
+
+#### Example 
+
+The field $\mathbb F_2 = \Z_2$ and has the following operation tables which are of particular importance for binary codes:
+
+
+|XOR|AND|
+|--|--|
+|<table><tr><th>+</th><th>0</th><th>1</th></tr><tr><td>0</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>0</td></tr> </table> | <table><tr><th>x</th><th>0</th><th>1</th></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>1</td><td>0</td><td>1</td></tr> </table> |
+
+The notion of isomorphism and homomorphism also exist for fields.  
+
+Two fields $F, \mathcal F$ are (field) isomorphic if there exists a bijection $\phi: F \rarr \mathcal F$ such that $\forall a, b \in F$:
+
+$$
+\phi(a + b) = \phi(a) + \phi (b)
+$$
+$$
+\phi(ab) = \phi(a)\phi (b)
+$$
+
+For example, the field $\langle \{-1, 1 \}, +, \cdot \rangle$ is isomorphic to $GF(2)$ ddefined above via 
+
+$$
+\phi = \begin{cases}
+  0 \rarr -1 \\
+  1 \rarr 1
+\end{cases}
+$$
+
+Lastly, fields $F, \mathcal F$ are homomorphic if such a structure-preserving map $phi$ exists which is not necessarily bijective.
+
+### 2.4 - Linear 👏 Algebra 👏 Review 
+
+Let $V$ be a set of elements called **vectors** and $\mathbb F$ be a field of element called scalars.  The additive operator is defined element-wise between vectors, and scala multiplication is defined such that for a scalar $a$ and a vector $\mathbf v$
+
+$$
+\mathbf v \in V, \; a \cdot \mathbf v \in V
+$$
+
+Then, $V$ is a **vector space** over $\mathbb F$ if the additive and multiplicative operators satisfy the following conditions:
+
+1. $V$ forms a commutative group under addition
+2. For any elements $a \in \mathbb F, \mathbf v \in V, \; a \cdot \mathbf v \in V$.  This also implies by (1) that we must have $a \cdot \mathbf v + b \cdot \mathbf u \in V$ for all $\mathbf{u, v} \in V, a,b \in \mathbb F$
+3. Addition and multiplication are distributive: $(a + b)\cdot \mathbf v = a \cdot \mathbf v + b \cdot \mathbf v$ and $a \cdot (\mathbf {u +v }) = a \cdot \mathbf u + a \cdot \mathbf v$
+4. The multiplicative operation is associative: $(a \cdot b) \cdot \mathbf v = a\cdot (b \cdot \mathbf v)$
+
+Then, $\mathbb F$ is called the scalar field of the vector space $V$
