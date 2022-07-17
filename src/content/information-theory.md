@@ -981,4 +981,325 @@ Then, $V$ is a **vector space** over $\mathbb F$ if the additive and multiplicat
 3. Addition and multiplication are distributive: $(a + b)\cdot \mathbf v = a \cdot \mathbf v + b \cdot \mathbf v$ and $a \cdot (\mathbf {u +v }) = a \cdot \mathbf u + a \cdot \mathbf v$
 4. The multiplicative operation is associative: $(a \cdot b) \cdot \mathbf v = a\cdot (b \cdot \mathbf v)$
 
-Then, $\mathbb F$ is called the scalar field of the vector space $V$
+Then, $\mathbb F$ is called the scalar field of the vector space $V$.
+
+#### Examples
+
+1. The set of $n$-tuples $(v_0, v_1, ..., v_{n-1})$ together with the elements $u_i \in \Reals$ denoted $\Reals^n$ with element-wise addition: 
+
+$$
+(v_0, v_1, ..., v_{n-1}) + (u_0, u_1, ..., u_{n-1}) = (v_0 + u_0, v_1 + u_1, ..., v_{n-1} + u_{n-1}) 
+$$
+
+and scalar multiplication: 
+
+$$
+a \cdot (v_0, v_1, ..., v_{n-1}) = (av_0, av_1, ..., av_{n-1})
+$$
+
+2.  The set of $n$-tuples with elements $v_i \in \mathbb F_2$ forms a vector space denoted $\mathbb F^n_2$ with $2^n$ elements.  For $n =3$, the space is completely defined: 
+
+$$
+\begin{aligned}
+(0,0,0) \quad (0,0,1) \quad (0, 1, 0) \quad (0, 1, 1) \\
+(1,0,0) \quad (1,0,1) \quad (1, 1, 0) \quad (1, 1, 1) 
+\end{aligned}
+$$
+
+3. And, in general, the set $V = \mathbb F^n_q$ of tuples with the field $\mathbb F_q$, element-wise addition, and scalar multiplication constitutes a vector space.
+
+A **Linear Combination** is just the application of these operations in a vector space:
+
+$$
+a_1\mathbf{v_1} + a_2\mathbf{v_2} + \cdots + a_k\mathbf{v_k}, \; a_i \in \mathbb F,  \mathbf{v_i} \in V
+$$
+
+We observe that the linear combination can be obtained by stacking the vectors as columns:
+
+$$
+G = [\mathbf{v_1 v_2 \cdots v_k}]
+$$
+
+and taking the prdouct with the column vector of scalar coefficients:
+
+$$
+a_1\mathbf{v_1} + a_2\mathbf{v_2} + \cdots + a_k\mathbf{v_k} = G 
+
+\begin{bmatrix}
+a_1 \\ a_2 \\ \vdots \\ a_k
+\end{bmatrix}
+$$
+
+**Spanning Set**: Let $V$ be a vector space.  A set of vectors $G = \{\mathbf{v_1, v_2, ..., v_k} \} \in V$ is said to be a spanning set if every vector $\mathbf{v} \in V$ can be expressed as a linear combination of vectors in $G$.  That is, $\forall \mathbf{v} \in V$, there exists a set of scalars $a_1, a_2, ..., a_k$ such that $a_1\mathbf{v_1} + ... + a_k \mathbf{v_k}$.  The set of vectors obtained from _every possible_ linear combinations of such vectors in $G$ is called the **span** of $G$, aptly denoted $span(G)$. 
+
+If we treat $G$ as a matrix whose columns are the vectors $\mathbf v_i$, 
+- $span(G)$ is the set of linear combinations of the columns of $G$
+- the **column space** of $G$ is the space obtained by the linear combinations of $G$'s columns
+- and similarly, the **row space** of of $G$ is the space obtained by the linear combinations of $G$'s rows
+
+If there are redundant vectors in the spanning set, not all are needed to span the space as they can be expressed in terms of other vectors in the spanning set – the vectors of the spanning set are not linearly independent.
+
+A set of vectors $\mathbf v_1, v_2, ..., v_k$ is said to be **linearly dependent** if a set of scalars $a_1, a_2, ..., a_k$ exists with _not all_ $a_i = 0$ such that their linear combination
+
+
+$$
+a_1\mathbf{v_1} + a_2\mathbf{v_2} + \cdots + a_k\mathbf{v_k} = \mathbf 0 
+$$
+
+Conversely, a set of vectors $\mathbf v_1, v_2, ..., v_k$ is said to be **linearly independent** if a set of scalars $a_1, a_2, ..., a_k$ exists such that 
+
+$$
+a_1\mathbf{v_1} + a_2\mathbf{v_2} + \cdots + a_k\mathbf{v_k} = \mathbf 0
+$$
+
+then it _must be the case_ that $a_1 = a_2 = ... = a_k = 0$.
+
+The spanning set for a vector space that has the minimum possible number of vectors is caleld the **basis** for $V$.  The number of vectors in a basis for $V$ is said to be the **dimension** of $V$.
+
+It follows that the vectors in a basis must be linearly independent, else it would be possible to form a smaller set of vectors.
+
+#### example
+
+Let $V = \mathbb F_2^4$, the set of binary 4-tuples and let $G$ be a set of set of vectors with $W = span(G)$
+
+$$
+G = \begin{bmatrix}
+      \begin{bmatrix}
+        1 \\
+        0 \\
+        1 \\
+        0 
+      \end{bmatrix}, 
+      \begin{bmatrix}
+        0 \\
+        1 \\
+        1 \\
+        0 
+      \end{bmatrix},
+      \begin{bmatrix}
+        1 \\
+        1 \\
+        0 \\
+        0 
+      \end{bmatrix}
+    \end{bmatrix}, 
+
+W =  \left\{\begin{array}{lr}
+       \begin{bmatrix}
+        0 \\
+        0 \\
+        0 \\
+        0 
+      \end{bmatrix}, 
+      \begin{bmatrix}
+        1 \\
+        0 \\
+        1 \\
+        0 
+      \end{bmatrix},
+      \begin{bmatrix}
+        0 \\
+        1 \\
+        1 \\
+        0 
+      \end{bmatrix},
+      \begin{bmatrix}
+        1 \\
+        1 \\
+        0 \\
+        0 
+      \end{bmatrix}
+    \end{array}\right\}
+$$
+
+Observe that $G$ is a spanning set for $W$, but not for all of $V$.  $G$ is not a basis for $W$ as it has some redundancy in it since the third vector is a linear combination of the first two:
+
+$$
+\begin{bmatrix}
+        1 \\
+        1 \\
+        0 \\
+        0 
+      \end{bmatrix} =
+      \begin{bmatrix}
+        1 \\
+        0 \\
+        1 \\
+        0 
+      \end{bmatrix} + 
+      \begin{bmatrix}
+        0 \\
+        1 \\
+        1 \\
+        0 
+      \end{bmatrix}
+$$
+
+and the vectors in $G$ are not linearly independent, so the third vector in $G$ can be removed, resulting in the set:
+
+
+$$
+G' = \begin{bmatrix}
+      \begin{bmatrix}
+        1 \\
+        0 \\
+        1 \\
+        0 
+      \end{bmatrix}, 
+      \begin{bmatrix}
+        1 \\
+        1 \\
+        0 \\
+        0 
+      \end{bmatrix}
+    \end{bmatrix}
+$$
+
+which does have $span(G') = W$.
+
+Notice that no spanning set for $W$ has fewer vectors in it than $G'$, so $dim(W)=2$.
+
+- Let $V$ be a $k$-dimensional vector space defined over a finite scalar field.  The number of elements in $V$, denoted $|V|= q^k$.  Since every vector $\mathbf v \in V$ can be written as 
+
+$$
+\mathbf v = a_1 \mathbf v_1 + ... + a_k\mathbf v_k
+$$
+
+the number of elements in $V$ is the number of distinct $k$-tuples $(a_1, a_2, ..., a_k)$ that can be formed, which is $q^k$.
+
+- Let $V$ be a vector space over a scalar field $\mathbb F$, and let $W \subset V$ be a vector space.  For any $\mathbf{w_1,w_2} \in W$ 
+
+$$
+a \mathbf{w_1} + b \mathbf{w_2} \in W
+$$
+
+for any $a,b \in \mathbb F$.  Then, $W$ is said to be a **vector subspace** of $\mathbb F$.
+
+- Let $\mathbf u = (u_0, u_1, ..., u_{n-1}), \mathbf v = (v_0, v_1, ..., v_{n-1})$ be vectors in a vector space $V$ where $u_i, v_i \in \mathbb F$.  The **inner product** is a function of two such vectors which returns a scalar, expressed as $\langle \mathbf u, \mathbf v \rangle$ and defined:
+
+$$
+\langle \mathbf u, \mathbf v \rangle = \mathbf u \cdot \mathbf v = \sum_{i=0}^{n-1} u_i \cdot v_i
+$$
+
+from which we can verify the following properties:
+
+1. Commutativity: $\mathbf u \cdot \mathbf v = \mathbf v \cdot \mathbf u$
+2. Associativity: $a \cdot (\mathbf u \cdot \mathbf v) = (a \cdot \mathbf u) \cdot \mathbf v$
+3. Distributivity: $\mathbf u \cdot (\mathbf v + \mathbf w) = \mathbf u \cdot \mathbf v + \mathbf u \cdot \mathbf w$
+
+The inner or **dot product** is used to describe the notion of orthogonality: two vectors are said to be **orthogonal** if 
+
+$$
+\mathbf u \cdot \mathbf v = 0,
+$$ 
+
+indicated $\mathbf u \perp \mathbf v$.
+
+Combined with the notion of vector spaces, we get the concept of a **dual space**.  If $W$ is a $k$-dimensional subspace of a vector space $V$, the set of all vectors $\mathbf u \in V$ which are orthogonal to all vectors of $W$ is the orthogonal complement, dual space, or **null space** denoted $W^\perp$, given by 
+
+$$
+W^\perp = \{ \mathbf u | \mathbf u \cdot \mathbf w = 0; \; \mathbf{u, w} \in V, W\}
+$$
+
+#### Example
+
+Let $V = \mathbb F_2^4$ and 
+
+$$
+W =  \left\{\begin{array}{lr}
+       \begin{bmatrix}
+        0 \\
+        0 \\
+        0 \\
+        0 
+      \end{bmatrix}, 
+      \begin{bmatrix}
+        1 \\
+        0 \\
+        1 \\
+        0 
+      \end{bmatrix},
+      \begin{bmatrix}
+        0 \\
+        1 \\
+        1 \\
+        0 
+      \end{bmatrix},
+      \begin{bmatrix}
+        1 \\
+        1 \\
+        0 \\
+        0 
+      \end{bmatrix}
+    \end{array}\right\} 
+    = span  \left( \left\{ \begin{array}{lr}
+       \begin{bmatrix}
+        0 \\
+        0 \\
+        0 \\
+        1
+      \end{bmatrix}, 
+      \begin{bmatrix}
+        1 \\
+        1 \\
+        1 \\
+        0 
+      \end{bmatrix}
+    \end{array}\right\} \right)
+$$
+
+and $dim(W^\perp) = 2$.  This example gives way to the following theorem:
+
+Let $V$ be a finite-dimensional vector space of $n$-tuples, $\mathbb F^n$, with a subspace $W$ of dimension $k$.  Let $U = W^\perp$ be the dual of $W$, then 
+
+$$
+dim(W^\perp) = dim(V) - dim(W) = n - k
+$$
+
+#### Proof
+
+Let $g_1, g_2, ..., g_k$ be a basis for $W$ such that $G = [g_1 \; g_2 \; \cdots \; g_k]$, a rank $k$ matrix such that the dimension of the row and column spaces are both $k$.  Any vector $\mathbb w \in W$ is of the form $\mathbf w = G\mathbf x, \mathbf x\in \mathbb F^k$.  
+
+Any vector $\mathbf u \in U$ must satisfy $\mathbf u^\perp G \mathbf x =0; \; \forall \mathbf x \in \mathbb F^k$.
+
+Let $\{ \mathbf h_1, \mathbf h_2, ..., \mathbf h_r, \mathbf f_1, \mathbf f_2, ..., \mathbf f_{n-r} \}$ be a basis for $\mathbf w^\perp$ extended to the whole $n$-dimensional space.  Every vector $\mathbf v$ in the row space of $G$ is expressed as $\mathbf v = \mathbf b^\perp G$ for some $\mathbf b \in V$.  
+
+But since $\{ \mathbf h_1, \mathbf h_2, ..., \mathbf h_r, \mathbf f_1, \mathbf f_2, ..., \mathbf f_{n-r} \}$ spans $V$, $\mathbf b$ must be a linear combination of these vectors:
+
+$$
+\mathbf b = a_1\mathbf h_1 + a_2\mathbf h_2 + ... + a_r\mathbf h_r + a_{r+1}\mathbf h_{r+1} + ... + a_n\mathbf h_{n-r}
+$$
+
+so a vector $\mathbf v$ in the row space of $G$ can be written 
+
+$$
+\mathbf v = a_1 \mathbf h_1^T G + ... + a_n \mathbf f_{n-r}^T G
+$$
+
+from which we observe that the row space of $G$ is spanned by the vectors 
+
+$$
+\{ \mathbf h_1^T G, \mathbf h_2^T G, ..., \mathbf h_r^T G, \mathbf f_1^T G, ..., \mathbf f_{n-r}^T G \}
+$$
+
+The vectors $\{ \mathbf h_1, \mathbf h_2, ..., \mathbf h_r, \}$ are in $W^\perp$, so $\mathbf h_i^TG = \mathbf 0$ for $i = 1,2, ..., r$.  The remaining vectors $\{\mathbf f_1^TG, ..., \mathbf f_{n-r}^TG \}$ remain to span the $k$-dimensional row space of $G$. Hence we must have $n -r \geq k$.
+
+Furthermore, these vectors are linearly independent because if there is a set of coefficients $\{ a_i \}$ then 
+
+$$
+a_1 (\mathbf f_1^T G ) + ... + a_{n-r} (\mathbf f_{n-r}^T G ) = \mathbf 0 
+$$
+
+but the vectors $\mathbf f_i$ are not in $W^\perp$, so we must have 
+
+$$
+a_1 \mathbf f_1^T + ... + a_{n-r} \mathbf f_{n-r}^T = 0
+$$
+
+and since $\{ \mathbf f_i \}$ are linearly independent, we must have $a_1 = a_2 = ... = a_{n-r}$ therefore it must be the case that 
+
+$$
+dim span(\{ \mathbf f_1^TG, ..., \mathbf f_{n-r}^TG = k \})
+$$
+
+so $n - r = k$.
