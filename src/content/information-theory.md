@@ -15,6 +15,7 @@ Notes on Information Theory from various sources
 - [Error Correction Coding, wiley](#wiley)
   -  [1 | A Context for Error Correction Coding](wiley-1)
   -  [2 | Groups and Vector Space](wiley-2)
+  -  [3 | Linear Block Codes](wiley-3)
 
 # <a name="lectures" class="n"></a> Lectures
 
@@ -1299,7 +1300,744 @@ $$
 and since $\{ \mathbf f_i \}$ are linearly independent, we must have $a_1 = a_2 = ... = a_{n-r}$ therefore it must be the case that 
 
 $$
-dim span(\{ \mathbf f_1^TG, ..., \mathbf f_{n-r}^TG = k \})
+dim \; span(\{ \mathbf f_1^TG, ..., \mathbf f_{n-r}^TG = k \})
 $$
 
-so $n - r = k$.
+so $n - r \geq k$.
+
+## <a name="wiley-3" class="n"></a> 3 | Linearly Block Codes
+
+### 3.1 - Basic Definitions
+
+A $[n, k]$ **Block Code** $\mathcal C$ over an alphabet of $q$ symbols is a set of $q^k$ $n$-vectors called **codewords** or **code vectors**
+- An $n$-tuple is: $(c_0, c_1, ..., c_{n-1}) \mathcal A^n$ with $n$ elements
+
+Associated with the code is an encoder which maps a **message**, a $k$-tuple $\mathbf m \in \mathcal A^k$, to its associated word.  To be _correctively_ useful, we desire a one-to-one correspondence between a message $\mathbf m$ and its codeword $\mathbf c$ for a given code $\mathcal C$, and there might be several such mappings.
+
+Block codes can be exhaustively represented, but for large $k$, this would be prohibitively complex to store and decode. This complexity can be reduced by imposing structure on the code, the most common such structure being _linearity_.
+
+A block code $\mathcal C$ over a field $\mathbb F_q$ of $q$ symbols with length $n$ and $q^k$ codewords is a $q$-ary $[n, k]$ **Linear Block Code** if and only if its $q^k$ codewords form a $k$-dimensional vector subspace of the vector space of _all_ the $n$-tuples $\mathbb F_q^n$.
+- $n$ is said to be the **length** of the code
+- $k$ is the **dimension** of the code
+- $R$ is the proportional **rate** of the code $R = k/n$
+
+
+For a linear code, the sum of any two codewords is _also_ a codeword.  Furthermore, and linear combination of codewords is a codeword.
+
+The **Hamming Weight** $wt(\mathbf c)$ of a  codeword $\mathbf c$ is the number of non-zero components (usually _bits_) of the codeword. 
+- The minimum weight $w_{min}$ of a code $\mathcal C$ is the smallest Hamming weight of any non-zero codeword:
+
+$$
+w_{min} = \min_{{\mathbf c \in \mathcal C \atop \mathbf c \neq \mathbf 0}} wt(\mathbf c)
+$$
+
+For any linear code $\mathcal C$, the minimum distance $d_{min}$ satisfies $d_{min} = w_{min}$.  That is, the minimum distance of a linear block code is equal to the minimum weight of its non-zero codewords.
+
+This can be proved by translating the difference of two codewords (a linear combination, and thus another codeword) "to the origin":
+
+$$
+d_{min} = \min_{{\mathbf c_i, \mathbf c_j \in \mathcal C \atop \mathbf c_i \neq \mathbf c_j}} d_H (\mathbf c_i, \mathbf c_j) = \min_{{\mathbf c_i, \mathbf c_j \in \mathcal C \atop \mathbf c_i \neq \mathbf c_j}} d_H(\mathbf c_i - \mathbf c_j, \mathbf c_j - \mathbf c_j) = \min_{{\mathbf c \in \mathcal C \atop \mathbf c \neq \mathbf 0}} w(\mathbf c)
+$$
+
+- As an aside, I don't love the degeneracy of the notation here, so I'm just going to scrap it and use $w(\mathbf c)$ to denote weight from here on out
+
+An $[n, k]$ code with minimum distace $d_{min}$ is denoted $[n, k, d]$.  The random error correcting capability of a code with $d_{min}$ is 
+
+$$
+t = \lfloor (d_{min}-1)/2 \rfloor
+$$
+
+### 3.2 - Generator Matrix Description of Linear Block Codes
+
+Since a linear block code $\mathcal C$ is a $k$-dimensional vector space, there exist $k$ linearly independent vectors which are designated $\mathbf g_0, \mathbf g_1, ..., \mathbf g_{k-1}$ such that every codeword $\mathbf c \in \mathcal C$ can be represented as a linear combination of these vectors:
+
+$$
+\mathbf c = m_0\mathbf g_0 + m_1 \mathbf g_1 + ... + m_{k-1}\mathbf g_{k-1}, \; m_i \in \mathbb F_q
+$$
+
+Considering \mathbf g_i as row vectors and stacking them, form a $k \times n$ matrix $G$:
+
+$$
+G = 
+\begin{bmatrix}
+  \mathbf g_0 \\
+  \mathbf g_1 \\
+  \vdots \\
+  \mathbf g_{k-1}
+\end{bmatrix}
+$$
+
+and let $\mathbf m = [m_0, m_1, ..., m_{k-1}]$ such that $\mathbf c = \mathbf mG$.  Thus, every codeword $\mathbf c \in \mathcal C$ has a representation for some vector $\mathbf m$.  Since the rows of $G$ (generate) span the $[n, k]$ linear code $\mathcal C$, $G$ gets its name as a **Generator Matrix** for the code $\mathcal C$.
+
+$\mathbf c = \mathbf mG$ can be understood as the **encoding** operation for the code $\mathcal C$ and thus only requires storing $k$ vectors of length $n$ (rather than the $q^k$ vectors that would be required to store all the codewords of a non-linear code).
+
+Note that the representation provided by $G$ is not unique, as we can devise another $G'$ via row operations consisting of non-zero linear combinations such that an encoding $\mathbf c = \mathbf mG'$ maps $\mathbf m$ to a codeword in $\mathcal C$ which is not necessarily the same one obtained by $G$.
+
+For the $[7,4]$ Hamming code (used as an example for the rest of this section), we have the following generator matrix:
+
+$$
+G = 
+\begin{bmatrix}
+1 & 1 & 0 & 1 & 0 & 0 & 0 \\
+0 & 1 & 1 & 0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 1 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 & 1 & 0 & 1
+\end{bmatrix}
+$$
+
+such that to encode a message $\mathbf m = [1 \; 0 \; 0 \; 1]$, we add the first and fourth rows of $G (\mod 2)$ to obtain $\mathbf c = [1 \; 1 \; 0 \; 0 \; 1 \; 0 \; 1]$.
+
+Another generator $G'$ can be used by replacing $R_1 \larr R_1 + R_2$ such that $\mathbf c' = \mathbf m G' = [1 \; 0 \; 1 \; 0 \; 0 \; 0 \; 1]$ which is a different codeword than the original $\mathbf c \in \mathcal C$.
+
+Let $\mathcal C$ be an $[n, k]$ be a (not-necessarily linear) block code.  An encoder is **systematic** if message symbols $m_0, m_1, ..., m_{k-1}$ may be found explicitly and unchanged in the codeword such that for coordinates $i_0, i_1, ..., i_{k-1}$. (which are typically sequentially defined: $i_0, i_0 + 1, ..., i_0 + k -1$) such that $c_{i_0} = m_0, c_{i_1} = m_1, ..., c_{i_{k-1}} = m_{k-1}$.
+
+Note that the systematicism is a property of the _encoder_, not the code itself.  For a linear block code, the encoding operation defined by $G$ is systematic if an **identity matrix** can be identified among the rows of $G$.  (Neither $G, G'$ in the example above are systematic).
+
+A systematic generator is often expressed:
+
+$$
+G = [P \; I_k] = 
+\begin{bmatrix}
+p_{0,0} & p_{0,1} & \cdots & p_{0, n - k -1} & & 1 & 0 & 0 & \cdots & 0 \\  
+p_{1,0} & p_{1,1} & \cdots & p_{1, n - k -1} & & 0 & 1 & 0 & \cdots & 0 \\  
+p_{2,0} & p_{2,1} & \cdots & p_{2, n - k -1} & & 0 & 0 & 1 & \cdots & 0 \\ 
+\vdots &  \vdots  & \vdots & \vdots          & & \;& \;& \;& \vdots & \vdots \\   
+p_{k-1,0} & p_{k-1,1} & \cdots & p_{k-1, n - k -1} & & 0 & 0 & 0 & \cdots & 1 \\
+\end{bmatrix}
+$$
+
+where $I_k$ is the $k \times k$ identity matrix and $p$ is an $k \times (n-k)$ matrix which generates **parity** symbols. The encoding operation is then $\mathbf c = \mathbf m[P \; I_k] = [\mathbf m P \; \mathbf m]$.
+
+The codeword is divided into two components:
+- The part $\mathbf m$ which consists of the message symbols
+- The part $\mathbf mP$ which consists of **parity check symbols**
+
+Elementary row operations do not change the rowspan, so the same code is produced.  However, interchanging the columns corresponds to a change in the positions of the message symbols, so the resultant code bits are also swapped, but the distance structure of the code on the whole is preserved.
+
+Two linear codes which are the same except for some permutation of the components of the code are said to be _equivalent_.  Let $G$ and $G'$ be generator matrices of equivalent codes.  Then $G, G'$ are related by:
+- Columnal permutation
+- Elementary row operations
+
+Given any arbitrary $G$, it is possible to put it into the form $[P \; I_k]$ above via Gaussian elimination and pivoting.
+
+#### Example 
+
+For $G$ of the $[7,4]$ Hamming code used before, an equivalent generator matrix in systematic form is :
+
+$$
+G'' = \begin{bmatrix}
+1 & 1 & 0 & \; & 1 & 0 & 0 & 0 \\
+0 & 1 & 1 & \; & 0 & 1 & 0 & 0 \\
+1 & 1 & 1 & \; & 0 & 0 & 1 & 0 \\
+1 & 0 & 1 & \; & 0 & 0 & 0 & 1 \\
+\end{bmatrix}
+$$
+
+and for the Hamming code with this generator, let the message $\mathbf m = [m_0, m_1, m_2, m_3]$ with the corresponding codeword $\mathbf c = [c_0, c_1, ..., c_6]$.  Then, the parity bits are obtained via:
+
+$$
+\begin{aligned}
+c_0 = m_0 + m_1 + m_3 \\
+c_1 = m_0 + m_1 + m_2 \\
+c_2 = m_1 + m_1 + m_3 \\
+\end{aligned}
+$$
+
+And the systematically encoded bits are:
+
+$$
+\begin{aligned}
+c_3 = m_0 \\
+c_4 = m_1 \\
+c_5 = m_2 \\
+c_6 = m_3
+\end{aligned}
+$$
+
+### 3.3 - Parity Check Matrix for Dual Codes
+
+Since a linear code $\mathcal C$ is a $k$-dimensional vector subspace of $\mathbb F_q^n$, then there must be a dual space to $\mathcal C$ of dimension $n-k$.  The dial space to an $[n-k]$ code $\mathcal C$ of $dim \; k$ is the $[n, n-k]$ **dual code** of $\mathcal C$, denoted $\mathcal C^\perp$.
+- It is possible for a code $\mathcal C = \mathcal C^\perp$ to exist
+
+As a vector space, $\mathcal C^\perp$ has a basis which can be denoted by $\{\mathbf h_0, \mathbf h_1, ..., \mathbf h_{n - k -1}\}$, with a matrix using these basis vectors as rows:
+
+$$
+H = \begin{bmatrix}
+\mathbf h_0 \\
+\mathbf h_1\\ 
+\vdots \\
+\mathbf h_{n - k -1}
+\end{bmatrix}
+$$
+
+which is known as the **parity check matrix** for $\mathcal C$.  This parity check matric and generator matrix for a code satisfy $GH^T = \mathbf 0$.  The parity check matrix also has the following important property:
+
+Let $\mathcal C$ be a $[n, k]$ linear code over $\mathbb F_q$ and $H$ be a parity check matrix for $\mathcal C$.  A vector $\mathbf v \in \mathbb F_q^n$ is a codeword if and only if $\mathbf vH^T = 0$.  That is, the codewords in $\mathcal C$ lie in the (left) nullspace of $H$.
+
+#### Example
+
+For the systematic generator $G''$ above, the parity check matrix is 
+
+$$
+H = \begin{bmatrix}
+1 & 0 & 0 & \; & 1 & 0 & 1 & 1 \\
+0 & 1 & 0 & \; & 1 & 1 & 1 & 0 \\
+0 & 0 & 1 & \; & 0 & 1 & 1 & 1 \\
+\end{bmatrix}
+$$
+
+and it can be verified that $G''H^T = \mathbf 0$.  Fruthermore, even though $G$ is not in systematic form, it still generates the same code such that $GH^T = \mathbf 0$.  $H$ is a generator matrix for a $[7, 3]$ code, the dual to the $[7, 4]$ Hamming Code.
+
+This condition $\mathbf cH^T = \mathbf 0$ imposes linear constraints among the bits of $\mathbf c$ called the **Parity Check Equations**.
+
+The parity check matrix $H$ above yields 
+
+$$
+\begin{aligned}
+c_0 + c_3 + c_5 + c_6 = 0 \implies c_0 = c_3 + c_5 + c_6 \\
+c_1 + c_3 + c_4 + c_5 = 0 \implies c_1 = c_3 + c_4 + c_5 \\
+c_2 + c_4 + c_5 + c_6 = 0 \implies c_2 = c_4 + c_5 + c_6 \\
+\end{aligned}
+$$
+
+The parity check matrix for a code (systematic or not) provides information about the minimum distance of the code.
+
+Let a linear block code $\mathcal C$ have a parity check matrix $H$.  The minimum distant $d_{min}$ of $\mathcal C$ is equal to the smallest positive number of columns of $H$ which are linearly dependent.  That is, all combinations of $d_{min}-1$ columns are linearly independent, so there is some set of $d_{min}$ columns which are linearly dependent. 
+
+#### Example 
+
+For the parity check matrix $H$ of $G''$, the parity check condition is:
+
+$$
+\begin{aligned}
+\mathbf cH^T &= [c_0, c_1, ..., c_6] 
+  \begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & 1 \\
+    0 & 1 & 1 \\
+    1 & 1 & 1 \\
+    1 & 0 & 1 \\
+  \end{bmatrix} \\
+  &= c_0[1, 0, 0] + c_1[0, 1, 0] + c_2[0, 0, 1]  \\ 
+  & + c_3[1, 1, 0] + c_4[0, 1, 1] + c_5[1, 1, 1] + c_6[1, 0, 1]
+\end{aligned}
+$$
+
+The first, second, and fourth rows of $H^T$ are linearly dependent, and no fewer rows of $H^T$ are linearly dependent. 
+
+### 3.3.1 - Simple Bounds on Block Codes
+
+The **Singleston Bound**: the minimum distance for an $[n, k]$ linear code is bounded by $d_{min} \leq n - k + 1$.
+
+Proof: An $[n, k]$ linear code has a parity check matrix with $n - k$ linearly idnependent rows.  Since the row rank of a matrix is equal to its column rank, $rank(H) = n - k$.  Any collection of $n - k + 1$ columns must therefore be linearly dependent.  Thus, the minimum distance cannot be larger than $n - k + 1$.
+
+- A code for which the minimum distance is $n - k -1$ is called a **Maximum Distance Separable** code.
+
+#### Hamming Spheres
+
+A roud each code "point" is a cloud of points corresponding to _non-codewords_.  For a $q$-ary code, there are $(q - 1)n$ vectors at Hamming distance of 1 away from the codeword, 
+
+$$
+(q-1)^2 {n \choose 2}
+$$ 
+
+vectors at Hamming distance 2, and 
+
+$$
+(q - 1)^\ell {n \choose \ell}
+$$
+
+vectors at distance $\ell$ from the codeword.
+
+Let $\mathcal C$ be a code of length $n = 4$ over $GF(3)$, so $q = 3$.  Then the vectors at a Hamming distance of 1 from the codeword $[0, 0, 0, 0]$ are:
+
+$$
+\begin{aligned}
+[1, 0, 0, 0], \; [0, 1, 0, 0], \; [0, 0, 1, 0], \; [0, 0, 0, 1], \\ 
+[2, 0, 0, 0], \; [0, 2, 0, 0], \; [0, 0, 2, 0], \; [0, 0, 0, 2]
+\end{aligned}
+$$
+
+The vectors are Hamming distance less than or equal to $t$ away from a codeword from a sphere "sphere" called the Hamming Sphere of radius $t$.  The number of codewords in a Hamming sphere up to radius $t$ for a code length $n$ over alphabet of $q$ symbols is denoted $V_q(n, t)$.
+
+$$
+V_q(n, t) = \sum_{j = 0}^t {n \choose j}(q - 1)^j
+$$
+
+The bounded distance decoding sphere of a codeword is the Hamming sphere of radius 
+
+$$
+t = \lfloor (d_{min} - 1) / 2 \rfloor
+$$
+
+around that codeword.  Equivalently, a code whose random error correction capability is $t$ must have a minimum distance between codewords satisfying $d_{min} \geq 2t + 1$.
+
+The **redundancy** of a code is the number of parity symbols in a codeword: $r = n - \log_q M$ where $M$ is the number of codewords.  For a linear code, we have 
+
+$$
+M = q^k \implies r = n - k
+$$
+
+#### Hamming Bound
+
+A $t$-random error correcting $q$-ary code $\mathcal C$ must have redundancy $r$ satisfying $r \geq \log_q V_q(n, t)$. 
+
+Proof: Each of $M$ spheres in $\mathcal C$ has radius $t$ with no overlap, esle it would not be possible to decode $t$ errors.  The total number of points enclosed by the spheres must be less than or equal to $q^n$, thus 
+
+$$
+MV_q(n, t) \leq q^n \implies q^n/M \geq V_q(n, t)
+$$
+
+from which the result follows from taking $\log_q$ from both sides.
+
+A code satisfying this bound with equality is said said to be a **perfect code**, a designation of how the points fall into the spheres rather than the performance of the code.  The entire set of perfect codes is:
+
+1. The set of all $n$-tuples with minimum distance of 1, with $t = 0$
+2. Odd-length binary repetition codes
+3. Linear Binary Hamming codes or other non-linear codes with equivalent parameters
+4. The Golay code $[23, 12, 7]$
+
+### 3.4 - Error Detection and Correction Over Hard-Input Channels
+
+Let $\mathbf r$ be an $n$-vector over $\mathbb F_q$ and let $H$ be a parity check matric for a code $\mathcal C$.  The vector $\mathbf s = \mathbf r H^T$ is called the **Syndrome** of $\mathbf r$.  $\mathbf{s = 0}$ if an only if $\mathbf r$ is a codeword of $\mathcal C$, otherwise it indicates the presence of error in the intended codeword $\mathbf r$.
+
+### 3.4.1 - Error Detection
+
+Suppose codeword $\mathbf c$ in a binary linear block code $\mathcal C$ over $\mathbb F_q$ is transmitted through a channel and that the $n$-vector $\mathbf r$ is received.  We write $\mathbf{r = c + e}$, where $\mathbf e$ is the error vector hopefully equal to the zero vector.  However, the received vector $\mathbf r$ could be any vector in $\mathbb F^n_q$, since any error pattern is possible.  If $H$ is the parity check matrix for $\mathcal C$, then the syndrome is given by 
+
+$$
+\mathbf{s = r}H^T = (\mathbf{c + e})H^T = \mathbf E H^T
+$$
+
+and $\mathbf{s = 0}$ if $\mathbf r$ is a codeword.  If $\mathbf{s \neq 0}$, then an error has been detected.
+
+### 3.4.1 - Error Detection: the Standard Array
+
+Using Maximum Likelihood Detection, decoding a vector $\mathbf r$ consists of selecting the codeword $\mathbf c \in \mathcal C$ closest to $\mathbf r$ in terms of Hamming distance:
+
+$$
+\hat{\mathbf c} = \arg \min \limits_{\mathbf c \in \mathcal C} d_H(\mathbf{c, r})
+$$
+
+Let the set of codewords in the code be ${\mathbf{c_0, c_1, ..., c}_{M-1}}$, where $M = q^k$, with $\mathbf{c_0 = 0}$, and $V_i$ denote the set of $n$-vectors  closer to $\mathbf c_i$ than any other codeword (with ties broken arbitrarily).  The set $\{V_i | i \in [0, M-1] \}$ partitions the space of $n$-vectors into $M$ disjoint subsets.  If $\mathbf r$ falls into $V_i$, then being closer to $\mathbf c_i$ than any other codeword, $\mathbf r$ is decoded to $\mathbf c_i$, so we simply must define all $V_i$.
+
+The **Standard Array** is a representation of the partition $\{V_i\}$; a two-dimensional array with columns being the $V_i$. It is constructed by taking every codeword $\mathbf c_i$ belonging to its own set $V_i$.  Writing down the set of codewords thus gives the first row of the array.  From the remaining vectors in $\mathbb F_q^2$, find $\mathbf e_1$ of smallest weight which must lie in the set $V_0$ since it is closest to $\mathbf{c_0 = 0}$.  But 
+
+$$
+d_H(\mathbf{e_1 + c_i, c_i}) = d_H(\mathbf{e_1, 0}); \forall i
+$$
+
+so the vector $\mathbf e_1 + \mathbf c_i$ must also lie in $V_1$ for each $i$, so $\mathbf e_1 + \mathbf c_i$ is placed into each $V_i$.  The vectors are included in their respective columns of the standard array to form the second row.  We continue this proecdure, selecting an unused vector of minimum weight and addint it to each codeword to form the next row, until all $q^n$ possible vectors have been used.
+
+In summary:
+1. Write down all codewords of $\mathcal C$
+2. Select from remaining unused vectors of $\mathbb F_q^n$ one of minimal weight $\mathbf e$.  Write $\mathbf e$ in the column under the all-zero codeword, then add $\mathbf e$ to each codeword in turn, writing the sum in the column under the corresponing codeword
+3. Repeat (2) until all $q^n$ vectors in $\mathbb F_q^n$ have been placed in the array.
+
+#### Example 
+
+For $[7, 3]$, with 
+
+$$
+G = 
+\begin{bmatrix}
+ 0 & 1 & 1 & \; & 1 & 1 & 0 & 0 \\
+ 1 & 0 & 1 & \; & 1 & 0 & 1 & 0 \\
+ 1 & 1 & 0 & \; & 1 & 0 & 0 & 1 \\
+\end{bmatrix}
+$$
+
+the codewords are:
+
+$$
+\begin{array}{cc:cccccc}
+R_1 & 0000000 & 0111100 & 1011010 & 1100110 & 1101001 & 1010101 & 0110011 & 0001111
+\end{array}
+$$
+
+from the remaining $7$-tuples, one of minimum weight is selected (e.g. $1000000$), the second row is obtained by adding this to each codeword:
+
+$$
+\begin{array}{cc:cccccc}
+R_2 & 1000000 & 1111100 & 0011010 & 0100110 & 0101001 & 0010101 & 1110011 & 1001111
+\end{array}
+$$
+
+and proceed until all $2^n$ vectors are used, selecting an unused vector of minimum weight and adding it to all codewords:
+
+#### The Complete Standard Array for [7, 3]
+$$
+\begin{array}{cc:ccccccc}
+1  & 0000000 & 0111100 & 1011010 & 1100110 & 1101001 & 1010101 & \mathbf{0110011} & 0001111\\ \hline
+2  & 1000000 & 1111100 & 0011010 & 0100110 & 0101001 & 0010101 & 1110011 & 1001111 \\  
+3  & 0100000 & 0011100 & 1111010 & 1000110 & 1001001 & 1110101 & 0010011 & 0101111 \\
+4  & 0010000 & 1011000 & 1001010 & 1110110 & 1111001 & 1000101 & 0100011 & 0011111 \\
+5  & 0001000 & 0110100 & 1010010 & 1101110 & 1100001 & 1011101 & 0111011 & 0000111 \\
+6  & 0000100 & 0111000 & 1011110 & 1100010 & 1101101 & 1010001 & 0110111 & 0001011 \\
+7  & 0000010 & 0111110 & 1011000 & 1100100 & 1101011 & 1010111 & 0110001 & 0001101 \\
+8  & 0000001 & 0111101 & 1011011 & 1100111 & 1101000 & 1010100 & 0110010 & 0001110 \\ \hline 
+9  & 1100000 & 1011100 & 0111010 & 0000110 & 0001001 & 0110101 & 1010011 & 1101111 \\
+10 & 1010000 & 1101100 & 0001010 & 0110110 & 0111001 & 0000101 & 1100011 & 1011111 \\
+11 & 0110000 & 0001100 & 1101010 & 1010110 & 1011001 & 1100101 & 0000011 & 0111111 \\
+12 & 1001000 & 1110100 & 0010010 & 0101110 & 0100001 & 0011101 & 1111011 & 1000111 \\
+13 & \mathbf{0101000}  & 0010100 & 1110010 & 1001110 & 1000001 & 1111101 & \mathbf{0011011} & 0100111 \\
+14 & 0011000 & 0100100 & 1000010 & 1111110 & 1110001 & 1001101 & 0101011 & 0010111 \\
+15 & 1000100 & 1111000 & 0011110 & 0100010 & 0101101 & 0010001 & 1110111 & 1001011 \\ \hline 
+16 & 1110000 & 1001100 & 0101010 & 0010110 & 0011001 & 0100101 & 1000011 & 1111111 \\
+
+\end{array}
+
+$$
+
+From which we can draw the following observations:
+1. There are $q^k$ codeword columns and $q^n$ possible vectors, so there are $q^{n-k}$ rows in the standard array.  Therefore, an $[n, k]$ code is capable of correcting $q^{n-k}$ different error patterns
+
+2. The difference (sum over $GF(2)$) of any two vectors in the same row is a code vector.  In a row, vectors are $\mathbf c_i + \mathbf e$ and $\mathbf c_j + \mathbf e$, which is a codeword since linear spaces form a subspace.
+
+3. No two vectors in the same row are identical, otherwise $\mathbf c_i + \mathbf e = \mathbf c_j + \mathbf e$ with $i \neq j$, which is impossible.
+
+4. Every vector appears exactly once in the standard array.  we know every vector must appear at least once, by construction.  If a vector appears in both the $ell$-th and $m$-th row, we must have
+
+$$
+\mathbf c_i + \mathbf e_\ell = \mathbf c_j + \mathbf e_m
+$$
+
+and for $\ell < m$, we have $\mathbf e_m = \mathbf e_\ell + \mathbf c_i - \mathbf c_j = \mathbf e_\ell + \mathbf c_k$ for some $k$ meaning $\mathbf e_m$ is on the $\ell$-th row of the array, which is a contradiction.
+
+Rows of the standard array are **cosets** of the form $\mathbf e + \mathcal C = \{ \mathbf{e + c} | \mathbf c \in \mathcal C \}$ that is, rowas are translations of the code
+- Vectors in the first column are called **coset leaders** representing the error patterns that can be corrected by the code under this decoding strategy.  The decoder in the example which the table corresponds to can correct:
+  - all errors of weight 1, 
+  - seven errors of weight 2,
+  - and 1 error pattern of weight 3
+
+
+To actually _use_ the standard array, we locate the received error vector $\mathbf r$, the identify $\mathbf{r = e + c}$ for some error $\mathbf e$ which is a coset leader (left column) and a codeword $\mathbf c$ in the top row.  Since our standard array cosntruction fills the table in order of increasing error weight, the error codeword _is_ the ML decision.
+
+#### Example
+
+Let $\mathbf r = [0,0,1,1,0,1,1]$.  It's coset leader is $\mathbf e = [0, 1, 0, 1, 0, 0, 0]$ (shown in bold in the table) which corresponds to $\mathbf m = [0, 1, 1]$ since the generator is systematic.
+
+#### Example 
+
+Not all ${7 \choose 2} = 21 $ patterns of two errors are correctable under this example code and standard array.  Only seven patterns of 2, and one error of 3.  Thus, the minimum distance is 4 since the weight of non-zero codewords is 4.  Thus, the code is only guaranteed to be correct for $\lfloor (4-1)/2 \rfloor = 1$ error, but it _does_ correct all of these.
+
+A **Complete Error Correcting Decoder** is a decoder that, given a received word $\mathbf r$, selects codeword $\mathbf c$ which minimizes $d_H(\mathbf{r, c})$.  If a standard array is used as the decoding mechanism, then compelte decoding is achieved.  On the other hand, if it is filled out such that up to $t$ instances of errors appear in the table, and all further rows are ommitted, the a bounded distance decoder is obtained.
+
+A $t$-error correcting **Bounded Distance Decoder** selects the codeword $\mathbf c$ given the recieved vector $\mathbf r$ if $d_H(\mathbf {r, c}) \leq t$.  If no such $\mathbf c$ exists, a **decoder failure** occurs.
+- E.g., if only rows 1 through 8 in the example standard array above were used, a $\mathbf r$ in rows 9-16 would result in failure since those rows correspond to error patterns of weight 2 and 3.
+
+A perfect code is one for which there are no "leftover" rows in its standard array; all $n \choose t$ error patterns of weight $t$ and all lighter patterns appear as coset leaders.  Thus the bounded distance decoder _is_ the ML decoder.
+
+The obvious drawback of the standard array decoder is the memory required to express the error patterns.  For a not-unreasonable $[256, 200]$ binary code $\mathcal C$, the standard array would require $2^{256}$ vectors of length 256 bits to be stored, and every decoding operation would be $O(n)$.
+
+The first step towards reducing storage and search complexity  (still insufficient to be practical) is **Syndrome Decoding**.  For a vector $\mathbf {e + c}$ in the standard array, the syndrome is $\mathbf{s = (e + c)}H^T = \mathbf eH^T$.  In fact, every vector in the coset has the same syndrome, so we need only store syndromes and their associated patterns: a lookup table with $q^{n-k}$ rows, but only two columns, necessarily smaller than all but the trivial standard array; but still largely impractical!
+
+Nonetheless, with such a table, we could decode:
+1. Compute the syndrome $\mathbf{s = (e + c)}H^T$
+2. Lookup the corresponding error pattern $\mathbf e$
+3. Then $\mathbf{c = r + e}$
+
+#### Example
+
+For the $[7, 4]$ code with parity check matrix 
+
+$$
+H = \begin{bmatrix}
+1 & 0 & 0 & 0 & 0 & 1 & 1 \\
+0 & 1 & 0 & 0 & 1 & 0 & 1 \\
+0 & 0 & 1 & 0 & 1 & 1 & 0 \\
+0 & 0 & 0 & 1 & 1 & 1 & 1
+\end{bmatrix}
+$$
+
+The syndrome decoding table is :
+
+| Error  | Syndrome |
+|--------|-----------|
+| $0000000$ | $0000$ |
+| $1000000$ | $1000$ |
+| $0100000$ | $0100$ |
+| $0010000$ | $0010$ |
+| $0001000$ | $0001$ |
+| $0000100$ | $0111$ |
+| $0000010$ | $1011$ |
+| $0000001$ | $1101$ |
+| $1100000$ | $1100$ |
+| $1010000$ | $1010$ |
+| $0110000$ | $0110$ |
+| $1001000$ | $1001$ |
+| $\mathbf{0101000}$ | $\mathbf{0101}$ |
+| $0011000$ | $0011$ |
+| $1000100$ | $1111$ |
+| $1110000$ | $1110$ |
+
+And for $\mathbf r = [0011011]$, we have $\mathbf{s = r}H^T = [0101]$, so $\mathbf e = [0101000]$.  The decoded codeword is then $\hat{\mathbf c} = [0011011] + [0101000] = [0110011]$.
+
+Nevertheless, additional algebraic structure must be imposed to reduce the and resource consumption of decoding techniques, as syndrome arrays still fail to sufficiently reduce the overall complexity.
+
+### 3.5 - Weight Distribution of Codes and Their Duals
+
+Let $\mathcal C$ be an $[n ,k]$ code, and $A_i$ denote the number of codewords of weight $i$ in $\mathcal C$, then the set of coefficients $\{ A_0, A_1, ..., A_{n-1}\}$ is called the weight distribution for the code, which is conveniently represented as a polynomial:
+
+$$
+A(z) = A_0 + A_1z + A_2z^2 + \cdots + A_{n-1}z^n
+$$
+
+called the **weight enumerator**, which is basically the $z$-transform of the weight distribution sequence.
+
+#### Example
+
+For the $[7, 4]$ Hamming code, there is one codeword of weight 0, and the rest have weight 4, so $A_0 =1, A_4 = 7$: $A(z) = 1 + 7z^4$.
+
+The **MacWilliams Identity** states that, for an $[n, k]$ linear block code $\mathcal C$ over $\mathbb F_q$ with weight enumerator $A(z)$, and $B(z)$ being the weight enumerator of $\mathcal C^\perp$, then: 
+
+$$
+B(z) = q^{-k}(1+(q-1)z)^n A\Bigg(\frac{1 - z}{1 + (q-1)z}\Bigg)
+$$
+
+which allows us to characterize the dual of the code, or rearrange to characterize $A$:
+
+$$
+A(z) = q^{-(n-k)}(1+(q-1)z)^n B\Bigg(\frac{1 - z}{1 + (q-1)z}\Bigg)
+$$
+
+The proof of this theorem is ugly and so I left it out, but it relies on the **Hadamard Transform**.  For a function $f$ defined on $\mathbb F_2^n$, the Hadamard Transfrom $\hat f$ of $f$ is:
+
+$$
+\hat f (\mathbf u) = \sum_{\mathbf v \in \mathbb F_2^n} (-1)^{\langle \mathbf{u, v} \rangle} f(\mathbf v) = \sum_{\mathbf v \in \mathbb F_2^n} (-1)^{\sum_{i=0}^{n-1}u_iv_i} f(\mathbf v), \; \mathbf u \in \mathbb F_2^n
+$$
+
+where the sum is taken over all $2^n$ tuples $\mathbf v = (v_0 v_1, ..., v_{n-1}), v_i \in \mathbb F_2^n$, but can be generalized to larger fields.
+
+This gives way to the following lemma: if $\mathcal C$ is an $[n, k]$ binary linear code, and $f$ is a function defined over $\mathbb F_2^n$, then 
+
+$$
+\sum_{\mathbf u \in \mathcal C} f(\mathbf u) = \frac{1}{|\mathcal C|} \sum_{\mathbf u \in \mathcal C} \hat f(\mathbf u)
+$$
+
+### 3.6 - Hamming Codes and Their Duals
+
+For any integer $m \geq 2$, a $(2^m -1, 2^m - m - 1, 3)$ binary code may be defined by its $m \times n$ parity check matrix $H$, which is obtained by enumerating all possible binary representations of $1, ..., n$ in order. Codes which follow this structure are called Hamming Codes.
+
+#### Example
+
+For $m = 4$, we get 
+
+$$
+H = \begin{bmatrix}
+1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+0 & 1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 \\
+0 & 0 & 0 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\ 
+\end{bmatrix}
+$$
+
+as the parity matrix for a $[15, 11]$ Haming code, but the columns can be reordered to be an equivalent code such that the identity matrix is interspersed through $H$ as the first $m$ columns:
+
+$$
+H = \begin{bmatrix}
+1 & 0 & 0 & 0 & \; & 1 & 1 & 0 & 1 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+0 & 1 & 0 & 0 & \; & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 0 & 1 & 1 \\ 
+0 & 0 & 1 & 0 & \; & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 1 & 1 & 1 & 1 \\ 
+0 & 0 & 0 & 1 & \; & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 
+\end{bmatrix}
+$$
+
+and it is clear from this form that for any $m$, there exist three columns which add to $0$ e.g., 
+
+$$
+\begin{bmatrix}
+1 \\
+0 \\ 
+0 \\ 
+0 
+\end{bmatrix}, 
+\begin{bmatrix}
+0 \\
+1 \\ 
+0 \\ 
+0 
+\end{bmatrix},
+\begin{bmatrix}
+1 \\
+1 \\ 
+0 \\ 
+0 
+\end{bmatrix}
+$$
+ 
+so the minimum distance is $3$, implying that Hamming codes are capable of correcting one bit error in a block and/or detecting two bit errors.
+
+The dual of an $[2^m -1, 2^m - m -1]$ Hamming code is a $[2^m-1, m]$ code called a **simplex code**, or **Maxmimal-Length Feedback Shift Register** code.
+
+#### Example
+
+The parity check matrix for the $[7, 4]$ code can be used as the generator for the $[7, 3]$ simplex code with code words:
+
+$$
+\begin{aligned}
+0000000 \; 1001011\\
+0101110 \; 0010111 \\
+1100101 \; 1011100 \\
+0111001 \; 1110010 \\
+\end{aligned}
+$$
+
+which all, exlcuding the zero-tuple, have weight 4.  In general, all codewords of the $[2^m -1, m]$ simplex code have weight $2^m -1$, and every pair of codewords is at a distance of $2^m-1$ apart.
+
+#### Example
+
+For $m=2$, the codewords $\{000, 101, 011, 110\}$ form a tetrahedron, this the weight enumerator of that dual code is 
+
+$$
+B(z) = 1 + (2^m -1)z^{2^{m-1}}
+$$
+
+and using the inverse relation, we find that the weight distribution of the original Hamming code is:
+
+$$
+A(z) = \frac{1}{n+1}[(1 + z)^n + n(1-z)(1-z^2)^{(n-1)/2}]
+$$
+
+![](/images/it-11.png)
+
+### 3.7 - Performance of Hamming Codes
+
+There are many axes of measurements for the error detecting and correcting capabilities of codes at the output of the channel decoder:
+
+- $P(E)$: **probability of decoder error** or **word error rate** - the probability that the _codeword_ at the output of the decoder is not equal to the codeword at the input encoder
+
+- $P_b(E)$: **probability of bit error** or **bit error rate** - the probability that the decoded message bits (extracted from a decoded codeword of a binary code) are no the same as the encoded message bits
+
+- $P_u(E)$: **probability of undetected codeword error**
+- 
+- $P_d(E)$: **probability of detected codeword error** - one or more errors detected
+
+- $P_{u_b}$: **probability of undetected bit error rate** - the probability that a decoded message bit is in error and is contained within a codeword corrupted by an undetected error
+
+- $P_{d_b}$: **probability of detected bit error rate** - probability that a received message bit is in error _and_ contained within a codeword corrupted by a detected error
+
+- $P(F)$: **probability of decoder failute** - the probability that the decoder is unable to decode the received vector but able to determine that it is unable to decode
+
+### 3.7.1 - Error Detection Performance
+
+All errors of weight up to $d_{min} -1$ can be detected, so for computing the above probabilities, we consider patterns of weight $d_{min}$ and above.
+
+If a codeword $\mathbf c$ of a linear code is transmitted and error pattern happens to be a codeword, $\mathbf{e = c'}$, then the received vector $\mathbf{r = c + c'}$ is also a codeword, hence the error pattern would be undetected.  Thus the probability of undetected error is the probability that the error itself is a codeword.
+
+to quantify this possibility, we consider only errors in transmission of binary codes over a BSC with a crossover possibility $p$.  The probability of any particular pattern of $j$ errors in a codeword is $p^j(1-p)^{n-j}$.  Recalling that $A_j$ is the number of codewords in a code $\mathcal C$ of weight $j$, the probability that $j$ errors forms a codeword is $A_jp^j(1-p)^{n-j}$, and the probability of undetectable error in a codewrod is then 
+
+$$
+P_u(E) = \sum_{j = d_{min}}^n A_jp^j(1-p)^{n-j}
+$$
+
+The probability of a detected codeword is the probability that one more error occurs minus the probability that the error is _undetected_
+
+$$
+P_d(E) = \sum_{j = 1}^n {n \choose j} p^j(1-p)^{n-j} - P_u(E) = 1 - (1 - p)^n - P_u(E)
+$$
+
+Since these probabilities rely on knowledge of the weight distribution of the codes, which is not always available, it is common therefore to provide _bounds_ on performance instead. For example, the upper bound on the probability of undetected error is the probability of occurrences of _any_ patterns of weight meeting or exceeding $d_{min}$.  Since there are $n \choose j$ different ways that $j$ of $n$ positions can be changed, we have:
+
+$$
+P_u(E) \leq \sum_{j = d_{in}}^n {n \choose j} p^j(1-p)^{n-j}
+$$
+
+A bound on $P_d(E)$ is simply $P_d(E) \leq 1 - (1 - p)^n$
+
+#### Example
+
+For a $[7, 4]$ code with $A(z) = 1 + 7z^3 + 7z^4 + z^7$, we have 
+
+$$
+P_u(E) = 7p^3(1-p)^4 + 7p^4(1-p)^3 + p^7
+$$
+
+If $p =0.01$, then $P_u(E) \approx 6.79 \times 10^{-5}$.
+
+The correspondning bit error rates can be bounded as well. (Imagine being a slutty lil bit error rate uWu 🥵). $P_{u_b}$ can be lower bounded by the assumption that undetected codeword error corresponds to only a single message bit error, and upper bounded by the worst possible case that undetected codeword error corresponds to _all_ $k$ message bits being in error:
+
+$$
+\frac{1}{k} P_u(E) \leq P_{u_b} \leq P_u(E)
+$$
+
+### 3.7.2 - Error Correction Performance
+
+Recall that an error pattern is _correctable_ if and only if it is a coset leader in the standard array for the code, thus the probability of correction is the probability that the error is a coset leader.  Let $\alpha_i$ denote the number of coset leaders of weight $i$.  The set $\{ \alpha_0, \alpha_1, ..., \alpha_{n-1}\}$ is then the **coset leader weight distribtuion**.  Over a BSC with crossover probability $p$, the probability of $j$ errors forming one of the coset leaders is 
+
+$$
+\alpha_jp^j(1-p)^{n-j}
+$$
+
+and the probability of a decoding error is thus the probability that the error is _not_ one of the coset leaders:
+
+$$
+P(E) = 1- \sum_{j=0}^n \alpha_j p^j(1-p)^{n-j}
+$$
+
+which applies to any linear code with a _complete decoder_.
+
+For a binary $[n, k]$ code with weight distribution $\{A_i\}$, the probability of decoding error for a bounded distribution decoder is
+
+$$
+P(E) = \sum_{j = d_{min}}^n A_j \sum_{\ell = 0}^{\lfloor (d_{min} - )/2 \rfloor} P_\ell^j
+$$
+
+The probability of decoder error can be bounded by the probability of _any_error patterns of weight greater than $\lfloor (d_{min} - 1)/2 \rfloor$:
+
+$$
+P(E) = \leq \sum_{j \lfloor \bullet \rfloor}^n {n \choose j}p^j(1-p)^{n-j}
+$$
+
+### 3.9 - Modifications to Linear Codes
+
+An $[n, k, d]$ code is **extended** by adding an additional redundant coordinate, producing an $[n + 1, k, d+1]$ code.
+
+#### Example
+
+The parity check matrix for a $[7, 4, 3]$ hamming code is extended with an additional row of check bits that check the parity of all the bits
+
+$$
+H = 
+\begin{bmatrix}
+1 & 0 & 0 & 1 & 0 & 1 & 1 & 0 \\
+0 & 1 & 0 & 1 & 1 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 & 1 & 1 & 1 & 0 \\
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1
+\end{bmatrix}
+$$
+
+The last row is the overall check bit row, and we can put the whole matrix into systematic form via linear operations yielding:
+
+$$
+H = 
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 1 & 1 & 0 & 1 \\
+0 & 1 & 0 & 0 & 0 & 1 & 1 & 1 \\
+0 & 0 & 1 & 0 & 1 & 1 & 1 & 0 \\
+0 & 0 & 0 & 1 & 1 & 0 & 1 & 1
+\end{bmatrix}, 
+
+G = 
+\begin{bmatrix}
+1 & 0 & 1 & 1 & 1 & 0 & 0 & 0 \\
+1 & 1 & 1 & 0 & 0 & 1 & 0 & 0 \\
+0 & 1 & 1 & 1 & 0 & 0 & 1 & 0 \\
+1 & 1 & 0 & 1 & 0 & 0 & 0 & 1 
+\end{bmatrix}, 
+$$
+
+conversely, a code is **punctured** by deleting one of its parity symbols such that on $[n, k]$ code becomes an $[n -1, k]$ code.
+
+Puncturing an extended code _may_ return it to the original code (if the extension symbols are the ones being punctured).  Puncturing can reduce to the weight of each codeword by its weight in the punctured positions.  The $d_{min}$ of a code is reduced by punctring if the minimum weight codeword is punctured in a non-zero position.  Puncturing an $[n, k, d]$ code $p$ times can result in a code with $d_{min}$ as small as $d - p$.
+
+A code is **expurgated** by deleting some of its codewords.  It is possible to expurgate a linear code in such a way that it remains a linear code, but them inimum distance may increase.  For example, deleting all odd-weight codewords
+
+A code is **augmented** by adding new codewords.  Addition of new codewordss may make a code non-linear, but the $d_{min}$ may decrease as well.
+
+A code is **shortened** by deleting a message symbol, meaning a row is removed from the generator matrix (corresponding to the removed symbol), and a column is also removed, corresponding to the encoded message symbol such that an $[n, k]$ code becomes an $[n-1, k-1]$ code.
+
+Finally, a code is **lengthened** by adding a message symbol, meaning a row and column are added to the generator matrix such that an $[n,k]$ code becomes an $[n+1, k+1]$ code.
+
+![](/images/it-12.png)
