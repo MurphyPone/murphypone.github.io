@@ -13,9 +13,10 @@ Notes on Information Theory from various sources
 - [Lectures](#lectures)
   - [1 | Introduction to Coding Theory](lectures-1)
 - [Error Correction Coding, wiley](#wiley)
-  -  [1 | A Context for Error Correction Coding](wiley-1)
-  -  [2 | Groups and Vector Space](wiley-2)
-  -  [3 | Linear Block Codes](wiley-3)
+  - [1 | A Context for Error Correction Coding](wiley-1)
+  - [2 | Groups and Vector Space](wiley-2)
+  - [3 | Linear Block Codes](wiley-3)
+  - [4 | Cyclic Codes, Rings, and Polynomials](wiley-4)
 
 # <a name="lectures" class="n"></a> Lectures
 
@@ -1956,7 +1957,7 @@ $$
 
 If $p =0.01$, then $P_u(E) \approx 6.79 \times 10^{-5}$.
 
-The correspondning bit error rates can be bounded as well. (Imagine being a slutty lil bit error rate uWu 🥵). $P_{u_b}$ can be lower bounded by the assumption that undetected codeword error corresponds to only a single message bit error, and upper bounded by the worst possible case that undetected codeword error corresponds to _all_ $k$ message bits being in error:
+The correspondning bit error rates can be bounded as well. (Imagine being a naughty lil bit error rate uWu 🥵). $P_{u_b}$ can be lower bounded by the assumption that undetected codeword error corresponds to only a single message bit error, and upper bounded by the worst possible case that undetected codeword error corresponds to _all_ $k$ message bits being in error:
 
 $$
 \frac{1}{k} P_u(E) \leq P_{u_b} \leq P_u(E)
@@ -2041,3 +2042,214 @@ A code is **shortened** by deleting a message symbol, meaning a row is removed f
 Finally, a code is **lengthened** by adding a message symbol, meaning a row and column are added to the generator matrix such that an $[n,k]$ code becomes an $[n+1, k+1]$ code.
 
 ![](/images/it-12.png)
+
+## <a name="wiley-4" class="n"></a> 4 | Cyclic Codes, Rings, and Polynomials
+
+### 4.1 - Introduction
+
+In which we introduce methods for deisgning generator matrices which have specific characteristics like minimum distance, and also reducing the prohibitive aspects of long codes and their corresponding standard arrays.
+
+Cyclic codes rely on polynomial operations which allow use to incorporate design specifications.  These operations leverage the algebraic structure known as a _ring_.
+
+### 4.2 - Basic Definitions
+
+Given a vector $\mathbf c = (c_0, c_1, ..., c_{n-1}) \in GF(q)^n$, the vector
+
+$$
+\mathbf c' = (c_{n-1}, c_0, c_1, ..., c_{n-2}) 
+$$
+
+is said to be the cyclic **shift** of $\mathbf c$ to thr right.  A right shift by $r$ produces 
+
+$$
+(c_{n-r}, c_{n-r+1}, ..., c_{n-1}, c_0, ..., c_{n-r - 1}) 
+$$
+
+An $[n,k]$ block code $\mathcal C$ is said to be **cyclic** if it is linear and if, for each $\mathbf c = (c_0, c_1, ..., c_{n-1}) \in \mathcal C$, its right cyclic shift shift $\mathbf c'$ is also in $\mathcal C$.
+
+Shifting operations can be convenienctly represented using polynomials.  For example, the code $\mathbf c = (c_0, c_1, ..., c_{n-1})$ can be represented by the polynomial:
+
+$$
+c(x) = c_0 + c_1x + c_2x^2 + \cdots + c_{n-1}x^{n-1}
+$$
+
+---
+
+#### The Division Algorithm
+
+Let $p(x)$ be a polymnomial of degree $n$ and $d(x)$ be a polynomial of degree $m$:
+
+$$
+deg(p(x)) = n, \; deg(d(x)) = m
+$$
+
+The division algorithm for polynomials assets that there exist polynomials $q(x)$ (q for quotient) and $r(x)$ (r for remainder) where $0 \leq deg(r(x)) \leq m$ and $p(x) = q(x)d(x) + r(x)$.  The algorithm itself consists of polynomial long division.  We say that $p(x)$ is equivalent to $r(x) \text{ modulo } d(x)$:
+
+$$
+p(x) \equiv r(x) \mod d(x); \quad p(x) (\mod d(x)) = r(x)
+$$
+
+If $r(x) = 0$, then $d(x)$ divides $p(x)$: $d(x) \big| p(x)$, else $d(x) \nmid p(x)$.
+
+---
+
+A non-cyclic shift is represented by polynomial multiplication: $xc(c) = c_0x + c_1x + \cdots + c_{n-1}x^{n-1}$.  for a cyclic shift, we move the coefficient of $x^n$ to the constant coefficient position by taking this product modulo $x^n - 1$.  Dividing $xc(x)$ by $x^n - 1$ using the above "algorithm" we get: 
+
+$$
+xc(c)= \underbrace{c_{n-1}}_{\text{quotient}}(x^n - 1) + \underbrace{(c_0x + c_1x^2 + \cdots + c_{n-2}x^{n-1} + c_{n-1})}_{\text{remainder}}
+$$
+
+s.t. the remainder upon dividing by $x^n - 1$ is 
+
+$$
+xc(x) (\mod x^n -1) = c_{n-1} + c_0x + \cdots + c_{n-2}x^{n-1}
+$$
+
+### 4.3 - Rings
+
+Rings exceed the usefulness of groups which are limited to their single operation; rings have _two_ (count em) operations!  A ring $\langle R, +, \cdot \rangle$ is a set $R$ with two binary operations $+$ addition, and $\cdot$ multiplication, defined on $R$ s.t.:
+
+- $\langle R, + \rangle$ is an Abelian (commutative) group with the additive identity as 0.
+- The multiplicative operation $\cdot$ is associative 
+- Left and Right laws of distributivity hold:
+
+$$
+a(b + c) = ab + ac
+$$
+
+$$
+(a + b)c = ac + bc
+$$
+
+- A ring is said to be **commutative** if $a \cdot b = b \cdot a \; \forall a, b \in R$
+- Like groups, the collective ring may be referred to as just the representative set $R$
+- A **ring with identity** has a multiplication like identity on $\cdot$, typically defined $1$.
+
+Note, however, that the multiplicative operation need not form a group, as there may not be a multiplicative inverse in a ring, even if it has an identity.  Some elements over a ring _may_ have a multiplicative inverse, such elements are said to be **units**.
+
+#### Example
+
+- The set of $2 \times 2$ matrices under usual definitions of addition and multiplication form a ring, though not commutative nor with comprehensive inverses as elements
+- $\langle, +, \cdot \rangle$ forms a rung, but not a group
+
+Let $R$ be a ring and $a \in R$.  For an integer $n$, let $na$ denote $a + a + \cdot + a$ with $n$ arguments.  If a positive integer exists s.t. $na = 0 \forall a \in R$, then the _smallest_ such positive integer is the **characteristic of the ring** $R$.  If no such positive integer exists, then $R$ is said to be a ring of characteristic $0$. 
+
+#### Example
+
+In the ring $\mathbb Z_6$, the characteristic is 6.  In the ring $\langle \mathbb Z_n, +, \cdot \rangle$, the characteristic is $n$.  In the ring $\mathbb Q$, the characteristic is 0.
+
+### 4.3.1 Rings of Polynomials
+
+Let $R$ be a ring.  A polynomial $f(x)$ of degree $n$ with coefficients in $R$ is 
+
+$$
+f(x) = \sum_{i=0}^n a_i x^i
+$$
+
+where $a_n = 0$.  The symbol $x$ is said to be an **indeterminate**.
+
+The set of all polynomials with an indeterminate $x$ with coefficients in a ring $R$, using the usual operations for polynomial additions and multiplications, forms a ring called the **polynomial ring**: $R[x]$.
+
+#### Example
+
+Let $R = \langle \mathbb Z_6, +, \cdot \rangle$ and let $S = R[x] = \mathbb Z_6[x]$, then some elements in $S$ are: $0, 1, x, 1 + x, 4 + 2x, 5 + 4x, etc.$ with example operations:
+
+$$
+\begin{aligned}
+(4 + 2x) + (5 + 4x) &= 3 \\
+(4 + 2x) + (5 + 4x) &= 2 + 2x + 2x^2
+\end{aligned}
+$$
+
+#### Example
+
+$\mathbb Z_2[x]$ is the ring of polynomials with coefficients that are either 0 or 1 with operations modeulo 2.  An example of arithmetic in this ring is:
+
+$$
+(1 + x)(1 + x) = 1 + x + x + x^2 = 1 + x^2
+$$
+
+since $x + x = 0$ in this ring.
+
+It is clear that polynomial multiplication does not have an inverse in general, e.g., in the ring of polynomials with coefficients $\Reals[x]$, there is no polynomial solution $f(x)$ to $f(x)(x^2 + 3x + 1)$
+
+Polynomials can represent a sequence of numbers in a single object.  One reason polynomials are of interest is that their multiplication is equivalent to **convolution** of the sequence $\mathbf a = \{a_0, a_1, ..., a_n \}$ with $\mathbb b = \{b_0, b_1, ..., b_n \}$
+
+via the following polynomials:
+
+$$
+\begin{aligned}
+a(x) &= a_0 + a_1x + a_2x^2 + \cdots + a_nx^n \\
+b(x) &= b_0 + b_1x + b_2x^2 + \cdots + b_nx^n 
+\end{aligned}
+$$
+
+and multiplying them: $c(x) = a(x)b(x)$ s.t. the coefficients of $c(x)$ are
+
+$$
+c(x) = c_0 + c_1x + c_2x^2 + \cdots + c_{n+m}x^{n+m}
+$$
+
+are equal to the values obtained by **convolving** $\mathbf{a,b}$.
+
+### 4.4 - Quotient Rings
+
+Returning to the idea of factor groups: given a group and a subgroup, a set of cosets is formed by "translating" the subgroup.  We perform a similar construction over a ring of polynomials, assuming the underlying ring is commutative.
+
+Consider the ring of polynomials $GF(2)[x]$ (polynomials with binary coefficients) and the polynomial $x^3 -1$ .  In a ring of characteristic 2, $x^n-1 = x^n + 1$.  However, in other rhings, the poly should be of the form $x^n - 1$ only.  We divide polynomials up into equivalence classes depending on their remainder modulo $x^3 +1$.
+
+E.g., the polynomials in $S_0 = \{ 0, x^3 + 1, x^4 + x, x^5 + x^2, x^6 + x^3, ... \}$ all have remainder zero when divided by $x^3 + 1$, so we write $\langle, x^3 + 1 \rangle$ as the set generated by $x^3 + 1$.  The polynomials in $S_1 = \{1, x^3, x^4 + x + 1, x^5 + x^2 + 1, ... \}$ all have remainder 1 when divided by $x^3 + 1$, so we write it $S_1 = 1 + S_0 = \langle x^3 + 1 \rangle$ and so on:
+
+
+$$
+\begin{aligned}
+S_1 &= \{1, x^3, x^4 + x + 1, x^5 + x^2 + 1, x^6 + x^3 + 1, ... \} \\
+    &= 1 + S_0 \\ 
+
+S_2 &= \{ x, x^3 + x + 1, x^4, x^5 + x^2 + x, x^6 + x^3 + x , ... \}\\
+    &= x + S_0 \\ 
+
+S_3 &= \{ x + 1, x^3 + x, x^4 + 1, x^5 + x^2 + x + 1, x^6 + x^3 + x + 1, ...\}\\
+    &= x + 1 + S_0 \\  
+
+S_4 &= \{ x^2 ,x^3 + x^2 + 1, x^4 + x^2 + x, x^5, x^6 + x^3 + x^2,... \}\\
+    &= x^2 + 1 + S_0 \\  
+
+\vdots \\
+
+S_7 &= \{ x^2 + x + 1, x^3 + x^2 + x, x^4 + x^2 + 1, x^5 + x + 1, x^6 + x^3 + 2 + x + 1,.. \}\\
+    &= x^2 + x + 1 + S_0
+\end{aligned}
+$$
+
+Thus $S_0, S_1, ..., S_7$ form the coset of $\langle GF(2)[x] \rangle$ module the subgroup $x^3 + 1$ which exhausts all possible remainders after dividing by $x^3 + 1$.  So every polynomial in $GF(2)[x]$ falls into one of these sets.
+
+We can define induced ring operations for both addition and multiplication which give some large tables similar to those we've seen for other groups modulo their order.
+
+Let $R = \{ S_0, S_1, ..., S_7 \}$ with such an addition table s.t. $\langle R, + \rangle$ form an Abelian group with $S_0$ as the identity.  However, not every element has a multiplicative inverse, so even $\langle R \text{\textbackslash} S_0, \cdot \rangle$ does not form a group, but $\langle R, +, \cdot \rangle$ does form a ring denoted $GF(2)[x]/\langle x^3 + 1 \rangle$, the ring of polynomials in $GF(2)[x]$ modulo $x^3 + 1$.  The general denotion of a ring $GF(2)[x]/\langle x^n - 1 \rangle$ be $R_n$, and $\mathbb F_q[x]/\langle x^n - 1\rangle$ be $R_{n,q}$.
+
+Each equivalence class can be identified by its element of lowest degree:
+
+$$
+\begin{aligned}
+&S_0 \iff 0, \quad &S_1 \iff 1, \quad &S_2 \iff x \\
+&S_3 \iff x+1, \quad &S_4 \iff x^2, \quad &S_5 \iff x^2+1 \\
+&S_6 \iff x^2 + x, \quad &S_7 \iff x^2 + x + 1, &\;
+
+\end{aligned}
+$$
+
+Let $\mathcal R$  be the set of these elements of lowest degree with addition and multiplication defined on polynomials modulo $\newline x^3 +1$, the $\langle \mathcal R, +, \cdot \rangle$ forms a ring.
+
+Two rings $\langle R, +, \cdot \rangle, \langle \mathcal R, +, \cdot \rangle$ are isomorphic if there exists a bijective function function $\phi: G \rarr \mathcal G$ called the isomorphism such that $\forall a, b \in \mathcal R$ 
+
+$$
+\begin{aligned}
+\phi(a + b) &= \phi(a) + \phi(b)\\
+\phi(ab) &= \phi(a)\phi(b)
+\end{aligned}
+$$
+
+Similarly, a ring is homomorphic if there exists a function that need not be a complete bijection preserving the above structural behavior.
+
+### 4.5 - Ideals in Rings
