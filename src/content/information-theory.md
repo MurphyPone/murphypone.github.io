@@ -2217,12 +2217,12 @@ S_4 &= \{ x^2 ,x^3 + x^2 + 1, x^4 + x^2 + x, x^5, x^6 + x^3 + x^2,... \}\\
 
 \vdots \\
 
-S_7 &= \{ x^2 + x + 1, x^3 + x^2 + x, x^4 + x^2 + 1, x^5 + x + 1, x^6 + x^3 + 2 + x + 1,.. \}\\
+S_7 &= \{ x^2 + x + 1, x^3 + x^2 + x, x^4 + x^2 + 1, x^5 + x + 1, x^6 + x^3 + 2 + x + 1,... \}\\
     &= x^2 + x + 1 + S_0
 \end{aligned}
 $$
 
-Thus $S_0, S_1, ..., S_7$ form the coset of $\langle GF(2)[x] \rangle$ module the subgroup $x^3 + 1$ which exhausts all possible remainders after dividing by $x^3 + 1$.  So every polynomial in $GF(2)[x]$ falls into one of these sets.
+Thus $S_0, S_1, ..., S_7$ form the coset of $\langle GF(2)[x] \rangle$ modulo the subgroup $x^3 + 1$ which exhausts all possible remainders after dividing by $x^3 + 1$.  So every polynomial in $GF(2)[x]$ falls into one of these sets.
 
 We can define induced ring operations for both addition and multiplication which give some large tables similar to those we've seen for other groups modulo their order.
 
