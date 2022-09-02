@@ -416,7 +416,7 @@ This is the Wolf trellis for the above $[7,4,3]_2$ Hamming Code:
 
 #### Mogul 
 
-I'm just going to come out and say it.  John Conway was a lizard man with an unparalled case of chronice pattern-matching-brain.  The man was of a different breed; the opposite of a maastrichtian.
+I'm just going to come out and say it.  John Conway was a lizard man with an unparalled case of chronic pattern-matching-brain.  The man was of a different breed; the opposite of a maastrichtian.
 
 Legend has it that a collegial IEEE Fellow of Conway's saw him dominating the schoolyard children in various games of *Turning Turtles* and *Dots and Boxes* and said "I bet you can't turn that into a Binary Lexicode of $[n \leq 44, k, d \leq10]_2$" to which Conway famously responded "Hold my beer."[^6]
 

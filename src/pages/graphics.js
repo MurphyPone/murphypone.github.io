@@ -21,7 +21,7 @@ const Head = styled.h2`
 
 const IndexPage = () => (
   <Layout>
-    <SEO title="About" keywords={[`Graphics`, `Peter Murphy`, `blog`, `portfolio`, `design`]} />
+    <SEO title="Graphics" keywords={[`Graphics`, `Peter Murphy`, `blog`, `portfolio`, `design`]} />
     <center><h1>Graphic Design Portfolio</h1></center>
     <Container>
       <Col>

@@ -35,6 +35,12 @@ const hackathons = [
         website: "https://hackbi.org/"
     },
     {
+        name: "*HackQuarantine 2020",
+        coords: { lat: 38.708963, lng: -77.080795 },
+        icon: "/images/hackathon-icons/icon.png",
+        website: "https://hackquarantine.com/"
+    },
+    {
         name: "uOttaHack 2020",
         coords: { lat: 45.422353, lng: -75.683348 },
         icon: "/images/hackathon-icons/uOttaHack.png",
@@ -113,7 +119,7 @@ const hackathons = [
         website: "https://demonhacks.com/"
     },
     {
-        name: "VTHacks 2019, 2020, 2021",
+        name: "VTHacks 2019, 2020, 2021, 2022",
         coords: { lat: 37.232949, lng: -80.423037 },
         icon: "/images/hackathon-icons/VTHacks.png",
         website: "https://vthacks.com/"

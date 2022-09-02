@@ -48,11 +48,11 @@ const Layout = ({ children }) => (
         <Content>
           <main>{children}</main>
           <Footer>
-            <SocialIcon url="https://www.linkedin.com/in/petersmurphy7/" target="_blank" fgColor="#6666ff" bgColor="#ffffff" />
-            <SocialIcon url="http://github.com/murphypone" target="_blank" fgColor="#6666ff" bgColor="#ffffff" />
             <SocialIcon url="http://twitter.com/petersmurphy7" target="_blank" fgColor="#6666ff" bgColor="#ffffff" />
             <SocialIcon url="http://instagram.com/petersmurphy7" target="_blank" fgColor="#6666ff" bgColor="#ffffff" />
+            <SocialIcon url="http://github.com/murphypone" target="_blank" fgColor="#6666ff" bgColor="#ffffff" />
             <SocialIcon url="http://youtube.com/plotsmurphy" target="_blank" fgColor="#6666ff" bgColor="#ffffff" />
+            <SocialIcon url="https://www.linkedin.com/in/petersmurphy7/" target="_blank" fgColor="#6666ff" bgColor="#ffffff" />
           </ Footer>
         </Content>
       </>
