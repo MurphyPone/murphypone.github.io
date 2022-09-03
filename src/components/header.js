@@ -52,7 +52,7 @@ const Header = ({ siteTitle }) => (
       <p>
         <HomeLink to="/">Projects</HomeLink>
         <NavLink to="/blog">Blog</NavLink>
-        <NavLink to="/graphics">Graphics</NavLink>
+        {/* <NavLink to="/graphics">Graphics</NavLink> */}
         <NavLink to="/psco">psco</NavLink>
         <NavLink to="/about">About</NavLink>
       </p>
