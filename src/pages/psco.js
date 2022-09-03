@@ -55,7 +55,6 @@ const Header = () => (
       <p>
         <HomeLink to="/">Projects</HomeLink>
         <NavLink to="/blog">Blog</NavLink>
-        <NavLink to="/graphics">Graphics</NavLink>
         <NavLink to="/psco">psco</NavLink>
         <NavLink to="/about">About</NavLink>
       </p>
@@ -65,7 +64,7 @@ const Header = () => (
 
 const Layout = styled.div`
   margin: 0 auto;
-  max-width: 1400px;
+  max-width: 1600px;
   padding: 0 1.0875rem 1rem;
   padding-top: 0;
 `
@@ -93,9 +92,9 @@ const Head = styled.h1`
  text-align: center;
 `
 
-const Description = () => (
-  <p>one too many times have i lost years of photos to a surprise phone death</p>
-)
+const Description = styled.div`
+  text-align: center;
+`
  
 
 
@@ -134,8 +133,10 @@ const IndexPage = () =>  {
         <Header siteTitle="psco"/>
         <SEO title="psco" keywords={[`Graphics`, `Peter Murphy`, `blog`, `portfolio`, `design`]} />
         <Head>psco</Head>
-        <p>one too many times have i lost years of photos to a surprise phone death</p>
-        <p>it's like having a gap in your resume but worse because it's your life</p>
+        <Description>
+          <p>one too many times have i lost years of photos to a surprise phone death</p>
+          <p>it's like having a gap in your resume but worse because it's your life</p>
+        </Description>
         <Container>
           <Col>
           {images_left.map((url) => (
