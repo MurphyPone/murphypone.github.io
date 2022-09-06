@@ -86,7 +86,6 @@ const Col = styled.div`
 const ImgContainer = styled.div`
   margin-top: 5px;
   margin-bottom: 5px;
-  border: solid black 1px;
 `
 
 const Head = styled.h1`
