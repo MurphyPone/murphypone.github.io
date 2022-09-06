@@ -75,7 +75,7 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: repeat(3 1fr);
-  grid-gap: 15px;
+  grid-gap: 5px;
   border-top: solid rgb(102, 102, 255) 3px;
 `
 const Col = styled.div`
@@ -84,8 +84,9 @@ const Col = styled.div`
 `
 
 const ImgContainer = styled.div`
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: solid black 1px;
 `
 
 const Head = styled.h1`
@@ -96,8 +97,6 @@ const Description = styled.div`
   text-align: center;
 `
  
-
-
 const IndexPage = () =>  {
   const [images, setImages] = React.useState(null);
   React.useEffect(() => {
@@ -141,7 +140,7 @@ const IndexPage = () =>  {
           <Col>
           {images_left.map((url) => (
             <ImgContainer>
-              <img id="image" src={url} alt="where i stay" key={url}/>
+              <img id="image" src={url} alt={""} key={url}/>
             </ImgContainer>
           ))}
           </Col>
@@ -149,7 +148,7 @@ const IndexPage = () =>  {
           <Col>
           {images_middle.map((url) => (
             <ImgContainer>
-              <img id="image" src={url} alt="where i stay" key={url}/>
+              <img id="image" src={url} alt={""} key={url}/>
             </ImgContainer>
           ))}
           </Col>
@@ -157,7 +156,7 @@ const IndexPage = () =>  {
           <Col>
           {images_right.map((url) => (
             <ImgContainer>
-              <img id="image" src={url} alt="where i stay" key={url}/>
+              <img id="image" src={url} alt={""} key={url}/>
             </ImgContainer>
           ))}
           </Col>
@@ -169,7 +168,7 @@ const IndexPage = () =>  {
       <Layout>
         <SEO title="psco" keywords={[`Graphics`, `Peter Murphy`, `blog`, `portfolio`, `design`]} />
         <Head>psco</Head>
-        <p>something about phone getting wiped and resume gaps</p>
+        <p>something about a bunch of dead dogs</p>
         <Container>
           <Col></Col>
           <Col></Col>
