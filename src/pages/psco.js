@@ -3,6 +3,9 @@ import axios from "axios"
 import { Link } from "gatsby"
 import styled from "@emotion/styled"
 import SEO from "../components/seo"
+import Lyric from "../components/lyric"
+import {InfinitySpin} from 'react-loader-spinner'
+// import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 // gross
 
@@ -135,6 +138,7 @@ const IndexPage = () =>  {
           <p>one too many times have i lost years of photos to a surprise phone death</p>
           <p>it's like having a gap in your resume but worse because it's your life</p>
         </Description>
+        {/* <Lyric/> */}
         <Container>
           <Col>
           {images_left.map((url) => (
@@ -167,7 +171,10 @@ const IndexPage = () =>  {
       <Layout>
         <SEO title="psco" keywords={[`Graphics`, `Peter Murphy`, `blog`, `portfolio`, `design`]} />
         <Head>psco</Head>
-        <p>something about a bunch of dead dogs</p>
+        {/* <p>something about a bunch of dead dogs</p> */}
+        <div style={{textAlign: "center"}}>
+        <InfinitySpin width='200'color="#6666ff"/>
+        </div>
         <Container>
           <Col></Col>
           <Col></Col>
