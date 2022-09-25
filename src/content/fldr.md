@@ -443,4 +443,4 @@ While by no means an exhaustive verification of correctness of FLDR (not even cl
 
 [^10]: "Intuitively" is a word mathematicians use to describe their understanding of something after they've suffered an acid flash back in their kitchen
 
-[^11]: https://www.murphyandhislaw.com/blog/voting-power/#infertility
+[^11]: https://www.murphyandhislaw.com/blog/voting-power#infertility
