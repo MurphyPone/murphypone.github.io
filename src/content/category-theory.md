@@ -21,6 +21,8 @@ path: "/blog/category-theory"
 
 This is a collection notes on Category Theory for personal reference. 
 
+![](/images/category-theory-34.png)
+
 # Index
 
 ## [Glossary](#glossary)

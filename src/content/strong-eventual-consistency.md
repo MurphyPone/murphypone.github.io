@@ -1,7 +1,7 @@
 ---
 title: "42 | Strong Eventual Consistency"
-date: "2022-09-23"
-description: "punk rock, conflict free data types"
+date: "2022-09-18"
+description: "punk rock, conflict free replicated data types"
 path: "/blog/strong-eventual-consistency"
 ---
 
@@ -407,8 +407,6 @@ A **witness** is the first event created by a member in a round
 
 > The community could put a list of $n$ transactions into order by running separate Byzantine agreement protocols on $O(n \log n)$ different yes/no questions of the form “did event $x$ come before event $y$?” A much faster approach is to pick just a few events (vertices in the hashgraph), to be called **witnesses**, and define a witness to be **famous** if the hashgraph shows that most members received it fairly soon after it was created. Then it’s sufficient to run the Byzantine agreement protocol only for witnesses, deciding for each witness the single question “is this witness famous?” Once Byzantine agreement is reached on the exact set of famous witnesses, it is easy to derive from the hashgraph a fair total order for all events.
 
-TODO: lemma 
-
 ### Shred Cruz?
 
 (Seeing and Strongly Seeing)
@@ -461,7 +459,7 @@ The authors stipulate that tt should be difficult for a small group of attackers
 
 > For some applications, the exact order does not matter, but for a stock market it can be critically important that this decision be made fairly.[^11]
 
-As noted, an inherent flaw with the leader-reliant algorithms such as those of Paxos or Raft is that –regardless of the means used to select a hopefully-truthy leader– that component becomes a single point of failure, and therefore an easy target. 
+As noted, an inherent flaw with the leader-reliant algorithms such as those of Paxos or Raft is that –regardless of the means used to select a hopefully-truthy leader– that component becomes a single point of failure, and therefore an easy target.[^12] 
 
 > In any case, the leader could arbitrarily decide to ignore Alice or Bob's reported transactions for a period of time, delaying one of them, to force one transaction to come after another.  If the gial is distributed trust, _then no single individual can be trusted_
 
@@ -539,9 +537,51 @@ So that the resulting states of the involved members are:
 
 # Bono!! Bono!! 
 
-I mean yeah, that's pretty much it?
+(Conclusion)
 
-TODO: dates and citations
+So, that's that's pretty much it?  Ended up with far more subsections than songs in the playlist, so forgive the deviation from form (some song titles are in fact relevant smh).  What're you gonna do, _vote about it?_.
+
+## c u in da ballpit
+
+(Swirld's Functional Appendix)
+
+| term/function | definition | description |
+|-|-|-|
+| $e$ | $= \{p, h, t, i, s\}$ | an event tuple |
+| $p$ | $= payload(e)$ | the "payload" data, e.g. a list of transactions | 
+| $h$ | $= hashes(e)$ | list of hashes of the event's parents, starting with the self-parent |
+| $t$ | $= time(e)$ | creator's claimed datetime of the event's creation |
+| $i$ | $ = creator(e)$ | creator's ID |
+| $s$ | $ = signature(e)$ | creator's digital signature of $\{p, h, t, i\}$| 
+| $n$ | | the number of members in the HashGraph |
+| $c$ | | the frequency of coin rounds |
+| $d$ | | rounds delayed before start of delection |
+| $E$ | | the set of all events in the HashGraph |
+| $E_0$  | $= E \cup \{\varnothing\}$ | $E$ joined with the null message marker |
+| $\mathbb{T}$ | | the set of all possible $(time, date)$ pairs |
+| $\mathbb{B}$ | | $\{True, False\}$ |
+| $\mathbb{N}$ | | the big natural: $1, 2, 3, ... $ |
+| $parents(x) : E \rarr E^2$ | | set of events that are parents of $x$ |
+| $selfParent(x) : E \rarr E_0$ | | the self-parent of event $x$, or $\varnothing$ if none |
+| $ancestor(x, y) : E \times E \rarr \mathbb{B}$ |  $= x = y \lor \exists z \in parents(x), ancestor(z,y)$ | true if $x$ can reach $y$ by following $0$ or more parent edges |
+| $selfAncestor(x, y) : E \times E \rarr \mathbb{B}$ | $= x = y \lor (selfParent(x) \neq \varnothing \land selfAncestor(selfParent(x), y))$ | true if $x$ can reach $y$ by following $0$ or more selfParent edges |
+| $manyCreators(S) : 2^E \rarr \mathbb{B}$ | $ =\vert S \vert > 2n/3 \land \forall x,y \in S, (x \neq y \implies creator(x) \neq creator(y))$ | true if the set of events $S$ has more than $2n/3$ events, and all have distincy creators |
+| $see(x, y) :  E \times E \rarr \mathbb{B}$ | $=ancestor(x,y) \land \\ \lnot (\exists a,b \in E, creator(y) = creator(a) = creator(b) \land \\\quad  ancestor(x, a) \land \\\quad  ancestor(x,b) \land \\ \quad \lnot selfAncestor(a,b) \land \\\quad \lnot selfAncestor(b,a))$ | true if $y$ is an ancestor of $x$, but no fork of $y$ is an ancestor of $x$ |
+| $stronglySee(x, y) : E \times E \rarr \mathbb{B}$ | $=see(x,y) \land \\ (\exists S \subseteq E, manyCreators(S) \\\quad \land (z \in S \implies (see(x,z) \land see(z,y)))$ | true if $x$ can see events by more than $2n/3$ creators, each of which sees y |
+| $selfParentRound(x) : E \rarr \mathbb{N}$ | $= \begin{cases} 1 &\text{if } selfParent(x) = \varnothing \\ round(selfParent(x)) &\text{o.w.} \end{cases}$ |  the maximum created round of all parents of $x$ ? 1 if none |
+| $round(x) : E \rarr \mathbb{N}$ | $= \max (\{selfParentRound(x)\} \cup \{r+1 \vert \exists S \subseteq E, manyCreators(S) \\ \quad \land (\forall y \in S, round(y) = r \land stronglySee(x,y))\})$ | the created round of $x$ |
+| $witness(x) : E \rarr \mathbb{B}$ | $=(selfParent(x) = \varnothing \lor (round(x) > round(selfParent(x))$ | true if $x$ has a greater created round than its selfParent |
+| $diff(x, y) : E \rarr \mathbb{I}$ | $round(x) - round(y)$ |
+| $votes(x, y, v) : E \times E \times \mathbb{B} \rarr \mathbb{N}$ | $= \vert \{ z \in E \vert diff(x,z) = 1 \land \\ witness(z) \land  \\ stronglySee(x,z) \land \\ vote(x,y) = v \} \vert$ | the number of votes equal to $v$ about the fame of witness $y$ collected by witness $x$ from the previous round |
+| $fractTrue(x, y) : E \times E \rarr \mathbb{R}$ | $=\frac{vote(x,y, true)}{\max (1, votes(x,y,true) + votes(x,y, false))}$ | fraction of "ye" votes, regarding the fame of witness $y$, collected by witness x$, from witnesses in the previous round | selfParent's vote about the fame of witness $y$ (or $x$ is not a witness, or has already decided earlier) |
+| $decide(x, y) : E \times E \rarr \mathbb{B}$ | $=(selfParent(x) \neq \varnothing \land \\ decide(selfParent(x), y)) \lor (witness(x) \land \\  witness(y) \land \\ diff(x,y) > d \land \\  (diff(x,y) \mod c > 0) \land \\ (\exists v \in B, votes (x,y,v) > 2n/3)))$ |  true if $x$ (or its self ancestor) "decided" for the elction for witness $y$ (and therefore that member will never change its vote about $y$ again)  |
+| $copyVote(x, y) : E \times E \rarr \mathbb{B}$ | $=(\lnot witness(x)) \lor (selfParent(x) \neq \varnothing \land decide(selfParent(x), y))$ |  true if $x$ should simply copy its selfParent's vote about the fame of witness $y$ (or $x$ is not a witness, or has already decided earlier) |
+| $vote(x, y) : E \times E \rarr \mathbb{R}$ | $=\begin{cases} vote(selfParent(x), y) &\text{if } copyVote(x,y) \\ see(x, y) &\text{if } \lnot copyVote(x,y) \land diff(x,y) = d \\ 1 = middleBit(signature(x)) &\text{if } \lnot copyVote(x,y) \land diff(x,y) \neq d \\ &\quad \land (diff(x,y) \mod c = 0)   \\ &\quad \land (\frac{1}{3} \leq fractTrue(x,y) \leq \frac{2}{3}) \\ fractTrue(x,y) \geq 1/2 &\text{o.w.} \end{cases}$  | the vote by witnes $x$ about the fame of witness $y$ (true for famous, false for not) |
+| $famous(x, y) : E \rarr \mathbb{B}$ | $= \exists y \in E, decide((y,x) \land vote(y,x) $ | true if $x$ is famous (i.e., has had its fame decided by someone, and their vote was true) |
+| $uniqueFamous(x, y) : E \rarr \mathbb{B}$ | $=famous(x) \land \lnot \exists y \in E, y \neq x \land \\ famous(y) \land round(x) = round(y) \land \\ creator(x) = creator(y)$ | true if $x$ is famous and is the only famous witness in that round by that creator |
+| $roundsDecided(x, y) : \mathbb{N} \rarr \mathbb{B}$ | $= \forall x \in E, ((round(x) \leq r \land witness(x)) \\ \implies \exists y \in E, decide(y,x)) $ | true if all known witnesses had their fame decided, for both round $r$ and all earlier rounds |
+| $roundReceived(x, y) : E \rarr \mathbb{N}$ | $=\min (\{r \in \mathbb N \vert roundsDecided(r) \land \\ (\forall y \in E, (round(y) = r \land uniqueFamous(y))  \\ \implies ancestor(y,x)) \})$ | the round received for event $x$ |
+| $timeReceived(x, y) : E \rarr \mathbb{T}$ | $= median( \{ time(y) \vert y \in ancestor(y,x) \land \\  (\exists z \in E, round(z) =roundReceived(x) \land \\ unqieuFamous(z) \land \\ selfAncestor(z,y)) \land \\  \lnot (\exists w \in E, selfAncestor(y,w) \land \\  ancestor(w,x)) \})$ | the consensus timestamp for event $x$|
 
 # Kawasaki Backflip
 
@@ -566,3 +606,5 @@ TODO: dates and citations
 [^10]: Though it seems like this would actually an $O(k/n)$ computation, where $k$ is the total number of transactions, as $x$ needs to traverse the HashGraph to find $y$, the authors point out that for the purpose of _sight_ (and other properties used in the proofs of tolerance) the number of temporally-prior nodes that any given node $x$ needs to view in order to "see" another node $y$ is actually negligibly small in terms of complexity.  This sight need only look as far as the last Famous Witness which indicates that all transactions from rounds prior to that famous witness are agreed upon by the system on the whole.  Therefore, the search space for $x \rarr y$ is bounded by 1 _round_.
 
 [^11]: [_Flash Boys_](https://www.amazon.com/Flash-Boys-Wall-Street-Revolt/dp/0393351599) by Michael Lewis is a great book about why even milliseconds of either innacuracy or advantage in an exchange market can be hugely exploited by high frequency traders.
+
+[^12]: It's worth noting that this point of contention is largely a theoretical one.  Leader/follower-based consensus protocols are still [prevalent](https://www.cockroachlabs.com/docs/stable/architecture/replication-layer.html) in the industry and you don't see the world going up in flames about it.
