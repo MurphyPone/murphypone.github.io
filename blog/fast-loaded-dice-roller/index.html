@@ -285,19 +285,28 @@ p &amp;= (\frac{3}{10}, \frac{7}{10}) \\
 <li>FLDR is 2x-10x faster in preprocessing</li>
 </ul>
 <!-- honestly fuck this explanation, leverage his slides instead -->
-<h2>Code: Adj Maj</h2>
-<p>Reference the fast inverse Square </p>
-<div class="gatsby-highlight" data-language="python"><pre style="counter-reset: linenumber NaN" class="language-python line-numbers"><code class="language-python">w <span class="token operator">=</span> <span class="token punctuation">(</span>r <span class="token operator">>></span> <span class="token punctuation">(</span><span class="token punctuation">(</span>k<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">-</span> j<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">;</span></code><span aria-hidden="true" class="line-numbers-rows" style="white-space: normal; width: auto; left: 0;"><span></span></span></pre></div>
-<p>Just add some prints around this using example weights from the slides, I’d expect them to be the same numbers</p>
-<h2>Not a Spiteful Appendix</h2>
-<p>TODO: </p>
-<p><em>mea numquam culpa</em></p>
-<p>While by no means an exhaustive verification of correctness of FLDR (not even close), I've included the following appendix to crush some BEEF about how many rolls it would take to verify whether or not a dice is balanced.</p>
-<p><img src="/images/fldr-10.png"></p>
-<ul>
-<li>Call FLDR on some weights, sample n=5,10,100,500,1000x </li>
-<li>plot the error between chi-square and actual frequencies</li>
-</ul>
+<!-- ## Code: Adj Maj
+
+Reference the fast inverse Square 
+
+```python
+w = (r >> ((k-1) - j)) & 1;
+```
+
+Just add some prints around this using example weights from the slides, I’d expect them to be the same numbers
+
+## Not a Spiteful Appendix 
+
+TODO: 
+
+_mea numquam culpa_
+
+While by no means an exhaustive verification of correctness of FLDR (not even close), I've included the following appendix to crush some BEEF about how many rolls it would take to verify whether or not a dice is balanced.
+
+![](/images/fldr-10.png)
+
+- Call FLDR on some weights, sample n=5,10,100,500,1000x 
+- plot the error between chi-square and actual frequencies -->
 <h1>Footnotes &#x26; References</h1>
 <div class="footnotes">
 <hr>
