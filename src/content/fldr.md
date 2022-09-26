@@ -398,7 +398,7 @@ The main advantages of FLDR over other approaches include:
 
 <!-- honestly fuck this explanation, leverage his slides instead -->
 
-## Code: Adj Maj
+<!-- ## Code: Adj Maj
 
 Reference the fast inverse Square 
 
@@ -419,7 +419,7 @@ While by no means an exhaustive verification of correctness of FLDR (not even cl
 ![](/images/fldr-10.png)
 
 - Call FLDR on some weights, sample n=5,10,100,500,1000x 
-- plot the error between chi-square and actual frequencies
+- plot the error between chi-square and actual frequencies -->
 
 # Footnotes & References
 
