@@ -1,7 +1,7 @@
 ---
 title: "3 | Survey of U.S. Presidents"
 date: "2017-12-15"
-description: "AP U.S. History"
+description: "APUSH"
 path: "/blog/presidents"
 ---
 

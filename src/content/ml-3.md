@@ -1,5 +1,5 @@
 ---
-title: "15 | ML 3: A Summary if a Summary: DQN Bottlenecks"
+title: "15 | ML 3: A Summary of a Summary: DQN Bottlenecks"
 date: "2019-07-26"
 description: "RL + Sergey Levine + Swords!"
 path: "/blog/ml-3"

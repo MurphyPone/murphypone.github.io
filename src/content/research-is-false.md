@@ -6,7 +6,7 @@ path: "/blog/research-is-false"
 ---
 
 ## Preface
-This article aims to provide some of the derivations from Ioannidis' 2005 article: ["Why Most Published Research Findings Are False"](https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.0020124) which exposed what has since been termed "The Replication Crisis."
+This article aims to provide some of the derivations from Ioannidis' 2005 article: "Why Most Published Research Findings Are False" which exposed what has since been termed ["The Replication Crisis."](https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.0020124)
 
 The issue begins with the subject of $p$-values which measure the probability of a study finding a positive result, assuming the presented hypothesis is false.  A strong $p$-values is considered to be $0.05$, indicating a regrettable 5% of published findings are false.
 

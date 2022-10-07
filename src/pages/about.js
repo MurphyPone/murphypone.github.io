@@ -14,7 +14,7 @@ const IndexPage = () => (
     My name is Peter, I'm a Software Enginer at Credit Karma. In 2021, I graduated from Virginia Tech where I studied Computer Science and minored in Philosophy, Politics, and Economics.
     </p>
     <p>
-    On the weekends, I'm a <a href="https://mlh.io/" target="_blank">Major League Hacking</a> Coach, which means that I <strike>travel to events to</strike> digitally assist hackathon organizers 
+    On the weekends, I'm a <a href="https://mlh.io/" target="_blank">Major League Hacking</a> Coach, which means that I travel to events to assist hackathon organizers 
     in order to provide the best possible experience to their attendees.
     </p>
     <p>

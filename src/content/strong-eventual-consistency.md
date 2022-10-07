@@ -190,7 +190,7 @@ There are two main categories of CRDTs:
 
 State-Based CRDTs maintain replicated state across a distributed system via composable _Least Upper Bound_ functions which must be defined over their constituent data.  In the prior example, the $max(\cdot)$ function is a literal LUB, but our data will usually have a more complex structure than singular numbers.  
 
-Formally, our set of data values together within a LUB-based partial order function forms a _join semilattice_[^5] where the "join" is a property of the LUB which govers how the lattices may be merged.  If values only ever increase, the lattice is monotonic, and said to be a CRDT. 
+Formally, our set of data values together within a LUB-based partial order function forms a _join semilattice_[^5] where the "join" is a property of the LUB which govers how the lattices may be merged.  If values only ever increase, the lattice is monotonic, and said to be a CRDT.  A LUB can be thought of as the _closest common ancestor_ of two elements in a heirarchical collection of some sort.
 
 ## Vanilla-Scented Laser Beams
 

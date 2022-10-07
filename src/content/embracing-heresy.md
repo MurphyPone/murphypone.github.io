@@ -1,5 +1,5 @@
 ---
-title: "17 | John Stuart Mill's On Liberty: Embracing Heresy"
+title: "17 | John Stuart Mill's \"On Liberty\": Embracing Heresy"
 date: "2019-10-07"
 description: "Poli-Sci class and nothing else"
 path: "/blog/embracing-heresy"
