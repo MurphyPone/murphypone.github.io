@@ -11,16 +11,16 @@ Notes on Information Theory from various sources
 # Index 
 
 - [Lectures](#lectures)
-  - [1 | Introduction to Coding Theory](lectures-1)
+  - [1 | Introduction to Coding Theory](#lectures-1)
 - [Error Correction Coding, wiley](#wiley)
-  - [1 | A Context for Error Correction Coding](wiley-1)
-  - [2 | Groups and Vector Space](wiley-2)
-  - [3 | Linear Block Codes](wiley-3)
-  - [4 | Cyclic Codes, Rings, and Polynomials](wiley-4)
+  - [1 | A Context for Error Correction Coding](#wiley-1)
+  - [2 | Groups and Vector Space](#wiley-2)
+  - [3 | Linear Block Codes](#wiley-3)
+  - [4 | Cyclic Codes, Rings, and Polynomials](#wiley-4)
 
-# <a name="lectures" class="n"></a> Lectures
+# <a name="#lectures" class="n"></a> Lectures
 
-## <a name="lectures-1" class="n"></a> 1 | Introduction to Coding Theory
+## <a name="#lectures-1" class="n"></a> 1 | Introduction to Coding Theory
 
 - Shannon’s seminal book “A Mathematical theory of communication” (1948) measured information content in the output of a random source in terms of its **entropy**  
 - In his book, he presented the **Noiseless Coding Theorem**: given $n$ independent and identically distributed random variables, each with entropy $H(x)$... 
@@ -367,9 +367,9 @@ $$
 
 > While a good deal is known about the existence or even explicit construction of good codes as well as their limitations, the best _possible_ asymptotic trade-off between rate and relative distance for binary codes remains a fundamental open question which has seen no improvement since the late 70s in part due to the the fundamental trade off between large rate and large relative distance
 
-# <a name="wiley" class="n"></a> Error Correction Coding: Mathematical Methods and Algorithms - Todd Moon
+# <a name="#wiley" class="n"></a> Error Correction Coding: Mathematical Methods and Algorithms - Todd Moon
 
-## <a name="wiley-1" class="n"></a> 1 | A Context for Error Correction Coding
+## <a name="#wiley-1" class="n"></a> 1 | A Context for Error Correction Coding
 
 ### 1.2 - Where Are Codes
 
@@ -478,7 +478,7 @@ $$
 E_b = \frac{\text{energy per signal}}{\text{bits per signal}} = \frac{E_s}{m}
 $$
 
-## <a name="wiley-2" class="n"></a> 2 | Groups and Vector Space
+## <a name="#wiley-2" class="n"></a> 2 | Groups and Vector Space
 
 ### 2.1 - Introduction
 
@@ -1306,7 +1306,7 @@ $$
 
 so $n - r \geq k$.
 
-## <a name="wiley-3" class="n"></a> 3 | Linearly Block Codes
+## <a name="#wiley-3" class="n"></a> 3 | Linearly Block Codes
 
 ### 3.1 - Basic Definitions
 
@@ -2043,7 +2043,7 @@ Finally, a code is **lengthened** by adding a message symbol, meaning a row and 
 
 ![](/images/it-12.png)
 
-## <a name="wiley-4" class="n"></a> 4 | Cyclic Codes, Rings, and Polynomials
+## <a name="#wiley-4" class="n"></a> 4 | Cyclic Codes, Rings, and Polynomials
 
 ### 4.1 - Introduction
 
