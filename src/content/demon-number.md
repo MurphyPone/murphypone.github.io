@@ -11,15 +11,15 @@ path: "/blog/demon-number"
 
 # Introduction 
 
-Lot's of posts about numbers recently, eh?  Well, here's another: in which, we solve a Rubik's Cube.  
+Lots of posts about numbers recently, eh?  Well, here's another: in which, we solve a Rubik's Cube.  
 
-Two dueling, and even contentious properties of Rubik's Cube's are (1) the _massive_ number of possible scrambles, and (2) that any of these scrambles is only 20 or so (contentious) moves away from being returned to the solved state.  Due to the at-first unitnuitive idea that, no matter how many twists we apply to a rubik's cube to make it thorughly jumbled, it can be solved in just twenty moves, that number has been dubbed _**God's Number**_.[^2]  For the sake of motivating this post, I choose to anthropomorphize the search space of solutions to be **_the Demon Number_**.  
+Two dueling, and even contentious properties of Rubik's Cubes are (1) the _massive_ number of possible scrambles, and (2) that any of these scrambles is only 20 or so (contentious) moves away from being returned to the solved state.  Due to the at-first unintitive idea that, no matter how many twists we apply to a Rubik's cube to make it thorughly jumbled, it can be solved in just twenty moves, that number has been dubbed _**God's Number**_.[^2]  For the sake of motivating this post, I choose to anthropomorphize the search space of solutions to be **_the Demon Number_**.  
 
-The goal of this post is then to mathematically describe the process of moving the pieces of **valid configuration** of a standard 3x3x3 Rubik's cube, and –in doing so– smite the Demon Number.
+The goal of this post is then to mathematically describe the process of moving the pieces of a **valid configuration** of a standard 3x3x3 Rubik's cube, and –in doing so– smite the Demon Number.
 
 ## Group Theory
 
-I have a couple other poasts that provide brief summaries of basic group theory.[^3] If you're starting from zero, those might be worth checking out, but this post should also be comprehensive (in terms of definitions, perhaps not proofs) to fill in the gaps to get the average reader up to speed.  If you feel out of your depth, that's the fault of my shite writing, and not at all an indication of the readers' competency.  Also worth noting that this post largely stands on the shoulders of the research and lectures of Janet Chen,[^4] once again I offer my meager commentary and observations about the mathematics in terms of cubing.
+I have a couple other poasts that provide brief summaries of basic group theory.[^3] If you're starting from zero, those might be worth checking out, but this post should also be comprehensive enough (in terms of definitions, perhaps not proofs) to fill in the gaps to get the average reader up to speed.  If you feel out of your depth, that's the fault of my shite writing, and not at all an indication of the readers' competency.  Also worth noting that this post largely stands on the shoulders of the research and lectures of Janet Chen,[^4] once again I offer my meager commentary and observations about the mathematics in terms of cubing.
 
 A **Group** $\langle G, * \rangle$ consists of a set $G$, and a binary operator $*$ such  that:
 1. $G$ is closed under $*$, that is if $a, b \in G$, then $a * b \in G$
@@ -27,17 +27,17 @@ A **Group** $\langle G, * \rangle$ consists of a set $G$, and a binary operator 
 3. There exists exactly one identity element $e \in G$ satisfying $g = e * g = g * e, \forall g \in G$
 4. Every element in $G$ has exactly one inverse: $\forall g \in G, \exists h \in G$ such that $g * h = h * g = e$.  We might also refer to the inverse $h$ as $g^{-1}$. 
 
-The **order** of an element of a group $g \in G$ is the smallest $n$ such that $g^n$ is the identity.  For example, the order of _the sexy move_ $M = RUR'U'$ is six, since the move is a 6-cycle, meaning that 6 repetitions of that sequence of twist returns the cube to whatever state it started, which is equivalent to the identity: doing nothing.  The largest order of a move $M \in G$ is 1260 – one such move is $M = RU^2D'BD'$ which is like the _least sexy_ move.
+The **order** of an element of a group $g \in G$ is the smallest $n$ such that $g^n$ is the identity.  For example, the order of _the sexy move_ $M = RUR'U'$ is six, since the move is a 6-cycle, meaning that 6 repetitions of that sequence of twists returns the cube to whatever state it started in, which is equivalent to the identity: doing nothing.  The largest order of a move $M \in G$ is 1260 – one such move is $M = RU^2D'BD'$ which is like the _least sexy_ move.
 
 ## Taxonomy of The Cube
 
 For this post, I focus on only the original 3x3x3 cube ("_The Cube_"), but the techniques described later on can be (in some cases, non-trivially) generalized to other $l \times m \times n$ cubes.
 
-The standard cube is composed of 26 pieces ($3^3$ external faces $- 1$ center core piece which we can't see or meaningfully manipulate, so we don't have to worry about solving).  There are 8 corners, 12 edges, and 6 center pieces which we can also largely ignore since they are fixed in place relative to one another.[^5]  One of the first intuitions that novice _cubers_ acquire is that, for standard color schemes, white is opposite yellow, green opposite blue, and red opposite orange; with the additional piece of relative positioning information that yelow is left of orange and also adjacent to blue, we can form the complete standard color scheme.
+The standard cube is composed of 26 pieces ($3^3$ external faces $- 1$ center core piece which we can't see or meaningfully manipulate, so we don't have to worry about solving).  There are 8 corners, 12 edges, and 6 center pieces; the center pieces we can also largely ignore since they are fixed in place relative to one another.[^5]  One of the first intuitions that novice _cubers_ acquire is that, for standard color schemes, white is opposite yellow, green opposite blue, and red opposite orange; with the additional piece of relative positioning information that yelow is left of orange and also adjacent to blue, we can form the complete standard color scheme.
 
 ![](/images/rubiks-cube-1.jpg)
 
-The cube obviously has 6 faces, which we've established have positions derived from their fixed centers, allowing us to completely describe the "correct" solved position of any piece in terms of the face it belongs to.  For example, listng a corner's faces in clockwise order unambiguously refers to precisely one piece.[^6]
+The cube obviously has 6 faces, which we've established have positions derived from their fixed centers, allowing us to completely describe the "correct" solved position of any piece in terms of the face it belongs to.  For example, listing a corner's faces in clockwise order unambiguously refers to precisely one piece.[^6]
 
 For example, $\sf urf$ refers to the yellow, red, blue piece:
 
@@ -73,7 +73,7 @@ Here, we delineate between permutation and orientation, which are likely familia
 
 We'll shortly convince ourselves that –though daunting– this number/search space can be drastically thinned by discounting invalid configurations.  For example, one single corner twist is considered an _invalid configuration_ due to the concept of _parity_.  Formal definitions of what a _configuration_ is, what makes one _valid_ are forthcoming, and what the hell _parity_ means in the context of a puzzle-toy.  Thus, our immediate goal is to widdle away at the Demon Number.
 
-We say that a configuration or cube-state is **valid** if it can be reached from the initial, pristine and solved cube-state using only the legal moves described above.  We call the solved configuration $\mathcal C_0$.  Notably absent from the list of legal moves is anything resembling "pealing the stickers off" or "just taking the pieces out."  These are trash.   
+We say that a configuration or cube-state is **valid** if it can be reached from the initial, pristine and solved cube-state using only the legal moves described above.  We call this solved configuration $\mathcal C_0$.  Notably absent from the list of legal moves is anything resembling "pealing the stickers off" or "just taking the pieces out."  These are trash.   
 
 Though we have yet to show that the standard cube is in fact group, the general goal of "solving" is to produce a sequence of moves that can take us from any valid state to the solved state $\mathcal C_0$.
 
@@ -301,7 +301,7 @@ With this orientation notation, we can completely describe any configuration of
 $$
 \begin{aligned}
 	\sigma &\in S_8, &\tau &\in S_{12} \\
-\mathbf x &\in (\mathbb Z / 3 \mathbb Z)^{8}, &\mathbf x &\in (\mathbb Z / 2 \mathbb Z)^{12} 
+\mathbf x &\in (\mathbb Z / 3 \mathbb Z)^{8}, &\mathbf y &\in (\mathbb Z / 2 \mathbb Z)^{12} 
 
 \end{aligned}
 $$
@@ -309,7 +309,7 @@ as a 4-tuple $\mathcal C = (\sigma, \tau, \mathbf x, \mathbf y)$.
 
 ### Example
 
-A common algorithm use in the beginner's method during the last step –orienting the corners of the last face– is a six-cycle $DRD'R'$.[^14] If we jot down the 4-tuple for this algorithm, we get:
+A common algorithm used in the beginner's method during the last step –orienting the corners of the last face– is a six-cycle $DRD'R'$.[^14] If we jot down the 4-tuple for this algorithm, we get:
 
 $$
 \begin{aligned}
@@ -377,7 +377,7 @@ $$
 
 Therefore, $\phi(DRD'R') = (\sf{dlf} \; \sf{dfr})(\sf{drb} \; \sf{bru})$. That is, the corner without respect to orientation.
 
-Similarly, we define $\phi_{edge}: G \rightarrow S_{12}$ by letting $\phi_{edge}(M)$ be the element of $S_{12}$ which describes what $M$ does to the twelve unoriented edges e.g. $\phi_{edge}(DRD'R' = (\sf{df} \; \sf{dr} \; \sf{br})$.  
+Similarly, we define $\phi_{edge}: G \rightarrow S_{12}$ by letting $\phi_{edge}(M)$ be the element of $S_{12}$ which describes what $M$ does to the twelve unoriented edges e.g. $\phi_{edge}(DRD'R') = (\sf{df} \; \sf{dr} \; \sf{br})$.  
 
 With these two homomorphisms, we can define the "cube" homomorphism:
 
@@ -388,7 +388,7 @@ which describes the permutations of the twenty unoriented edges and corners.
 
 ### The Sign Homomorphism
 
-We know from properties of generators that $S_n$ is generated by the two cycles in $S_n$.  That is, any permutation in $S_n$ can be written as a finite product of 2-cycles.  However, any given permutation of $S_n$ can be written as a finite product of 2-cycles in infinitely many ways (actually infinite, not just like "big numbie" infinity).  So this isn't super useful.
+We know from properties of generators that $S_n$ is generated by the 2-cycles in $S_n$.  That is, any permutation in $S_n$ can be written as a finite product of 2-cycles.  However, any given permutation of $S_n$ can be written as a finite product of 2-cycles in infinitely many ways (actually infinite, not just like "big numbie" infinity).  So this isn't super useful.
 
 Some permutations in $S_n$ can be expressed as aproduct of even number 2-cycles; aptly referred to as **even permutations**.  Conversely, all the other permutations of $S_n$, written as a product of an odd number of 2-cyrcles are called **odd permutations**.  At the moment, it might seem like there's no reason why a permutation couldn't be both odd and even, but as the name suggests: that is –in fact– impossible.
 
@@ -407,7 +407,7 @@ $$
 ax_1^{i_1}x_2^{i_2}\dots x_n^{i_n}
 $$
 
-If $\sigma \in S_n$, we say $P^\sigma$ be the polynomial defined by 
+If $\sigma \in S_n$, we say $P^\sigma$ is the polynomial defined by 
 
 $$
 (P^\sigma)(x_1, ..., x_n) = P(x_{\sigma_{(1)}}, ..., x_{\sigma_{(2)}})
