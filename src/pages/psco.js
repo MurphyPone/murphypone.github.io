@@ -3,8 +3,7 @@ import axios from "axios"
 import { Link } from "gatsby"
 import styled from "@emotion/styled"
 import SEO from "../components/seo"
-import Lyric from "../components/lyric"
-import {InfinitySpin} from 'react-loader-spinner'
+import { InfinitySpin } from "react-loader-spinner"
 // import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 // gross
@@ -92,88 +91,102 @@ const ImgContainer = styled.div`
 `
 
 const Head = styled.h1`
- text-align: center;
+  text-align: center;
 `
 
 const Description = styled.div`
   text-align: center;
 `
- 
-const IndexPage = () =>  {
-  const [images, setImages] = React.useState(null);
+
+const IndexPage = () => {
+  const [images, setImages] = React.useState(null)
   React.useEffect(() => {
-    let shouldCancel = false;
+    let shouldCancel = false
 
     const call = async () => {
-      const response = await axios.get('https://google-photos-album-demo2.glitch.me/b6S4oiDsfho8Z8989');
+      const response = await axios.get(
+        "https://google-photos-album-demo2.glitch.me/b6S4oiDsfho8Z8989"
+      )
       if (!shouldCancel && response.data && response.data.length > 0) {
-        setImages(response.data.map(url => url));
+        setImages(response.data.map(url => url))
       }
     }
     call()
-    
+
     // return () => shouldCancel = true
-  }, [])  
+  }, [])
 
   if (images) {
     let reversed = images.slice().reverse()
     const images_left = reversed.filter(function(value, index, Arr) {
-      return index % 3 === 0;
-    });
-  
+      return index % 3 === 0
+    })
+
     const images_middle = reversed.filter(function(value, index, Arr) {
-      return index % 3 === 1;
-    });
-  
+      return index % 3 === 1
+    })
+
     const images_right = reversed.filter(function(value, index, Arr) {
-      return index % 3 === 2;
+      return index % 3 === 2
     })
 
     return (
       <Layout>
-        <Header siteTitle="psco"/>
-        <SEO title="psco" keywords={[`Graphics`, `Peter Murphy`, `blog`, `portfolio`, `design`]} />
+        <Header siteTitle="psco" />
+        <SEO
+          title="psco"
+          keywords={[`Graphics`, `Peter Murphy`, `blog`, `portfolio`, `design`]}
+        />
         <Head>psco</Head>
         <Description>
-          <p>one too many times have i lost years of photos to a surprise phone death</p>
-          <p>it's like having a gap in your resume but worse because it's your life</p>
+          <p>
+            one too many times have i lost years of photos to a surprise phone
+            death
+          </p>
+          <p>
+            it's like having a gap in your resume but worse because it's your
+            life
+          </p>
         </Description>
         {/* <Lyric/> */}
         <Container>
           <Col>
-          {images_left.map((url) => (
-            <ImgContainer>
-              <img id="image" src={url} alt={""} key={url}/>
-            </ImgContainer>
-          ))}
+            {images_left.map(url => (
+              <ImgContainer>
+                <img id="image" src={url} alt={""} key={url} />
+              </ImgContainer>
+            ))}
           </Col>
 
           <Col>
-          {images_middle.map((url) => (
-            <ImgContainer>
-              <img id="image" src={url} alt={""} key={url}/>
-            </ImgContainer>
-          ))}
+            {images_middle.map(url => (
+              <ImgContainer>
+                <img id="image" src={url} alt={""} key={url} />
+              </ImgContainer>
+            ))}
           </Col>
 
           <Col>
-          {images_right.map((url) => (
-            <ImgContainer>
-              <img id="image" src={url} alt={""} key={url}/>
-            </ImgContainer>
-          ))}
+            {images_right.map(url => (
+              <ImgContainer>
+                <img id="image" src={url} alt={""} key={url} />
+              </ImgContainer>
+            ))}
           </Col>
         </Container>
       </Layout>
-    ) 
-  } else  {
+    )
+  } else {
     return (
       <Layout>
-        <SEO title="psco" keywords={[`Graphics`, `Peter Murphy`, `blog`, `portfolio`, `design`]} />
+        <SEO
+          title="psco"
+          keywords={[`Graphics`, `Peter Murphy`, `blog`, `portfolio`, `design`]}
+        />
         <Head>psco</Head>
         {/* <p>something about a bunch of dead dogs</p> */}
-        <div style={{textAlign: "center"}}>
-        <InfinitySpin width='200'color="#6666ff"/>
+        <div style={{ textAlign: "center" }}>
+          <InfinitySpin width="200" color="#6666ff" />
         </div>
         <Container>
           <Col></Col>
@@ -183,7 +196,6 @@ const IndexPage = () =>  {
       </Layout>
     )
   }
-
 }
 
 export default IndexPage

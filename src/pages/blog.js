@@ -5,6 +5,7 @@ import styled from "@emotion/styled"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Excerpt from "../components/excerpt"
 
 const Content = styled.div`
   margin: 0 auto;
@@ -40,35 +41,40 @@ const ReadingTime = styled.h5`
 `
 
 const outlineStyle = {
-  borderLeft: '3px solid rgba(102, 102, 255, 0.8)',
-  borderBottom: '3px solid rgba(102, 102, 255, 0.8)',
-  marginBottom: '1em',
-  paddingLeft: '0.5em',
-  paddingTop: '0.5em',
-  paddingBottom: '0em'
-
-};
+  borderLeft: "3px solid rgba(102, 102, 255, 0.8)",
+  borderBottom: "3px solid rgba(102, 102, 255, 0.8)",
+  marginBottom: "1em",
+  paddingLeft: "0.5em",
+  paddingTop: "0.5em",
+  paddingBottom: "0em",
+}
 
 const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="typo factory" />
       <Content>
-      <center><h1>Blog</h1></center>
+        <center>
+          <h1>Blog</h1>
+        </center>
+        <Excerpt />
         {data.allMarkdownRemark.edges.map(({ node }) => (
-          <div key={node.id} style={outlineStyle} >
+          <div key={node.id} style={outlineStyle}>
             <Link
               to={node.frontmatter.path}
               css={css`
                 text-decoration: none;
                 color: inherit;
-              `}>
+              `}
+            >
               <MarkerHeader>{node.frontmatter.title} </MarkerHeader>
               <div>
                 <ArticleDate>{node.frontmatter.date}</ArticleDate>
                 <ReadingTime> - {node.fields.readingTime.text}</ReadingTime>
               </div>
-              <p>Using: <i>{node.frontmatter.description}</i></p>
+              <p>
+                Using: <i>{node.frontmatter.description}</i>
+              </p>
             </Link>
           </div>
         ))}

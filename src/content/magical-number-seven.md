@@ -203,9 +203,9 @@ The key example used to demonstrate the persecution of the number seven is an ex
 
 Hayes tried this experiemnt on binary digits, decimal digits, letters, alphanumeric strings, and words and it was also replicated by Pollack with similar results which were clear in both: amount of information transmitted is not a constant, but increases almost linearly as the amount of informaiton per item in the input is increased.
 
-Despite the coincidence of the sinistral seven, the span of absolute judgement and immediate memeory suffer quite different kinds of limitations.  These experiments found that absolute judgement is limited by the amount of information, whereas immediate memory is limited by the number of items.
+Despite the coincidence of the sinistral seven, the span of absolute judgement and immediate memory suffer quite different kinds of limitations.  These experiments found that absolute judgement is limited by the amount of information, whereas immediate memory is limited by the number of items.
 
-This distinction can be highlighted by considering the content of the experiemnts: bits vs. chunks. The number of bits of information is constant for absolute judgmeent and the number of chunks of information is constant for immediate memory, and the span of immediate memory seems to be almost indpeendent of the number of bits per chunk
+This distinction can be highlighted by considering the content of the experiments: bits vs. chunks. The number of bits of information is constant for absolute judgmeent and the number of chunks of information is constant for immediate memory, and the span of immediate memory seems to be almost indpeendent of the number of bits per chunk
 
 A chunk here has an ambiguous definition, due to the flexibility of the human brain to group things.
 
@@ -235,7 +235,7 @@ end:
 
 (No self-respecting compiler would ever produce this assembly code, it's like -O0.2) 
 
-Similarly, with respect to the advantages of functional programming, the argument over imperative programming is that _functional composition and statefulness makes it easier for us to mentally replicate the behavior of complex programs because we don't have to "waste" our seven ± 2 mental registers on errant moving pieces which might crop up something like in this (somewhat contrived) imperative snippet:
+Similarly, with respect to the advantages of functional programming, the argument over imperative programming is that functional composition and statefulness makes it easier for us to mentally replicate the behavior of complex programs because we don't have to "waste" our seven ± 2 mental registers on errant moving pieces which might crop up something like in this (somewhat contrived) imperative snippet:
 
 ```scala
 def aVeryComplicatedFunction(info: Info): List[Result] = {
