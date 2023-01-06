@@ -30,32 +30,31 @@ module.exports = {
         plugins: [
           `gatsby-remark-reading-time`,
           {
-          resolve: `gatsby-remark-prismjs`,
-          options: {
-            aliases:{sh: "bash", js:"javascript"},
-            showLineNumbers: true,
-          }
-        },
-        {
-          resolve: `gatsby-remark-katex`,
-          options: {
-            // Add any KaTeX options from https://github.com/KaTeX/KaTeX/blob/master/docs/options.md here
-            strict: `ignore`
-          }
-        },
-        {
-          resolve: 'gatsby-remark-mermaid',
-          options: {
-              language: 'mermaid',
-              theme: 'default',
+            resolve: `gatsby-remark-katex`,
+            options: {
+              // Add any KaTeX options from https://github.com/KaTeX/KaTeX/blob/master/docs/options.md here
+              strict: `ignore`,
+            },
+          },
+          {
+            resolve: "gatsby-remark-mermaid",
+            options: {
+              language: "mermaid",
+              theme: "default",
               viewport: {
-                  width: 200,
-                  height: 250
+                width: 200,
+                height: 250,
               },
-          }
-       }
-      ],
-
+            },
+          },
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              aliases: { sh: "bash", js: "javascript" },
+              showLineNumbers: true,
+            },
+          },
+        ],
       },
     },
     {
@@ -84,12 +83,12 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-web-font-loader',
+      resolve: "gatsby-plugin-web-font-loader",
       options: {
         google: {
-          families: ['Montserrat']
-        }
-      }
+          families: ["Montserrat"],
+        },
+      },
     },
   ],
 }
