@@ -183,8 +183,26 @@ const excerpts = [
     title: "4 | The Post-Revolutionary Literary Revolutionary",
     link: "/blog/mahfouz",
   },
+  {
+    snippet: `"The diversity of my columns is worth discussing for a moment. On the 
+    surface, they seem to wander all over the intellectual map -from sexism to music to
+    art to nonsense, from game theory to artificial intelligence to molecular biology to
+    the Cube, and more. But there is, I believe, a deep underlying, unity to my columns. I
+    felt that gradually, as I wrote more and of-them, regular readers would start to see the 
+    links between disparate ones, so that after a while, the coherence of the web would be quite clear. 
+    My image of this was always geometric. I envisioned my intellectual "home territory" as a rather large
+    region in some conceptual space, a region that most people do not see as a connected
+    unit. Each new column was in a way a new "random dot" in that conceptual space,
+    and as dots began peppering the space more fully over the months, the shape of my
+    territory would begin to emerge more clearly. Eventually, I hoped, there would
+    emerge a clear region associated with the name 'Metamagical Themas'" - Douglas Hofstadter`,
+    title: "Metamagical Themas ",
+    link:
+      "https://www.amazon.com/Metamagical-Themas-Questing-Essence-Pattern/dp/0465045669",
+  },
 ]
 
+//excerpts[excerpts.length - 1]
 const excerpt = excerpts[Math.floor(Math.random() * excerpts.length)]
 
 const Excerpt = () => {

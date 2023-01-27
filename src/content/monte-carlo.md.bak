@@ -1,0 +1,66 @@
+---
+title: "47 | Gambling Strategum"
+date: "2023-01-06"
+description: "Markov Chains, Probability Theory"
+path: "/blog/markov-chains"
+---
+
+# Introduction
+
+Suppose an asping gambler named, say, Joseph enters a casino with some cash in his pocket and ambitions of getting rich! The casino, say, the MGM in National Harbor has functionally infinite money and –with no competing establishments within a roughly fifty mile radius– costly tables, knowing that its customers will cough up the requisite coin.
+
+What can we say about our protagonists odds at winning?  With no further information at our disposal, we can confidently assume that Joseph will go bust within a matter of minute and sulk for approximately 80 minutes before the rest of his entourage packs up shop as well. 
+
+However, what if (unbeknownst to the pit bosses) Joseph has some secret, some _cheat_, some edge which gives him +EV on his opponent?  This changes things, and is the crux of the gambler's ruin, a model of understanding Markov Chains.
+
+Joseph is a small player, with limited resources, but an advantage on his opponent.  The MGM is a comparatively big player, with vast resources, but for some reason, weaker odds than their opponent. 
+
+Joseph and the MGM engage in a series of iterated zero-sum games where Joseph is favored to win by some small margin due to his heavenly mandate and wicked sidearm at the craps table.
+
+However, over time, the asymmetric capital allocations favor the MGM in the long run since Joseph can only afford to lose so many times before he goes bust, whereas the MGM is bankrolled for millions of dollars from their nickel slots alone. 
+
+The game itself is arbitrary, but the structure is the same: each round of the game each player makes a wager (the house's wager is compulsory within the constraints displayed at the table and however boystrous Joseph is feeling at any given moment).  The game is repeated until one player absorbs all of the other's resources.
+
+To be generous, suppose Joseph enters the casino with \$250, prepared to wager \$50 each round.  Additionally, suppose the casino is having a rough night.  Like historically the worst night of any games operation of all time, and only has joseph covered by a thousand dollars:
+
+$$
+5x \text{ starting advantage } \begin{cases}
+   &\text{Joseph} \leftarrow \$250, \; 55\% \\
+   &\text{MGM} \leftarrow \$1,250, \; 45\%
+\end{cases} 
+$$
+
+After each round, the entirety of the wagered bets are transferred to the balance of the winner.
+
+Over itime, the MGM need only win _two_ rounds more than Joseph in order to obliterate his esteem and financial position.  Conversely, Joseph must win _ten_ rounds more than the casino in order to put the nail on the coffin of the blighted eye sore of Oxon Hill. At first this seems like a tall order, but recall that each inidvidual round favors Joseph by 10%.
+
+From these parameters, can we determine who is more likely to win the overall gamble?  Additionally, how much skill does the underdog need in order to win from such initial coniditions?
+
+The battle between Joseph and the MGM be comprehensively described by thirteen possible states.  Two terminal end states with one of the players holding all the coin respectively, and 11 middle states of heated gambling and utterances of "I hate casino's I'm never stepping into one again."
+
+We start at the initial green state, illustrating the steep climb Joseph must make in order to win.  It might seem like he's faced with ten consecutive victories or $(0.55)^{10} \approx 0.00253\%$, but this fails to account for the progress gained (and potentially lost) at each stage:
+
+![](/images/markov-chains-1.png)
+
+TODO: update with numbers
+
+We can formally analyze the transition between states using the following formula (TODO: derivation req'd)
+
+- $\$k$: wager transferred from loser to winner after each round
+- $\$Jk$: Joseph's initial resources
+- $\$Mk$: MGM's initial resources
+- $p$: Joseph's probability of winning a round
+- $q = 1 -p$: The MGM's probability of winning a round
+
+$$
+P(\text{Joseph wins}) = 
+\begin{cases}
+  \frac{1 - (q/p)^{J}}{1 - (q/p)^{J + M}} &\text{ if } p \neq 0.5 \\
+  \; \\
+  \frac{J}{J + M} 
+\end{cases}
+$$
+
+Plugging in our initial conditions from above, Joseph only has a 36% chance of winning overall, so his 55% advantage is insufficient to topple his adversary.  Should he find a bigger rock fro his sling? no actually.
+
+THE DAVIDIC METAPHORS MAKE THIS BETTER

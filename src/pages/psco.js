@@ -104,11 +104,25 @@ const IndexPage = () => {
     let shouldCancel = false
 
     const call = async () => {
-      const response = await axios.get(
+      const res1 = await axios.get(
         "https://google-photos-album-demo2.glitch.me/b6S4oiDsfho8Z8989"
       )
-      if (!shouldCancel && response.data && response.data.length > 0) {
-        setImages(response.data.map(url => url))
+      const res2 = await axios.get(
+        "https://google-photos-album-demo2.glitch.me/DtmxbAJujXihEqhm6"
+      )
+
+      if (
+        !shouldCancel &&
+        res1.data &&
+        res1.data.length > 0 &&
+        res2.data &&
+        res2.data.length > 0
+      ) {
+        const response = { data: res1.data.concat(res2.data) }
+        console.log(response)
+        if (response.data && response.data.length > 0) {
+          setImages(response.data.map(url => url))
+        }
       }
     }
     call()
