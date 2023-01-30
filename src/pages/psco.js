@@ -55,10 +55,11 @@ const Header = () => (
   <SiteHeader>
     <ThinContent>
       <p>
-        <HomeLink to="/">Projects</HomeLink>
-        <NavLink to="/blog">Blog</NavLink>
+        <HomeLink to="/">projects</HomeLink>
+        <NavLink to="/blog">blog</NavLink>
         <NavLink to="/psco">psco</NavLink>
-        <NavLink to="/about">About</NavLink>
+        <NavLink to="/about">about</NavLink>
+        <NavLink to="/about">reading list</NavLink>
       </p>
     </ThinContent>
   </SiteHeader>

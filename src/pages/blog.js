@@ -55,7 +55,7 @@ const IndexPage = ({ data }) => {
       <SEO title="typo factory" />
       <Content>
         <center>
-          <h1>Blog</h1>
+          <h1>blog</h1>
         </center>
         <Excerpt />
         {data.allMarkdownRemark.edges.map(({ node }) => (

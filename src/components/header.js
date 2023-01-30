@@ -50,11 +50,12 @@ const Header = ({ siteTitle }) => (
   <SiteHeader>
     <Content>
       <p>
-        <HomeLink to="/">Projects</HomeLink>
-        <NavLink to="/blog">Blog</NavLink>
+        <HomeLink to="/">projects</HomeLink>
+        <NavLink to="/blog">blog</NavLink>
         {/* <NavLink to="/graphics">Graphics</NavLink> */}
         <NavLink to="/psco">psco</NavLink>
-        <NavLink to="/about">About</NavLink>
+        <NavLink to="/about">about</NavLink>
+        <NavLink to="/books">reading list</NavLink>
       </p>
     </Content>
   </SiteHeader>
