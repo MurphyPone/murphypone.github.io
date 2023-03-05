@@ -543,7 +543,7 @@ Anyways, our cheerful output now resembles something like this:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/O2yPnnDfqpw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </center>
 
-Merged, logged off, snoozed, put on do not disturboes ✌️
+Merged, logged off, snoozed, put on do not disturb ✌️
 
 ## Conclusion
 
