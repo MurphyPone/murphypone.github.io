@@ -196,9 +196,14 @@ const excerpts = [
     and as dots began peppering the space more fully over the months, the shape of my
     territory would begin to emerge more clearly. Eventually, I hoped, there would
     emerge a clear region associated with the name 'Metamagical Themas'" - Douglas Hofstadter`,
-    title: "Metamagical Themas ",
+    title: "Metamagical Themas",
     link:
       "https://www.amazon.com/Metamagical-Themas-Questing-Essence-Pattern/dp/0465045669",
+  },
+  {
+    snippet: `The senior engineer taps his own noggin, declares that it's 5 O'clock somewhere (it's 2:35 PM EST), and pats the lad who is inches from tears on the back.  `,
+    title: "47 | Goodhart's Law",
+    link: "/blog/goodharts-law",
   },
 ]
 
