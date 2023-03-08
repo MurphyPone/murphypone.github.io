@@ -386,7 +386,7 @@ The axes of criteria are arbitrary, but it's recommended that you calibrate your
 
 ### Stack Judging
 
-This is where the business happens! Once a judge has evaluated a batch of projects (color coded for their convenience), all they have to do is assign their Borda Count scores within this tab.  The cumulative scores are horzontally tallied in column D, and winners are automatically displayed in the aptly named **Winners** tab.
+This is where the business happens! Once a judge has evaluated a batch of projects (color coded for their convenience), all they have to do is assign their Borda Count scores within this tab.  The cumulative scores are horizontally tallied in column D, and winners are automatically displayed in the aptly named **Winners** tab.
 
 It's recommended that this whole process is demonstrated to judges in advance of the judging phase and that a few organizers make themselves available to the judges throughout the process in order to help troubleshoot any issues that may arise.  Additionally, an accompanying [slide deck or document](https://docs.google.com/document/d/1-2GVFI4opJPHu-_ZCM92wiGmkTORW5TTtWMx0-QpIe8) which details how judging ought to take place should also be provided to judges.
 

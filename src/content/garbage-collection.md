@@ -25,9 +25,9 @@ Report the retained heap size (the additional number of bytes that could be free
 
 The first line of the input contains 3 non-negative integers $n, m, r$ such that $r \leq n$. The second line contains $n$ positive integers $s_i$ that denote the size $s_i$ of object $i$.  
 
-Following that are $m$ lines with tuples $(i,j)$ where $0 \leq i,j \leq n$, each of which denotes a pair of object indices.  A tuple $(i.j)$ means that object $i$ stores a reference to object $j$, keeping it "alive" privded that $s_i$ is reachable from a root. 
+Following that are $m$ lines with tuples $(i,j)$ where $0 \leq i,j \leq n$, each of which denotes a pair of object indices.  A tuple $(i.j)$ means that object $i$ stores a reference to object $j$, keeping it "alive" provided that $s_i$ is reachable from a root. 
 
-The decription of the references is followed by a single line with $r$ integers denoting the roots of the reachability graph $R_0, R_1, ..., R_{r-1}$ which do not have incoming edges that point to them.
+The description of the references is followed by a single line with $r$ integers denoting the roots of the reachability graph $R_0, R_1, ..., R_{r-1}$ which do not have incoming edges that point to them.
 
 Output $R+1$ lines, the first of which should output two numbers $l,s$ where $l$ represents the total size of the live heap, and $s$ the amount of garbage the would be swept if the heap were collected.  Following that, for each root, output how much additional memory could be freed if this root were removed, in the order in which the roots appear in the input.
 
@@ -67,7 +67,7 @@ The program should produce the following output
 
 ## Strategy
 
-The strategy we're going to employ uses a Breadth First Seach beginning at each of the roots, marking nodes as reachable from the root, then perform one sweep to determine how many bytes would be collected (objects not referenced by any nodes referenced by a root), and then a secondary sweep to determine how many additional bytes would be collected by removing the roots.
+The strategy we're going to employ uses a Breadth First Search beginning at each of the roots, marking nodes as reachable from the root, then perform one sweep to determine how many bytes would be collected (objects not referenced by any nodes referenced by a root), and then a secondary sweep to determine how many additional bytes would be collected by removing the roots.
 
 ### Building the Graph
 
@@ -120,7 +120,7 @@ for r in roots:
     mark(graph[r], graph)
 ```
 
-Now, we perform the first sweep to see count and ouput how many bytes would be collected:
+Now, we perform the first sweep to see count and output how many bytes would be collected:
 
 ```python
 # sweep 1

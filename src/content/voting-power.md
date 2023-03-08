@@ -155,7 +155,7 @@ So when should you use which? I dunno dawg, I'm not your keeper.  Use both, and 
 
 ## Ambitions and Infertility
 
-After I hacked the first draft of this code (which is still gross, I know, spare me) I was stoked to try to get extravagant and have a much longer post where we also construct an interactive map of congressional voting districts labeled with their respective voting power etc. etc. But remember that lil caveat of the Shabley-Shubrik algorithm and how it requires us to compute _all permutations of the coalition_ - yea, permuting things is just no good for large $N$ (and by large, I mean like more than 10).
+After I hacked the first draft of this code (which is still gross, I know, spare me) I was stoked to try to get extravagant and have a much longer post where we also construct an interactive map of congressional voting districts labeled with their respective voting power etc. etc. But remember that lil caveat of the Shapley-Shubrik algorithm and how it requires us to compute _all permutations of the coalition_ - yea, permuting things is just no good for large $N$ (and by large, I mean like more than 10).
 
 We were going to make a nice choroplethic visualization with hexagons 'n shit, but alas, the constraints of flops.
 

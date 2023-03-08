@@ -118,11 +118,11 @@ Each of the parameters above are tunable, so the only assumption is that $m_0, v
 
 ### Markov Chain Monte Carlo Methods
 
-If we know that $\text{skill}$ and $\text{perf}$ are normally distributed, it would make sense to assume that the model already suggests win/loss rate, but this is often not the case.  Usually, these compositions of distributions are intractable, meaning they are not sampleable.  Markov Chain Monte Carlo Methods le us work around this, with any such combination of distributions. If we follow the sample chain down to $\text{perf}_i$, we can roughly plot the resultant _would-be_ sample of our intractable "winner" distribution. This plot would be numerically correct or accurate, but not analytically correct.
+If we know that $\text{skill}$ and $\text{perf}$ are normally distributed, it would make sense to assume that the model already suggests win/loss rate, but this is often not the case.  Usually, these compositions of distributions are intractable, meaning they are not sample-able.  Markov Chain Monte Carlo Methods let us work around this, with any such combination of distributions. If we follow the sample chain down to $\text{perf}_i$, we can roughly plot the resultant _would-be_ sample of our intractable "winner" distribution. This plot would be numerically correct or accurate, but not analytically correct.
 
 ## Computing Skill Ratings
 
-> Formally, the model defines a joint distribution over player skills and match results, conditional on the unmodeled aspects of each match (which we will abbreviate as $\text{conditions}$): 
+> Formally, the model defines a joint distribution over player skills and match results, conditional on the un-deled aspects of each match (which we will abbreviate as $\text{conditions}$): 
 
 $$
 \begin{aligned}

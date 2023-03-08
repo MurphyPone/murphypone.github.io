@@ -20,20 +20,26 @@ The front half of this post is mostly explanation, and the latter half are notes
 
 ## Contents
 
-1. [Intro to Game Theory](#intro)
-     - [Glossary](#glossary)
-2. [Types of Games](#games)
-   1. [Prisoner's Dilemma](#pd)
-   2. [Battle of the Sexes](#bos)
-   3. [Chicken](#chicken)
-   4. [Rock, Paper, Scissors](#rps)
-   5. [Penny Matching](#pennies)
-   6. [Prisoner's Dilemma](#pdi)
-3. [Types of Agents](#agents)
-4. [Formalizing Game Theory](#formalizing)
-5. [Linear Programs](#linear-programs)
-   - [Simplex Algorithm](#simplex)
-6. [Further Reading](#further-reading)
+- [Preface](#preface)
+- [Contents](#contents)
+- [ Intro to Game Theory: a Lightspeed Overture](#-intro-to-game-theory-a-lightspeed-overture)
+  - [ Glossary](#-glossary)
+- [ Types of Games](#-types-of-games)
+  - [ 1. **Prisoner's Dilemma (one shot)**](#-1-prisoners-dilemma-one-shot)
+  - [ 2. **Battle of the Sexes**](#-2-battle-of-the-sexes)
+- [ 3. Chicken](#-3-chicken)
+  - [ 4. Rock, Paper, Scissors](#-4-rock-paper-scissors)
+  - [ 5. Penny Matching](#-5-penny-matching)
+  - [ 6. Iterated Prisoners' Dilemma](#-6-iterated-prisoners-dilemma)
+- [ Types of Agents](#-types-of-agents)
+- [ Formalizing Game Theory](#-formalizing-game-theory)
+- [ Linear Programs](#-linear-programs)
+  - [ Simplex Algorithm](#-simplex-algorithm)
+  - [Example](#example)
+- [The Lagrangian](#the-lagrangian)
+  - [Example](#example-1)
+  - [ PPAD](#-ppad)
+- [ Further Reading](#-further-reading)
 
 ## <a name="intro" class="n"></a> Intro to Game Theory: a Lightspeed Overture
 
@@ -799,7 +805,7 @@ This problem can be visualized as follows, where the red lines depict our object
 
 ![](/images/game-theory-1-L1.png)
 
-We can reason ourselves to the conclusion that the optimal $(x,y)$ solution lies at $(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}})$ on the unit circle (which can be exhaustively verified, if not proven by plotting any other pair of coordinates within the constraint to see that they produce lower results).  Furthermore, the minimum lies at the negative conjugate (TODO: make sure this is what that means) $(-\frac{1}{\sqrt{2}}, -\frac{1}{\sqrt{2}})$.
+We can reason ourselves to the conclusion that the optimal $(x,y)$ solution lies at $(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}})$ on the unit circle (which can be exhaustively verified, if not proven by plotting any other pair of coordinates within the constraint to see that they produce lower results).  Furthermore, the minimum lies at the negative conjugate <!-- (TODO: make sure this is what that means) --> $(-\frac{1}{\sqrt{2}}, -\frac{1}{\sqrt{2}})$.
 
 ![](/images/game-theory-1-L2.png)
 
@@ -873,7 +879,7 @@ $$
 \end{aligned}
 $$
 
-which matches the same set of equations manually constructed with lagrange multipliers.  Therefore, it can be applied to any problem of the form
+which matches the same set of equations manually constructed with Lagrange multipliers.  Therefore, it can be applied to any problem of the form
 
 $$
 \begin{aligned}
@@ -977,7 +983,7 @@ Proof: Because $\odot$ is a source, there must be some sink $\mathcal{T}$ which 
 
 Theorem: The problem of finding a sample Nash Equilibria of a general-sum finite game with two or more players is PPAD-Complete.
 
-Similar to proving NP-Completeness, the proof for this theorem can be achieved by showing that the problem is in PPAD and that any other problem in PPPAD is isomorphically reducable to it in polynomial time.
+Similar to proving NP-Completeness, the proof for this theorem can be achieved by showing that the problem is in PPAD and that any other problem in PPPAD is isomorphically reducible to it in polynomial time.
 
 ## <a name="further-reading" class="n"></a> Further Reading 
 

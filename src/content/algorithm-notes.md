@@ -124,7 +124,7 @@ $$
 #### Proof of Stability
 1. Suppose $S$ is not stable i.e. there are two pairs $(m_1, w_1)$, $(m_2, w_2) \in S$ s.t $m_1$ prefers $w_2 > w_1$ and $w_2$ prefers $m_1 > m_2$
 2. $m_1$ must have proposed to $w_2$ prior to $w_1$ because at that stage $w_2$ must have rejected $m_1$; otherwise she would have been paired with $w_1$, which would in turn prevent the pairing of $(m_2, w_2)$ in a later iteration
-3. When $w_2$ regected $m_1$, she must have been paired with some man $m_3 > m_1$ 
+3. When $w_2$ rejected $m_1$, she must have been paired with some man $m_3 > m_1$ 
 4. Since $m_2$ is paired with $w_2$ at termination, $w_2$ must prefer $m_2$ to $m_3$ or $m_2 = m_3$
 5. This contradicts ⚔️ our conclusion (from instability) that $w_2$ prefers $m_1 > m_2$ QED.
 
@@ -222,7 +222,7 @@ Possible algorithm:
 - element deletion and key update require knowledge of the position of the element in the priority
 - combines benefits of both lists and sorted arrays
 - balanced binary tree
-- **heapy order**. For every element $v$ at a node $i$, the element $w$ at $i$'s parent satisfies $key(w) \leq key(v)$
+- **heap order**. For every element $v$ at a node $i$, the element $w$ at $i$'s parent satisfies $key(w) \leq key(v)$
 - Each node's key is at least as large as its parent's
 - storing nodes of the heap in an array:
   - Node at index $i$ has children at indices $2i$ and $2i+1$, with a parent at index $\lfloor \frac{i}{2} \rfloor$
@@ -280,7 +280,7 @@ $$
 
 #### Proof of Running Time Complexity for `Heapify-down(i)`
 - Each invocation increases is second argument by a factor of at least 2
-- after $k$ invocations arguments must be at least $i2^k \leq n$, which impleies that $k \leq \log_2 \frac{n}{i}$
+- after $k$ invocations arguments must be at least $i2^k \leq n$, which implies that $k \leq \log_2 \frac{n}{i}$
 - Therefore running time is $ O(\log_2 \frac{n}{i})$
 
 ## Sorting
@@ -300,7 +300,7 @@ Thus, each insertion and deletion take $O(\log n)$ for a total running time of $
 - Contact tracing hahaaaaa
 
 ### Taxonomy of a Graph
-- comprised of vertices and (directed / undirect) edges, they can form face.
+- comprised of vertices and (directed / undirected) edges, they can form face.
 - **Euler Path**: Only possible if the number of nodes with odd degree is at most 2
 - Formally, an Undirected graph $G = (V, E)$ where $V, E$ are sets of vertices and edges with $E \subseteq V \times V$
   - Elements of $E$ are **unordered pairs**
@@ -351,7 +351,7 @@ $$
 ### Proof
 - There is a path from $s$ to $t$ if an only iff $t$ is a member of some layer
 - Let $v$ be a node in layer $L_{j+1}$ and $$u$ be the "first" node in $L_j$ such that $(u,v)$ is an edge in $G$. Consider the graph $T$ formed by all edges, directed from $u$ to $v$
-  - Notice that $T$ is a tree becasue it is connected and the number of edges in $T$ is the number of nodes in all the laters minus one
+  - Notice that $T$ is a tree because it is connected and the number of edges in $T$ is the number of nodes in all the laters minus one
   - $T$ is called the BFS Tree
 
 ### Inductive Proof of BFS Distance Property
@@ -426,7 +426,7 @@ more formally:
 2. When we add a node $v$ to a layer $i$, set $\text{color[i]}$ to red if $i$ is even, blue of odd
 3. At the end of BFS, scan all the edges to check if there is any edge both of whose endpoints received the same color 
 
-Running time is linear proprotional to the size of the graph: $O(m + n)$ since we do a constant amount of work per node in addition to the time spent by BFS.
+Running time is linear proportional to the size of the graph: $O(m + n)$ since we do a constant amount of work per node in addition to the time spent by BFS.
 
 #### Proof of Correctness of a "two-colorable" algorithm
 Need to prove that if the algorithm says $G$ is bipartite, then it is actually bipartite AND need to prove that if $G$ is _not_ bipartite, can we determine why?
@@ -446,10 +446,10 @@ Need to prove that if the algorithm says $G$ is bipartite, then it is actually b
 - Constraint: cannot be in two places at one time
 
 - **Instance:** nonempty set $\{(s(i), f(i)), 1 \leq i \leq n\}$ of start and finish times of $n$ jobs
-- **Solution:** The largest subset of mutually compatibe jobs
+- **Solution:** The largest subset of mutually compatible jobs
 
 - Two jobs are **compatible** if they do not overlap
-- Problem models the situation where you havea resource, a set of fixed jobs, and you want to schedule as many jobs as possible
+- Problem models the situation where you have a resource, a set of fixed jobs, and you want to schedule as many jobs as possible
 - For any input set of jobs, the algorithm must provably compute the **largest** set of compatible jobs (measured by interval count, not cumulative interval length)
 
 ### Template for a Greedy Algorithm
@@ -477,11 +477,11 @@ $$
 $$
 
 ### Proof of Optimality 
-- Claim $|A|$ is a compatible set of jobs that is the larget possible in _any_ set of mutually compatible jobs
+- Claim $|A|$ is a compatible set of jobs that is the largest possible in _any_ set of mutually compatible jobs
 - Proof by contradiction that there's no "better" solution at each step of the algorithm
   - need to define "better", and what a step is in terms of the progress of the algorithm
   - order the output in terms of increasing finish time for a measure of progress
-- Finishing time of a jon $r$ selected by $A$ must be less than or equal to the finishing time of a job $r$ selected by any other algorithm
+- Finishing time of a job $r$ selected by $A$ must be less than or equal to the finishing time of a job $r$ selected by any other algorithm
 - Let $O$ be an optimal set of jobs.  We will show that $|A| = |O|$
 - Let $i_1, i_2, \mathellipsis, i_k$ be the set of jobs in $A$ in order of finishing time
 - Let $j_1, j_2, \mathellipsis, j_m$ be the set of jobs in $O$ in order of $m \geq k$
@@ -591,8 +591,8 @@ $$
   - N.B. common mistakes with exchange arguments: 
       - Wrong: start with algorithm's schedule A and argue it cannot be improved by swapping two jobs
       - Correct: Start with an arbitrary schedule O (which can be optimal) and argue that O can be converted into a schedule that is essentially the same as A without increasing lateness
-      - Wrong: Swap two jobs that are not neighboring in $O$. Pitfall is that the completion time of all intervining jobs then changes
-      - Corrext: Show that an inversion exists between two neighboring jobs and swap them
+      - Wrong: Swap two jobs that are not neighboring in $O$. Pitfall is that the completion time of all intervening jobs then changes
+      - Correct: Show that an inversion exists between two neighboring jobs and swap them
 - Claim 5: The greedy algorithm produces an optimal schedule, follows from 1, 2, 4
 
 ## Summary
@@ -613,14 +613,14 @@ $$
 
 ## Generalizing BFS
 - If all edges have the same wight, or distance, BFS would work, processing nodes in order of distance.
-- What if the graph has integer edge weights, can we make the graph unwieghted?
+- What if the graph has integer edge weights, can we make the graph unweighted?
   - yes, placing dummy edges and nodes to pad out lengths > 1 at the expense of memory and running time
   - Edge weight of $w$ gets $w - 1$ nodes
   - Size of the graph (and therefore runtime) becomes $m + n + \sum_{e \in E} l(e)$. _Pseudo-polynomial_ time depending on input values
 
 ## Dijkstra's Algorithm
 ![](http://www.norsemathology.org/wiki/images/8/8e/Ellis2.gif)
-- Fmaous for pointing out the harm of the `goto` command, in doing so developed the shortest path algorithm
+- Famous for pointing out the harm of the `goto` command, in doing so developed the shortest path algorithm
 - Like BFS: explore nodes in non-increasing order of distance $s$. Once a node is explored, its distance is fixed
 - Unlike BFS: Layers are not uniform, edges are explored by evaluating candidates by edge wight
 - For each unexplored node, determine "best" preceding explored node. Record shortest path length only through explored nodes
@@ -629,7 +629,7 @@ $$
 ### Formally:
 - Maintain a set $S$ of _explored_ nodes
   - For each node $u \in S$, compute $d(u)$, which (we will prove, _invariant_) is the length of the shortest path from $s$ to $u$
-  - For each node $x \notin S$, matain a value $d'(x)$, which is the length of the shortest path from $s$ to $x$ using only the nodes in $S$ and $x$ itself 
+  - For each node $x \notin S$, maintain a value $d'(x)$, which is the length of the shortest path from $s$ to $x$ using only the nodes in $S$ and $x$ itself 
 - Greedily add a node $v$ to $S$ that has the smallest value of $d'(v)$
 
 $$ 
@@ -659,7 +659,7 @@ To compute the shorts paths: when adding a node $v$ to $S$, store the predecesso
   - _Base case_: $|S| = 1$. The only node in $S$ is $s$
   - _Inductive Hypothesis_: $|S| = k$ for some $k \geq 1$. The algorithm has computed $P_u$ for every node $u \in S$. Strong induction.
   - _Inductive step_: $|S| = k+1$ because we add the node $v$ to $S$. Could the be a shorter path $P$ from $s$ to $v$? We must prove this is not the case. 
-      - poll: $P'$ must contain an edge from x to y where x is explor (in S) and y is unexplored (in V - S)
+      - poll: $P'$ must contain an edge from x to y where x is explore (in S) and y is unexplored (in V - S)
       - poll: The node v in P' must be explored (in S)
 
 - Locate key nodes on $P'$
@@ -770,7 +770,7 @@ $$
   - will have to proof by contradiction using exchange argument
 
 ### Proof of Cut Property of MSTs
-- Negation of the desired property: There is a set $S \sub V$ and an MST $T$ such that $T$ does not contaian the cheapest edge in cut($S$)
+- Negation of the desired property: There is a set $S \sub V$ and an MST $T$ such that $T$ does not contain the cheapest edge in cut($S$)
 - Proof strategy: If $T$ does not contain $e$, show that there is a tree with a smaller cost than $T$ that contains $e$.
 - Wrong proof:
   - Since $T$ is spanning, it must contain _some_ edge e.g. $f$ in cut($S) 
@@ -822,7 +822,7 @@ $$
 $$ 
 
 - $Q$ is a priority queue
-- Each element in $Q$ is a triple, the node, its attachement cost, and its predecessaor in the MST
+- Each element in $Q$ is a triple, the node, its attachment cost, and its predecessor in the MST
 - In step 8, if $x$ is not already in $Q$, simply insert (x, a(x), v) into $Q$
 - Total of $n - 1$ $ExtractMin$ and $m$ $ChangeKey$ operations, yielding a running time of $O(m \log n)$
 - running time of step 5 is proportional to the degree of $x$ which is proportional to the number of edges in the graph $m$
@@ -842,13 +842,13 @@ $$
 
 ### Implementing Kruskal's Algorithm
 - start with an empty set $T$ of edges
-- Process edges in $E$ in icreasing order of cost
+- Process edges in $E$ in increasing order of cost
 - Add the next edge $e$ to $T$ only if adding $e$ does not create a cycle
 - Sorting edges takes $O(m \log n)$ time 
 - Key question: "Does adding $e = (u,v)$ to $T$ create a cycle?
   - Maintain set of connected components of $T$
   - $Find(u)$: return the name of the connected component of $T$ that $u$ belongs to
-  - $Union(A,B)$: merge connected componenets A, B
+  - $Union(A,B)$: merge connected components A, B
 
 ### Analysing Kruskal's Algorithm
 - How many $Find$ invocations does Kruskal's need? $2m$
@@ -861,7 +861,7 @@ $$
 ### Comments on Union-Find and MST
 - useful to maintain connected components of a graph as edges are added to the graph
 - Data structure does not support edge deletion efficiently
-- Current best algorith for MST runs in $O(m\alpha (m,n))$ time (Chazelle 2000) where $\alpha(m,n)$ is a function of $m,n$ and $O(m)$ randomisesd time
+- Current best algorithm for MST runs in $O(m\alpha (m,n))$ time (Chazelle 2000) where $\alpha(m,n)$ is a function of $m,n$ and $O(m)$ randomized time
   - Let $\log^* n =$ the number of times you take $\log n$ before you reach 1
   - e.g. $\log^*(2^{10}) = 4$, $\log^*(2^{2^{10}}) = 5$
 - Holy grail: $O(m)$ deterministic algorithm for MST
@@ -883,12 +883,12 @@ $$
 # <a name="ch7" class="n"></a> 07 - Applications of Minimum Spanning Trees
 
 ## Minimum Bottleneck Spanning Tree (MBST)
-- MST minimises the total cost of the spanning network
+- MST minimizes the total cost of the spanning network
 - Consider another network design criterion
-  - build a network connext all cities in mountainous region, but ensure the highest elevation is as low as possible
+  - build a network connecting all cities in mountainous region, but ensure the highest elevation is as low as possible
   - total road length is not a criterion
 - Idea: compute an MST in which the edge with the highest cost is as cheap as possible
-- In an undirected graph $G(V,E)$, let $(V,T)$ be a spanning tree. The **bottleneck edge** in $T$ is the edge with the largest fcost in $T$
+- In an undirected graph $G(V,E)$, let $(V,T)$ be a spanning tree. The **bottleneck edge** in $T$ is the edge with the largest cost in $T$
 - Instance: An an undirected graph $G(V,E)$ such that $V,T$ is a spanning tree
 - Solution: A Set $T \sube E$ of edges such that $(V,T)$ is a spanning tree and there is no spanning tree in $G$ with a cheaper bottleneck
 
@@ -1099,7 +1099,7 @@ Explanation
   $$
 
 - What about $q > 2$: $T(n) = qT(n/2) + cn$?
-- $n \log n$ levles in the recursion tree
+- $n \log n$ levels in the recursion tree
 - At level $i$ of the tree, there are $q^i$ sub problems, each of size $n/s^i$
 - Total work done at level $i$ is $q^icn/2^i$, therefore the total work is 
 
@@ -1135,7 +1135,7 @@ Explanation
   - This step is much easier if $A,B$ are sorted
 - Merge-And-Count Procedure:
   - Maintain a `current` pointer for each list
-  - Maintain a variable `count` initialised to 0
+  - Maintain a variable `count` initialized to 0
   - Initialize each pointer to the front of each list
   - While both lists are non-empty
       - Let $a_i, b_j$ be the elements pointed to by the `current` pointers
@@ -1176,7 +1176,7 @@ $$
 ## Motivation
 - Goal: design efficient polynomial time algs
 - Greedy:
-  - pro: natural approach to algorith design
+  - pro: natural approach to algorithm design
   - con: many greedy approaches; only some may work
   - con: many problems for which no greedy approach is known
 - Divide and conquer
@@ -1191,7 +1191,7 @@ $$
 
 ## Example: Greedy Scheduling, but using a DP approach
   - Input: start and end time of day: Set $\{(s(i), f(i)), 1 \leq i \leq n\}$
-  - Contraint: cannot be in two places at one time
+  - Constraint: cannot be in two places at one time
   - Goal: maximum number of rides you can go on: **largest** subset of mutually compatible jobs
   - EFT: sort jobs in order of increasing finish time, and add compatible jobs to the set
   - Use DP to solve a **Weighted Interval Scheduling** problem:
@@ -1308,7 +1308,7 @@ $$
 }     
 $$ 
 
-### From Recusrion to Iteration
+### From Recursion to Iteration
 - Unwind the recursion and convert it into iteration
 - Can compute values of $M$ iteratively in $O(n)$ time
 - Find solution works as before
@@ -1324,13 +1324,13 @@ $$
 - Given a set of scientific or statistical data plotted on two axes, find the best line that passes through these points
 - Instance: Set $P = \{(x_1, y_1), (x_2, y_2), ... , (x_n, y_n)\}$ of $n$ points
 - Solution: Line $L: y = ax + b$ that minimizes Error(L,P) $ = \displaystyle\sum_{i=1}^n(y_i - ax_i - b)^2$
-- How many unknown paramters must we find values for?
-  - $a,b$ via lagrangian
+- How many unknown parameters must we find values for?
+  - $a,b$ via Lagrangian
   - $a = \frac{n\sum x_i y_i - (\sum x_i)(\sum y_i)}{n \sum x_i^2 - (\sum x_i)^2}$ and $b = \frac{\sum y_i - a \sum x_i}{n}$
 
 ## Segmented Least Squares
 - Want to fit multiple lines through $P$
-- Each line must fit contiguus set of x-coordinates
+- Each line must fit contiguous set of x-coordinates
 - Lines must minimize total error
 - Divide the points into segments; each **segment** contains a consecutive set of points ordered by increasing x-coordinate
 - Instance: Set $P = \{p_i = (x_i, y_i), 1 \leq i \leq n\}$ of $n$ points, $x_1 < x_2 < ... < x_n$ and a parameter $C > 0$
@@ -1343,7 +1343,7 @@ $$
 - How many unknown parameters here? $2k, k$ since we need to find the slope and intercept of $k$ lines as well a the optimal value of $k$ itself
 
 ### Formulating the Recursion
-- Let $e_j$ deonte the minmium error of a (single) line that fits $\{p_1, p_2, ..., p_i\}$
+- Let $e_j$ denote the minimum error of a (single) line that fits $\{p_1, p_2, ..., p_i\}$
 - Let $OPT(i)$ be the optimal total error for the points $\{p_1, p_2, ..., p_i\}$
 - We want to compute $OPT(n)$
 - Observation: Where does the last segment in the optimal solution end? $p_n$, and this segment starts at some point $p_i$. So the rest of the solution must be the optimal fit for points up to $p_i$: $OPT(i-1)$
@@ -1353,7 +1353,7 @@ $$
   $OPT(n) = e_i,n + C + OPT(i-1)$
 
 - Suppose we want to solve the sub-problem on the first $j$ points: $\{p_1, p_2, ..., p_j\}$: we want to compute $OPT(j)$
-- If the last sigment in the optimal partition is $\{p_i, p_{i+1}, ..., p_j\}$ then 
+- If the last swgment in the optimal partition is $\{p_i, p_{i+1}, ..., p_j\}$ then 
 
   $OPT(j) = e_i,j + C + OPT(i-1)$
 
@@ -1399,7 +1399,7 @@ $$
 ---
 
 ## RNA Molecules
-- basic biolegical molecule. Single stranded
+- basic biological molecule. Single stranded
 - RNA molecules fold into complex "secondary structures"
 - Secondary structure governs the behavior of an RNA molecule
 - carious rules govern secondary structure formation
@@ -1433,7 +1433,7 @@ $$
 
 $OPT(i,j) = \max \Big( OPT(i, j-1), \max \limits_t (1 + OPT(i, t-1) + OPT(t+1, j-1)) \Big)$
 
-- In the "inner" maximisation, $t$ runs over all indices between $i,j-5$ that are allowed to pair with $j$
+- In the "inner" maximization, $t$ runs over all indices between $i,j-5$ that are allowed to pair with $j$
 - There are $O(n^2)$ sub-problems: we have a matrix of $i,j$ with the lower right triangle filled out: $\sum_{j=5}^n \sum_{i=1}^j = n^3$ since the inner summation is less than $j(j-1)/2$ which we then sum another $n$ times
 - How do we order them from "smallest" to "largest"? increasing order of $j-i$
 - Note that computing $OPT(i,j)$? $O(i-j)$ : involves sub-problems $OPT(l,m)$ where $m - l < j - i$
@@ -1508,7 +1508,7 @@ $$
 
 $OPT(i,v) = \min \Big(OPT(i-v), \min \limits_{w \in V} (c_{vw} + OPT(i -1, w)) \Big)$
 
-### Alternate DP Forumlation
+### Alternate DP Formulation
 - $OPT(i,v)$: minimum cost of a $v \rightarrow t$ path that uses **exactly** $i$ edges
 - a bit harder, but it's in the slides
 
@@ -1605,7 +1605,7 @@ $M[v] = \min \Big( M[v], \min \limits_{w \in N_v} (c_{vw} + M[w]) \Big)$
 # <a name="ch10" class="n"></a> 10 - Network Flow
 
 ## Motivation
-- Fundemental problems in combinatorial optimization
+- Fundamental problems in combinatorial optimization
 - duality between flow and cuts
 
 ## Flow Networks
@@ -1734,7 +1734,7 @@ $$
 
 ### Correctness of the Ford-Faulkerson Algorithm
 - How large can the flow be?
-- Can we characterise the magnitude of the flow in terms of the structure of the graph? For example, for every flow $f, v(f) \leq C = \sum_{e \text{ out of } s} c(e)$
+- Can we characterize the magnitude of the flow in terms of the structure of the graph? For example, for every flow $f, v(f) \leq C = \sum_{e \text{ out of } s} c(e)$
 - Is there a better bound?
 - Proof strategy:
   - Define $s-t$ cut, its capacity, and flow in and out of the cut

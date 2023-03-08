@@ -6,6 +6,7 @@ path: "/blog/ml-1"
 ---
 
 ## Introduction to Reinforcement Learning
+
 This page is a summary of the cool symbols and my layman's understanding of what they mean in the context of Reinforcement Learning.  Praise be to Sergey and BHoag.  A more complete, coherent glossary is given in [the glossary of this point](/blog/ml-4/#gl); this post remains on the more shit-posty end of the spectrum.
 
 ## Glossary
@@ -81,10 +82,10 @@ $\nabla_{\theta}f = \langle 2x + 2y, 2x + 2y \rangle = \nabla f$
 | The Goal of RL | to train Deep Neural Networks to approximate $\mathcal{\pi^*}, V^*, Q^*, A^*$ |
 | Experience Relay Memory | stores $\mathcal{s_{t}, a_{t}, s_{t+1}, r_{t+1}}$ in a cyclic buffer, enabling RL agents to sample from and train on previously observed data (batches) offline |
 | Target Network | correctly-weighted, but frozen neural nets.  The "active" policy network pulls TD error values from the cached and comparatively stable target network, rather than having to calculate the TD error based on its own rapidly fluctuating estimates of $Q$ values |
-| Hard Attention | using RL to make discrete stochastic decisions over inputs via back propagation and reparameterization |
-| Reparameterization | allows neural networks to be treated as stochastic computational graphs -- a key concept in algorithms involving Stochastic Value Gradients |
+| Hard Attention | using RL to make discrete stochastic decisions over inputs via back propagation and re-parameterization |
+| Re-parameterization | allows neural networks to be treated as stochastic computational graphs -- a key concept in algorithms involving Stochastic Value Gradients |
 | Dynamic Programming | using the current $Q^{\pi}$ to improve the next $Q^{\pi}$ via "bootstrapping" |
 | Monte Carlo Methods | estimating the expected return from a state by averaging return from multiple rollouts of a policy.  <br> used to find optimal trajectories. <br> limited to episodic Markov Decision Processes |
-| Policy Search | doesn't maintain a value-function model, instead this appraoch directly searches for an optimal policy $\pi^{*}$ |
+| Policy Search | doesn't maintain a value-function model, instead this approach directly searches for an optimal policy $\pi^{*}$ |
 | Actor-Critic Model | The Actor (policy) receives a state from the environment and chooses an action to perform.  At the same time, some critic ($V^\pi$) receives the state and reward resulting from the previous interaction.  The critic uses the RD error $\delta$ calculated from this information to update itself and the actor.<br> <br> It's trivial, really.|
 ![img](https://www.researchgate.net/publication/258394387/figure/fig1/AS:340687313752077@1458237593623/The-actor-critic-architecture.png)

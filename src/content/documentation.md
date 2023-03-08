@@ -2,7 +2,7 @@
 title: "14 | Digest: Documentation"
 date: "2019-07-17"
 description: "Tips from Industry Professionals"
-path: "/blog/documentation.md"
+path: "/blog/documentation"
 ---
 
 ## Preface

@@ -92,6 +92,7 @@ Given explicit monetary incentivisation, people still failed to select the corre
 The correct answer is #1, as, in order for #2 to happen, #1 must already be true, therefore any subsequent actions that are not guaranteed necessarily _decrease_ the probability.  Nonetheless 88% of respondents selected #2 because proportionally (_read_: per the representative heuristic of which green is the most prominent actor) we *want* to see more G.
 
 ## The Solution
+
 Tversky and Kahneman found that using integer representation of percentages (e.g. "60 out of 100 people..." instead of "60% of respondents...") helped subjects to frame problems extensionally and steer clear of the fallacy of violating the law of conjunctions.
 
 For more on this subject, checkout the authors' book: "Thinking Fast and Slow".

@@ -62,7 +62,7 @@ G = \Big\{&L = \{(A_1, B_1), (A_2, B_2), ... \} \enspace | \\
 \end{aligned}
 $$
 
-Subsets of the whole game state can be examined and represented using [Nimbers]() is a notation used to describe how many moves each player has remaining for any given game state.  
+Subsets of the whole game state can be examined and represented using Nimbers – a notation used to describe how many moves each player has remaining for any given game state.  
 
 For example, given the following board:
 

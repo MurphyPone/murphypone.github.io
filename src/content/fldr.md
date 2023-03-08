@@ -76,7 +76,7 @@ I had printed it out for something to read during a long flight, struggled throu
 
 The point being _that it is important for me to regularly read things that I don't understand_.  Eventually[^3] I might return to one such challenging piece of literature with greater appreciation, equipped with even just a few more semesters or years worth of exposure to the subjects which I once found alien.  The digest and examination[^4] of a selection the algorithms described in the paper are the focus of this post. 
 
-As with many of my posts in the past couple years, much of the contents are for my own edification, as a more-public form expression rubber-duckying[^5] my way through things I'm trying to teach myself, while hopefully also providing some ocassionally insightful or humorous commentary along the way.
+As with many of my posts in the past couple years, much of the contents are for my own edification, as a more-public form expression rubber-duckying[^5] my way through things I'm trying to teach myself, while hopefully also providing some occasionally insightful or humorous commentary along the way.
 
 # Motivation: Men Who Stare at Lava Lamps
 
@@ -96,11 +96,11 @@ Suppose we have a list of positive integers $a = (a_1, a_2, ..., a_n)$ which sum
 
 The goal is to construct a sampler (a die) for discrete distributions with rational entries, like our $p$.
 
-Sampling in this manner is a fundemental operation in many fields and has applications in climate modeling, HFT, and (most recently [for me]) fantasy Smite Pro League drafting.  Existing models for sampling from a non-uniform (weighted) discrete distribution have been constrained by the prohibitive resources required to form the encode and sample from 
+Sampling in this manner is a fundamental operation in many fields and has applications in climate modeling, HFT, and (most recently [for me]) fantasy Smite Pro League drafting.  Existing models for sampling from a non-uniform (weighted) discrete distribution have been constrained by the prohibitive resources required to form the encode and sample from 
 
 ## Understanding Knuth and Yao's Optimal DDG
 
-A random source $S$ lazily (as needed) emits $0$ or $1$, which can be interpreted as fair, independent and identically distributed coin flips.  For any discrete distribution $p$, $S$ can be thought of as a partial map $A$ from the finite sequece of coin flips to outcomes.  
+A random source $S$ lazily (as needed) emits $0$ or $1$, which can be interpreted as fair, independent and identically distributed coin flips.  For any discrete distribution $p$, $S$ can be thought of as a partial map $A$ from the finite sequence of coin flips to outcomes.  
 
 $$
 \underbrace{S}_{\text{Entropy} \atop \text{source}} \; \xrightarrow[b_1 \; b_2 \; b_3 \; b_4]{0 \; 1 \; 1 \; 0} \underbrace{A}_{\text{Sampling} \atop \text{algorithm}} \longrightarrow p
@@ -112,15 +112,13 @@ $$
 A: \coprod \{0,1\}^k \rarr \{1, ..., n \}
 $$
 
-
-
 We treat $A$ as the sampling algorithm for $p$ and we can represent it as a **Complete Binary Tree**.
 
 ### Aside: Taxonomy of a Tree
 
 Though not exhaustive, it's worth spending a brief minute examining the structure of a tree, specifically binary trees.
 
-Trees are a common recusrive structure used throughout computer science, and those who venture outside have even claimed to see some naturally ocurring trees in the wild!
+Trees are a common recursive structure used throughout computer science, and those who venture outside have even claimed to see some naturally occurring trees in the wild!
 
 Trees are a special kind of directed acyclic graph where the topmost node is referred to as a **root** with 0 or more children.  Nodes can have many children, but the most common variety of tree, and the kind used for the samplers being discussed, are **binary** trees, meaning they can have at most 2 children.  A node that has no children is called a **leaf**, and nodes with children are called **internal**.
 
@@ -132,7 +130,7 @@ A tree is said to be **complete** if every level of the tree, except for perhaps
 
 The **depth** of a tree is given by the length of the longest path from root to leaf.  The root has a depth of 0 (since it is itself), it's children a depth of 1, and so on.  
 
-<!-- _Is it asinine to use 1-indexing in a binary expandion?_ yes. does it make the math more comprehensible than thinking "0th digit of the binary expansion of a rational entry" also yes. Caveat emptor – some of the proofs of correctness of the FLDR rely on **level** which is the zero-indexed version of depth.  -->
+<!-- _Is it asinine to use 1-indexing in a binary expansion?_ yes. does it make the math more comprehensible than thinking "0th digit of the binary expansion of a rational entry" also yes. Caveat emptor – some of the proofs of correctness of the FLDR rely on **level** which is the zero-indexed version of depth.  -->
 
 ![](/images/fldr-5.png)
 
@@ -154,7 +152,7 @@ class TreeNode
 
 this is like straight up the laziest representation of a Tree you can imagine. There's no reason to do this in lieu of other class methods which I have not supplied.
 
-Other, _speedier_ representations include [adjacancy matrices](https://en.wikipedia.org/wiki/Adjacency_matrix) and [heaps](https://en.wikipedia.org/wiki/Heap_(data_structure)) which come with some nice properties of there own:
+Other, _speedier_ representations include [adjacency matrices](https://en.wikipedia.org/wiki/Adjacency_matrix) and [heaps](https://en.wikipedia.org/wiki/Heap_(data_structure)) which come with some nice properties of there own:
 
 #### Graph as an Adjacency Matrix
 
@@ -182,7 +180,7 @@ where a $G_{ij} = 1$ implies an edge between node $i$ and $j$.
 
 Another Aside? Call that a Bside.  Call that a coin. 
 
-Intuitively,[^10] we can convince ourselves that given a base $b$, a rational number has a finite representation in that base _iff_ the prime factors of the reduced denominator each divide base $b$.  So, in binary, the base of information theory, the only rational numbers with finite representatios are dyadics of the form $\frac{a}{2^n}, \; n \in Z^+$.  So, unfortunately for us, _most_ numbers will instead have infinite binary representations.   
+Intuitively,[^10] we can convince ourselves that given a base $b$, a rational number has a finite representation in that base _iff_ the prime factors of the reduced denominator each divide base $b$.  So, in binary, the base of information theory, the only rational numbers with finite representations are dyadics of the form $\frac{a}{2^n}, \; n \in Z^+$.  So, unfortunately for us, _most_ numbers will instead have infinite binary representations.   
 
 #### Converting from Binary to Base 10
 
@@ -227,7 +225,7 @@ converges to $1$, we know it's theoretically possible to build _any_ decimal wit
 
 #### Converting from Base 10 to Binary
 
-This process is a bit more tedious, but fundementally the inverse of the above conversion.
+This process is a bit more tedious, but fundamentally the inverse of the above conversion.
 
 We double our decimal, and whenever the resulting product is greater than $1$, append a $1$ to our binary sequence and truncate the product, otherwise we append a $0$:
 
@@ -254,7 +252,7 @@ and as noted above, this can go on for _awhile_: decimals with finite digits may
 
 The algorithm for sampling from a discrete distribution $p$ using a binary tree $A$ is as follows:
 
-1. Start at the root, traverse to a child according to the output of our enropy source $S$ which is accessed via primitive function $flip() = \begin{cases} \text{left} &\text{if } 0 \\ \text{right} &\text{if } 1 \\\end{cases}$ 
+1. Start at the root, traverse to a child according to the output of our entropy source $S$ which is accessed via primitive function $flip() = \begin{cases} \text{left} &\text{if } 0 \\ \text{right} &\text{if } 1 \\\end{cases}$ 
 2. If the child is a leaf, return its label, otherwise repeat
 
 ![](/images/fldr-2.png)
@@ -311,7 +309,7 @@ $$
 
 ![](http://www.reactiongifs.com/r/2012/01/cut-it-out.gif)
 
-Eric Weisstein, no not that one, _nor that one_, but the cool one does research for Wolfram Alpha published a paper earlier this year showing that binary transcendental distributions might actually be more tractable than was previosuly thought: https://arxiv.org/abs/2201.12601
+Eric Weisstein, no not that one, _nor that one_, but the cool one does research for Wolfram Alpha published a paper earlier this year showing that binary transcendental distributions might actually be more tractable than was previously thought: https://arxiv.org/abs/2201.12601
 
 Knuth and Yao's theorem actually still holds for irrationals and transcendentals.  However, we can't represent these on a computer with finite memory, and by definition, there's no repeating structure for irrational probabilities, so back edges can't help us out much further.
 
@@ -325,7 +323,7 @@ $$
 
 where $H(p) = \sum_i p_i \log_2(\frac{1}{p_i})$ is the Shannon entropy or _amount of information_ per bit.  Information is inherently related to "surprise," –that is: we are unsurprised when an event occurs with probability $1$, (duh, that's what we expected to happen), and immensely surprised when we observe an event that had $0$ probability of occurring.  
 
-The lower bound of this theorem follows from the definition of shannon entropy –_we can't receive less than one bit of information per flip_.
+The lower bound of this theorem follows from the definition of Shannon entropy –_we can't receive less than one bit of information per flip_.
 
 The upper bound is less obvious, but Knuth and Yao prove that for a uniform distribution on $\{0,...2^k\}$ which can be represented as a full binary tree with exactly $k$ bits, the worst case cost for sampling this distribution is 2-bits for _non-full_ Binary Trees.
 
@@ -333,7 +331,7 @@ The upper bound is less obvious, but Knuth and Yao prove that for a uniform dist
 
 Why not just use an optimal sampler as described above?  Well, if you hadn't guessed already, they require a _ton_ of memory.
 
-In general, the sampler described above is exponentially large in the number of bits needed to encode the target distributon $p$:
+In general, the sampler described above is exponentially large in the number of bits needed to encode the target distribution $p$:
 
 $$
 \begin{aligned}
@@ -344,7 +342,7 @@ $$
 
 for $(a_1, ..., a_n) \in Z^+$ summing to $m$, with $p_i = \frac{a_i}{m}$.  To go from the logarithmic encoding of $p$ to the polynomial encoding of the KY-DDG is an exponential scaling process.  In other words, to optimally encode and sample a binomial distribution with $n=50, p=61/500$, the KY-DDG has a staggering depth of $10^{104}$ which is roughly equivalent to $10^{91}$ terrabytes.  Talk about combinatorials which fry your gonads![^11]
 
-FLDR, on the otherhand, scales _linearly_ with the number of bits needed to encode $p$:
+FLDR, on the other hand, scales _linearly_ with the number of bits needed to encode $p$:
 
 ![](/images/fldr-6.png)
 
@@ -362,7 +360,7 @@ The basic idea behind FLDR is rejection sampling.  The advances made in reducing
 
 A naive approach to rejection sampling might be a tabular approach like the following:
 
-for $(a_1, ..., a_n)$ with $p_i = a_i / m$, build a look-up table where $a_i$ is represented proprtionately:
+for $(a_1, ..., a_n)$ with $p_i = a_i / m$, build a look-up table where $a_i$ is represented proportionately:
 
 ![](/images/fldr-7.png)
 

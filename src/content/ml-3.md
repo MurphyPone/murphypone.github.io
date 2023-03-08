@@ -27,7 +27,7 @@ Imitation learning constrains the agent to being good at _strictly_ what it obse
 
 **Temporal Difference Error** - Roughly measures the "amount of surprise at reward" and is used in weighting the replay buffer distribution sampling method.  Broader entropy distributions are almost always better than any other distribution-sampling techniques.
 
-The **Bellman Backup** - An operator you pass to your $\mathcal Q$ function which returns a better $\mathcal Q$ based on predictions from futures $s',..., s^n$.  Bellman backups focus on a single policy $\pi$, rather than a branching structure.  Bellman Backups are used to refine the way an agent takes action since it is typically too expensive to sample and evalate _all_ possible actions.
+The **Bellman Backup** - An operator you pass to your $\mathcal Q$ function which returns a better $\mathcal Q$ based on predictions from futures $s',..., s^n$.  Bellman backups focus on a single policy $\pi$, rather than a branching structure.  Bellman Backups are used to refine the way an agent takes action since it is typically too expensive to sample and evaluate _all_ possible actions.
 
 ## Precalculus
 

@@ -289,7 +289,7 @@ for which we factor out the second component to make the vector flexible and ide
 
 ---
 
-- A **Regular** stochastic matrix is a matrix $P$ for which there exists some power $k$ such that $P^k$ contains no zero entries.  If $P$ is a $n \times n$ regular stochastic matrix, then $P$ has a unique steady state vector $\mathbf{q}$.  If $\mathbf{x}_0$ is any initial state vector, then the markov chain $\mathbf{x}_k$ converges to $\mathbf{q}$ as $k \rarr \infty$.
+- A **Regular** stochastic matrix is a matrix $P$ for which there exists some power $k$ such that $P^k$ contains no zero entries.  If $P$ is a $n \times n$ regular stochastic matrix, then $P$ has a unique steady state vector $\mathbf{q}$.  If $\mathbf{x}_0$ is any initial state vector, then the Markov chain $\mathbf{x}_k$ converges to $\mathbf{q}$ as $k \rarr \infty$.
 
 ### Example
 
@@ -352,7 +352,7 @@ $$
 
 Rather than considering states, populations, and transition dynamics we can instead use these same properties of markov chains to consider words and the frequency with which they appear in sequences with one another.
 
-TODO: example diagram
+<!-- TODO: example diagram -->
 
 ![](/images/ml-5-2.png)
 

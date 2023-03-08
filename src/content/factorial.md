@@ -30,7 +30,7 @@ For starters we need a list of elements we wish to permute; these might as well 
 
 Next, we need to generate all the permutations of a list: [simple as](https://stackoverflow.com/questions/9960908/permutations-in-javascript). 
 
-Then, observing from both Lars' replies to the inqueries about how this pattern was achieved, the figures themselves, as well as some experience with leetcode medium problems, we'll want to perform a series of swaps which lead us from our initial configuration e.g. `[1, 2, 3]` to each of the desired permutations.
+Then, observing from both Lars' replies to the inquiries about how this pattern was achieved, the figures themselves, as well as some experience with leetcode medium problems, we'll want to perform a series of swaps which lead us from our initial configuration e.g. `[1, 2, 3]` to each of the desired permutations.
 
 For example, referencing the 4th permutation of $3!$ above, we want to end with `[2, 3, 1]`:
 
@@ -268,7 +268,7 @@ Alternatively, make your own!  [Here's the complete source code](https://gist.gi
 
 [^3]: This is a weak criticism, I know.  The currency itself has no agency nor bearing on the morality of the transactions it's used for.  However, the mechanisms surrounding cryptocurrency and the hype trains of such coins –despite masquerading as secure, revolutionary, decentralized, etc.– lend themselves to exploitation.  
 
-[^4]: I have notifications enabled for the artist as well, and this post is kind of a pre-emptive open source strike.
+[^4]: I have notifications enabled for the artist as well, and this post is kind of a preemptive open source strike.
 
 [^5]: "Looks like [braid groups](https://twitter.com/_person_a_/status/1609952232144834562?s=20) but different. 🤌"
 

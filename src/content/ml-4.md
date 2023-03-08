@@ -8,84 +8,98 @@ path: "/blog/ml-4"
 
 # Index 
 
-- [Introduction](#intro)
-    - [Glossary](#gl) 
-- [Chapter 1: The Reinforcement Learning Problem](#ch1)
-    - [1.1 Reinfrocement Learning](#ch1.1)
-    - [1.2 Examples](#ch1.2)
-    - [1.3 Elements of Reinforcement Learning](#ch1.3)
-    - [1.4 Limitations and Scope](#ch1.4)
-    - [1.5 An Extended Example: Tic-Tac-Toe](#ch1.5)
-    - [1.6 Summary](#ch1.6)
-- [Chapter 2: Mutli-arm Badits](#ch2)
-    - [2.1 An $n$-Armed Bandit Problem](#ch2.1)
-    - [2.2 Action-Value Methods](#ch2.2)
-    - [2.3 Incremental Implementation](#ch2.3)
-    - [2.4 Tracking a Nonstationary Problem](#ch2.4)
-    - [2.5 Optimistic Initial Values](#ch2.5)
-    - [2.6 Upper-confidence-Bound Action Selection](#ch2.6)
-    - [2.7 Gradient Bandits](#ch2.7)
-    - [2.8 Associate Search (Contextual Bandits)](#ch2.8)
-    - [2.9 Summary](#ch2.9)
-- [Chapter 3: Finite Markov Decision Processes](#ch3)
-    - [3.1 The Agent-Environment Interface](#ch3.1)
-    - [3.2 Goals and Rewards](#ch3.2)
-    - [3.3 Returns](#ch3.3)
-    - [3.4 Unifed Notation for Episodic and Continuing Tasks](#ch3.4)
-    - [3.5 The Markov Property](#ch3.5)
-    - [3.6 Markov Decision Processes](#ch3.6)
-    - [3.7 Value Functions](#ch3.7)
-    - [3.8 Optimal Value Functions](#ch3.8)
-    - [3.9 Optimality and Approximation](#ch3.9)
-    - [3.10 Summary](#ch3.10)
-- [Chapter 4: Dynamic Programming](#ch4)
-    - [4.1 Policy Evaluation](#ch4.1)
-    - [4.2 Policy Improvement](#ch4.2)
-    - [4.3 Policy Iteration](#ch4.3)
-    - [4.4 Value iteration](#ch4.4)
-    - [4.5 Asynchronous Dynamic Programming](#ch4.5)
-    - [4.6 Generalized Policy Iteration](#ch4.6)
-    - [4.7 Efficiency of Dynamic Programming](#ch4.7)
-    - [4.8 Summary](#ch4.8)
-- [Chapter 5: Monte Carlo Methods](#ch5)
-    - [5.1 Monte Carlo Prediction](#ch5.1)
-    - [5.2 Monte Carlo Estimation of Action Values](#ch5.2)
-    - [5.3 Monte Carlo Control](#ch5.3)
-    - [5.4 Monte Carlo Control Without Exploring Starts](#ch5.4)
-    - [5.5 Off-policy Prediction via Importance Sampling](#ch5.5)
-    - [5.6 Incremental Implementation](#ch5.6)
-    - [5.7 Off-Policy Monte Carlo Control](#ch5.7)
-    - [5.8 Importance Sampling on Truncated Returns](#ch5.8)
-    - [5.9 Summary]($ch5.9)
- - [Chapter 6: Temporal-Difference Learning](#ch6)
-    - [6.1 TD Prediction](#ch6.1)
-    - [6.2 Advantages of TD Prediction Models](#ch6.2)
-    - [6.3 Optimality of $TD(0)$](#ch6.3)
-    - [6.4 Sarsa: On-Policy TD Control]($ch6.4)
-    - [6.5 Q-Learning: Off-Policy TD Control](#ch6.5)
-    - [6.6 Games, Afterstates, and Other Special Cases](#ch6.6)
-    - [6.7 Summary](#ch6.7)
- - [Chapter 7: Eligibility Traces](#ch7)
-    - [7.1 $n$-Step TD Prediction](#ch7.1)
-    - [7.2 The Backward View of $TD(\lambda)$](#ch7.2)
-    - [7.3 The Backward View of $TD(\lambda)$](#ch7.3)
-    - [7.4 Equivalences of Forward and Backward Views](#ch7.4)
-    - [7.5 Sarsa($\lambda$)](#ch7.5)
-    - [7.6 Watkin's Q($\lambda$)](#ch7.6)
-    - [7.7 Off-policy Eligibility Traces using Importance Sampling](#ch7.7)
-    - [7.8 Implementation Issues](#ch7.8)
-    - [7.9 Variable $\lambda$](#ch7.9)
-    - [7.10 Conclusions](#ch7.10)
-- [Chapter 8: Planning and Learning with Tabular Methods](#ch8)
-    - [8.1 Models and Planning](#ch8.1)
-    - [8.2 Integrating Planning, Acting, and Learning](#ch8.2)
-    - [8.3 When the Model Is Wrong](#ch8.3)
-    - [8.4 Prioritized Sweeping](#ch8.4)
-    - [8.5 Full vs. Sample Backups](#ch8.5)
-    - [8.6 Trajectory Sampling](#ch8.6)
-    - [8.7 Heuristic Search](#ch8.7)
-    - [8.8 Monte Carlo Tree Search](#ch8.8)
-    - [8.9 Summary](#ch8.9)
+- [Index](#index)
+- [ Introduction](#-introduction)
+  - [ Glossary](#-glossary)
+- [ Chapter 1: The Reinforcement Learning Problem](#-chapter-1-the-reinforcement-learning-problem)
+  - [ 1.1 Reinforcement Learning](#-11-reinforcement-learning)
+  - [ 1.2 Examples](#-12-examples)
+  - [ 1.3 Elements of Reinforcement Learning](#-13-elements-of-reinforcement-learning)
+  - [ 1.4 Limitations and Scope](#-14-limitations-and-scope)
+  - [ 1.5 An Extended Example Tic-Tac-Toe](#-15-an-extended-example-tic-tac-toe)
+  - [ 1.6 Summary](#-16-summary)
+- [ Chapter 2: Multi-arm Bandits](#-chapter-2-multi-arm-bandits)
+  - [ 2.1 An $n$-Armed Bandit Problem](#-21-an-n-armed-bandit-problem)
+  - [ 2.2 Action-Value Methods](#-22-action-value-methods)
+  - [ 2.3 Incremental Implementation](#-23-incremental-implementation)
+  - [ 2.4 Tracking a Nonstationary Problem](#-24-tracking-a-nonstationary-problem)
+  - [ 2.5 Optimistic Initial Values](#-25-optimistic-initial-values)
+  - [ 2.6 Upper-Confidence-Bound Action Selection](#-26-upper-confidence-bound-action-selection)
+  - [ 2.7 Gradient Bandits](#-27-gradient-bandits)
+  - [ 2.8 Associative Search (Contextual Bandits)](#-28-associative-search-contextual-bandits)
+  - [ 2.9 Summary](#-29-summary)
+- [ Chapter 3: Finite Markov Decision Processes](#-chapter-3-finite-markov-decision-processes)
+  - [ 3.1 The Agent-Environment Interface](#-31-the-agent-environment-interface)
+  - [ 3.2 Goals and Rewards](#-32-goals-and-rewards)
+  - [ 3.3 Returns](#-33-returns)
+  - [ 3.4 Unified Notation for Episodic and Continuing Tasks](#-34-unified-notation-for-episodic-and-continuing-tasks)
+  - [ 3.5 The Markov Property](#-35-the-markov-property)
+  - [ 3.6 Markov Decision Processes](#-36-markov-decision-processes)
+  - [ 3.7 Value Functions](#-37-value-functions)
+  - [ 3.8 Optimal Value Functions](#-38-optimal-value-functions)
+  - [ 3.9 Optimality and Approximation](#-39-optimality-and-approximation)
+  - [ 3.10 Summary](#-310-summary)
+- [ Chapter 4: Dynamic Programming](#-chapter-4-dynamic-programming)
+  - [ 4.1 Policy Evaluation](#-41-policy-evaluation)
+  - [ 4.2 Policy Improvement](#-42-policy-improvement)
+  - [ 4.3 Policy Iteration](#-43-policy-iteration)
+  - [ 4.4 Value iteration](#-44-value-iteration)
+  - [ 4.5 Asynchronous Dynamic Programming](#-45-asynchronous-dynamic-programming)
+  - [ 4.6 Generalized Policy Iteration](#-46-generalized-policy-iteration)
+  - [ 4.7 Efficiency of Dynamic Programming](#-47-efficiency-of-dynamic-programming)
+  - [ 4.8 Summary](#-48-summary)
+- [ Chapter 5: Monte Carlo Methods](#-chapter-5-monte-carlo-methods)
+  - [ 5.1 Monte Carlo Prediction](#-51-monte-carlo-prediction)
+    - [First Visit MC Method](#first-visit-mc-method)
+  - [ 5.2 Monte Carlo Estimation of Action Values](#-52-monte-carlo-estimation-of-action-values)
+  - [ 5.3 Monte Carlo Control](#-53-monte-carlo-control)
+  - [ 5.4 Monte Carlo Control Without Exploring Starts](#-54-monte-carlo-control-without-exploring-starts)
+  - [ 5.5 Off-policy Prediction via Importance Sampling](#-55-off-policy-prediction-via-importance-sampling)
+  - [ 5.6 Incremental Implementation](#-56-incremental-implementation)
+    - [Off-policy Monte Carlo Policy Evaluation](#off-policy-monte-carlo-policy-evaluation)
+  - [ 5.7 Off-Policy Monte Carlo Control](#-57-off-policy-monte-carlo-control)
+    - [Off-policy Monte Carlo GPI with Weighted Importance Sampling to Estimate $q^\*$](#off-policy-monte-carlo-gpi-with-weighted-importance-sampling-to-estimate-q)
+  - [ 5.8 Importance Sampling on Truncated Returns](#-58-importance-sampling-on-truncated-returns)
+  - [ 5.9 Summary](#-59-summary)
+- [ Chapter 6 Temporal-Difference Learning](#-chapter-6-temporal-difference-learning)
+  - [ 6.1 TD Prediction](#-61-td-prediction)
+    - [$TD(0)$](#td0)
+  - [ 6.2 Advantages of TD Prediction Models](#-62-advantages-of-td-prediction-models)
+  - [ 6.3 Optimality of $TD(0)$](#-63-optimality-of-td0)
+  - [ 6.4 Sarsa: On-Policy TD Control](#-64-sarsa-on-policy-td-control)
+    - [On-policy TD Control Algorithm](#on-policy-td-control-algorithm)
+  - [ 6.5 Q-Learning: Off-Policy TD Control](#-65-q-learning-off-policy-td-control)
+    - [Q-Learning: An Off-policy TD Control Algorithm](#q-learning-an-off-policy-td-control-algorithm)
+  - [ 6.6 Games, Afterstates, and Other Special Cases](#-66-games-afterstates-and-other-special-cases)
+  - [ 6.7 Summary](#-67-summary)
+- [ Chapter 7: Eligibility Traces](#-chapter-7-eligibility-traces)
+  - [ 7.1 $n$-Step TD Prediction](#-71-n-step-td-prediction)
+  - [ 7.2 The Forward View of $TD(\\lambda)$](#-72-the-forward-view-of-tdlambda)
+  - [ 7.3 The Backward View of $TD(\\lambda)$](#-73-the-backward-view-of-tdlambda)
+    - [On-line Tabular $TD(\\lambda)$](#on-line-tabular-tdlambda)
+  - [ 7.4 Equivalences of Forward and Backward Views](#-74-equivalences-of-forward-and-backward-views)
+    - [Tabular true on-line $TD(\\lambda)$](#tabular-true-on-line-tdlambda)
+  - [ 7.5 Sarsa($\\lambda$)](#-75-sarsalambda)
+    - [Tabular Sarsa($\\lambda$)](#tabular-sarsalambda)
+  - [ 7.6 Watkin's Q($\\lambda$)](#-76-watkins-qlambda)
+    - [Tabular Watkin's Q($\\lambda$)](#tabular-watkins-qlambda)
+  - [ 7.7 Off-policy Eligibility Traces using Importance Sampling](#-77-off-policy-eligibility-traces-using-importance-sampling)
+  - [ 7.8 Implementation Issues](#-78-implementation-issues)
+  - [ 7.9 Variable $\\lambda$](#-79-variable-lambda)
+  - [ 7.10 Conclusions](#-710-conclusions)
+- [ Chapter 8: Planning and Learning with Tabular Methods](#-chapter-8-planning-and-learning-with-tabular-methods)
+  - [ 8.1 Models and Planning](#-81-models-and-planning)
+    - [Random-Sample One-step Tabular Q-planning](#random-sample-one-step-tabular-q-planning)
+  - [ 8.2 Integrating Planning, Acting, and Learning](#-82-integrating-planning-acting-and-learning)
+    - [Dyna-Q Algorithm](#dyna-q-algorithm)
+  - [ 8.3 When the Model Is Wrong](#-83-when-the-model-is-wrong)
+  - [ 8.4 Prioritized Sweeping](#-84-prioritized-sweeping)
+    - [Prioritized Sweeping Algorithm for a Deterministic Algorithm](#prioritized-sweeping-algorithm-for-a-deterministic-algorithm)
+  - [ 8.5 Full vs. Sample Backups](#-85-full-vs-sample-backups)
+  - [ 8.6 Trajectory Sampling](#-86-trajectory-sampling)
+  - [ 8.7 Heuristic Search](#-87-heuristic-search)
+  - [ 8.8 Monte Carlo Tree Search](#-88-monte-carlo-tree-search)
+  - [ 8.9 Summary](#-89-summary)
 
 # <a name="intro" class="n"></a> Introduction
 
@@ -138,7 +152,7 @@ Notes from Sutton & Barto's "[Reinforcement Learning: an Introduction"](https://
 
 # <a name="ch1" class="n"></a> Chapter 1: The Reinforcement Learning Problem
 
-## <a name="ch1.1" class="n"></a> 1.1 Reinfrocement Learning
+## <a name="ch1.1" class="n"></a> 1.1 Reinforcement Learning
 
 > Reinforcement learning is different from _supervised learning_, the kind of learning studied in most current research in the field of machine learning. Supervised learning is learning from a training set of labeled examples provided by a knowledgable external supervisor. Each example is a description of a situation together with a specification—the label—of the correct action the system should take to that situation, which is often to identify a category to which the situation belongs. The object of this kind of learning is for the system to extrapolate, or generalize, its responses so that it acts correctly in situations not present in the training set.
 
@@ -203,7 +217,7 @@ If the step-size parameter is reduced properly over time, this method converges,
 
 Evolutionary methods struggle to retain association between which actions _caused_ positive reward, equally weighting all actions that contributed to a "win". In contrast, value functions evaluate individual states.  Although both methods search the policy space, learning the value function takes advantage of the information available.
 
-By adding a neural network to the tabular representation of the value-function, the agent can generalize from it's experiences so that it selects action based on information from _similar_ stated experienced in the past. Here, supervised learning methods can helpout, although neural nets are neither the only or best way to transcend tabularization.
+By adding a neural network to the tabular representation of the value-function, the agent can generalize from it's experiences so that it selects action based on information from _similar_ stated experienced in the past. Here, supervised learning methods can help out, although neural nets are neither the only or best way to transcend tabularization.
 
 The tic-tac-toe example agent is model-free in this sense w.r.t its opponent: it has no model of its opponent.  However, this can be advantageous as it avoids complex method in which bottlenecks arise from constructing a sufficiently accurate environment model.
 
@@ -301,7 +315,7 @@ The first condition guarantees that steps are large enough to eventually overcom
 
 ## <a name="ch2.5" class="n"></a> 2.5 Optimistic Initial Values
 
-All the methods discussed above are to some degree dependent on or _biased_ towards the initial action-value estimates $Q_1(a)$. For sample-average methods, the bias disappears once all action have been selected at least once, but constant-$\alpha$ methods retain permanent bias.  Optimistic initial action values encourage exploration as most actions perform worse than the initial value, causing exploitative actions to attempt the other faux optimistic actions before beginning true exploration.  At first, these methods tend to perform worse as they are mor exploratory, but rapidly perform better as the need for exploration is resolved sooner.
+All the methods discussed above are to some degree dependent on or _biased_ towards the initial action-value estimates $Q_1(a)$. For sample-average methods, the bias disappears once all action have been selected at least once, but constant-$\alpha$ methods retain permanent bias.  Optimistic initial action values encourage exploration as most actions perform worse than the initial value, causing exploitative actions to attempt the other faux optimistic actions before beginning true exploration.  At first, these methods tend to perform worse as they are more exploratory, but rapidly perform better as the need for exploration is resolved sooner.
 
 However, such and approach is not effective in nonstationary problems as the drive for exploration is inherently temporary.  
 
@@ -317,7 +331,7 @@ $A_t = \arg \max\limits_{a} \Big[Q_t(a) + c \sqrt{\frac{\ln{t}}{N_t(a)}} \Big ],
 
 where $c > 0$ controls the degree of exploration and for $N_t(a)=0$, $a$ is considered a maximizing action.
 
-> The idea of this upper confidence bound (UCB) action selection is that the square-root term is a measure of the uncertainty or variance in the estimate of $a$’s value.  Therefore, the quantity being $\max$'ed over is a sort of upper bound on the possible true value of action $a$, with the $c$ parameter determining the confidence level.  Each time $a$ is selected, the uncertainty is presumably reduced; $N_t(a)$ i incremented, and the term is square root decreased.
+> The idea of this upper confidence bound (UCB) action selection is that the square-root term is a measure of the uncertainty or variance in the estimate of $a$’s value.  Therefore, the quantity being $\max$'ed over is a sort of upper bound on the possible true value of action $a$, with the $c$ parameter determining the confidence level.  Each time $a$ is selected, the uncertainty is presumably reduced; $N_t(a)$ is incremented, and the term is square root decreased.
 
 >  Another difficulty is dealing with large state spaces, ... In these more advanced settings there is currently no known practical way of utilizing the idea of UCB action selection.
 
@@ -447,7 +461,7 @@ How do we formalize cumulative reward for maximization? If the sequence of rewar
 
 > In episodic tasks we sometimes need to distinguish the set of all non-terminal states, denoted $\mathcal S$, from the set of all states plus the terminal state, denoted $\mathcal S^+$.
 
-In some cases, agent-environment interaction is not episodically divided; rather it is continuous and without limit.  In these cases, it's unsuitable to use $G_t$ as presented above as $T = \infty$, and return itself could be infinite (e.g. cart-pole).  To fix this issue, we use _discounting_ so that the agent tries to maximimize the sum of discounted rewards ad-infinitum:
+In some cases, agent-environment interaction is not episodically divided; rather it is continuous and without limit.  In these cases, it's unsuitable to use $G_t$ as presented above as $T = \infty$, and return itself could be infinite (e.g. cart-pole).  To fix this issue, we use _discounting_ so that the agent tries to maximize the sum of discounted rewards ad-infinitum:
 
 $G_t = R_{t+1} + \gamma R_{t+2} + \gamma R_{t+3} + ... = \displaystyle\sum^\infty_{k=0} \gamma ^k R_{t+k+1}$ where $ 0 \leq \gamma \leq 1$, and is called the discount rate. 
 
@@ -576,7 +590,7 @@ The RL agent and its environment interact over a sequence of discrete time steps
 
 A policy is a stochastic rule by which the agent selects actions as a function of states geared towards maximizing rewards over time.
 
-The return is the function of future rewards that the agent seeks to maximize. Undiscounted formulation is approprieate for episodic tasks, otherwise –in continuing taksks–, it is necessary for convergence.
+The return is the function of future rewards that the agent seeks to maximize. Undiscounted formulation is appropriate for episodic tasks, otherwise –in continuous tasks–, it is necessary for convergence.
 
 An environment satisfies the Markov property if the state signal summarizes the past with the ability to predict the future.  
 
@@ -811,11 +825,11 @@ $$
 \end{aligned}}
 $$
 
-Note that we use capital $V$ for the approximate value function as it becomes a random variable after initilization.
+Note that we use capital $V$ for the approximate value function as it becomes a random variable after initialization.
 
-Both _first-_ and _every-visit_ MC methods converge to $v_\pi(s)$ as the number of visits to $s$ goes to infinity and each return is an independent, identically distributed estimate of $v_\pi(s)$ with infinite variance.Each averaged is an unbiased estimate with $\sigma_{error} = \frac {1}{\sqrt n}$, wehre $n$ is the number of returns averaged.  _Every-visit_ is more complicated, but its estimates also asymptotically converge to $v_\pi(s)$.
+Both _first-_ and _every-visit_ MC methods converge to $v_\pi(s)$ as the number of visits to $s$ goes to infinity and each return is an independent, identically distributed estimate of $v_\pi(s)$ with infinite variance.Each averaged is an unbiased estimate with $\sigma_{error} = \frac {1}{\sqrt n}$, where $n$ is the number of returns averaged.  _Every-visit_ is more complicated, but its estimates also asymptotically converge to $v_\pi(s)$.
 
-For the given example of blackjack, MC methods are superior to strict DP as DP methods require the distribution of next events (given by $p(s', r | s, a)$), and those are difficult to determine in agame of blackjack as defined in the example.
+For the given example of blackjack, MC methods are superior to strict DP as DP methods require the distribution of next events (given by $p(s', r | s, a)$), and those are difficult to determine in a game of blackjack as defined in the example.
 
 > An important fact about Monte Carlo methods is that the estimates for each state are independent. The estimate for one state does not build upon the estimate of any other state, as is the case in DP. In other words, Monte Carlo methods do not bootstrap as we defined it in the previous chapter... In particular, note that the computational expense of estimating the value of a single state is independent of the number of states. This can make Monte Carlo methods particularly attractive when one requires the value of only one or a subset of states. One can generate many sample episodes starting from the states of interest, averaging returns from only these states ignoring all others. This is a third advantage Monte Carlo methods can have over DP methods (after the ability to learn from actual experience and from simulated experience).
 
@@ -901,7 +915,7 @@ Under an exploratory start, all returns for each state-action pair are accumulat
 
 ## <a name="ch5.4" class="n"></a> 5.4 Monte Carlo Control Without Exploring Starts
 
-The two general approaches to avoid the unlikely assumption of exploring starts is –to ensure that all actions are selected inifnitely often– are called _on-policy_ and _off-policy_ methods.
+The two general approaches to avoid the unlikely assumption of exploring starts is –to ensure that all actions are selected infinitely often– are called _on-policy_ and _off-policy_ methods.
 
 > On policy methods attempt to evaluate or improve the policy that is used to make decisions, whereas off-policy methods evaluate or improve a policy different from that used to generate the data.
 
@@ -1053,7 +1067,7 @@ Note that this algorithm also work for on-policy evaluation by choosing the targ
 
 > Recall that these techniques requires that the behavior policy has a nonzero probability of selecting all actions that might be selected by the target policy under the assumption of _coverage_ and that we that in order to explore all possibilities, we require that the behavior policy be soft i.e. it selects all actions in all states with nonzero probability.
 
-The following algorithm shows an off-policy Monte Carlo method, based on GPI and weighted importance sampling, for estimating $q^*$. The target policy $\pi$ is the greedy policy with respect to $Q$, which is an estimate of $q_\pi$. The behavior policy $\mu$ can be anything, but in order to assure convergence of $\pi$ to the optimal policy, an infinite number of returns must be obtained for each pair sof state and action. This can be assured by choosing $µ$ to be $ε$-soft.
+The following algorithm shows an off-policy Monte Carlo method, based on GPI and weighted importance sampling, for estimating $q^*$. The target policy $\pi$ is the greedy policy with respect to $Q$, which is an estimate of $q_\pi$. The behavior policy $\mu$ can be anything, but in order to assure convergence of $\pi$ to the optimal policy, an infinite number of returns must be obtained for each pair of state and action. This can be assured by choosing $µ$ to be $ε$-soft.
 
 ### Off-policy Monte Carlo GPI with Weighted Importance Sampling to Estimate $q^*$
 
@@ -1138,7 +1152,7 @@ Just as before with previously examined means of GPI, given some experience foll
 
 $V(S_t) \leftarrow V(S_t) + \alpha [G_t - V(S_t)]$
 
-where $G_t$ is the actual return following time $t$, and $\alpha$ is a constant step-size parameter: _contant-α MC_.  
+where $G_t$ is the actual return following time $t$, and $\alpha$ is a constant step-size parameter: _constant-α MC_.  
 
 > Whereas Monte Carlo methods must wait until the end of the episode to determine the increment to $V(S_t)$ (only then is $G_t$ known), TD methods need wait only until the next time step. At time $t+1$ they immediately form a target and make a useful update using the observed reward $R_{t+1}$ and the estimate $V(S_{t+1})$. 
 
@@ -1183,7 +1197,7 @@ We call these sample backups because they involve looking ahead to a sample succ
 
 ## <a name="ch6.2" class="n"></a> 6.2 Advantages of TD Prediction Models
 
-> TD methods learn their estimates in part on the basis of other estimates. They learn a guess from a guess—they _bootstrap_.
+> TD methods learn their estimates in part on the basis of other estimates. They learn a guess from a guess — they _bootstrap_.
 
 Advantages of TD methods over DP and MC methods include:
 
@@ -1201,7 +1215,7 @@ Even without limited (non-infinite) experiences, incremental learning can conver
 
 > Given an approximate value function, V , the increments specified by previous chapters are computed for every time step $t$ at which a non-terminal state is visited, but the value function is changed only once, by the sum of all the increments. Then all the available experience is processed again with the new value function to produce a new overall increment, and so on, until the value function converges.  We call this _batch updating_ because updates are made only after processing each complete batch of training data.
 
-$TD(0)$ converges deterministically under _batch training_ with sufficiently small step-size parameter $\alpha$.  A contant-α MC method also converges deterministically, but to a different answer.  This is illustrated by example exercises 6.3, 6.4. The conclusion is that Batch MC methods always find the estimates that minimize MSA on the training set, whereas $TD(0)$ always finds the estimates that would be exactly correct for the maximum-likelihood model of the MDP, where the _maximum-likelihood estimate_ of a parameter is the parameter value whose probability of generating the data is greatest. A _certainty-equivalence estimate_ is the estimate of the value function that would be exactly correct if the model were exactly correct. $TD(0)$ converges to the former, and therefore converge (with batch training) to a solution faster than MC methods. Without batch trianing, TD methods do not achieve certainty-equivalence or MSE estimates, but roughly approach them. 
+$TD(0)$ converges deterministically under _batch training_ with sufficiently small step-size parameter $\alpha$.  A constant-α MC method also converges deterministically, but to a different answer.  This is illustrated by example exercises 6.3, 6.4. The conclusion is that Batch MC methods always find the estimates that minimize MSA on the training set, whereas $TD(0)$ always finds the estimates that would be exactly correct for the maximum-likelihood model of the MDP, where the _maximum-likelihood estimate_ of a parameter is the parameter value whose probability of generating the data is greatest. A _certainty-equivalence estimate_ is the estimate of the value function that would be exactly correct if the model were exactly correct. $TD(0)$ converges to the former, and therefore converge (with batch training) to a solution faster than MC methods. Without batch training, TD methods do not achieve certainty-equivalence or MSE estimates, but roughly approach them. 
 
 ## <a name="ch6.4" class="n"></a> 6.4 Sarsa: On-Policy TD Control
 

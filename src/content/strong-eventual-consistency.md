@@ -70,7 +70,7 @@ A compromised component in a distributed system can stochastically exhibit sympt
 
 This presents the problem of isolating, or at the very least _mitigating_, the spread of compromised information to the rest of the system, and this introduces the measure of severity of such a breach to a system's integrity: **Byzantine Fault Tolerance** – the resilience of a system on the whole to such conditions.
 
-In the titular metaphor, a group of generals must come to a consensus about whether to attack or to retreat.  Each component of the distributed system (commonly referred to as a **replica** in the literature) may have its own strategic preference or signal (in this example, $\mathbf{A}ttack$ or $\mathbf{R}etreat$ - though signals need not be binary in general).  To establish urgency in our hypothetical, we asssume that a coordinated attack or retreat by all the generals (the system on the whole) is favorale to a fractured mobilization as the result of miscommunication, where each general acts according to their own strategy rather than that of the whole army.
+In the titular metaphor, a group of generals must come to a consensus about whether to attack or to retreat.  Each component of the distributed system (commonly referred to as a **replica** in the literature) may have its own strategic preference or signal (in this example, $\mathbf{A}ttack$ or $\mathbf{R}etreat$ - though signals need not be binary in general).  To establish urgency in our hypothetical, we assume that a coordinated attack or retreat by all the generals (the system on the whole) is favorable to a fractured mobilization as the result of miscommunication, where each general acts according to their own strategy rather than that of the whole army.
 
 To complicate the situation, some generals may be selectively treacherous (probabilistically, intentionally, etc.  The Internet is a big place, and lots can go wrong), sending signal $A$ to some partition of their confederates, and signal $\mathbf{R}$ to the others in an attempt to sew chaos on behalf of the Turks. 
 
@@ -110,7 +110,7 @@ The two primary solutions to Byzantine Problems I want to discuss here are Confl
 
 CRDTs were developed in response to the existential problem posed by the need for <a class="eventually">eventual</a> consistency that cannot be ameliorated by angsty music alone. Instead we have this "simple, theoretically sound approach," covered at length in the original 2011 paper by Shapiro et al: "A comprehensive study of Convergent and Commutative Replicated Data Types."[^4]  CRDTs in general aim to do away with the need for reaching consensus.  In doing so, they indirectly address the Byzantine Problem by defining a protocol for _offline, stateful consensus_.  
 
-In the offline scenarios specifically, if attempts are made to talk off-machine, we want to enqueue outbound messages and give reponses deadlines rather than throwing an exception wherever possible.  In the case where we cannot adhere to this rule, we need to gracefully handle the offline scenario. E.g., when talking to a centralized authorization service, a user may be locked out if we (acting as the Auth Service) can't verify their security access permissions due to a network outage.  Once we are again able to verify their requisite permissions, and a validity indow for the answer, we should cache the response to prevent a lapse in availability for them in the future.
+In the offline scenarios specifically, if attempts are made to talk off-machine, we want to enqueue outbound messages and give responses deadlines rather than throwing an exception wherever possible.  In the case where we cannot adhere to this rule, we need to gracefully handle the offline scenario. E.g., when talking to a centralized authorization service, a user may be locked out if we (acting as the Auth Service) can't verify their security access permissions due to a network outage.  Once we are again able to verify their requisite permissions, and a validity window for the answer, we should cache the response to prevent a lapse in availability for them in the future.
 
 ![](/images/crdt-1.png)
 
@@ -118,7 +118,7 @@ It is not possible to come to consensus with a system that cannot be communicate
 
 It is fruitless to strive for agreement in such scenarios, but a consistent view of the past with distributed conflict resolution is achievable.  
 
-A protocol like Paxos for achieving consenus involves seeking a majority vote of a _leader_, and voting on the next move that the state machine is to take.  On the event of a hopefully-exceptional network partition, updates propagating across the network need to terminate in the minority partition (Server C), lest the state be lost when the partition (hopefully) heals.
+A protocol like Paxos for achieving consensus involves seeking a majority vote of a _leader_, and voting on the next move that the state machine is to take.  On the event of a hopefully-exceptional network partition, updates propagating across the network need to terminate in the minority partition (Server C), lest the state be lost when the partition (hopefully) heals.
 
 There are numerous drawbacks to this framework, the most obvious being the assumption that partitions are infrequent and/or brief.
 
@@ -131,7 +131,7 @@ According to the seminal paper, for replicas to return the same result for all q
 - **safety**: If the causal history of replicas $i$ and $j$ is the same, the abstract state of these replicas must be equivalent
 - **liveness**: If some element $e$ is in the causal history of $i$, then it will <a class="eventually">eventually</a> be in the causal history of $j$
 
-Inductively, the pairwise <a class="eventually">eventual</a> consistency defined by these two poperties guarantees convergence for any non-empty subset of replicas contingent on the <a class="eventually">eventual</a> receipt of all updates.
+Inductively, the pairwise <a class="eventually">eventual</a> consistency defined by these two properties guarantees convergence for any non-empty subset of replicas contingent on the <a class="eventually">eventual</a> receipt of all updates.
 
 ## Fuck, Dantooine Is Big
 
@@ -139,9 +139,9 @@ Inductively, the pairwise <a class="eventually">eventual</a> consistency defined
 
 Suppose we have several servers spread across the world – in warzones, hotbeds of natural disaster, and other areas prone to network outages like my mom's basement whenever I hop on the sticks in Warzone: say Aleppo, Abescon, and Alexandria.
 
-We have the simple task of utmost importance: track the highest value observed by any of the severs (my killstreak 😤 😤) across our shared database.  Our goal is to provide a protocol with properties of commutativity, associativty, and idempotency.  (this all sounds _awfully functional to me_).
+We have the simple task of utmost importance: track the highest value observed by any of the severs (my killstreak 😤 😤) across our shared database.  Our goal is to provide a protocol with properties of commutativity, associativity, and idempotency.  (this all sounds _awfully functional to me_).
 
-In this trivial example, a merge function like $max(a,b)$ satisfies our needs.  Within each replica, if $a < b$, we can ignore, dismiss, discard value $a$ in favor of $b$.  After each update, a replica will broadcast to all its peers indicating that a new maximum value has been observed (loadout drop is inbound).  These updates will converge on the system's known maximum value.  This is similar to the common leader election algorithm, except in this case, the updates are continuous, whereas an election has a discrete _end_ once all votes are caster and tallied, wherease this system can always observe a new, higher value.
+In this trivial example, a merge function like $max(a,b)$ satisfies our needs.  Within each replica, if $a < b$, we can ignore, dismiss, discard value $a$ in favor of $b$.  After each update, a replica will broadcast to all its peers indicating that a new maximum value has been observed (loadout drop is inbound).  These updates will converge on the system's known maximum value.  This is similar to the common leader election algorithm, except in this case, the updates are continuous, whereas an election has a discrete _end_ once all votes are caster and tallied, whereas this system can always observe a new, higher value.
 
 Each server keeps track of the highest observed value for itself _as well as_ for all other replicas, and updates those counters indexed by replica. For example, Server A's internal count might be:
 
@@ -190,7 +190,7 @@ There are two main categories of CRDTs:
 
 State-Based CRDTs maintain replicated state across a distributed system via composable _Least Upper Bound_ functions which must be defined over their constituent data.  In the prior example, the $max(\cdot)$ function is a literal LUB, but our data will usually have a more complex structure than singular numbers.  
 
-Formally, our set of data values together within a LUB-based partial order function forms a _join semilattice_[^5] where the "join" is a property of the LUB which govers how the lattices may be merged.  If values only ever increase, the lattice is monotonic, and said to be a CRDT.  A LUB can be thought of as the _closest common ancestor_ of two elements in a heirarchical collection of some sort.
+Formally, our set of data values together within a LUB-based partial order function forms a _join semilattice_[^5] where the "join" is a property of the LUB which governs how the lattices may be merged.  If values only ever increase, the lattice is monotonic, and said to be a CRDT.  A LUB can be thought of as the _closest common ancestor_ of two elements in a hierarchical collection of some sort.
 
 ## Vanilla-Scented Laser Beams
 
@@ -212,13 +212,13 @@ It's feasible to due away with git merge conflicts entirely if the version contr
 
 Before diving into the advancements offered by HashGraphs, it's first worthwhile to survey problems of distributed consensus and pickup some useful terminology.  The most relevant to the discussion about HashGraphs which _do_ rely on consensus (_sort of_) being the eponymous Fischer-Lynch-Paterson Theorem introduced in "Impossibility of Distributed Consensus with One Faulty Process."[^6] 
 
-The problem the authors present is that getting reliable, asynchronous procceses –amidst some faulty ones– to agree on _even just one_ binary value is very hard.  They note that every protocol in this asynchronous case can be a victim of possibile nontermination with _even just one_ faulty process.
+The problem the authors present is that getting reliable, asynchronous processes –amidst some faulty ones– to agree on _even just one_ binary value is very hard.  They note that every protocol in this asynchronous case can be a victim of possible nontermination with _even just one_ faulty process.
 
 The example problem instance they use is referred to as the "transaction commit problem" for a distributed database which is roughly similar to the aforementioned git merge conflict problem: all the database managers that have participated in processing a transaction must agree on whether or not to accept the transaction's results on the database.  
 
 Whatever decision is made must be executed by all managers in order to maintain consistency across the replicas i.e. _consensus must be reached_.  If all of the managers are reliable, then the solution is trivial.  However, even **non**-Byzantine faults such as crashes, network partitions or outright failures, lost, distorted, and/or duplicate messages present problems for the trivial (arguably _naive_) scenario where replicas trust one another.  
 
-The titular crux of the paper is that **no completely asynchronous protocol can tolerate even a single unnancounced process death**.  This constraint is so overbearing that the authors don't even grapple with the Byzantine complications, and further assume reliable message channels.  They make these nifty assumptions to show the fragility of distributed systems in general, conversely making their main theorem as widely applicable and robust as possible. 
+The titular crux of the paper is that **no completely asynchronous protocol can tolerate even a single unannounced process death**.  This constraint is so overbearing that the authors don't even grapple with the Byzantine complications, and further assume reliable message channels.  They make these nifty assumptions to show the fragility of distributed systems in general, conversely making their main theorem as widely applicable and robust as possible. 
 
 The asynchronicity of the systems being considered is also integral to their asserted fragility. No assumptions are made about relative speeds of processes, or delays in their receipt.  Processes don't have access to a universal, synchronized clock, so timeout-based algorithms are not applicable.  Therefore, process death is indistinguishable from a slow process or high network latency.  
 
@@ -230,13 +230,13 @@ The asynchronicity of the systems being considered is also integral to their ass
 - Attempt to receive a message by performing a local computation as to whether an message was delivered to it 
 - Send arbitrarily finite amounts of messages to other processes
 
-If any truthy processes receive the message, then via an assumed _atomic broadcast capability_ (from the generous assumption of a reliable communication channel), all truthy processes <a class="eventually">eventually</a> will too.  In other words, every message is <a class="eventually">eventually</a> delivered as long as the other processes make sufficiently infinite attmpts to receive it. 
+If any truthy processes receive the message, then via an assumed _atomic broadcast capability_ (from the generous assumption of a reliable communication channel), all truthy processes <a class="eventually">eventually</a> will too.  In other words, every message is <a class="eventually">eventually</a> delivered as long as the other processes make sufficiently infinite attempts to receive it. 
 
 There's some lore on the matter:
 
 > The asynchronous commit protocols in current use all seem to have a “window of vulnerability”- an interval of time during the execution of the algorithm in which the delay or inaccessibility of a single process can cause the entire algorithm to wait indefinitely. It follows from our impossibility result that every commit protocol has such a “window,” confirming a widely believed tenet in the folklore. 
 
-A **Consensus Protocol** $P$ is an asynchronous system of $N \geq 2$ proccesses.
+A **Consensus Protocol** $P$ is an asynchronous system of $N \geq 2$ processes.
 
 - Each process $p \in P$ has an input register $x_p$, an output register $y_p \in \{b, 0, 1\}$, and an unbounded amount of internal storage.
 - Values in the input and output registers, together with the program counter and internal storage, comprise the **internal state** of a process.  
@@ -248,9 +248,9 @@ A **Consensus Protocol** $P$ is an asynchronous system of $N \geq 2$ proccesses.
   - $m$ is the message value in some alphabet $M$
 - The **Buffer** is a multiset of messages that have been dispatched but not yet received, and supports two operations:
   - $send(p,m)$: places $(p, m)$ in the message buffer
-  - $receive(p)$: may delete some message $(p,m)$ from the bufferif it exists and returns $m$, in which case we say that the message was delivered, otherwise it returns a special null marker $\varnothing$ indicating that the buffer was unchanged (and the process, message combination was not found)
+  - $receive(p)$: may delete some message $(p,m)$ from the buffer if it exists and returns $m$, in which case we say that the message was delivered, otherwise it returns a special null marker $\varnothing$ indicating that the buffer was unchanged (and the process, message combination was not found)
 
-The buffer can act non-deterministicallly (at the hands of non-truthy processes, perhaps), subject only to the condition that if $receive(p)$ is performed infinitely-many times, then the buffer is eventually emptied: all messages are delivered.  
+The buffer can act non-deterministically (at the hands of non-truthy processes, perhaps), subject only to the condition that if $receive(p)$ is performed infinitely-many times, then the buffer is eventually emptied: all messages are delivered.  
 
 A **Configuration** $C$ of the system $P$ is comprised of the internal state of each process, together with the contents of the message buffer.  
 
@@ -271,12 +271,12 @@ A **Schedule** from $C$ is a possibly infinite sequence of $\sigma$ events that 
 A configuration $C$ has **decision** value $v$ if some process $p$ is in a decision state such that $y_p = v$. 
 
 A consensus protocol is said to be partially correct iff 
-1. No accessibe configuration has more than one decision value
-2. For each $v \in \{0,1\}$,[^8] some accessible configuation has decision value $v$
+1. No accessible configuration has more than one decision value
+2. For each $v \in \{0,1\}$,[^8] some accessible configuration has decision value $v$
 
-A process $p$ is **non-faulty** ("truthy") in a run provided that it takes infinitely many steps, and is **faulty** 🎩 otherwise.  A run is **admissable** provided that at most one process is faulty and all messages to the other truthy processes <a class="eventually">eventually</a> received.
+A process $p$ is **non-faulty** ("truthy") in a run provided that it takes infinitely many steps, and is **faulty** 🎩 otherwise.  A run is **admissible** provided that at most one process is faulty and all messages to the other truthy processes <a class="eventually">eventually</a> received.
 
-The main theorem of the paper shows that every partially correct protocol for the consensus problem has some admissable run that is not a deciding run.  Therefore, _no consensus protocol it totally correct in spite of one fault._  
+The main theorem of the paper shows that every partially correct protocol for the consensus problem has some admissible run that is not a deciding run.  Therefore, _no consensus protocol it totally correct in spite of one fault._  
 
 The rest of the the paper includes supporting lemmas and further stipulations about conditions of failure, which are all fascinating in their own right, but need not be replicated here.  
 
@@ -290,13 +290,13 @@ With the FLP Theorem in our back pocket, we are ready to confront the HashGraph 
 
 The abstract claims that their proposal for a new kind of replicated state machine
 
-> achieves _fairness_, in the sense that it is difficult for an attacker to manipulate which of two transactions will be chosen to be first in the consensus order. It has complete asynchrony, no leaders, no round robin, no proof-ofwork, <a class="eventually">eventual</a> consensus with probability one, and high speed in the absence of faults. It is based on a gossip protocol, in which the participants don’t just gossip about transactions. They _gossip about gossip_. They jointly build a _hashgraph_ reflecting all of the gossip events. This allows Byzantine agreement to be achieved through _virtual voting_. Alice does not send Bob a vote over the Internet. Instead, Bob calculates what vote Alice would have sent, based on his knowledge of what Alice knows. This yields fair Byzantine agreement on a total order for all transactions, with very little communication overhead beyond the transactions themselves.
+> achieves _fairness_, in the sense that it is difficult for an attacker to manipulate which of two transactions will be chosen to be first in the consensus order. It has complete asynchrony, no leaders, no round robin, no proof-of work, <a class="eventually">eventual</a> consensus with probability one, and high speed in the absence of faults. It is based on a gossip protocol, in which the participants don’t just gossip about transactions. They _gossip about gossip_. They jointly build a _hashgraph_ reflecting all of the gossip events. This allows Byzantine agreement to be achieved through _virtual voting_. Alice does not send Bob a vote over the Internet. Instead, Bob calculates what vote Alice would have sent, based on his knowledge of what Alice knows. This yields fair Byzantine agreement on a total order for all transactions, with very little communication overhead beyond the transactions themselves.
 
 Whereas the authors of the FLP theorem offered generous assumptions about the _friendliness_ of the system at play, Swirlds assumes the opposite: that the system and its external conditions be as hostile as possible. The rhetorical purpose being the same – to prove the most robust form of applicability and/or correctness as possible.  They use a _strong_ definition of "Byzantine" to mean that just under $1/3$ of all components within the system can be adversaries colluding with one another, deleting or corrupting or delaying messages, who also can have **full control of the network** (and thus, the communication channel) with the same caveat offered by the FLP theorem, _that if a truthy component infinitely attempts to send a message to another component, it must be received <a class="eventually">eventually</a>_.
 
 > The system is totally asynchronous. It is assumed that for any honest members Alice and Bob, Alice will <a class="eventually">eventually</a> try to sync with Bob, and if Alice repeatedly tries to send Bob a message, she will <a class="eventually">eventually</a> succeed. No other assumptions are made about network reliability or network speed or timeout periods. Specifically, the attacker is allowed to completely control the network, deleting and delaying messages arbitrarily, subject to the constraint that a message between honest members that is sent repeatedly must <a class="eventually">eventually</a> have a copy of it get through.
 
-In spite of the FLP theorem above, the authors assert that their completely asynchronoush, nondeterministic HashGraph achieves consensus with a probability of 1.
+In spite of the FLP theorem above, the authors assert that their completely asynchronous, nondeterministic HashGraph achieves consensus with a probability of 1.
 
 They acknowledge other consensus algorithms like proof of work blockchains, and leader-based voting, as well as other Byzantine protocols which attempt to address the pitfalls of the former two, and point out that even the lattermost approaches require up to $O(n^3)$ message exchanges to achieve consensus.  
 
@@ -339,7 +339,7 @@ Any member can created a signed transaction at any time.  All members get a copy
 
 > It is not enough to ensure that every member knows every event. It is also necessary to agree on a linear ordering of the events, and thus of the transactions recorded inside the events.
 
-Which is particularly challenging in the asynchronous setting, as illustrated by the FLP theorem: every such exchange or reliance on an ACK introduces an oportunity for unavoidable failure.
+Which is particularly challenging in the asynchronous setting, as illustrated by the FLP theorem: every such exchange or reliance on an ACK introduces an opportunity for unavoidable failure.
 
 #### Our Love Is Dog
 
@@ -411,7 +411,7 @@ A **witness** is the first event created by a member in a round
 
 (Seeing and Strongly Seeing)
 
-- An event $x$ can **see** event $y$ if $y$ is an ancestor of $x$, and the ancestos of $x$ do not include a fork by the creator of $y$
+- An event $x$ can **see** event $y$ if $y$ is an ancestor of $x$, and the ancestors of $x$ do not include a fork by the creator of $y$
 
 ![](/images/crdt-14.png)
 
@@ -429,7 +429,7 @@ Etc.
 
 --- 
 
-- An event $x$ can **srongly see** event $y$ if $x$ can see $y$ and there is a set $S$ of events by more than $2/3$ of the members such that $x$ can see every event in $S$, and every event in $S$ can see $y$
+- An event $x$ can **strongly see** event $y$ if $x$ can see $y$ and there is a set $S$ of events by more than $2/3$ of the members such that $x$ can see every event in $S$, and every event in $S$ can see $y$
 
 Given any two vertices $x$ and $y$ in the HashGraph, it can be immediately calculated[^10] whether $x$ can strongly see $y$, which is defined to be true if they are connected by multiple directed paths passing through enough members. This concept allows the key lemma to be proved: that _if Alice and Bob are both able to calculate Carol’s virtual vote on a given question, then Alice and Bob get the same answer. That lemma forms the foundation for the rest of the mathematical proof of Byzantine agreement with probability one._
 
@@ -455,13 +455,13 @@ While none of the paths individually traverse a super majority of nodes, togethe
 
 (Fairness)
 
-The authors stipulate that tt should be difficult for a small group of attackers to unfairly influence the order of transactions chosen as the consensus, and that the order of transactions needs to be preserved.
+The authors stipulate that it should be difficult for a small group of attackers to unfairly influence the order of transactions chosen as the consensus, and that the order of transactions needs to be preserved.
 
 > For some applications, the exact order does not matter, but for a stock market it can be critically important that this decision be made fairly.[^11]
 
 As noted, an inherent flaw with the leader-reliant algorithms such as those of Paxos or Raft is that –regardless of the means used to select a hopefully-truthy leader– that component becomes a single point of failure, and therefore an easy target.[^12] 
 
-> In any case, the leader could arbitrarily decide to ignore Alice or Bob's reported transactions for a period of time, delaying one of them, to force one transaction to come after another.  If the gial is distributed trust, _then no single individual can be trusted_
+> In any case, the leader could arbitrarily decide to ignore Alice or Bob's reported transactions for a period of time, delaying one of them, to force one transaction to come after another.  If the goal is distributed trust, _then no single individual can be trusted_
 
 Additionally, given the nature of consensus needing to be reached by at least $2n/3$ witnesses in a round, the structure of the HashGraph acts as a deterrent to attacks predicated on slowing the network. Failures resulting from (real) "total control" over the network are not considered as flaws of the protocol:
 
@@ -505,7 +505,7 @@ QED
 
 ![](/images/crdt-8.png)
 
-Imagine that, in the meantine, $C$ also receives event $d_1$ from $D$.  $C$ will sign a new transaction indicating receipt of $d_1$ and is ready to offer their new gossip to other members.
+Imagine that, in the meantime, $C$ also receives event $d_1$ from $D$.  $C$ will sign a new transaction indicating receipt of $d_1$ and is ready to offer their new gossip to other members.
 
 ![](/images/crdt-9.png)
 
@@ -555,7 +555,7 @@ So, that's that's pretty much it?  Ended up with far more subsections than songs
 | $s$ | $ = signature(e)$ | creator's digital signature of $\{p, h, t, i\}$| 
 | $n$ | | the number of members in the HashGraph |
 | $c$ | | the frequency of coin rounds |
-| $d$ | | rounds delayed before start of delection |
+| $d$ | | rounds delayed before start of deletion |
 | $E$ | | the set of all events in the HashGraph |
 | $E_0$  | $= E \cup \{\varnothing\}$ | $E$ joined with the null message marker |
 | $\mathbb{T}$ | | the set of all possible $(time, date)$ pairs |
@@ -589,7 +589,7 @@ So, that's that's pretty much it?  Ended up with far more subsections than songs
 
 [^2]: "[Why Computers Can't Count Sometimes](https://www.youtube.com/watch?v=RY_2gElt3SA&t=312s )." The King, Tom Scott. 
 
-[^3]: Acceptable pronounciations include "credit", "Crudités", and "Kurds"
+[^3]: Acceptable pronunciations include "credit", "Crudités", and "Kurds"
 
 [^4]: Shapiro et al. "[A comprehensive study of Convergent and Commutative Replicated Data Types](https://hal.inria.fr/file/index/docid/555588/filename/techreport.pdf)." 2011. 
 
@@ -605,6 +605,6 @@ So, that's that's pretty much it?  Ended up with far more subsections than songs
 
 [^10]: Though it seems like this would actually an $O(k/n)$ computation, where $k$ is the total number of transactions, as $x$ needs to traverse the HashGraph to find $y$, the authors point out that for the purpose of _sight_ (and other properties used in the proofs of tolerance) the number of temporally-prior nodes that any given node $x$ needs to view in order to "see" another node $y$ is actually negligibly small in terms of complexity.  This sight need only look as far as the last Famous Witness which indicates that all transactions from rounds prior to that famous witness are agreed upon by the system on the whole.  Therefore, the search space for $x \rarr y$ is bounded by 1 _round_.
 
-[^11]: [_Flash Boys_](https://www.amazon.com/Flash-Boys-Wall-Street-Revolt/dp/0393351599) by Michael Lewis is a great book about why even milliseconds of either innacuracy or advantage in an exchange market can be hugely exploited by high frequency traders.
+[^11]: [_Flash Boys_](https://www.amazon.com/Flash-Boys-Wall-Street-Revolt/dp/0393351599) by Michael Lewis is a great book about why even milliseconds of either inaccuracy or advantage in an exchange market can be hugely exploited by high frequency traders.
 
 [^12]: It's worth noting that this point of contention is largely a theoretical one.  Leader/follower-based consensus protocols are still [prevalent](https://www.cockroachlabs.com/docs/stable/architecture/replication-layer.html) in the industry and you don't see the world going up in flames about it.

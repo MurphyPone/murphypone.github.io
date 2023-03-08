@@ -162,7 +162,7 @@ lazy val root = (project in file("."))
 
 - †: good luck choosing the right scala version for you.  It's not at all a contentious topic of debate
 - ††: you probably certainly don't need these, I just prefer them.  
-- †††: this is just some incantantion you need to know or be lucky enough to find.  Don't worry, there's only like a thousand of them you need to keep track of when working with SBT.[^3]
+- †††: this is just some incantation you need to know or be lucky enough to find.  Don't worry, there's only like a thousand of them you need to keep track of when working with SBT.[^3]
 
 and in the `plugins.sbt`, we have our coverage report provider `sbt-scoverage`:
 
@@ -171,7 +171,7 @@ and in the `plugins.sbt`, we have our coverage report provider `sbt-scoverage`:
 addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.6.1")
 ```
 
-Phew, I hope that works for you dear reader. 
+Phew, I hope that works for you. 
 
 ## Not a Contrived Example
 
@@ -335,7 +335,7 @@ we get some nifty lil test coverage report files in our `target/scala-2.12/scove
 </details>
 <br>
 
-Now, in this case, it's glaringly obvious that we could simply write some more useless tests against our equally useless code.  But what if you're in the definitely-ficticious-and-didn't-happen-to-me situation described above?  Are you going to try to grok a testing library and methodology to move the needle by 1.3% so your PR isn't blocked in a high-stress situation?
+Now, in this case, it's glaringly obvious that we could simply write some more useless tests against our equally useless code.  But what if you're in the definitely-fictitious-and-didn't-happen-to-me situation described above?  Are you going to try to grok a testing library and methodology to move the needle by 1.3% so your PR isn't blocked in a high-stress situation?
 
 (If you're reading this and are one of my coworkers, I just want to say: obviously I would take the time to do a good job 👍👍👍 you can click away now).
 
@@ -408,9 +408,9 @@ Great, now if we run the tests and coverage report again we might see a fraction
 
 ## now this is podracing
 
-Since we've already relegated ourselves to Scala-land, we'll continue here, though what I'm about to present resembles a script moreso than anything that Brooks Curry would recgonize as functional behavior.
+Since we've already relegated ourselves to Scala-land, we'll continue here, though what I'm about to present resembles a script moreso than anything that Brooks Curry would recognize as functional behavior.
 
-Our project thus far doesn't yet have a `Main` function, so I'll just cannabalize that reservation.  It was never about stealing gogurts, the _main_ purpose was to fib.
+Our project thus far doesn't yet have a `Main` function, so I'll just cannibalize that reservation.  It was never about stealing gogurts, the _main_ purpose was to fib.
 
 Somewhere in the project, I'll throw down a `CoverageImprover.scala` object with a `main` definition in it which will parse (if you can call what we're about to do _parsing_) the coverage report to give us info about the lines of code in our file.  Now, at time of writing this, I haven't actually done anything with that information, but the idea is that you could improve upon the idea by tweaking the length and volume of fluffer `PunkBuster`s to precisely meet some amount of target coverage so as not to tip-off the powers that be to your craftiness – after all, near-perfect code coverage is nigh impossible to achieve legitimately.  But this section isn't called "76% Coverage" dammit, it's called **6σ** and that's what I intend to hit.
 

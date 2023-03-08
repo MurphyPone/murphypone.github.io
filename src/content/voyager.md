@@ -62,7 +62,7 @@ Among the numerous tried and true scapegoats which software engineers so often l
 
 ![](https://imgs.xkcd.com/comics/real_programmers.png)
 
-But in _**OUTER SPACE**_, where part of the goal of the mission is to _measure_ cosmic rays, said cosmic rays are slighlty more prevalent.  Bit flips are bound to happen at some point during the ~16 hour transit from the HGA back to Houston.  And the engineers at NASA knew this to be the case before sending their half-a-billion dollar reconnaisance babies out into the wild.  **How, then, is the integrity of the data preserved?**
+But in _**OUTER SPACE**_, where part of the goal of the mission is to _measure_ cosmic rays, said cosmic rays are slightly more prevalent.  Bit flips are bound to happen at some point during the ~16 hour transit from the HGA back to Houston.  And the engineers at NASA knew this to be the case before sending their half-a-billion dollar reconnaisance babies out into the wild.  **How, then, is the integrity of the data preserved?**
 
 # Information Theory: Forward Correction 
 
@@ -174,7 +174,7 @@ $$
 
 A significant portion of the discussion surrounding error correcting codes takes place within the context of **Fields** which sound more imposing than they actually are.
 
-A **finite** or **Galois Field** is a finite set on which addition, subtraction, multiplicaiton, and division are defined and correspond to the same operations on rational and real numbers.
+A **finite** or **Galois Field** is a finite set on which addition, subtraction, multiplication, and division are defined and correspond to the same operations on rational and real numbers.
 
 - A field is denoted as $\mathbb F_q$, where $q$ is a the **order** or size of the field given by the number of elements within 
   - A finite field of order $q$ exists if and only if $q$ is a prime power $p^k$, where $p$ is prime and $k$ is a positive integer
@@ -228,9 +228,9 @@ The rate of such a code is _abysmal_.
 
 ### Parity Check
 
-A simple Parity-bit Check code uses an additional bit denoting the even or odd parity of a messages Hamming Weight which is appended to the message to serve as a mechanism for error detection (but not correction since it provides no means of determing the position of error). 
+A simple Parity-bit Check code uses an additional bit denoting the even or odd parity of a messages Hamming Weight which is appended to the message to serve as a mechanism for error detection (but not correction since it provides no means of determining the position of error). 
 
-- Such methods are inadeqaute for multi-bit errors of matching parity e.g., 2 bit flips might still pass a parity check, despite a corrupted message
+- Such methods are inadequate for multi-bit errors of matching parity e.g., 2 bit flips might still pass a parity check, despite a corrupted message
 
 | data | Hamming Weight | Code (even parity) | odd |
 |------|------------------| --------------------|-----|
@@ -416,7 +416,7 @@ This is the Wolf trellis for the above $[7,4,3]_2$ Hamming Code:
 
 #### Mogul 
 
-I'm just going to come out and say it.  John Conway was a lizard man with an unparalled case of chronic pattern-matching-brain.  The man was of a different breed; the opposite of a maastrichtian.
+I'm just going to come out and say it.  John Conway was a lizard man with an unparalleled case of chronic pattern-matching-brain.  The man was of a different breed; the opposite of a maastrichtian.
 
 Legend has it that a collegial IEEE Fellow of Conway's saw him dominating the schoolyard children in various games of *Turning Turtles* and *Dots and Boxes* and said "I bet you can't turn that into a Binary Lexicode of $[n \leq 44, k, d \leq10]_2$" to which Conway famously responded "Hold my beer."[^6]
 
@@ -471,11 +471,11 @@ $$
 E_m \equiv x_m + \sum_{k=1}^{k_m(p^n-1)/(p-1)-n} a_{mk} / Y_k \equiv 0 (\mod p)
 $$
 
-In decoding, the $E$'s are recalculated with the recieved symbols, and their ensemble forms a number on the base $p$ which determines unequivocally the transmitted symbol and its correction.
+In decoding, the $E$'s are recalculated with the received symbols, and their ensemble forms a number on the base $p$ which determines unequivocally the transmitted symbol and its correction.
 
 This approach can be generalized from $n \rightarrow n+1$ via a matrix of $n$ rows and $p^n-1/p-1$ columns formed with the coefficients of the $X$'s and $Y$'s in the expression above related $p$ times horizontally, while an $n+1$st row added –consisting of $p^n-1/p-1$ zeroes, followed by as many ones up to $p-1$; an added column of $n$ zeroes with a one for the lowest term completes the matrix for $n+1$.[^3]
 
-The coding scheme below for 23 binary symbols and a max of 3 transmission errors yields a power saving of $1 \frac{1}{2}$ db for vanishing probabilities of errors, and approaches 3 db for increasing $n$'s of blocks of $2^n-1$ binary blocks, and decreasing probailities of error, but loss is always encountered for $n=3$.
+The coding scheme below for 23 binary symbols and a max of 3 transmission errors yields a power saving of $1 \frac{1}{2}$ db for vanishing probabilities of errors, and approaches 3 db for increasing $n$'s of blocks of $2^n-1$ binary blocks, and decreasing probabilities of error, but loss is always encountered for $n=3$.
 
 $$
 
@@ -726,13 +726,13 @@ How "expensive" is it to add these redundant bits to our transmission?  _Is it w
 
 What, you didn't think Europa looked cool? 
 
-Recall that in our system, $k$ inputs result in $n$ output bits where $n > k$.  $R=k/n$ is the rate of our correcting code, and for some arbitrary transmission budget we have $E_b$ joules/bit for the unencoded $k$ bits of data which is spread over more $n$ _encoded_ bits.  This relationship can be expressed as $E_c = RE_b$, where $E_c$ is understood as the "energy per coded bit," and necessarily $E_c < E_b$ meaning that unencoded transmission performs better in terms of energy, but we risk error by ommitting the encoding process.
+Recall that in our system, $k$ inputs result in $n$ output bits where $n > k$.  $R=k/n$ is the rate of our correcting code, and for some arbitrary transmission budget we have $E_b$ joules/bit for the unencoded $k$ bits of data which is spread over more $n$ _encoded_ bits.  This relationship can be expressed as $E_c = RE_b$, where $E_c$ is understood as the "energy per coded bit," and necessarily $E_c < E_b$ meaning that unencoded transmission performs better in terms of energy, but we risk error by omitting the encoding process.
 
 At the receiver, the detected coded bits are passed to the decoder to attempt to correct errors.  In order to be of any use to us, the value of the code must be strong enough so that the bits received can compensate for the lower energy per bit in the channel. 
 
 ### Reptition Code
 
-For a repetition code with a transmission rate of 1 bit/second, we must send $n$ coded bits/second and with $n$ times as many bits to send, there is still a constant amount of power shared by all bits: $E_c = E_b/n$.  Thus there is less energy available for each bit to convery information, and the probability of error is 
+For a repetition code with a transmission rate of 1 bit/second, we must send $n$ coded bits/second and with $n$ times as many bits to send, there is still a constant amount of power shared by all bits: $E_c = E_b/n$.  Thus there is less energy available for each bit to convey information, and the probability of error is 
 
 $$
 Q(\sqrt{2E_c/N_0}) = Q(\sqrt{2E_b/nN_0})
@@ -804,17 +804,17 @@ While a good deal is known about the existence or even explicit construction of 
 The Hamming and Hadamard Codes help to highlight the flexibility and main take aways of the Channel Coding Theorem as outlined by Wiley:
 - As long as $R < C$, arbitrarily reliable transmission is possible
 - Code lengths may have to be long to achieve desired reliability.  The closer $R$ is to $C$, the larger we would expect $n$ to need to be in order to obtain some specified degree of performance
-- The theorem is general, based on ensembles of ranom codes, and offers little insight into what _the best code_ should be.  We don't know how to design the, just that they exist
+- The theorem is general, based on ensembles of random codes, and offers little insight into what _the best code_ should be.  We don't know how to design the, just that they exist
 - Random codes have a higher probability of being good, so we can reliably just pick one at random
 
 > What then, is the problem?  Why the need for decades of research into the field if random selection of a code might be our best bet?
 
-The answer lies in the complexity of representing and decoding a "good" code.  To represent a random code of length $n$, there must be sufficent memory to store _all_ associated codewords, which requires $n2^{Rn}$ bits.  To decode a recived word $y$, Maximum Likelihood Estimation decoding for a random signal requires that a received vector must be compared with all $2^{Rn}$ possible codewords.  For a middling rate of $R=1/2$, with block length $n = 1,000$ (still relatively modest), $2^{500}$ comparisons must be made for each received signal vector... This is prohibitively expensive, beyond practical feasibility for even massiviley parallelized computing systems, let alone our 70kb, Fortran-backed integrated circuit.
+The answer lies in the complexity of representing and decoding a "good" code.  To represent a random code of length $n$, there must be sufficient memory to store _all_ associated codewords, which requires $n2^{Rn}$ bits.  To decode a received word $y$, Maximum Likelihood Estimation decoding for a random signal requires that a received vector must be compared with all $2^{Rn}$ possible codewords.  For a middling rate of $R=1/2$, with block length $n = 1,000$ (still relatively modest), $2^{500}$ comparisons must be made for each received signal vector... This is prohibitively expensive, beyond practical feasibility for even massively parallelized computing systems, let alone our 70kb, Fortran-backed integrated circuit.
 
 
 # Conclusion
 
-Today Voyager 2 is 12 billion miles away, and travelling over 840,000 miles further each day.  We're still actively transmitting and receiving data (intact) from both of the Voyager spacecrafts.  
+Today Voyager 2 is 12 billion miles away, and traveling over 840,000 miles further each day.  We're still actively transmitting and receiving data (intact) from both of the Voyager spacecrafts.  
 
 It's somewhat difficult to appreciate the absurd amounts of genius which made make that feat possible.  I find the difference in the orders of magnitude between the 30,000-odd words worth of computing power available to the space craft and the _billions of miles_ of distance separating the scientists from their experiment which they expertly designed _to outlive_ them to be mind boggling. 
 
@@ -826,7 +826,7 @@ Happy Discovery of Adrastea day.
 
 [^1]: Um, so yeah. I'm going to be using imperial measurements.  If only there were a convenient way to <a href="/blog/fibonacci-fun">quickly convert</a> between metric and imperial, say the 42nd and 43rd numbers of the Fibonacci sequence? Easily, we recall that 433,494,437 precedes 701,408,733 in the sequence and thus, 440 million miles is roughly 700 million kilometers. 
 
-[^2]: Nixon was actually a large proponent of the space program, but this story needs an antogonist, and he's as good as any.
+[^2]: Nixon was actually a large proponent of the space program, but this story needs an antagonist, and he's as good as any.
 
 [^3]: Marcel was a crackhead for thinking this is a sufficient explanation for the construction.  [The Paper](http://www.lama.univ-savoie.fr/pagesmembres/hyvernat/Enseignement/1617/info528/TP-Golay/golay_paper.pdf), if it can even be called that, could fit on a napkin.  Mathematicians of a certain flavor exhibit the same kind of stoney-Macgyver behavior, see Conway.
 
