@@ -58,7 +58,7 @@ path: "/blog/ml-4"
   - [ 5.6 Incremental Implementation](#-56-incremental-implementation)
     - [Off-policy Monte Carlo Policy Evaluation](#off-policy-monte-carlo-policy-evaluation)
   - [ 5.7 Off-Policy Monte Carlo Control](#-57-off-policy-monte-carlo-control)
-    - [Off-policy Monte Carlo GPI with Weighted Importance Sampling to Estimate $q^\*$](#off-policy-monte-carlo-gpi-with-weighted-importance-sampling-to-estimate-q)
+    - [Off-policy Monte Carlo GPI with Weighted Importance Sampling to Estimate $q^*$](#off-policy-monte-carlo-gpi-with-weighted-importance-sampling-to-estimate-q)
   - [ 5.8 Importance Sampling on Truncated Returns](#-58-importance-sampling-on-truncated-returns)
   - [ 5.9 Summary](#-59-summary)
 - [ Chapter 6 Temporal-Difference Learning](#-chapter-6-temporal-difference-learning)
