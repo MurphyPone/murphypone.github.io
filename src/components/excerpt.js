@@ -201,9 +201,14 @@ const excerpts = [
       "https://www.amazon.com/Metamagical-Themas-Questing-Essence-Pattern/dp/0465045669",
   },
   {
-    snippet: `The senior engineer taps his own noggin, declares that it's 5 O'clock somewhere (it's 2:35 PM EST), and pats the lad who is inches from tears on the back.  `,
+    snippet: `The senior engineer taps his own noggin, declares that it's 5 O'clock somewhere (it's 2:35 PM EST), and pats the lad who is inches from tears on the back.`,
     title: "47 | Goodhart's Law",
     link: "/blog/goodharts-law",
+  },
+  {
+    snippet: `"The problem, of course, is that I now have to find something interesting to say about monads. And one thing that I often found frustrating when learning about that family of abstractions is how just about everything is a monad - why even have all these intermediate abstractions if everything is all the things, all the time?"`,
+    title: "48 | Digest: Things that are things, but not other things",
+    link: "/blog/category-theory-2",
   },
 ]
 
