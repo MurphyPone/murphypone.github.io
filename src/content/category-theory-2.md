@@ -1,6 +1,6 @@
 ---
 title: "48 | Digest: Things that are things, but not other things"
-date: "2023-05-26"
+date: "2023-03-26"
 description: "Category Theory"
 path: "/blog/category-theory-2"
 ---
@@ -27,11 +27,11 @@ I recently attended the Scalar Conf in Warsaw which featured several interesting
 <details>
   <summary><u class="my-link">I sheathed my sneakers at this remark.</u></summary>
 
-![](/images/category-theory-2/odersky.png)
+![](/images/category-theory-2/odersky.PNG)
 
 </details>
 
-The goal of this post is to summarize and capture my learnings from the wonderfully silly presentation titled _Things that are things, but not other things_[^1] which approached the daunting challenge of grokking category theory abstractions in my preferred format of counter example: ⚔️.
+The goal of this post is to capture my learnings from Nicolas Rinaudo's wonderfully silly presentation titled _Things that are things, but not other things_[^1] which approached the daunting challenge of grokking category theory abstractions in my preferred format of counter example: ⚔️.
 
 
 > The problem, of course, is that I now have to find something interesting to say about monads. And one thing that I often found frustrating when learning about that family of abstractions is how _just about everything is a monad_ - why even have all these intermediate abstractions if everything is all the things, all the time?
