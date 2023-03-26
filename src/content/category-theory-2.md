@@ -665,7 +665,7 @@ A binary parametric product type is:
 
 ## $\sf Functor$ but not $\sf Apply$
 
-Advancing along the hierarchy diagram, we can now use our knowledge of Product types to break the $\sf Apply$ type class. An $\sf Apply$.[^3]  An $\sf Apply$ is anything that lets us take the product of three types in any order isomorphically.  This necessitates another map which takes two arguments rather than three – $\sf\textcolor{maroon}{map2}$:
+Advancing along the hierarchy diagram, we can now use our knowledge of Product types to break the $\sf Apply$ type class. An $\sf Apply$.[^3]  An $\sf Apply$ is anything that lets us take the product of three types in any order isomorphically.  This necessitates another map which takes two arguments in the second list rather than one – $\sf\textcolor{maroon}{map2}$:
 
 <p align="center" >
   <img src="/images/category-theory-2/tree-before-apply-map2.svg">
@@ -751,9 +751,7 @@ and all together this gives us the definition of $\sf\textcolor{maroon}{map2}$:
 
 ### Implementing $\sf\textcolor{maroon}{map2}$ for $\sf Product$
 
-Let's take a look at how we would go about implementing $\sf\textcolor{maroon}{map2}$.
-
-For starters, we have our (for now) trusty $\sf Product$ and the method signature:
+Let's take a look at how we would go about implementing $\sf\textcolor{maroon}{map2}$.  For starters, we have our (for the time being) trusty $\sf Product$ and the method signature:
 
 <p align="center" >
   <img src="/images/category-theory-2/product-map2-before.svg">
@@ -1178,7 +1176,7 @@ $$
 \end{aligned}
 $$
 
-Thus, the whole implementation falls apart as we cannot introduce a product between our $\sf c$ and $\sf x3$ since we cannot get an $\sf x3$ without somehow combining somehow our $\sf x1$ and $\sf x2$
+Thus, the whole implementation falls apart as we cannot introduce a product between our $\sf c$ and $\sf x3$ since we cannot get an $\sf x3$ without somehow combining our $\sf x1$ and $\sf x2$
 
 $$
 \begin{aligned}
@@ -1278,7 +1276,7 @@ $$
 \end{aligned}
 $$
 
-We can see that $pure$ only takes an $\sf \textcolor{blue}{A}$, so we need an aribtrary way to introduce an $\textcolor{blue}{X}$.  We do this by way of a method called $\sf \textcolor{maroon}{empty}$
+We can see that $\sf \textcolor{maroon}{pure}$ only takes an $\sf \textcolor{blue}{A}$, so we need an aribtrary way to introduce an $\sf \textcolor{blue}{X}$.  We do this by way of a method called $\sf \textcolor{maroon}{empty}$
 
 <p align="center" >
   <img src="/images/category-theory-2/product-pure.svg">
@@ -1615,7 +1613,7 @@ $$
 \end{aligned}
 $$
 
-And finally, complete the implemntation by returning the target product $\sf b × x3$:
+And finally, complete the implementation by returning the target product $\sf b × x3$:
 
 <p align="center" >
   <img src="/images/category-theory-2/product-flatmap.svg">
