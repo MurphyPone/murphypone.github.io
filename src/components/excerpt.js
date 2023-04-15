@@ -210,6 +210,11 @@ const excerpts = [
     title: "48 | Digest: Things that are things, but not other things",
     link: "/blog/category-theory-2",
   },
+  {
+    snippet: `AlphaTensor: Those fuckers at DeepMind did it again`,
+    title: "49 | 2.3728596",
+    link: "/blog/2-3728596",
+  },
 ]
 
 //excerpts[excerpts.length - 1]
