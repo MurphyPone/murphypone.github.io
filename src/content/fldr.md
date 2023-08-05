@@ -55,7 +55,7 @@ In this edition of _Peader's Digest_ we'll take a look at a paper from a couple 
 
 > "[The Fast Loaded Dice Roller](https://arxiv.org/abs/2003.03830): A Near-Optimal Exact Sampler for Discrete Probability Distributions."
 
-When I first stumbled across this paper, I think I was literally scrolling through arXiv, _raw_.  Like riding the high of good TV show which which has come to a conclusion, and browsing Netflix for the next binge, I was looking for something flashy.
+When I first stumbled across this paper, I think I was literally scrolling through arXiv, _raw_.  Like riding the high of a good TV show which which has come to a conclusion, and browsing Netflix for the next binge, I was looking for something flashy.
 
 ![](/images/fldr-1.png)
 
@@ -427,7 +427,7 @@ While by no means an exhaustive verification of correctness of FLDR (not even cl
 
 [^3]: I'm over <a class="eventually">this bit</a>, don't worry
 
-[^4]: The authors of this pre-print receive 3/5 swag points from me for uploading their code along with the paper.  -2 swag for said code being hard to read.  An example of a paper with code that receives 5/5 swag points from Peter is _"Escaping the State of Nature: A Hobbesian Approach to Cooperation in Multi-agent Reinforcement Learning"_([arXiv:1906.09874](https://arxiv.org/abs/1906.09874)) by William Long.  Actually, 6/5 Will responded to me when I reached out asking about [the code](https://github.com/wlong0827/state_of_nature) and later offered me a job when I was first looking for fulltime work.  (The best way to earn swag my swag points is bribery with a salary).  
+[^4]: The authors of this pre-print receive 3/5 swag points from me for uploading their code along with the paper.  -2 swag for said code being hard to read.  An example of a paper with code that receives 5/5 swag points from Peter is _"Escaping the State of Nature: A Hobbesian Approach to Cooperation in Multi-agent Reinforcement Learning"_([arXiv:1906.09874](https://arxiv.org/abs/1906.09874)) by William Long.  Actually, 6/5 Will responded to me when I reached out asking about [the code](https://github.com/wlong0827/state_of_nature) and later offered me a job when I was first looking for fulltime work.  (The best way to swag points is bribery with a salary).  
 
 [^5]: https://rubberduckdebugging.com/
 

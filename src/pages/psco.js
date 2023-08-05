@@ -81,6 +81,7 @@ const Container = styled.div`
   grid-gap: 5px;
   border-top: solid rgb(102, 102, 255) 3px;
 `
+
 const Col = styled.div`
   margin-top: 10px;
   margin-bottom: 10px;
