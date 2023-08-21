@@ -1,6 +1,4 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
-import { css } from "@emotion/core"
 import styled from "@emotion/styled"
 
 import Layout from "../components/layout"
@@ -30,6 +28,7 @@ const Books = ({ data }) => {
 
         <iframe
           width="100%"
+          title="books"
           height="1000px"
           src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTBZPsE486ozTtLsaeS5YoxzR0indiaZv3HCWMyYMJcyDyNe-AagmfBYYChX95zC--To_ULwY24s04z/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
         ></iframe>

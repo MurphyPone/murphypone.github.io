@@ -1,5 +1,5 @@
 import React from "react"
-import axios from "axios"
+// import axios from "axios"
 import { Link } from "gatsby"
 import styled from "@emotion/styled"
 import SEO from "../components/seo"
@@ -100,27 +100,29 @@ const Description = styled.div`
   text-align: center;
 `
 
+// for parsing the response list of individual images
+const regex = /\["(https:\/\/lh3\.googleusercontent\.com\/[a-zA-Z0-9\-_]*)"/g
+
+// Calls the proxy on the left
+async function getAlbum() {
+  const proxyUrl = "https://psco-cors-proxy.vercel.app/" // "http://127.0.0.1:5000"
+  const response = await fetch(`${proxyUrl}`).then(data => data.json())
+
+  console.log("array length: ", response, response.length)
+
+  return { data: response }
+}
+
 const IndexPage = () => {
   const [images, setImages] = React.useState(null)
   React.useEffect(() => {
     let shouldCancel = false
 
     const call = async () => {
-      const res1 = await axios.get(
-        "https://google-photos-album-demo2.glitch.me/b6S4oiDsfho8Z8989"
-      )
-      const res2 = await axios.get(
-        "https://google-photos-album-demo2.glitch.me/DtmxbAJujXihEqhm6"
-      )
+      const res1 = await getAlbum()
 
-      if (
-        !shouldCancel &&
-        res1.data &&
-        res1.data.length > 0 &&
-        res2.data &&
-        res2.data.length > 0
-      ) {
-        const response = { data: res1.data.concat(res2.data) }
+      if (!shouldCancel && res1.data && res1.data.length > 0) {
+        const response = { data: res1.data }
         console.log(response)
         if (response.data && response.data.length > 0) {
           setImages(response.data.map(url => url))
@@ -169,7 +171,13 @@ const IndexPage = () => {
           <Col>
             {images_left.map(url => (
               <ImgContainer>
-                <img id="image" src={url} alt={""} key={url} />
+                <img
+                  id="image"
+                  src={url}
+                  alt={""}
+                  key={url}
+                  referrerPolicy="no-referrer"
+                />
               </ImgContainer>
             ))}
           </Col>
@@ -177,7 +185,13 @@ const IndexPage = () => {
           <Col>
             {images_middle.map(url => (
               <ImgContainer>
-                <img id="image" src={url} alt={""} key={url} />
+                <img
+                  id="image"
+                  src={url}
+                  alt={""}
+                  key={url}
+                  referrerPolicy="no-referrer"
+                />
               </ImgContainer>
             ))}
           </Col>
@@ -185,7 +199,13 @@ const IndexPage = () => {
           <Col>
             {images_right.map(url => (
               <ImgContainer>
-                <img id="image" src={url} alt={""} key={url} />
+                <img
+                  id="image"
+                  src={url}
+                  alt={""}
+                  key={url}
+                  referrerPolicy="no-referrer"
+                />
               </ImgContainer>
             ))}
           </Col>
